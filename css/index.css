@@ -1,0 +1,66 @@
+body{
+	font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+	background: rgba(50,55,66,1);
+	background: -moz-linear-gradient(left, rgba(50,55,66,1) 0%, rgba(42,57,92,1) 100%);
+	background: -webkit-gradient(left top, right top, color-stop(0%, rgba(50,55,66,1)), color-stop(100%, rgba(42,57,92,1)));
+	background: -webkit-linear-gradient(left, rgba(50,55,66,1) 0%, rgba(42,57,92,1) 100%);
+	background: -o-linear-gradient(left, rgba(50,55,66,1) 0%, rgba(42,57,92,1) 100%);
+	background: -ms-linear-gradient(left, rgba(50,55,66,1) 0%, rgba(42,57,92,1) 100%);
+	background: linear-gradient(to right, rgba(50,55,66,1) 0%, rgba(42,57,92,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#323742', endColorstr='#2a395c', GradientType=1 );
+	color: white;
+}
+
+.seccion1{
+	margin-top: 0.2rem;
+}
+
+.titulo1{
+	font-weight: bold;
+	font-size: 21px;
+	margin-right: 10px; 
+	text-transform: uppercase;
+	letter-spacing: 0.25em;
+	/*border: 1px solid black;*/
+	border-radius: 5rem;
+	padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+	margin-left: 25px;
+    margin-right: 20px;
+    border-color: white;
+}
+
+.olvido1{
+	margin-top: 0.5rem;
+}
+
+.olvido1 a{
+	font-weight: bold;
+	font-size: 14px;
+	color: red;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+label{
+	font-weight: bold;
+}
+
+.botones1{
+	background-color: #a67d4c;
+	border-color: #a67d4c;
+	width: 50%;
+	letter-spacing: 0.25em;
+	text-transform: uppercase;
+	font-weight: bold;
+}
+
+.botones1:hover{
+	background-color: #735735;
+	border-color: #735735;
+	color: white;
+}
+
+.drop{
+	filter: drop-shadow(2px 2px 1px rgba(10, 7, 6, 5))
+}

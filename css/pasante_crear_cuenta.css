@@ -1,0 +1,13 @@
+.titulo1{
+	font-weight: bold;
+	font-size: 21px;
+	text-transform: capitalize;
+}
+
+.olvido1{
+	margin-top: 0.5rem;
+}
+
+label{
+	font-weight: bold;
+}
