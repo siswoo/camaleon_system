@@ -31,6 +31,8 @@ CREATE TABLE roles (
 
 	seguridad_view INT DEFAULT 0,
 
+	test INT DEFAULT 0,	
+
 	PRIMARY KEY (id)
 );
 INSERT INTO roles (id,nombre,modelo_view,modelo_edit,modelo_delete,roles_view,roles_edit,roles_delete,seguridad_view,pasante_view,pasante_edit,pasante_delete,usuarios_view,reporteModelos_view,monitores_view,sedes_view,paginas_view) VALUES 
@@ -42,6 +44,7 @@ INSERT INTO roles (id,nombre) VALUES (6,'Monitores');
 INSERT INTO roles (id,nombre,reporteModelos_view,monitores_view) VALUES (7,'Jefe Monitores',1,1);
 INSERT INTO roles (id,nombre,modelo_view,modelo_edit,pasante_view,pasante_edit) VALUES (8,'Recursos Humanos',1,1,1,1);
 INSERT INTO roles (id,nombre,modelo_view,modelo_edit) VALUES (9,'Soporte Junior',1,1);
+INSERT INTO roles (id,nombre,test) VALUES (10,'Diseñador',1);
 ALTER TABLE roles CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 
@@ -61,7 +64,8 @@ INSERT INTO sedes (nombre,direccion,ciudad,responsable,cedula,rut) VALUES
 ('VIP Occidente','Direccion','Bogotá D.C', 'Andres Fernando Bernal Correa', '80.774.671', '901.257.204-8'),
 ('Norte','Direccion','Bogotá D.C', 'Andres Fernando Bernal Correa', '80.774.671', '901.257.204-8'),
 ('Occidente I','Direccion','Bogotá D.C', 'Andres Fernando Bernal Correa', '80.774.671', '901.257.204-8'),
-('VIP Suba','Direccion','Bogotá D.C', 'Andres Fernando Bernal Correa', '80.774.671', '901.257.204-8');
+('VIP Suba','Direccion','Bogotá D.C', 'Andres Fernando Bernal Correa', '80.774.671', '901.257.204-8'),
+('Medellin','Direccion','Medellin', 'Andres Fernando Bernal Correa', '80.774.671', '901.257.204-8');
 
 
 DROP TABLE IF EXISTS usuarios;
@@ -90,6 +94,10 @@ INSERT INTO usuarios (nombre,apellido,documento_tipo,documento_numero,correo,usu
 ('Rocio','Delgado','Cedula de Ciudadania','1023886014','dptorrhhcamaleonmodels@gmail.com','recursoshumanos','77bedb3696d429d527deb55e83ccd8ed','3058126922','',8,1,'2020-09-23'),
 ('Andrea','Perez','Cedula de Ciudadania','1233894005','adminnorte@bernal-group.com','andreap','12c22c3f68d4c7bc77f1f40bd78f5e9b','3162972851','',8,4,'2020-09-23'),
 ('Pasantia','Test','PEP','11111111111','test@gmail.com','pasantia','21232f297a57a5a743894a0e4a801fc3','77777777','',4,1,'2020-08-27'),
+('Pasantia2','Test2','PEP','22222222222','test2@gmail.com','pasantia2','21232f297a57a5a743894a0e4a801fc3','77777777','',4,2,'2020-10-13'),
+('Pasantia3','Test3','PEP','333333333333','test3@gmail.com','pasantia3','21232f297a57a5a743894a0e4a801fc3','77777777','',4,3,'2020-10-13'),
+('Pasantia4','Test4','PEP','444444444444','test4@gmail.com','pasantia4','21232f297a57a5a743894a0e4a801fc3','77777777','',4,4,'2020-10-13'),
+('Pasantia5','Test5','PEP','555555555555','test5@gmail.com','pasantia4','21232f297a57a5a743894a0e4a801fc3','77777777','',4,5,'2020-10-13'),
 ('Test','Test','PEP','123123123','test@gmail.com','modelo','21232f297a57a5a743894a0e4a801fc3','77777777','',5,1,'2020-09-23'),
 ('Variable','Variable','PEP','77777777','Variable@gmail.com','Variable','21232f297a57a5a743894a0e4a801fc3','77777777','',99,1,'2020-09-29'),
 ('Carlos','Vargas','Cedula de Ciudadania','1108456684','vargas1101@gmail.com','Soporte123','827ccb0eea8a706c4c34a16891f84e7b','','',2,1,'2020-10-06'),
@@ -398,3 +406,43 @@ CREATE TABLE tarea_jefe_monitores (
 	PRIMARY KEY (id)
 ); ALTER TABLE tarea_jefe_monitores CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
+
+DROP TABLE IF EXISTS soporte_responsable_modelo;
+CREATE TABLE soporte_responsable_modelo (
+	id INT AUTO_INCREMENT,
+	id_modelo INT NOT NULL,
+	id_soporte INT NOT NULL,
+	asunto VARCHAR(250) NOT NULL,
+	sede VARCHAR(250) NOT NULL,
+	fecha_inicio datetime NOT NULL,
+	PRIMARY KEY (id)
+); ALTER TABLE soporte_responsable_modelo CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+DROP TABLE IF EXISTS tareas;
+CREATE TABLE tareas (
+	id INT AUTO_INCREMENT,
+	id_modelo INT NOT NULL,
+	asunto VARCHAR(250) NOT NULL,
+	sede VARCHAR(250) NOT NULL,
+	fecha_inicio date NOT NULL,
+	PRIMARY KEY (id)
+); ALTER TABLE tareas CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+
+DROP TABLE IF EXISTS temporal_ganancias1;
+CREATE TABLE temporal_ganancias1 (
+	id INT AUTO_INCREMENT,
+	performer_id VARCHAR(250) NOT NULL,
+	performer_nickname VARCHAR(250) NOT NULL,
+	performer_payee VARCHAR(250) NOT NULL,
+	customer_nickname VARCHAR(250) NOT NULL,
+	fecha DATETIME NOT NULL,
+	duration VARCHAR(250) NOT NULL,
+    type VARCHAR(250) NOT NULL,
+    stream_type VARCHAR(250) NOT NULL,
+    performer_earned FLOAT(11,2) NOT NULL,
+    studio_id VARCHAR(250) NOT NULL,
+    studio_payee VARCHAR(250) NOT NULL,
+    studio_earned FLOAT(11,2) NOT NULL,
+   	PRIMARY KEY (id)
+);

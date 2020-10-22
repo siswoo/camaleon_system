@@ -4,6 +4,7 @@
 		header("Location: ../index.php");
 		exit;
 	}
+	//echo $_SESSION["sede"];
 ?>
 
 <!doctype html>

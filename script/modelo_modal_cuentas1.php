@@ -43,13 +43,13 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 			<div class='col-12'>
 				<div class='input-group'>
 					<span style='margin-top:1rem; width:100px;'>Usuario: &nbsp;</span>
-					<input class='form-control mb-2 mt-2' type='text' value='".$modelo_usuario."'> 
+					<input class='form-control mb-2 mt-2' type='text' value='".$modelo_usuario."' id='edit_cuenta_usuario_".$modelo_cuenta_id."' name='edit_cuenta_usuario_".$modelo_cuenta_id."'> 
 				</div>
 			</div>
 			<div class='col-12'>
 				<div class='input-group'>
 					<span style='margin-top:1rem; width:100px;'>Clave: &nbsp;</span>
-					<input class='form-control mb-2 mt-2' type='text' value='".$modelo_clave."'> 
+					<input class='form-control mb-2 mt-2' type='text' value='".$modelo_clave."' id='edit_cuenta_clave_".$modelo_cuenta_id."' name='edit_cuenta_clave_".$modelo_cuenta_id."'> 
 				</div>
 			</div>
 			";
@@ -58,7 +58,7 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 				<div class='col-12'>
 					<div class='input-group'>
 						<span style='margin-top:1rem; width:100px;'>Correo: &nbsp;</span>
-						<input class='form-control mb-2 mt-2' type='text' value='".$modelo_correo."'> 
+						<input class='form-control mb-2 mt-2' type='text' value='".$modelo_correo."' id='edit_cuenta_correo_".$modelo_cuenta_id."' name='edit_cuenta_correo_".$modelo_cuenta_id."'> 
 					</div>
 				</div>	
 			";	
@@ -68,7 +68,7 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 				<div class='col-12'>
 					<div class='input-group'>
 						<span style='margin-top:1rem; width:100px;'>Link: &nbsp;</span>
-						<input class='form-control mb-2 mt-2' type='text' value='".$modelo_link."'>
+						<input class='form-control mb-2 mt-2' type='text' value='".$modelo_link."' id='edit_cuenta_link_".$modelo_cuenta_id."' name='edit_cuenta_link_".$modelo_cuenta_id."'>
 					</div>
 				</div>
 			";	
@@ -86,7 +86,9 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 			if($modelo_estatus=='Aprobada'){
 				$html.= "
 				<div class='col-12 text-center mt-2'>
-					<button type='button' class='btn btn-primary' onclick='alerta_cuenta1(".$modelo_id.");'>Alertar a Modelo</button>
+					<button type='button' class='btn btn-primary' onclick='alerta_cuenta1(".$modelo_id.",".$modelo_cuenta_id.");'>Alertar a Modelo</button>
+					<button type='button' class='btn btn-dark' value='".$pagina_nombre."' id='Eliminar' onclick='cuenta_eliminar(this.id,this.value,".$modelo_id.",".$pagina_id.",".$modelo_cuenta_id.");'>Eliminar Cuenta</button>
+					<button type='button' class='btn btn-warning' value='".$pagina_nombre."' id='Eliminar' style='color:white;' onclick='cuenta_editar(".$modelo_cuenta_id.");'>Editar Cuenta</button>
 				</div>
 				";
 			}
@@ -95,6 +97,8 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 					<div class='col-12 text-center'>
 						<button type='button' class='btn btn-success' value='".$pagina_nombre."' id='Aprobada' onclick='cuenta_estatus(this.id,this.value,".$modelo_id.",".$pagina_id.",".$modelo_cuenta_id.");'>Cuenta Aprobada</button>
 						<button type='button' class='btn btn-danger' value='".$pagina_nombre."' id='Rechazada' onclick='cuenta_estatus(this.id,this.value,".$modelo_id.",".$pagina_id.",".$modelo_cuenta_id.");'>Cuenta Rechazada</button>
+						<button type='button' class='btn btn-dark' value='".$pagina_nombre."' id='Eliminar' onclick='cuenta_eliminar(this.id,this.value,".$modelo_id.",".$pagina_id.",".$modelo_cuenta_id.");'>Eliminar Cuenta</button>
+						<button type='button' class='btn btn-warning' value='".$pagina_nombre."' id='Eliminar' style='color:white;' onclick='cuenta_editar(".$modelo_cuenta_id.");'>Editar Cuenta</button>
 					</div>
 				";
 			}

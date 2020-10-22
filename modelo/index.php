@@ -5,6 +5,7 @@
 		exit;
 	}
 ?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -58,17 +59,17 @@
 		    	if($_SESSION['rol']==1 or $_SESSION['rol']==2){ ?>
 			    	<div class="row mb-3">
 			    		<div class="col-12">
-			    			<span style="font-weight:bold;">Filtro de Monitores</span>
+			    			<span style="font-weight:bold;">Filtro de Soportes</span>
 			    			<select class="form-control" style="width: 200px;" onchange="filtros2(value);">
 								<option value="">Todos</option>
 								<?php
-								$sql_monitores = "SELECT * FROM usuarios WHERE rol = 9";
-								$consulta_monitores = mysqli_query($conexion,$sql_monitores);
-								while($row_monitores = mysqli_fetch_array($consulta_monitores)) {
-									$monitor_id = $row_monitores['id'];
-									$monitor_nombre = $row_monitores['nombre'];
+								$sql_soportes = "SELECT * FROM usuarios WHERE rol = 9";
+								$consulta_soportes = mysqli_query($conexion,$sql_soportes);
+								while($row_soportes = mysqli_fetch_array($consulta_soportes)) {
+									$soporte_id = $row_soportes['id'];
+									$soporte_nombre = $row_soportes['nombre'];
 									echo '
-										<option value="'.$monitor_id.'">'.$monitor_nombre.'</option>
+										<option value="'.$soporte_id.'">'.$soporte_nombre.'</option>
 									';
 								}
 								?>
@@ -97,9 +98,155 @@
 			    	</div>
 			    <?php } ?>
 
+
+
+			    <?php
+			    if($_SESSION['rol']==9){ ?>
 		    	<table id="example" class="table row-border hover table-bordered" style="font-size: 12px;">
 			        <thead>
 			            <tr>
+			            	<th class="text-center">Responsabilidad</th>
+			                <th class="text-center">Nombre</th>
+			                <th class="text-center">Apellido</th>
+			                <th class="text-center">Tipo Doc</th>
+			                <th class="text-center">Número Doc</th>
+			                <th class="text-center">NickName</th>
+			                <th class="text-center">Turno</th>
+			                <th class="text-center">Sede</th>
+			                <th class="text-center">Fecha Inicio</th>
+			                <th class="text-center">Opciones</th>
+			                <th class="text-center">Documentos</th>
+			                <th class="text-center">Cuentas</th>
+			            </tr>
+			        </thead>
+			        <tbody id="resultados">
+			        	<?php
+			        	$consulta3 = "SELECT * FROM soporte_responsable_modelo WHERE id_soporte =".$_SESSION['id'];
+			        	$resultado4 = mysqli_query($conexion,$consulta3);
+			        	while($row5 = mysqli_fetch_array($resultado4)) {
+			        		$modelo_de_junior = $row5['id_modelo'];
+
+				        	$consulta2 = "SELECT * FROM modelos WHERE id =".$modelo_de_junior;
+							$resultado2 = mysqli_query( $conexion, $consulta2 );
+							while($row2 = mysqli_fetch_array($resultado2)) {
+								$modelo_id 					= $row2['id'];
+								$modelo_nombre1 			= $row2['nombre1'];
+								$modelo_nombre2 			= $row2['nombre2'];
+								$modelo_apellido1 			= $row2['apellido1'];
+								$modelo_apellido2 			= $row2['apellido2'];
+								$modelo_documento_tipo 		= $row2['documento_tipo'];
+								$modelo_documento_numero 	= $row2['documento_numero'];
+								$modelo_correo 				= $row2['correo'];
+								$modelo_usuario 			= $row2['usuario'];
+								$modelo_telefono1 			= $row2['telefono1'];
+								$modelo_telefono2 			= $row2['telefono2'];
+								$modelo_turno 				= $row2['turno'];
+								$modelo_estatus 			= $row2['estatus'];
+								$modelo_sede 				= $row2['sede'];
+								$modelo_nickname 			= $row2['sugerenciaNickname'];
+								$modelo_fecha_inicio 		= $row2['fecha_inicio'];
+
+								$sql_responsable1 = "SELECT * FROM soporte_responsable_modelo WHERE id_modelo = ".$modelo_id;
+								$resultado3 = mysqli_query($conexion,$sql_responsable1);
+								$contador1 = mysqli_num_rows($resultado3);
+								while($row8 = mysqli_fetch_array($resultado3)) {
+									$soporte_responsable_fecha_inicio = $row8['fecha_inicio'];
+								}
+
+								$sql_modelos_cuentas = "SELECT * FROM modelos_cuentas WHERE id_modelos = ".$modelo_id;
+								$resultado9 = mysqli_query($conexion,$sql_modelos_cuentas);
+								$contador3 = mysqli_num_rows($resultado9);
+
+								echo '
+									<tr>
+										<td class="text-center">'.$soporte_responsable_fecha_inicio.'</td>
+						                <td nowrap>'.$modelo_nombre1.' '.$modelo_nombre2.'</td>
+						                <td nowrap>'.$modelo_apellido1.' '.$modelo_apellido2.'</td>
+						                <td class="text-center">'.$modelo_documento_tipo.'</td>
+						                <td class="text-center">'.$modelo_documento_numero.'</td>
+						                <td class="text-center">'.$modelo_nickname.'</td>
+						                <td class="text-center">'.$modelo_turno.'</td>
+						            ';
+						            	if($modelo_sede==''){
+						            		echo '<td class="text-center">Desconocido</td>';
+						            	}else{
+							            	$sql_rol2 = "SELECT * FROM sedes WHERE id = ".$modelo_sede." LIMIT 1";
+											$resultado_rol2 = mysqli_query($conexion, $sql_rol2);
+											$fila1 = mysqli_num_rows($resultado_rol2);
+											while($row4 = mysqli_fetch_array($resultado_rol2)) {
+												$rol_id2 = $row4['id'];
+												$rol_nombre2 = $row4['nombre'];
+												echo '<td class="text-center">'.$rol_nombre2.'</td>';
+											}
+										}
+										
+										if($_SESSION['rol']==1 or $_SESSION['rol']==2){
+											echo '<td class="text-center">'.$modelo_telefono1.'</td>';
+										}
+
+									echo '
+						                <td class="text-center">'.$modelo_fecha_inicio.'</td>
+						                <td class="text-center">
+						            ';
+
+						        	if($verificacion_modelo_edit==1){
+						        		echo '
+						                	<i class="fas fa-edit" style="color:#0095ff; cursor:pointer;" title="" value="'.$modelo_id.'" data-toggle="modal" data-target="#exampleModal_soporte1" onclick="modal_edit2('.$modelo_id.');"></i>
+						                ';
+						        	}else{
+						        		echo '
+						                	<i class="fas fa-edit" style="color:#c3bebe; cursor:pointer;" data-toggle="popover-hover" data-placement="top" title="Deshabilitado" data-content="Falta de permisos"></i>
+						                ';
+						        	}
+						        	echo '</td>
+						        		</td>
+							        	<td class="text-center">';
+
+						        	if($_SESSION['rol']==1 or $_SESSION['rol']==8){
+							        	echo '
+							        		<i class="fas fa-folder-open" style="cursor:pointer; font-size:20px;" title="" value="'.$modelo_id.'" data-toggle="modal" data-target="#Modal_documentos1" onclick="documentos1('.$modelo_id.');"></i>
+							        	';
+						        	}
+
+						        	if($_SESSION['rol']==1 or $_SESSION['rol']==2 or $_SESSION['rol']==9){
+						        		echo '
+						        			<i class="fas fa-camera-retro" style="cursor:pointer; font-size:20px;" title="" value="'.$modelo_id.'" data-toggle="modal" data-target="#Modal_fotos1" onclick="fotos1('.$modelo_id.');"></i>
+						        		';
+						        	}
+
+						        	if($_SESSION['rol']==1 or $_SESSION['rol']==2 or $_SESSION['rol']==9){
+						        		echo '
+						        			<i class="fas fa-images ml-3" style="cursor:pointer; font-size:20px;" title="" value="'.$modelo_id.'" data-toggle="modal" data-target="#Modal_fotos2" onclick="fotos2('.$modelo_id.');"></i>
+						        		';
+						        	}
+						        	
+						        	echo '</td>';
+
+						        	echo '
+						        		<td class="text-center">
+						        			<!--<p class="text-center"><strong>('.$contador3.')</strong></p>-->
+						        			<i class="fas fa-user-shield" style="cursor:pointer; font-size:20px;" data-toggle="modal" data-target="#Modal_cuentas1" onclick="cuentas('.$modelo_id.');"></i>
+						        			<strong>('.$contador3.')</strong>
+						        			<i class="fas fa-user-plus ml-3" style="cursor:pointer; font-size:20px;" data-toggle="modal" data-target="#Modal_cuentas2" onclick="cuentas2('.$modelo_id.');"></i>
+						        		</td>
+						        	';
+							}
+						}
+						?>
+			        </tbody>
+			    </table>
+				<?php } ?>
+
+
+
+
+
+			    <?php
+			    if($_SESSION['rol']!=9){ ?>
+		    	<table id="example" class="table row-border hover table-bordered" style="font-size: 12px;">
+			        <thead>
+			            <tr>
+			                <th class="text-center">Responsable</th>
 			                <th class="text-center">Nombre</th>
 			                <th class="text-center">Apellido</th>
 			                <th class="text-center">Tipo Doc</th>
@@ -139,9 +286,87 @@
 							$modelo_sede 				= $row2['sede'];
 							$modelo_nickname 			= $row2['sugerenciaNickname'];
 							$modelo_fecha_inicio 		= $row2['fecha_inicio'];
-							//for($a=0;$a<=100;$a++){
+
+							$soporte_responsable_usuario = '';
+							$soporte_responsable_id = '';
+							$html_responsable_usuario = '';
+							
+							$sql_modelos_cuentas = "SELECT * FROM modelos_cuentas WHERE id_modelos = ".$modelo_id;
+							$resultado9 = mysqli_query($conexion,$sql_modelos_cuentas);
+							$contador3 = mysqli_num_rows($resultado9);
+
+							$sql_responsable1 = "SELECT * FROM soporte_responsable_modelo WHERE id_modelo = ".$modelo_id;
+							$resultado3 = mysqli_query($conexion,$sql_responsable1);
+							$contador2 = mysqli_num_rows($resultado3);
+
+							if($contador2>=1){
+								while($row6 = mysqli_fetch_array($resultado3)) {
+									$soporte_responsable_id = $row6['id_soporte'];
+								}
+
+								$sql_responsable2 = "SELECT * FROM usuarios WHERE id = ".$soporte_responsable_id;
+								$resultado4 = mysqli_query($conexion,$sql_responsable2);
+								while($row7 = mysqli_fetch_array($resultado4)) {
+									$soporte_responsable_id = $row7['id'];
+									$soporte_responsable_usuario = $row7['usuario'];
+								}
+							}
+
+							$sql_responsable3 = "SELECT * FROM usuarios WHERE rol = 9";
+							$resultado5 = mysqli_query($conexion,$sql_responsable3);
+
 							echo '
 								<tr>
+							';
+
+								if($contador2>=1){
+									echo '
+										<td class="text-center">
+											<select class="form-control" id="select_responsable_'.$modelo_id.'" onchange="colocar_responsable('.$modelo_id.',value);">
+												<option value="">Nadie</option>
+											';
+											while($row9 = mysqli_fetch_array($resultado5)) {
+												$soporte_responsable_id_general = $row9['id'];
+												$soporte_responsable_usuario_general = $row9['usuario'];
+												if($soporte_responsable_id == $soporte_responsable_id_general){
+													echo '
+														<option value="'.$soporte_responsable_id_general.'" selected="selected">'.$soporte_responsable_usuario_general.'</option>
+													';	
+												}else{
+													echo '
+														<option value="'.$soporte_responsable_id_general.'">'.$soporte_responsable_usuario_general.'</option>
+													';
+												}
+											}
+									echo '
+											</select>
+										</td>
+									';
+								}else{
+									echo '
+										<td class="text-center">
+											<select class="form-control" id="select_responsable_'.$modelo_id.'" onchange="colocar_responsable('.$modelo_id.',value);">
+												<option value="">Nadie</option>
+												';
+												while($row9 = mysqli_fetch_array($resultado5)) {
+													$soporte_responsable_id_general = $row9['id'];
+													$soporte_responsable_usuario_general = $row9['usuario'];
+													echo '
+														<option value="'.$soporte_responsable_id_general.'">'.$soporte_responsable_usuario_general.'</option>
+													';
+												}
+									echo '
+											</select>
+										</td>
+									';
+								}
+							echo '
+									<!--
+									<td class="text-center">
+										<p style="font-weight:bold;"> '.$soporte_responsable_usuario.'</p> 
+										<i class="fas fa-chalkboard-teacher" value="'.$modelo_id.'" style="font-size: 20px; cursor:pointer;" data-toggle="modal" data-target="#exampleModal_responsable1" onclick="modal_responsable1('.$modelo_id.');"></i>
+									</td>
+									-->
 					                <td nowrap>'.$modelo_nombre1.' '.$modelo_nombre2.'</td>
 					                <td nowrap>'.$modelo_apellido1.' '.$modelo_apellido2.'</td>
 					                <td class="text-center">'.$modelo_documento_tipo.'</td>
@@ -196,13 +421,13 @@
 					        		</td>
 						        	<td class="text-center">';
 
-					        	if($_SESSION['rol']==1){
+					        	if($_SESSION['rol']==1 or $_SESSION['rol']==8){
 						        	echo '
 						        		<i class="fas fa-folder-open" style="cursor:pointer; font-size:20px;" title="" value="'.$modelo_id.'" data-toggle="modal" data-target="#Modal_documentos1" onclick="documentos1('.$modelo_id.');"></i>
 						        	';
 					        	}
 
-					        	if($_SESSION['rol']==1 or $_SESSION['rol']==2 or $_SESSION['rol']==9){
+					        	if($_SESSION['rol']==1 or $_SESSION['rol']==2 or $_SESSION['rol']==9 or $_SESSION['rol']==8){
 					        		echo '
 					        			<i class="fas fa-camera-retro" style="cursor:pointer; font-size:20px;" title="" value="'.$modelo_id.'" data-toggle="modal" data-target="#Modal_fotos1" onclick="fotos1('.$modelo_id.');"></i>
 					        		';
@@ -213,16 +438,16 @@
 					        			<i class="fas fa-images ml-3" style="cursor:pointer; font-size:20px;" title="" value="'.$modelo_id.'" data-toggle="modal" data-target="#Modal_fotos2" onclick="fotos2('.$modelo_id.');"></i>
 					        		';
 					        	}
-					        	
+
 					        	echo '</td>';
 
 					        	echo '
 					        		<td class="text-center">
 					        			<i class="fas fa-user-shield" style="cursor:pointer; font-size:20px;" data-toggle="modal" data-target="#Modal_cuentas1" onclick="cuentas('.$modelo_id.');"></i>
+					        			<strong>('.$contador3.')</strong>
 					        			<i class="fas fa-user-plus ml-3" style="cursor:pointer; font-size:20px;" data-toggle="modal" data-target="#Modal_cuentas2" onclick="cuentas2('.$modelo_id.');"></i>
 					        		</td>
 					        	';
-							//}
 						}
 						?>
 			            <!-- Caracteristicas interesantes!
@@ -233,376 +458,12 @@
 			        	-->
 			        </tbody>
 			    </table>
+				<?php } ?>
 		    </div>
 		</div>
 	</div>
 
 <?php include('../footer.php'); ?>
-
-<!-- Modal Editar Registro -->
-	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<form action="#" method="POST" id="form_modal_edit" style="">
-				<input type="hidden" name="edit_id" id="edit_id">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Editar Registro</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body">
-					    <div class="row">
-						    <div class="col-6 form-group form-check">
-							    <label for="edit_tipo_documento">Tipo de Documento <small style="color:#F2B76F; font-size: 17px;">*</small></label>
-							    <select name="edit_tipo_documento" id="edit_tipo_documento" class="form-control" required>
-							    	<option value="">Seleccione</option>
-							    	<option value="Cedula de Ciudadania">Cedula de Ciudadania</option>
-							    	<option value="Cedula de Extranjeria">Cedula de Extranjeria</option>
-							    	<option value="PEP">PEP</option>
-							    </select>
-						    </div>
-						    <div class="col-6 form-group form-check">
-							    <label for="edit_numero_documento">Número de Documento <small style="color:#F2B76F; font-size: 17px;">*</small></label>
-							    <input type="text" name="edit_numero_documento" id="edit_numero_documento" autocomplete="off" class="form-control" minlength="6" required>
-						    </div>
-					    </div>
-
-					    <div class="row">
-						    <div class="col-6 form-group form-check">
-							    <label for="edit_primer_nombre">Primer Nombre <small style="color:#F2B76F; font-size: 17px;">*</small></label>
-							    <input type="text" name="edit_primer_nombre" id="edit_primer_nombre" autocomplete="off" class="form-control" minlength="4" required>
-						    </div>
-
-						    <div class="col-6 form-group form-check">
-							    <label for="edit_segundo_nombre">Segundo Nombre</label>
-							    <input type="text" name="edit_segundo_nombre" id="edit_segundo_nombre" autocomplete="off" minlength="4" class="form-control">
-						    </div>
-
-						    <div class="col-6 form-group form-check">
-							    <label for="edit_primer_apellido">Primer Apellido <small style="color:#F2B76F; font-size: 17px;">*</small></label>
-							    <input type="text" name="edit_primer_apellido" id="edit_primer_apellido" autocomplete="off" minlength="4" class="form-control" required>
-						    </div>
-
-						    <div class="col-6 form-group form-check">
-							    <label for="edit_segundo_apellido">Segundo Apellido <small style="color:#F2B76F; font-size: 17px;">*</small></label>
-							    <input type="text" name="edit_segundo_apellido" id="edit_segundo_apellido" autocomplete="off" minlength="4" class="form-control" required>
-						    </div>
-					    </div>
-
-					    <div class="row">
-						    <div class="col-6 form-group form-check">
-							    <label for="edit_correo">Correo <small style="color:#F2B76F; font-size: 17px;">*</small></label>
-							    <input type="email" name="edit_correo" id="edit_correo" autocomplete="off" class="form-control" required>
-						    </div>
-
-						    <?php
-						    if($_SESSION['rol']==1 or $_SESSION['rol']==2){ ?>
-							    <div class="col-6 form-group form-check">
-								    <label for="edit_telefono1">Número WhatsApp </label>
-								    <input type="text" name="edit_telefono1" id="edit_telefono1" autocomplete="off" class="form-control" required>
-							    </div>
-
-							    <div class="col-6 form-group form-check">
-								    <label for="edit_telefono2">Teléfono Opcional</label>
-								    <input type="text" name="edit_telefono2" id="edit_telefono2" autocomplete="off" class="form-control">
-							    </div>
-							<?php }else{ ?>
-								    <input type="hidden" name="edit_telefono1" id="edit_telefono1" autocomplete="off" class="form-control">
-								    <input type="hidden" name="edit_telefono2" id="edit_telefono2" autocomplete="off" class="form-control">
-							<?php } ?>
-
-						    <div class="col-6 form-group form-check">
-							    <label for="edit_direccion">Dirección</label>
-							    <input type="text" name="edit_direccion" id="edit_direccion" autocomplete="off" class="form-control">
-						    </div>
-					    </div>
-
-					    <div class="row">
-							    <div class="col-6 form-group form-check">
-							    <label for="edit_genero">Género </label>
-							    <select name="edit_genero" id="edit_genero" class="form-control" required>
-							    	<option value="">Seleccione</option>
-									<option value="Hombre">Hombre</option>
-									<option value="Mujer">Mujer</option>
-									<option value="Transexual">Transexual</option>
-							    </select>
-						    </div>
-
-						    <div class="col-6 form-group form-check">
-								<label for="edit_estatus">Estatus </label>
-								<select name="edit_estatus" class="form-control" id="edit_estatus" required>
-									<option value="">Seleccione</option>
-									<option value="Activa">Activa</option>
-									<option value="Inactiva">Inactiva</option>
-								</select>
-							</div>
-
-							<div class="col-6 form-group form-check">
-								<label for="barrio">Barrio </label>
-								<input type="text" name="barrio" id="barrio" autocomplete="off" required class="form-control">
-							</div>
-
-							<div class="col-6 form-group form-check">
-								<label for="perfil_transmision">Perfil de Transmisión </label>
-								<select class="form-control" name="perfil_transmision" id="perfil_transmision">
-									<option value="">Seleccione</option>
-									<option value="Hombre">Hombre</option>
-									<option value="Mujer">Mujer</option>
-									<option value="Trans">Trans</option>
-									<option value="Parejas">Parejas</option>
-								</select>
-							</div>
-					    </div>
-					    <?php
-					    if($_SESSION['rol']!=2){ ?>
-						    <div class="col-12 text-center mb-3 mt-3" style="background-color: black; color:white; font-weight: bold;">
-						    	DATOS BANCARIOS
-						    </div>
-
-						    <div class="row">
-								<div class="col-6 form-group form-check">
-									<label for="banco_cedula">N° Cédula Titular </label>
-									<input type="text" name="banco_cedula" id="banco_cedula" class="form-control" autocomplete="off">
-								</div>
-
-								<div class="col-6 form-group form-check">
-									<label for="banco_nombre">Nombre Titular </label>
-									<input type="text" name="banco_nombre" id="banco_nombre" class="form-control" autocomplete="off">
-								</div>
-
-								<div class="col-6 form-group form-check">
-									<label for="banco_tipo">Tipo de Cuenta </label>
-									<select name="banco_tipo" class="form-control" id="banco_tipo">
-										<option value="">Seleccione</option>
-										<option value="Ahorro">Ahorro</option>
-										<option value="Corriente">Corriente</option>
-									</select>
-								</div>
-
-								<div class="col-6 form-group form-check">
-									<label for="banco_numero">N° de Cuenta </label>
-									<input type="text" name="banco_numero" id="banco_numero" class="form-control" autocomplete="off">
-								</div>
-
-								<div class="col-12 form-group form-check">
-									<label for="banco_banco">Banco </label>
-									<select name="banco_banco" class="form-control" id="banco_banco">
-										<option value="">Seleccione</option>
-										<option value="Banco agrario de colombia">Banco agrario de colombia</option>
-										<option value="Banco AV Villas">Banco AV Villas</option>
-										<option value="Banco caja social">Banco caja social</option>
-										<option value="Banco de occidente ( colombia)">Banco de occidente ( colombia)</option>
-										<option value="Banco popular (colombia )">Banco popular (colombia )</option>
-										<option value="Bancóldex">Bancóldex</option>
-										<option value="Bancolombia">Bancolombia</option>
-										<option value="BBVA Colombia">BBVA Colombia</option>
-										<option value="Banco de bogotá">Banco de bogotá</option>
-										<option value="Citi Colombia">Citi Colombia</option>
-										<option value="Colpatria">Colpatria</option>
-										<option value="Davivienda">Davivienda</option>
-									</select>
-								</div>
-
-								<div class="col-12 form-group form-check">
-									<label for="enlazar">Cuenta Propia o de Prestada? </label>
-									<select name="BCPP" class="form-control" id="BCPP">
-										<option value="">Seleccione</option>
-										<option value="Propia">Propia</option>
-										<option value="Prestada">Prestada</option>
-									</select>
-								</div>
-							</div>
-					    <?php } ?>
-
-						<div class="col-12 text-center mb-3 mt-3" style="background-color: black; color:white; font-weight: bold;">
-					    	DATOS CORPORALES
-					    </div>
-
-					    <div class="row">
-							<div class="col-6 form-group form-check">
-								<label for="altura">Altura </label>
-								<input type="text" name="altura" id="altura" class="form-control" autocomplete="off">
-							</div>
-
-							<div class="col-6 form-group form-check">
-								<label for="peso">Peso </label>
-								<input type="text" name="peso" id="peso" class="form-control" autocomplete="off">
-							</div>
-							<div class="col-6 form-group form-check">
-								<label for="tpene">Tamaño de Pene </label>
-								<input type="text" name="tpene" id="tpene" class="form-control" autocomplete="off">
-							</div>
-
-							<div class="col-6 form-group form-check">
-								<label for="tsosten">Tamaño de Sosten </label>
-								<select class="form-control" name="tsosten" id="tsosten">
-									<option value="">Seleccione</option>
-									<option value="32A">32A</option>
-									<option value="32B">32B</option>
-									<option value="32C">32C</option>
-									<option value="32D">32D</option>
-									<option value="34A">34A</option>
-									<option value="34B">34B</option>
-									<option value="34C">34C</option>
-									<option value="34D">34D</option>
-									<option value="36A">36A</option>
-									<option value="36B">36B</option>
-									<option value="36C">36C</option>
-									<option value="36D">36D</option>
-									<option value="38A">38A</option>
-									<option value="38B">38B</option>
-									<option value="38C">38C</option>
-									<option value="38D">38D</option>
-									<option value="40A">40A</option>
-									<option value="40B">40B</option>
-									<option value="40C">40C</option>
-									<option value="40D">40D</option>
-								</select>
-							</div>
-
-							<div class="col-6 form-group form-check">
-								<label for="tbusto">Medida del Busto </label>
-								<input type="text" name="tbusto" id="tbusto" class="form-control" autocomplete="off">
-							</div>
-
-							<div class="col-6 form-group form-check">
-								<label for="tcintura">Medida de Cintura </label>
-								<input type="text" name="tcintura" id="tcintura" class="form-control" autocomplete="off">
-							</div>
-
-							<div class="col-6 form-group form-check">
-								<label for="tcaderas">Medida de Caderas </label>
-								<input type="text" name="tcaderas" id="tcaderas" class="form-control" autocomplete="off">
-							</div>
-
-							<div class="col-6 form-group form-check">
-								<label for="tipo_cuerpo">Tipo de Cuerpo </label>
-								<select class="form-control" name="tipo_cuerpo" id="tipo_cuerpo">
-									<option value="">Seleccione</option>
-									<option value="Delgado">Delgado</option>
-									<option value="Promedio">Promedio</option>
-									<option value="Atlético">Atlético</option>
-									<option value="Alto y Grande">Alto y Grande</option>
-								</select>
-							</div>
-
-							<div class="col-6 form-group form-check">
-								<label for="Pvello">¿Posee Vello Púbico? </label>
-								<select class="form-control" name="Pvello" id="Pvello">
-									<option value="">Seleccione</option>
-									<option value="Peludo">Peludo</option>
-									<option value="Recortado">Recortado</option>
-									<option value="Afeitado">Afeitado</option>
-									<option value="Calvo">Calvo</option>
-								</select>
-							</div>
-
-							<div class="col-6 form-group form-check">
-								<label for="color_cabello">Color de Cabello </label>
-								<input type="text" name="color_cabello" class="form-control" id="color_cabello" autocomplete="off">
-							</div>
-
-							<div class="col-12 form-group form-check">
-								<label for="color_ojos">Color de Ojos </label>
-								<input type="text" name="color_ojos" class="form-control" id="color_ojos" autocomplete="off">
-							</div>
-
-							<div class="col-6 form-group form-check text-center">
-								<label for="Ptattu">¿Posee Tattu?</label>
-								<select class="form-control" id="Ptattu" name="Ptattu" required>
-									<option value="">Seleccione</option>
-									<option value="Si">Si</option>
-									<option value="No">No</option>
-								</select>
-							</div>
-
-							<div class="col-6 form-group form-check text-center">
-								<label for="Ppiercing">¿Posee Piercing?</label>
-								<select class="form-control" id="Ppiercing" name="Ppiercing" required>
-									<option value="">Seleccione</option>
-									<option value="Si">Si</option>
-									<option value="No">No</option>
-								</select>
-							</div>
-						</div>
-
-						<div class="col-12 text-center mb-3 mt-3" style="background-color: black; color:white; font-weight: bold;">
-					    	DATOS EMPRESA
-					    </div>
-
-						<div class="row">
-							<div class="col-6 form-group form-check">
-							    <label for="edit_turno">Turno </label>
-							    <select name="edit_turno" id="edit_turno" class="form-control">
-							    	<option value="">Seleccione</option>
-							    	<option value="Mañana">Mañana</option>
-							    	<option value="Tarde">Tarde</option>
-							    	<option value="Noche">Noche</option>
-							    	<option value="Satelite">Satelite</option>
-							    </select>
-						    </div>
-
-							<div class="col-6 form-group form-check">
-							    <label for="edit_sede">Sede </label>
-							    <select name="edit_sede" id="edit_sede" class="form-control">
-							    	<option value="">Seleccione</option>
-							    	<option value="1">VIP Occidente</option>
-							    	<option value="2">Norte</option>
-							    	<option value="3">Occidente 1</option>
-							    	<option value="4">VIP Suba</option>
-							    </select>
-						    </div>
-
-							<div class="col-12 form-group form-check">
-								<label for="edit_Htransmision">Horario de Transmisión </label>
-								<select name="edit_Htransmision" id="edit_Htransmision" class="form-control">
-									<option value="">Seleccione</option>
-									<option value="Mañana">Mañana</option>
-									<option value="Tarde">Tarde</option>
-									<option value="Noche">Noche</option>
-								</select>
-							</div>
-
-							<div class="col-12 form-group form-check">
-								<label for="equipo">Equipo </label>
-								<select name="equipo" class="form-control" id="select_equipo">
-									<option value="">Seleccione</option>
-									<option value="Individual">Individual</option>
-									<option value="Pareja">Pareja</option>
-									<option value="Trio">Trio</option>
-									<option value="Cuarteto">Cuarteto</option>
-									<option value="Quinteto">Quinteto</option>
-								</select>
-							</div>
-							<!--
-							<div class="col-6 form-group form-check">
-								<label for="crear_equipo">¿Crear Equipo?</label>
-								<select name="crear_equipo" class="form-control" id="crear_equipo">
-									<option value="No">No</option>
-									<option value="Si">Si</option>
-								</select>
-							</div>
-
-							<div class="col-12 form-group form-check" id="divEquipos" style="display: none;">
-								<label for="enlazar">Enlazar al Equipo?</label>
-								<select name="select_enlazar" class="form-control" id="select_enlazar"></select>
-							</div>
-							-->
-						</div>
-
-
-					</div>
-					<div class="modal-footer">
-				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-				        <button type="submit" id="submit" class="btn btn-success">Guardar</button>
-			      	</div>
-		      	</form>
-	    	</div>
-	  	</div>
-	</div>
-<!-- FIN Modal Editar Registro -->
-
 
 <!-- Modal Editar Registro 2 -->
 	<div class="modal fade" id="exampleModal_soporte1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -719,6 +580,67 @@
 								</select>
 							</div>
 					    </div>
+
+					    <?php
+					    if($_SESSION['rol'] == 8 or $_SESSION['rol'] == 1){ ?>
+						    <div class="col-12 text-center mb-3 mt-3" style="background-color: black; color:white; font-weight: bold;">
+						    	DATOS BANCARIOS
+						    </div>
+
+						    <div class="row">
+								<div class="col-6 form-group form-check">
+									<label for="banco_cedula2">N° Cédula Titular </label>
+									<input type="text" name="banco_cedula2" id="banco_cedula2" class="form-control" autocomplete="off">
+								</div>
+
+								<div class="col-6 form-group form-check">
+									<label for="banco_nombre2">Nombre Titular </label>
+									<input type="text" name="banco_nombre2" id="banco_nombre2" class="form-control" autocomplete="off">
+								</div>
+
+								<div class="col-6 form-group form-check">
+									<label for="banco_tipo2">Tipo de Cuenta </label>
+									<select name="banco_tipo2" class="form-control" id="banco_tipo2">
+										<option value="">Seleccione</option>
+										<option value="Ahorro">Ahorro</option>
+										<option value="Corriente">Corriente</option>
+									</select>
+								</div>
+
+								<div class="col-6 form-group form-check">
+									<label for="banco_numero2">N° de Cuenta </label>
+									<input type="text" name="banco_numero2" id="banco_numero2" class="form-control" autocomplete="off">
+								</div>
+
+								<div class="col-12 form-group form-check">
+									<label for="banco_banco2">Banco </label>
+									<select name="banco_banco2" class="form-control" id="banco_banco2">
+										<option value="">Seleccione</option>
+										<option value="Banco agrario de colombia">Banco agrario de colombia</option>
+										<option value="Banco AV Villas">Banco AV Villas</option>
+										<option value="Banco caja social">Banco caja social</option>
+										<option value="Banco de occidente ( colombia)">Banco de occidente ( colombia)</option>
+										<option value="Banco Popular (Colombia )">Banco Popular (Colombia )</option>
+										<option value="Bancóldex">Bancóldex</option>
+										<option value="Bancolombia">Bancolombia</option>
+										<option value="BBVA Colombia">BBVA Colombia</option>
+										<option value="Banco de bogotá">Banco de bogotá</option>
+										<option value="Citi Colombia">Citi Colombia</option>
+										<option value="Colpatria">Colpatria</option>
+										<option value="Davivienda">Davivienda</option>
+									</select>
+								</div>
+
+								<div class="col-12 form-group form-check">
+									<label for="enlazar">Cuenta Propia o de Prestada? </label>
+									<select name="BCPP2" class="form-control" id="BCPP2">
+										<option value="">Seleccione</option>
+										<option value="Propia">Propia</option>
+										<option value="Prestada">Prestada</option>
+									</select>
+								</div>
+							</div>
+					    <?php } ?>
 
 						<div class="col-12 text-center mb-3 mt-3" style="background-color: black; color:white; font-weight: bold;">
 					    	DATOS CORPORALES
@@ -993,12 +915,6 @@
 					<div class="modal-body">
 					    <div class="row" id="hidden_cuentas1"></div>
 					</div>
-					<!--
-					<div class="modal-footer">
-				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-				        <button type="submit" id="submit" class="btn btn-success">Guardar</button>
-			      	</div>
-			      	-->
 		      	</form>
 	    	</div>
 	  	</div>
@@ -1037,7 +953,7 @@
 					    	</div>
 					    	<div class="col-12 mt-2">
 					    		<label>Clave</label>
-					    		<input type="text" name="clave1" id="clave1" class="form-control" required>
+					    		<input type="text" name="clave1" id="clave1" class="form-control">
 					    	</div>
 					    	<div class="col-12 mt-2">
 					    		<label>Correo</label>
@@ -1058,6 +974,30 @@
 	  	</div>
 	</div>
 <!-- FIN Modal Cuentas 2 -->
+
+
+
+<!-- Modal Responsables 1 -->
+	<div class="modal fade" id="exampleModal_responsable1" tabindex="-1" role="dialog" aria-labelledby="exampleModal_responsable1" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<form action="#" method="POST" id="form_modal_edit2" style="">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModal_responsable1">Reponsables</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+					    <div class="row" id="hidden_responsable1">
+					    	
+					    </div>
+					</div>
+		      	</form>
+	    	</div>
+	  	</div>
+	</div>
+<!-- FIN Responsables 1 -->
 
 </body>
 </html>
@@ -1091,7 +1031,8 @@
 			    "search": "Buscar",
         	},
 
-        	"paging": true
+        	"paging": true,
+        	"order": [[ 9, "desc" ]],
 
     	} );
 
@@ -1378,11 +1319,11 @@
 						position: 'center',
 						icon: 'success',
 						title: 'Se ha modificado exitosamente!',
-						showConfirmButton: false,
+						showConfirmButton: true,
 						timer: 3000
 					})
 					setTimeout(function() {
-			      		window.location.href = "index.php";
+			      		//window.location.href = "index.php";
 			    	},3500);
 				}
 			},
@@ -1418,11 +1359,11 @@
 						position: 'center',
 						icon: 'success',
 						title: 'Se ha modificado exitosamente!',
-						showConfirmButton: false,
+						showConfirmButton: true,
 						timer: 3000
 					})
 					setTimeout(function() {
-			      		window.location.href = "index.php";
+			      		//window.location.href = "index.php";
 			    	},3500);
 				}
 			},
@@ -1457,9 +1398,9 @@
 					    title: 'Registro Eliminado!',
 					    text: 'Redirigiendo...',
 					    icon: 'success',
-					    showConfirmButton: false
+					    showConfirmButton: true
 				    });setTimeout(function() {
-			      		window.location.href = "index.php";
+			      		//window.location.href = "index.php";
 			    	},3500);
 				},
 
@@ -1619,13 +1560,14 @@
 		});
 	}
 
-	function alerta_cuenta1(variable){
+	function alerta_cuenta1(variable,modelo_cuenta_id){
 		console.log('ok...');
 		$.ajax({
 			type: 'POST',
 			url: '../script/modelo_alerta1.php',
 			data: {
 				"variable": variable,
+				"modelo_cuenta_id": modelo_cuenta_id,
 			},
 			dataType: "JSON",
 			success: function(respuesta) {
@@ -1722,11 +1664,11 @@
 	 				timer: 3000
 				}).then((result) => {
 	 				if (result.value) {
-	   					window.location.href = "index.php";
+	   					//window.location.href = "index.php";
 	 				}
 				})
 				setTimeout(function() {
-			    	window.location.href = "index.php";
+			    	//window.location.href = "index.php";
 				},3500);
             },
 
@@ -1815,11 +1757,276 @@
     }
 
     function filtros2(variable){
-    	if(variable==''){
+    	$.ajax({
+			type: 'POST',
+			url: '../script/modelo_filtros_soporte1.php',
+			data: {
+				"variable": variable,
+			},
+
+			success: function(respuesta) {
+				$('#example').DataTable().destroy();
+				$('#resultados').html(respuesta);
+				var table = $('#example').DataTable( {
+		        	"lengthMenu": [[10, 25, 50, 100], [10, 25, 50, 100]],
+
+		        	"language": {
+			            "lengthMenu": "Mostrar _MENU_ Registros por página",
+			            "zeroRecords": "No se ha encontrado resultados",
+			            "info": "Ubicado en la página <strong>_PAGE_</strong> de <strong>_PAGES_</strong>",
+			            "infoEmpty": "Sin registros actualmente",
+			            "infoFiltered": "(Filtrado de <strong>_MAX_</strong> total registros)",
+			            "paginate": {
+					        "first":      "Primero",
+					        "last":       "Última",
+					        "next":       "Siguiente",
+					        "previous":   "Anterior"
+					    },
+					    "search": "Buscar",
+		        	},
+
+		        	"paging": true
+
+	    		} );
+	    		/***************POPOVERS*******************/
+				$(function () {
+					$('[data-toggle="popover"]').popover()
+				})
+
+				// popovers initialization - on hover
+				$('[data-toggle="popover-hover"]').popover({
+				  html: true,
+				  trigger: 'hover',
+				  placement: 'bottom',
+				  /*content: function () { return '<img src="' + $(this).data('img') + '" />'; }*/
+				});
+
+				// popovers initialization - on click
+				$('[data-toggle="popover-click"]').popover({
+				  html: true,
+				  trigger: 'click',
+				  placement: 'bottom',
+				  content: function () { return '<img src="' + $(this).data('img') + '" />'; }
+				});
+		    	/******************************************/
+			},
+
+			error: function(respuesta) {
+				console.log('Error...'+respuesta);
+			}
+		});
+    }
+
+    function modal_responsable1(variable){
+    	$.ajax({
+            url: '../script/modelo_modal_responsable1.php',
+            type: 'POST',
+           	dataType: "JSON",
+           	data: {
+           		"variable": variable,
+           	},
+
+            beforeSend: function (){},
+
+            success: function(response){
+            	$('#hidden_responsable1').html(response['html']);
+            },
+
+            error: function(response){
+            	console.log(response['responseText']);
+            }
+        });
+    }
+
+    function agregar_responsable1(modelo_id){
+    	var responsable = $('#responsable_registro').val();
+    	if(responsable==''){
     		return false;
-    	}else{
-    		console.log(variable);
     	}
+    	$.ajax({
+            url: '../script/modelo_guardar_responsable1.php',
+            type: 'POST',
+           	dataType: "JSON",
+           	data: {
+           		"variable": modelo_id,
+           		"responsable": responsable,
+           	},
+
+            beforeSend: function (){},
+
+            success: function(response){
+            	console.log(response);
+            	if(response['resultado']=='error'){
+            		Swal.fire({
+		 				title: 'Error',
+		 				text: "Responsable ya enlazado",
+		 				icon: 'error',
+		 				position: 'center',
+		 				showConfirmButton: false,
+		 				timer: 2000
+					});
+            	}
+            	Swal.fire({
+	 				title: 'Guardado exitosamente!',
+	 				text: "Limpiando Cache...",
+	 				icon: 'success',
+	 				position: 'center',
+	 				showConfirmButton: true,
+	 				timer: 2000
+				});
+            	setTimeout(function() {
+			      	//window.location.href = "index.php";
+			    },2000);
+
+				//$("#exampleModal_responsable1").modal('hide');
+				//$('#exampleModal_responsable1').removeClass('modal-open');
+				//$('.modal-backdrop').remove();
+            },
+
+            error: function(response){
+            	console.log(response['responseText']);
+            }
+        });
+    }
+
+    function borrar_responsable(responsable,modelo_id){
+    	console.log('borrando...');
+    	$.ajax({
+            url: '../script/modelo_borrar_responsable1.php',
+            type: 'POST',
+           	dataType: "JSON",
+           	data: {
+           		"variable": modelo_id,
+           		"responsable": responsable,
+           	},
+
+            beforeSend: function (){},
+
+            success: function(response){
+            	console.log(response);
+            	Swal.fire({
+	 				title: 'Se ha borrado el enlace!',
+	 				text: "Limpiando Cache...",
+	 				icon: 'success',
+	 				position: 'center',
+	 				showConfirmButton: false,
+	 				timer: 2000
+				});
+				$("#exampleModal_responsable1").modal('hide');
+				$('#exampleModal_responsable1').removeClass('modal-open');
+				$('.modal-backdrop').remove();
+            },
+
+            error: function(response){
+            	console.log(response['responseText']);
+            }
+        });
+    }
+
+    function cuenta_eliminar(pagina,condicion,modelo_id,pagina_id,modelo_cuenta_id){
+    	console.log(condicion);
+    	$.ajax({
+            url: '../script/modelo_borrar_cuenta.php',
+            type: 'POST',
+           	dataType: "JSON",
+           	data: {
+           		"modelo_cuenta_id": modelo_cuenta_id,
+           	},
+
+            beforeSend: function (){},
+
+            success: function(response){
+            	console.log(response);
+            	Swal.fire({
+	 				title: 'Se ha borrado la Cuenta!',
+	 				text: "Limpiando Cache...",
+	 				icon: 'success',
+	 				position: 'center',
+	 				showConfirmButton: false,
+	 				timer: 2000
+				});
+				$("#Modal_cuentas1").modal('hide');
+				$('#Modal_cuentas1').removeClass('modal-open');
+				$('.modal-backdrop').remove();
+            },
+
+            error: function(response){
+            	console.log(response['responseText']);
+            }
+        });
+    }
+
+    function cuenta_editar(modelo_cuenta_id){
+    	var cuenta_usuario = $('#edit_cuenta_usuario_'+modelo_cuenta_id).val();
+    	var cuenta_clave = $('#edit_cuenta_clave_'+modelo_cuenta_id).val();
+    	var cuenta_correo = $('#edit_cuenta_correo_'+modelo_cuenta_id).val();
+    	var cuenta_link = $('#edit_cuenta_link_'+modelo_cuenta_id).val();
+    	$.ajax({
+            url: '../script/modelo_editar_cuenta.php',
+            type: 'POST',
+           	dataType: "JSON",
+           	data: {
+           		"modelo_cuenta_id": modelo_cuenta_id,
+           		"cuenta_usuario": cuenta_usuario,
+           		"cuenta_clave": cuenta_clave,
+           		"cuenta_correo": cuenta_correo,
+           		"cuenta_link": cuenta_link,
+           	},
+
+            beforeSend: function (){},
+
+            success: function(response){
+            	console.log(response);
+            	Swal.fire({
+	 				title: 'Se ha modificado la Cuenta!',
+	 				text: "Limpiando Cache...",
+	 				icon: 'success',
+	 				position: 'center',
+	 				showConfirmButton: false,
+	 				timer: 2000
+				});
+				$("#Modal_cuentas1").modal('hide');
+				$('#Modal_cuentas1').removeClass('modal-open');
+				$('.modal-backdrop').remove();
+            },
+
+            error: function(response){
+            	console.log(response['responseText']);
+            }
+        });
+    }
+
+    function colocar_responsable(id_modelo,id_responsable){
+    	$.ajax({
+            url: '../script/modelo_guardar_responsable1.php',
+            type: 'POST',
+           	dataType: "JSON",
+           	data: {
+           		"id_modelo": id_modelo,
+           		"id_responsable": id_responsable,
+           	},
+
+            beforeSend: function (){},
+
+            success: function(response){
+            	console.log(response);
+            	Swal.fire({
+	 				title: 'Modificado!',
+	 				text: "Limpiando Cache...",
+	 				icon: 'success',
+	 				position: 'center',
+	 				showConfirmButton: false,
+	 				timer: 1000
+				});
+				$("#Modal_cuentas1").modal('hide');
+				$('#Modal_cuentas1').removeClass('modal-open');
+				$('.modal-backdrop').remove();
+            },
+
+            error: function(response){
+            	console.log(response['responseText']);
+            }
+        });
     }
 
 </script>

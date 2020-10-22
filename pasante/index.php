@@ -79,7 +79,14 @@
 		    		<div class="col-md-6">
 		    			<form action="../script/pasante_excel_exportar1.php" method="POST">
 		    				<input type="submit" class="btn btn-danger" value="Exportar Datos">
-		    				<?php $consulta_hidden = "SELECT * FROM pasantes"; ?>
+		    				<?php
+			    			if($_SESSION['rol']==1){
+				        		$consulta_hidden = "SELECT * FROM pasantes";	
+				        	}else{
+				        		$session_sede = $_SESSION['sede'];
+				        		$consulta_hidden = "SELECT * FROM pasantes WHERE sede = $session_sede";
+				        	}
+				        	?>
 		    				<input type="hidden" name="sql" id="sql" value="<?php echo $consulta_hidden; ?>">
 		    			</form>
 		    		</div>
@@ -105,7 +112,12 @@
 			        </thead>
 			        <tbody id="resultados">
 			        	<?php
-			        	$consulta2 = "SELECT * FROM pasantes";
+			        	if($_SESSION['rol']==1){
+			        		$consulta2 = "SELECT * FROM pasantes";	
+			        	}else{
+			        		$session_sede = $_SESSION['sede'];
+			        		$consulta2 = "SELECT * FROM pasantes WHERE sede = $session_sede";
+			        	}
 						$resultado2 = mysqli_query( $conexion, $consulta2 );
 						while($row2 = mysqli_fetch_array($resultado2)) {
 							$id 					= $row2['id'];
@@ -425,7 +437,8 @@
 			    "search": "Buscar",
         	},
 
-        	"paging": true
+        	"paging": true,
+        	"order": [[ 10, "desc" ]],
 
     	} );
 
@@ -519,7 +532,8 @@
 					    "search": "Buscar",
 		        	},
 
-		        	"paging": true
+		        	"paging": true,
+		        	"order": [[ 10, "desc" ]],
 
 	    		} );
 	    		/***************POPOVERS*******************/
