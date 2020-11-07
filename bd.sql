@@ -45,6 +45,7 @@ INSERT INTO roles (id,nombre,reporteModelos_view,monitores_view) VALUES (7,'Jefe
 INSERT INTO roles (id,nombre,modelo_view,modelo_edit,pasante_view,pasante_edit) VALUES (8,'Recursos Humanos',1,1,1,1);
 INSERT INTO roles (id,nombre,modelo_view,modelo_edit) VALUES (9,'Soporte Junior',1,1);
 INSERT INTO roles (id,nombre,test) VALUES (10,'Diseñador',1);
+INSERT INTO roles (id,nombre) VALUES (11,'Monitor Junior');
 ALTER TABLE roles CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 
@@ -445,4 +446,20 @@ CREATE TABLE temporal_ganancias1 (
     studio_payee VARCHAR(250) NOT NULL,
     studio_earned FLOAT(11,2) NOT NULL,
    	PRIMARY KEY (id)
-);
+); ALTER TABLE temporal_ganancias1 CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+DROP TABLE IF EXISTS pagos;
+CREATE TABLE pagos (
+	id INT AUTO_INCREMENT,
+	
+   	PRIMARY KEY (id)
+); ALTER TABLE pagos CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+DROP TABLE IF EXISTS descuentos;
+CREATE TABLE descuentos (
+	id INT AUTO_INCREMENT,
+	id_modelo INT NOT NULL,
+
+	fecha DATETIME NOT NULL,
+   	PRIMARY KEY (id)
+); ALTER TABLE descuentos CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;

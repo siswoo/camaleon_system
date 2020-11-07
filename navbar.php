@@ -62,11 +62,14 @@ while($row_verificacion = mysqli_fetch_array($verificacion_rol)) {
 	      	<?php } ?>
 
 	      	<?php
+	      	/*
 			if($verificacion_reporteModelos_view==1){ ?>
 	      	<li class="nav-item" id="li-Rinicio">
 	        	<a class="nav-link navbar-active-a" href="../reportes/reporte_inicio.php" id="a-Rinicio">R Inicio</a>
 	      	</li>
-	      	<?php } ?>
+	      	<?php } 
+			*/
+	      	?>
 
 	      	<?php
 			if($verificacion_monitores_view==1){ ?>
@@ -76,18 +79,35 @@ while($row_verificacion = mysqli_fetch_array($verificacion_rol)) {
 	      	<?php } ?>
 
 	      	<?php
+	      	/*
 			if($verificacion_sedes_view==1){ ?>
 	      	<li class="nav-item" id="li-sedes">
 	        	<a class="nav-link navbar-active-a" href="../sedes/index.php" id="a-sedes">Sedes</a>
 	      	</li>
-	      	<?php } ?>
+	      	<?php } 
+	      	*/
+	      	?>
 
 	      	<?php
+	      	/*
 			if($verificacion_paginas_view==1){ ?>
 	      	<li class="nav-item" id="li-paginas">
 	        	<a class="nav-link navbar-active-a" href="../paginas/index.php" id="a-paginas">Paginas</a>
 	      	</li>
+	      	<?php } 
+			*/
+	      	?>
+	      	
+	      	<?php
+			if($_SESSION['rol']==1 or $_SESSION['rol']==7){ ?>
+	      	<li class="nav-item" id="li-reportes">
+	        	<a class="nav-link navbar-active-a" href="../reportes/index.php" id="a-reportes">Reportes</a>
+	      	</li>
 	      	<?php } ?>
+
+	      	<li class="nav-item" id="li-pagos">
+	        	<a class="nav-link navbar-active-a" href="../pagos/index.php" id="a-pagos">Pagos</a>
+	      	</li>
 
 	    </ul>
 
