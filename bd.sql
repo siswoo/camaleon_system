@@ -463,3 +463,58 @@ CREATE TABLE descuentos (
 	fecha DATETIME NOT NULL,
    	PRIMARY KEY (id)
 ); ALTER TABLE descuentos CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+
+DROP TABLE IF EXISTS xlove;
+CREATE TABLE xlove (
+	id INT AUTO_INCREMENT,
+	nickname VARCHAR(250) NOT NULL,
+	amount FLOAT(11,3) NOT NULL,
+	dolares FLOAT(11,3) NOT NULL,
+	descuento FLOAT(11,3) NOT NULL,
+	tokens FLOAT(11,3) NOT NULL,
+	recorte VARCHAR(250) NOT NULL,
+	mes VARCHAR(250) NOT NULL,
+	year VARCHAR(250) NOT NULL,
+	responsable INT NOT NULL,
+	fecha_inicio DATE NOT NULL,
+   	PRIMARY KEY (id)
+); ALTER TABLE xlove CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+DROP TABLE IF EXISTS chaturbate;
+CREATE TABLE chaturbate (
+	id INT AUTO_INCREMENT,
+	nickname VARCHAR(250) NOT NULL,
+	tokens INT NOT NULL,
+	payout FLOAT(11,2) NOT NULL,
+	fecha DATE NOT NULL,
+	responsable INT NOT NULL,
+	fecha_inicio DATE NOT NULL,
+   	PRIMARY KEY (id)
+); ALTER TABLE chaturbate CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+DROP TABLE IF EXISTS stripchat;
+CREATE TABLE stripchat (
+	id INT AUTO_INCREMENT,
+	nickname VARCHAR(250) NOT NULL,
+	tokens INT NOT NULL,
+	dolares FLOAT(11,2) NOT NULL,
+	fecha DATE NOT NULL,
+	responsable INT NOT NULL,
+	fecha_inicio DATE NOT NULL,
+   	PRIMARY KEY (id)
+); ALTER TABLE stripchat CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+DROP TABLE IF EXISTS streamate;
+CREATE TABLE streamate (
+	id INT AUTO_INCREMENT,
+	id_nickname INT NOT NULL,
+	nickname VARCHAR(250) NOT NULL,
+	ganancia FLOAT(11,2) NOT NULL,
+	tokens FLOAT(11,2) NOT NULL,
+	semana VARCHAR(250) NOT NULL,
+	year VARCHAR(250) NOT NULL,
+	responsable INT NOT NULL,
+	fecha_inicio DATE NOT NULL,
+   	PRIMARY KEY (id)
+); ALTER TABLE streamate CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;

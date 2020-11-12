@@ -52,6 +52,9 @@ $(document).ready(function(){
         $('#a-pasante').attr('href','pasante/index.php');
         $('#a-usuario').attr('href','usuarios/index.php');
         $('#a-Rinicio').attr('href','reportes/reporte_inicio.php');
+        $('#a-monitores').attr('href','monitores/index.php');
+        $('#a-reportes').attr('href','reportes/index.php');
+        $('#a-pagos').attr('href','pagos/index.php');
         $('#navbar-cerrarSesion').attr('href','script/cerrar_sesion.php');
     }else{
         $('#li-'+hidden_ubicacion).addClass('navbar-active');

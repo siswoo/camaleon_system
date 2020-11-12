@@ -37,6 +37,11 @@
   		color: white !important;
   		border-color: white !important;
   	}
+
+  	.seccion1{
+  		margin-left: 2rem;
+  		margin-right: 2rem;
+  	}
 	</style>
 
 <?php
@@ -52,275 +57,237 @@
 	</form>
 	<div class="row">
 		<div class="col-12 text-center mt-3 ml-3">
-			<a href="nuevo_pago.php">
+			<a href="nuevo_pago.php" style="text-decoration: none;">
 				<input type="submit" class="btn btn-success" value="Nuevo Pago">
 			</a>
 			<input type="submit" class="btn btn-info" value="Descuentos" data-toggle="modal" data-target="#exampleModal3">
+			<button type="button" class="btn btn-info" value="No" id="graficos" onclick="mostrarSeccionGraficos1(this.id,value);">Gráficos</button>
+			<button type="button" class="btn btn-info" value="No" id="datos" onclick="mostrarSeccion1(this.id,value);">Datos</button>
 		</div>
 	</div>
 
 	<!--<div class="col-12 text-center" style="font-weight: bold; ">Resumen de Pagos Efectuados</div>-->
 
-	<div class="seccion1">
+	<div class="seccion1" id="seccion1" style="display: none;">
 	    <div class="row">
-		    <div class="container_consulta1">
-		    	<table id="example" class="table row-border hover table-bordered" style="font-size: 12px;">
-			        <thead>
-			            <tr>
-			                <th class="text-center">Nombre</th>
-			                <th class="text-center">Apellido</th>
-			                <th class="text-center">Tipo Doc</th>
-			                <th class="text-center">Número Doc</th>
-			                <th class="text-center">Correo</th>
-			                <th class="text-center">Usuario</th>
-			                <th class="text-center">WhatsApp</th>
-			                <th class="text-center">Teléfono</th>
-			                <th class="text-center">Sede</th>
-			                <th class="text-center">Fecha Inicio</th>
-			                <th class="text-center">Opciones</th>
-			            </tr>
-			        </thead>
-			        <tbody id="resultados">
-			        	<?php
-			        	$consulta2 = "SELECT * FROM usuarios WHERE rol = 6 and rol = 9";
-						$resultado2 = mysqli_query( $conexion, $consulta2 );
-						while($row2 = mysqli_fetch_array($resultado2)) {
-							$usuario_id 				= $row2['id'];
-							$usuario_nombre 			= $row2['nombre'];
-							$usuario_apellido			= $row2['apellido'];
-							$usuario_documento_tipo 	= $row2['documento_tipo'];
-							$usuario_documento_numero 	= $row2['documento_numero'];
-							$usuario_correo 			= $row2['correo'];
-							$usuario_usuario 			= $row2['usuario'];
-							$usuario_telefono1 			= $row2['telefono1'];
-							$usuario_telefono2 			= $row2['telefono2'];
-							$sede 						= $row2['sede'];
-							$usuario_fecha_inicio 		= $row2['fecha_inicio'];
-
-							$sql_sedes2 = "SELECT * FROM sedes WHERE id = ".$sede;
-							$resultado_sedes2 = mysqli_query($conexion, $sql_sedes2);
-							while($row4 = mysqli_fetch_array($resultado_sedes2)) {
-								$sedes_nombre_mostrar = $row4['nombre'];
-							}
-
-							echo '
-								<tr>
-					                <td nowrap>'.$usuario_nombre.'</td>
-					                <td nowrap>'.$usuario_apellido.'</td>
-					                <td class="text-center">'.$usuario_documento_tipo.'</td>
-					                <td class="text-center">'.$usuario_documento_numero.'</td>
-					                <td class="text-center">'.$usuario_correo.'</td>
-					                <td class="text-center">'.$usuario_usuario.'</td>
-					                <td class="text-center">'.$usuario_telefono1.'</td>
-					                <td class="text-center">'.$usuario_telefono2.'</td>
-					                <td class="text-center">'.$sedes_nombre_mostrar.'</td>
-					                <td class="text-center">'.$usuario_fecha_inicio.'</td>
-					                <td class="text-center">
-					            ';
-
-					        echo '
-								        <i class="fas fa-edit" style="color:#0095ff; cursor:pointer;" title="" value="'.$usuario_id.'" data-toggle="modal" data-target="#exampleModal" onclick="modal_edit('.$usuario_id.');"></i>
-								        <i class="fas fa-trash-alt ml-3" style="color:red; cursor:pointer;" data-toggle="popover-hover" onclick="eliminar('.$usuario_id.');" value="'.$usuario_id.'"></i>
-					        ';
-
-					        echo '
-						        	</td>
-						        </tr>
-					        ';
-
-						}
-						?>
-			        </tbody>
-			    </table>
-		    </div>
+		    <button type="button" class="btn btn-info" value="No" id="Imlive" onclick="mostrarSeccion2(this.id,value);">Imlive</button>
+		    <button type="button" class="btn btn-info ml-3" value="No" id="XLove" onclick="mostrarSeccion2(this.id,value);">XLove</button>
+		    <button type="button" class="btn btn-info ml-3" value="No" id="chaturbate" onclick="mostrarSeccion2(this.id,value);">Chaturbate</button>
+		    <button type="button" class="btn btn-info ml-3" value="No" id="stripchat" onclick="mostrarSeccion2(this.id,value);">Stripchat</button>
+		    <button type="button" class="btn btn-info ml-3" value="No" id="streamate" onclick="mostrarSeccion2(this.id,value);">Streamate</button>
+		    <button type="button" class="btn btn-info ml-3" value="No" id="Myfreecams" onclick="mostrarSeccion2(this.id,value);">Myfreecams</button>
 		</div>
 	</div>
 
+	<div class="seccion1" id="div_Imlive" style="display: none; border: 3px solid black; border-radius: 1rem; padding: 5px 5px 5px 5px;">
+		<form id="formulario_Imlive" method="POST" action="#">
+	    	<div class="row">
+	    		<div class="form-group col-12">
+				    <p class="text-center" style="font-weight: bold; font-size: 20px;">Reporte de Imlive</p>
+				</div>
+				<div class="form-group col-6">
+				    <label for="archivo_Imlive">Archivo Generado</label>
+				    <input type="file" class="form-control" name="archivo_Imlive" id="archivo_Imlive" style="margin-left: 18px; margin-right: 16px;" required>
+				</div>
+				<div class="form-group col-6">
+				    <label for="fecha">Fecha</label>
+				    <?php
+				    	$fecha_actual = date('Y-m-d');
+				    ?>
+				    <input type="date" class="form-control" value="<?php echo $fecha_actual; ?>" id="fecha_Imlive" required>
+				</div>
+				<div class="form-group col-12 text-center">
+				    <button type="submit" id="submit_Imlive" class="btn btn-primary">Cargar Datos</button>
+				</div>
+			</div>
+		</form>
+	</div>
+
+	<div class="seccion1" id="div_XLove" style="display: none; border: 3px solid black; border-radius: 1rem; padding: 5px 5px 5px 5px;">
+		<form id="formulario_XLove" method="POST" action="#">
+	    	<div class="row">
+				<div class="form-group col-12">
+				    <p class="text-center" style="font-weight: bold; font-size: 20px;">Reporte de XLove</p>
+				</div>
+				<div class="form-group col-12">
+					<label>Archivo Excel</label>
+				    <input type="file" class="form-control" name="archivo_XLove" id="archivo_XLove" required>
+				</div>
+				<div class="form-group col-6">
+					<label>Recorte N°</label>
+					<select class="form-control" required name="recorte_XLove" id="recorte_XLove">
+						<option value="">Seleccione</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+					</select>
+				</div>
+				<div class="form-group col-6">
+					<label>EUR a USD Coste</label>
+					<input type="text" id="coste_euro_XLove" name="coste_euro_XLove" class="form-control" required>
+				</div>
+				<div class="form-group col-6">
+					<label>Mes</label>
+					<select class="form-control" required name="mes_XLove" id="mes_XLove">
+						<option value="">Seleccione</option>
+						<option value="Enero">Enero</option>
+						<option value="Febrero">Febrero</option>
+						<option value="Marzo">Marzo</option>
+						<option value="Junio">Junio</option>
+						<option value="Julio">Julio</option>
+						<option value="Agosto">Agosto</option>
+						<option value="Septiembre">Septiembre</option>
+						<option value="Octubre">Octubre</option>
+						<option value="Noviembre">Noviembre</option>
+						<option value="Diciembre">Diciembre</option>
+					</select>
+				</div>
+				<div class="form-group col-6">
+					<label>Año</label>
+					<select class="form-control" required name="year_XLove" id="year_XLove">
+						<option value="2020">2020</option>
+						<option value="2021">2021</option>
+						<option value="2022">2022</option>
+						<option value="2023">2023</option>
+						<option value="2024">2024</option>
+						<option value="2025">2025</option>
+					</select>
+				</div>
+				<div class="form-group col-12 text-center">
+				    <button type="submit" id="submit_XLove" class="btn btn-primary">Ejecutar API</button>
+				</div>
+			</div>
+		</form>
+	</div>
+
+	<div class="seccion1" id="div_chaturbate" style="display: none; border: 3px solid black; border-radius: 1rem; padding: 5px 5px 5px 5px;">
+		<form id="formulario_chaturbate" method="POST" action="#">
+	    	<div class="row">
+				<div class="form-group col-12">
+				    <p class="text-center" style="font-weight: bold; font-size: 20px;">Reporte de Chaturbate</p>
+				</div>
+				<div class="form-group col-6">
+					<label>Archivo Excel</label>
+				    <input type="file" class="form-control" name="archivo_chaturbate" id="archivo_chaturbate" required>
+				</div>
+				<div class="form-group col-6">
+					<label>Fecha</label>
+					<input type="date" id="fecha_chaturbate" class="form-control" name="fecha_chaturbate" value="<?php echo date('Y-m-d'); ?>" required>
+				</div>
+				<div class="form-group col-12 text-center">
+				    <button type="submit" id="submit_chaturbate" class="btn btn-primary">Ejecutar API</button>
+				</div>
+			</div>
+		</form>
+	</div>
+
+	<div class="seccion1" id="div_stripchat" style="display: none; border: 3px solid black; border-radius: 1rem; padding: 5px 5px 5px 5px;">
+		<form id="formulario_stripchat" method="POST" action="#">
+	    	<div class="row">
+				<div class="form-group col-12">
+				    <p class="text-center" style="font-weight: bold; font-size: 20px;">Reporte de Stripchat</p>
+				</div>
+				<div class="form-group col-6">
+					<label>Archivo Excel</label>
+				    <input type="file" class="form-control" name="archivo_stripchat" id="archivo_stripchat" required>
+				</div>
+				<div class="form-group col-6">
+					<label>Fecha</label>
+					<input type="date" id="fecha_stripchat" class="form-control" name="fecha_stripchat" value="<?php echo date('Y-m-d'); ?>" required>
+				</div>
+				<div class="form-group col-12 text-center">
+				    <button type="submit" id="submit_stripchat" class="btn btn-primary">Ejecutar API</button>
+				</div>
+			</div>
+		</form>
+	</div>
+
+	<div class="seccion1" id="div_streamate" style="display: none; border: 3px solid black; border-radius: 1rem; padding: 5px 5px 5px 5px;">
+		<form id="formulario_streamate" method="POST" action="#">
+	    	<div class="row">
+				<div class="form-group col-12">
+				    <p class="text-center" style="font-weight: bold; font-size: 20px;">Reporte de StreaMate</p>
+				</div>
+				<div class="form-group col-6">
+					<label>Archivo Excel</label>
+				    <input type="file" class="form-control" name="archivo_streamate" id="archivo_streamate" required>
+				</div>
+				<div class="form-group col-6">
+					<label>Fecha</label>
+					<input type="week" name="fecha_streamate" id="fecha_streamate" class="form-control" min="2020-11-09" required>
+				</div>
+				<div class="form-group col-12 text-center">
+				    <button type="submit" id="submit_streamate" class="btn btn-primary">Ejecutar API</button>
+				</div>
+			</div>
+		</form>
+	</div>
+
+	<div class="seccion1" id="div_Myfreecams" style="display: none; border: 3px solid black; border-radius: 1rem; padding: 5px 5px 5px 5px;">
+	    	<div class="row">
+				<div class="form-group col-12">
+				    <p class="text-center" style="font-weight: bold; font-size: 20px;">Reporte de Myfreecams</p>
+				</div>
+				<div class="form-group col-12">
+					<label>Lapso</label>
+					<input type="date" name="fecha_Myfreecams" id="fecha_Myfreecams" class="form-control" min="2020-11-01" step="15" required>
+				</div>
+				<div class="form-group col-12 text-center">
+				    <button type="submit" id="submit_Myfreecams" class="btn btn-primary">Consultar Modelos</button>
+				</div>
+			</div>
+
+			<div id="div_Myfreecams2">
+				<form id="formulario_Myfreecams" style="width: 95%;" method="POST" action="#">
+					<div id="resultado1_Myfreecams" class="form-group col-12 text-center">
+						<table border="1" class="table">
+							<tr>
+								<td>Modelo</td>
+								<td>Usuario</td>
+								<td>Contraseña</td>
+							</tr>
+						</table>
+						<?php
+							$sql1 = "SELECT * FROM chaturbate WHERE tokens >= 1";
+							$registro1 = mysqli_query($conexion,$sql1);
+							while($row1 = mysqli_fetch_array($registro1)) {
+								
+							}
+						?>
+					</div>
+				</form>
+			</div>
+	</div>
+
+<!--****************************GRAFICOS****************************-->
+
+	<div class="seccion1" id="graficos1" style="display: none; border: 3px solid black; border-radius: 1rem; padding: 5px 5px 5px 5px;">
+		<form id="formulario_stripchat" method="POST" action="#">
+	    	<div class="row">
+				<div class="form-group col-12">
+				    <p class="text-center" style="font-weight: bold; font-size: 20px;">Reporte de Gráficos</p>
+				</div>
+				<div class="form-group col-4">
+					<label>Gráficos</label>
+				    <select class="form-control" name="select_graficos1" id="select_graficos1" required>
+				    	<option value="">Seleccione</option>
+				    	<option value="Imlive">Imlive</option>
+				    	<option value="XLove">XLove</option>
+				    	<option value="Chaturbate">Chaturbate</option>
+				    	<option value="Stripchat">Stripchat</option>
+				    </select>
+				</div>
+				<div class="form-group col-12 text-center">
+				    <button type="submit" id="submit_stripchat" class="btn btn-primary">Crear Gráfica</button>
+				</div>
+			</div>
+		</form>
+	</div>
+
+<!--****************************FIN GRAFICOS****************************-->
+
+
 <?php include('../footer.php'); ?>
 
-<!-- Modal Editar Registro -->
-	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<form action="#" method="POST" id="form_modal_edit" style="">
-				<input type="hidden" name="edit_id" id="edit_id">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Editar Monitor</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body">
-					    <div class="row">
-						    <div class="col-6 form-group form-check">
-							    <label for="edit_nombre">Nombre <small style="color:red; font-weight: bold;">(*)</small></label>
-							    <input type="text" name="edit_nombre" id="edit_nombre" value="" class="form-control" required>
-						    </div>
-						    <div class="col-6 form-group form-check">
-							    <label for="edit_apellido">Apellido <small style="color:red; font-weight: bold;">(*)</small></label>
-							    <input type="text" name="edit_apellido" id="edit_apellido" value="" class="form-control" required>
-						    </div>
-					    </div>
-
-					    <div class="row">
-						    <div class="col-6 form-group form-check">
-							    <label for="edit_tipo_documento">Tipo Documento <small style="color:red; font-weight: bold;">(*)</small></label>
-							    <select name="edit_tipo_documento" id="edit_tipo_documento" class="form-control" required>
-							    	<option value="">Seleccione</option>
-							    	<option value="Cedula de Ciudadania">Cedula de Ciudadania</option>
-							    	<option value="Cedula de Extranjeria">Cedula de Extranjeria</option>
-							    	<option value="PEP">PEP</option>
-							    	<option value="Pasaporte">Pasaporte</option>
-							    </select>
-						    </div>
-						    <div class="col-6 form-group form-check">
-							    <label for="edit_numero_documento">Número Documento <small style="color:red; font-weight: bold;">(*)</small></label>
-							    <input type="text" name="edit_numero_documento" id="edit_numero_documento" value="" class="form-control" required>
-						    </div>
-						</div>
-
-						<div class="row">
-							<div class="col-6 form-group form-check">
-							    <label for="edit_correo">Correo</label>
-							    <input type="email" name="edit_correo" id="edit_correo" value="" class="form-control" required>
-						    </div>
-
-						    <div class="col-6 form-group form-check">
-							    <label for="edit_usuario">Usuario</label>
-							    <input type="text" name="edit_usuario" id="edit_usuario" value="" class="form-control" disabled>
-						    </div>
-
-						    <div class="col-6 form-group form-check">
-							    <label for="edit_telefono1">WhatsApp</label>
-							    <input type="text" name="edit_telefono1" id="edit_telefono1" value="" class="form-control" required>
-						    </div>
-
-						    <div class="col-6 form-group form-check">
-							    <label for="edit_telefono2">Teléfono</label>
-							    <input type="text" name="edit_telefono2" id="edit_telefono2" value="" class="form-control">
-						    </div>
-
-						    <div class="col-6 form-group form-check">
-							    <label for="edit_sede">Sede</label>
-							    <select class="form-control" name="edit_sede" id="edit_sede" required>
-							    	<option value="">Seleccione</option>
-							    	<?php
-							    	$sql_sedes = "SELECT * FROM sedes";
-									$resultado_sedes = mysqli_query($conexion, $sql_sedes);
-									while($row3 = mysqli_fetch_array($resultado_sedes)) {
-										$sedes_id = $row3['id'];
-										$sedes_nombre = $row3['nombre'];
-										echo '<option value="'.$sedes_id.'">'.$sedes_nombre.'</option>';
-									}
-							    	?>
-							    </select>
-						    </div>
-						</div>
-
-					</div>
-					<div class="modal-footer">
-				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-				        <button type="submit" class="btn btn-success">Guardar</button>
-			      	</div>
-		      	</form>
-	    	</div>
-	  	</div>
-	</div>
-<!-- FIN Modal Editar Registro -->
-
-<!-- Modal Crear Registro -->
-	<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<form action="#" method="POST" id="form_modal_nuevo" style="">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Crear Monitor</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body">
-					    <div class="row">
-						    <div class="col-6 form-group form-check">
-							    <label for="nombre">Nombre <small style="color:red; font-weight: bold;">(*)</small></label>
-							    <input type="text" name="nombre" id="nombre" value="" class="form-control" required>
-						    </div>
-						    <div class="col-6 form-group form-check">
-							    <label for="apellido">Apellido <small style="color:red; font-weight: bold;">(*)</small></label>
-							    <input type="text" name="apellido" id="apellido" value="" class="form-control" required>
-						    </div>
-					    </div>
-
-					    <div class="row">
-						    <div class="col-6 form-group form-check">
-							    <label for="tipo_documento">Tipo Documento <small style="color:red; font-weight: bold;">(*)</small></label>
-							    <select name="tipo_documento" id="tipo_documento" class="form-control" required>
-							    	<option value="">Seleccione</option>
-							    	<option value="Cedula de Ciudadania">Cedula de Ciudadania</option>
-							    	<option value="Cedula de Extranjeria">Cedula de Extranjeria</option>
-							    	<option value="PEP">PEP</option>
-							    	<option value="Pasaporte">Pasaporte</option>
-							    </select>
-						    </div>
-						    <div class="col-6 form-group form-check">
-							    <label for="numero_documento">Número Documento <small style="color:red; font-weight: bold;">(*)</small></label>
-							    <input type="text" name="numero_documento" id="numero_documento" value="" class="form-control" required>
-						    </div>
-						</div>
-
-						<div class="row">
-							<div class="col-6 form-group form-check">
-							    <label for="correo">Correo</label>
-							    <input type="email" name="correo" id="correo" value="" class="form-control" required>
-						    </div>
-
-						    <div class="col-6 form-group form-check">
-							    <label for="usuario">Usuario</label>
-							    <input type="text" name="usuario" id="usuario" value="" class="form-control" required>
-						    </div>
-
-						    <div class="col-6 form-group form-check">
-							    <label for="telefono1">WhatsApp</label>
-							    <input type="text" name="telefono1" id="telefono1" value="" class="form-control" required>
-						    </div>
-
-						    <div class="col-6 form-group form-check">
-							    <label for="telefono2">Teléfono</label>
-							    <input type="text" name="telefono2" id="telefono2" value="" class="form-control">
-						    </div>
-
-						    <div class="col-6 form-group form-check">
-							    <label for="sede">Sede</label>
-							    <select class="form-control" name="sede" id="sede" required>
-							    	<option value="">Seleccione</option>
-							    	<?php
-							    	$sql_sedes = "SELECT * FROM sedes";
-									$resultado_sedes = mysqli_query($conexion, $sql_sedes);
-									while($row3 = mysqli_fetch_array($resultado_sedes)) {
-										$sedes_id = $row3['id'];
-										$sedes_nombre = $row3['nombre'];
-										echo '<option value="'.$sedes_id.'">'.$sedes_nombre.'</option>';
-									}
-							    	?>
-							    </select>
-						    </div>
-
-						    <div class="col-6 form-group form-check">
-							    <label for="clave">Clave</label>
-							    <input type="password" name="clave" id="clave" value="" class="form-control">
-						    </div>
-						</div>
-
-					</div>
-					<div class="modal-footer">
-				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-				        <button type="submit" class="btn btn-success">Guardar</button>
-			      	</div>
-		      	</form>
-	    	</div>
-	  	</div>
-	</div>
-<!-- FIN Modal Crear Registro -->
 </body>
 </html>
 
@@ -385,9 +352,293 @@
 	  	$('#myInput').trigger('focus')
 	});
 
-	$("#form_modal_register").on("submit", function(e){
+	function mostrarSeccion1(button,value){
+		//console.log(button);
+		if(value=='Si'){
+			$('#seccion1').hide('slow');
+			$('#'+button).val('No');
+		}else{
+			$('#seccion1').show('slow');
+			$('#'+button).val('Si');
+		}
+	}
+
+	function mostrarSeccion2(button,value){
+		//console.log(button);
+		if(value=='Si'){
+			$('#div_'+button).hide('slow');
+			$('#'+button).val('No');
+			$('#'+button).removeClass('active');
+			$('#'+button).removeClass('font-weight-bold');
+		}else{
+			$('#div_'+button).show('slow');
+			$('#'+button).val('Si');
+			$('#'+button).addClass('active');
+			$('#'+button).addClass('font-weight-bold');
+		}
+	}
+
+	$("#formulario_Imlive").on("submit", function(e){
 		e.preventDefault();
-		console.log('guardando...');
-	});
-	
+        var fd = new FormData();
+        var files = $('#archivo_Imlive')[0].files[0];
+        fd.append('file',files);
+        fd.append('fecha_Imlive',$('#fecha_Imlive').val());
+
+        $.ajax({
+            url: '../script/subir_imlive.php',
+            type: 'POST',
+            data: fd,
+            contentType: false,
+            processData: false,
+
+            beforeSend: function (){
+            	//$('#submit_Imlive').attr('disabled','true');
+            },
+
+            success: function(response){
+            	console.log(response);
+            	if(response=='error'){
+            		$('#submit_Imlive').attr('disabled','false');
+            		Swal.fire({
+		 				title: 'Formato Invalido',
+			 			text: "Formato Validos -> xls xml xlam xlsx",
+			 			icon: 'error',
+			 			position: 'center',
+			 			showConfirmButton: false,
+			 			timer: 3000
+					});
+            		return false;
+            	}
+            },
+
+            error: function(response){
+            	console.log(response['responseText']);
+            }
+        });
+    });
+
+    $("#formulario_XLove").on("submit", function(e){
+		e.preventDefault();
+        var fd = new FormData();
+        var files = $('#archivo_XLove')[0].files[0];
+        fd.append('file',files);
+        fd.append('recorte_XLove',$('#recorte_XLove').val());
+        fd.append('mes_XLove',$('#mes_XLove').val());
+        fd.append('year_XLove',$('#year_XLove').val());
+        fd.append('coste_euro_XLove',$('#coste_euro_XLove').val());
+
+        $.ajax({
+            url: '../script/subir_xlove.php',
+            type: 'POST',
+            data: fd,
+            contentType: false,
+            processData: false,
+
+            beforeSend: function (){
+            	$('#submit_XLove').attr('disabled','true');
+            },
+
+            success: function(response){
+            	//console.log(response);
+            	if(response=='error'){
+            		$('#submit_XLove').attr('disabled','false');
+            		Swal.fire({
+		 				title: 'Formato Invalido',
+			 			text: "Formato Validos -> xls xml xlam xlsx",
+			 			icon: 'error',
+			 			position: 'center',
+			 			showConfirmButton: false,
+			 			timer: 3000
+					});
+            		return false;
+            	}else{
+            		Swal.fire({
+		 				title: 'Guardado exitosamente!',
+		 				text: "Limpiando Cache...",
+		 				icon: 'success',
+		 				position: 'center',
+		 				showConfirmButton: true,
+		 				timer: 2000
+					});
+	            	setTimeout(function() {
+				      	window.location.href = "index.php";
+				    },2000);
+            	}
+            },
+
+            error: function(response){
+            	console.log(response['responseText']);
+            }
+        });
+    });
+
+
+    $("#formulario_chaturbate").on("submit", function(e){
+		e.preventDefault();
+        var fd = new FormData();
+        var files = $('#archivo_chaturbate')[0].files[0];
+        fd.append('file',files);
+        fd.append('fecha_chaturbate',$('#fecha_chaturbate').val());
+
+        $.ajax({
+            url: '../script/subir_chaturbate.php',
+            type: 'POST',
+            data: fd,
+            contentType: false,
+            processData: false,
+
+            beforeSend: function (){
+            	$('#submit_chaturbate').attr('disabled','true');
+            },
+
+            success: function(response){
+            	console.log(response);
+            	if(response=='error'){
+            		$('#submit_chaturbate').attr('disabled','false');
+            		Swal.fire({
+		 				title: 'Formato Invalido',
+			 			text: "Formato Validos -> xls xml xlam xlsx",
+			 			icon: 'error',
+			 			position: 'center',
+			 			showConfirmButton: false,
+			 			timer: 3000
+					});
+            		return false;
+            	}else{
+            		Swal.fire({
+		 				title: 'Guardado exitosamente!',
+		 				text: "Limpiando Cache...",
+		 				icon: 'success',
+		 				position: 'center',
+		 				showConfirmButton: true,
+		 				timer: 2000
+					});
+	            	setTimeout(function() {
+				      	window.location.href = "index.php";
+				    },2000);
+            	}
+            },
+
+            error: function(response){
+            	console.log(response['responseText']);
+            }
+        });
+    });
+
+    $("#formulario_stripchat").on("submit", function(e){
+		e.preventDefault();
+        var fd = new FormData();
+        var files = $('#archivo_stripchat')[0].files[0];
+        fd.append('file',files);
+        fd.append('fecha_stripchat',$('#fecha_stripchat').val());
+
+        $.ajax({
+            url: '../script/subir_stripchat.php',
+            type: 'POST',
+            data: fd,
+            contentType: false,
+            processData: false,
+
+            beforeSend: function (){
+            	$('#submit_stripchat').attr('disabled','true');
+            },
+
+            success: function(response){
+            	console.log(response);
+            	if(response=='error'){
+            		$('#submit_stripchat').attr('disabled','false');
+            		Swal.fire({
+		 				title: 'Formato Invalido',
+			 			text: "Formato Validos -> xls xml xlam xlsx",
+			 			icon: 'error',
+			 			position: 'center',
+			 			showConfirmButton: false,
+			 			timer: 3000
+					});
+            		return false;
+            	}else{
+            		Swal.fire({
+		 				title: 'Guardado exitosamente!',
+		 				text: "Limpiando Cache...",
+		 				icon: 'success',
+		 				position: 'center',
+		 				showConfirmButton: true,
+		 				timer: 2000
+					});
+	            	setTimeout(function() {
+				      	window.location.href = "index.php";
+				    },2000);
+            	}
+            },
+
+            error: function(response){
+            	console.log(response['responseText']);
+            }
+        });
+    });
+
+    function mostrarSeccionGraficos1(button,value){
+    	console.log('ok');
+    	if(value=='Si'){
+    		$('#graficos1').hide('slow');
+    	}else{
+    		$('#graficos1').show('slow');
+    	}
+    }
+
+    $("#formulario_streamate").on("submit", function(e){
+		e.preventDefault();
+        var fd = new FormData();
+        var files = $('#archivo_streamate')[0].files[0];
+        fd.append('file',files);
+        fd.append('fecha_streamate',$('#fecha_streamate').val());
+
+        $.ajax({
+            url: '../script/subir_streamate.php',
+            type: 'POST',
+            data: fd,
+            contentType: false,
+            processData: false,
+
+            beforeSend: function (){
+            	$('#submit_streamate').attr('disabled','true');
+            },
+
+            success: function(response){
+            	console.log(response);
+            	if(response=='error'){
+            		$('#submit_streamate').attr('disabled','false');
+            		Swal.fire({
+		 				title: 'Formato Invalido',
+			 			text: "Formato Validos -> xls xml xlam xlsx",
+			 			icon: 'error',
+			 			position: 'center',
+			 			showConfirmButton: false,
+			 			timer: 3000
+					});
+            		return false;
+            	}else{
+            		Swal.fire({
+		 				title: 'Guardado exitosamente!',
+		 				text: "Limpiando Cache...",
+		 				icon: 'success',
+		 				position: 'center',
+		 				showConfirmButton: true,
+		 				timer: 2000
+					});
+	            	setTimeout(function() {
+				      	window.location.href = "index.php";
+				    },2000);
+            	}
+            },
+
+            error: function(response){
+            	console.log(response['responseText']);
+            }
+        });
+    });
+
+
+
 </script>

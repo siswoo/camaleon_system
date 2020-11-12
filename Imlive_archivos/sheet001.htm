@@ -1,0 +1,668 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:x="urn:schemas-microsoft-com:office:excel"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=us-ascii">
+<meta name=ProgId content=Excel.Sheet>
+<meta name=Generator content="Microsoft Excel 15">
+<link id=Main-File rel=Main-File href="../Imlive.xls">
+<link rel=File-List href=filelist.xml>
+<link rel=Stylesheet href=stylesheet.css>
+<style>
+<!--table
+	{mso-displayed-decimal-separator:"\,";
+	mso-displayed-thousand-separator:"\.";}
+@page
+	{margin:1.0in .75in 1.0in .75in;
+	mso-header-margin:.5in;
+	mso-footer-margin:.5in;}
+-->
+</style>
+<![if !supportTabStrip]><script language="JavaScript">
+<!--
+function fnUpdateTabs()
+ {
+  if (parent.window.g_iIEVer>=4) {
+   if (parent.document.readyState=="complete"
+    && parent.frames['frTabs'].document.readyState=="complete")
+   parent.fnSetActiveSheet(0);
+  else
+   window.setTimeout("fnUpdateTabs();",150);
+ }
+}
+
+if (window.name!="frSheet")
+ window.location.replace("../Imlive.xls");
+else
+ fnUpdateTabs();
+//-->
+</script>
+<![endif]>
+</head>
+
+<body link="#0563C1" vlink="#954F72">
+
+<table border=0 cellpadding=0 cellspacing=0 width=1184 style='border-collapse:
+ collapse;table-layout:fixed;width:891pt;position:absolute'
+ data-filename=HostReport.xls ng-table=tableParams>
+ <col width=62 style='mso-width-source:userset;mso-width-alt:2267;width:47pt'>
+ <col width=70 style='mso-width-source:userset;mso-width-alt:2560;width:53pt'>
+ <col width=130 style='mso-width-source:userset;mso-width-alt:4754;width:98pt'>
+ <col width=89 span=2 style='mso-width-source:userset;mso-width-alt:3254;
+ width:67pt'>
+ <col width=88 style='mso-width-source:userset;mso-width-alt:3218;width:66pt'>
+ <col width=78 style='mso-width-source:userset;mso-width-alt:2852;width:59pt'>
+ <col width=74 style='mso-width-source:userset;mso-width-alt:2706;width:56pt'>
+ <col width=99 style='mso-width-source:userset;mso-width-alt:3620;width:74pt'>
+ <col width=87 span=2 style='mso-width-source:userset;mso-width-alt:3181;
+ width:65pt'>
+ <col width=94 style='mso-width-source:userset;mso-width-alt:3437;width:71pt'>
+ <col width=137 style='mso-width-source:userset;mso-width-alt:5010;width:103pt'>
+ <tr height=98 style='mso-height-source:userset;height:73.5pt'>
+  <td height=98 class=xl69 width=62 style='height:73.5pt;width:47pt'>#</td>
+  <td class=xl70 width=70 style='border-left:none;width:53pt'>&nbsp;</td>
+  <td class=xl70 width=130 style='border-left:none;width:98pt'>Username</td>
+  <td class=xl70 width=89 style='border-left:none;width:67pt'>Status</td>
+  <td class=xl70 width=89 style='border-left:none;width:67pt'>Date Approved</td>
+  <td class=xl70 width=88 style='border-left:none;width:66pt'>Room</td>
+  <td class=xl70 width=78 style='border-left:none;width:59pt'>Last Date Online</td>
+  <td class=xl70 width=74 style='border-left:none;width:56pt'>Last Day Login</td>
+  <td class=xl70 width=99 style='border-left:none;width:74pt'>Outstanding
+  Earnings</td>
+  <td class=xl71 width=87 style='border-left:none;width:65pt'>Total Earnings</td>
+  <td class=xl70 width=87 style='border-left:none;width:65pt'>Avg Earnings Per
+  Hour Online</td>
+  <td class=xl70 width=94 style='border-left:none;width:71pt'>Connectivity</td>
+  <td class=xl72 width=137 style='border-left:none;width:103pt'>Host Name</td>
+ </tr>
+<!-- ngRepeat: host in $data track by host.HostId -->
+ <tr height=39 style='mso-height-source:userset;height:29.25pt'
+  ng-repeat="host in $data track by host.HostId">
+  <td height=39 class=xl65 width=62 style='height:29.25pt;width:47pt;
+  background-color:rgba(0, 0, 0, 0)'><span name=index>1</span></td>
+  <td class=xl65 width=70 style='border-left:none;width:53pt'>&nbsp;</td>
+  <td class=xl65 width=130 style='border-left:none;width:98pt'>
+  <div ng-class="{'hidden': hideIcons || hideLastSeen()}"></div>
+  <div ng-class="{'hidden': hideIcons &amp;&amp; !showEarnings}"></div>
+  <div ng-class="{'hidden': hideIcons || (!isDashboard &amp;&amp; !isSearch)}"></div>
+<!-- ngIf: masteraffiliateId>0 --></div>
+<!-- ngIf: nameSection() --><!-- end ngIf: nameSection() --><!-- ngIf: !noName && hostInfo.CurrentState==3 && hostInfo.GCount>0 --><!-- ngIf: giftPage && hostInfo.HostId>0 --></div>
+  fabiannadivanovic</td>
+  <td class=xl65 width=89 style='border-left:none;width:67pt;background-color:
+  rgba(0, 0, 0, 0)'>Approved</td>
+  <td class=xl65 width=89 style='border-left:none;width:67pt;background-color:
+  rgba(0, 0, 0, 0)'>Sep 22, 2020</td>
+  <td class=xl65 width=88 style='border-left:none;width:66pt;background-color:
+  rgba(0, 0, 0, 0)'>Trans</td>
+  <td class=xl65 width=78 style='border-left:none;width:59pt;background-color:
+  rgba(0, 0, 0, 0)'>Nov 08, 2020</td>
+  <td class=xl65 width=74 style='border-left:none;width:56pt;background-color:
+  rgba(0, 0, 0, 0)'>Nov 07, 2020</td>
+  <td class=xl65 width=99 style='border-left:none;width:74pt;background-color:
+  rgba(0, 0, 0, 0)'>-$5.32</td>
+  <td class=xl65 width=87 style='border-left:none;width:65pt;background-color:
+  rgba(0, 0, 0, 0)'>$110.54</td>
+  <td class=xl65 width=87 style='border-left:none;width:65pt;background-color:
+  rgba(0, 0, 0, 0)'>$2.59</td>
+  <td class=xl65 width=94 style='border-left:none;width:71pt;background-color:
+  rgba(0, 0, 0, 0)'>Offline</td>
+  <td class=xl73 width=137 style='border-top:none;width:103pt;background-color:
+  rgba(0, 0, 0, 0)'>fabiannadivanovic_</td>
+ </tr>
+<!-- end ngRepeat: host in $data track by host.HostId -->
+ <tr height=39 style='mso-height-source:userset;height:29.25pt'
+  ng-repeat="host in $data track by host.HostId">
+  <td height=39 class=xl66 width=62 style='height:29.25pt;border-top:none;
+  width:47pt'><span name=index>2</span></td>
+  <td class=xl66 width=70 style='border-top:none;border-left:none;width:53pt'>&nbsp;</td>
+  <td class=xl66 width=130 style='border-top:none;border-left:none;width:98pt'>
+  <div ng-class="{'hidden': hideIcons || hideLastSeen()}"></div>
+  <div ng-class="{'hidden': hideIcons &amp;&amp; !showEarnings}"></div>
+  <div ng-class="{'hidden': hideIcons || (!isDashboard &amp;&amp; !isSearch)}"></div>
+<!-- ngIf: masteraffiliateId>0 --></div>
+<!-- ngIf: nameSection() --><!-- end ngIf: nameSection() --><!-- ngIf: !noName && hostInfo.CurrentState==3 && hostInfo.GCount>0 --><!-- ngIf: giftPage && hostInfo.HostId>0 --></div>
+  sussanasteele</td>
+  <td class=xl66 width=89 style='border-top:none;border-left:none;width:67pt'>Approved</td>
+  <td class=xl66 width=89 style='border-top:none;border-left:none;width:67pt'>Oct
+  13, 2020</td>
+  <td class=xl66 width=88 style='border-top:none;border-left:none;width:66pt'>Girl
+  Alone</td>
+  <td class=xl66 width=78 style='border-top:none;border-left:none;width:59pt'>Nov
+  07, 2020</td>
+  <td class=xl66 width=74 style='border-top:none;border-left:none;width:56pt'>Nov
+  06, 2020</td>
+  <td class=xl66 width=99 style='border-top:none;border-left:none;width:74pt'>$15.83</td>
+  <td class=xl66 width=87 style='border-top:none;border-left:none;width:65pt'>$74.37</td>
+  <td class=xl66 width=87 style='border-top:none;border-left:none;width:65pt'>$1.84</td>
+  <td class=xl66 width=94 style='border-top:none;border-left:none;width:71pt'>Offline</td>
+  <td class=xl74 width=137 style='border-top:none;width:103pt'>sussanasteele907</td>
+ </tr>
+<!-- end ngRepeat: host in $data track by host.HostId -->
+ <tr height=39 style='mso-height-source:userset;height:29.25pt'
+  ng-repeat="host in $data track by host.HostId">
+  <td height=39 class=xl65 width=62 style='height:29.25pt;border-top:none;
+  width:47pt;background-color:rgba(0, 0, 0, 0)'><span name=index>3</span></td>
+  <td class=xl65 width=70 style='border-top:none;border-left:none;width:53pt'>&nbsp;</td>
+  <td class=xl65 width=130 style='border-top:none;border-left:none;width:98pt'>
+  <div ng-class="{'hidden': hideIcons || hideLastSeen()}"></div>
+  <div ng-class="{'hidden': hideIcons &amp;&amp; !showEarnings}"></div>
+  <div ng-class="{'hidden': hideIcons || (!isDashboard &amp;&amp; !isSearch)}"></div>
+<!-- ngIf: masteraffiliateId>0 --></div>
+<!-- ngIf: nameSection() --><!-- end ngIf: nameSection() --><!-- ngIf: !noName && hostInfo.CurrentState==3 && hostInfo.GCount>0 --><!-- ngIf: giftPage && hostInfo.HostId>0 --></div>
+  moanacute</td>
+  <td class=xl65 width=89 style='border-top:none;border-left:none;width:67pt;
+  background-color:rgba(0, 0, 0, 0)'>Approved</td>
+  <td class=xl65 width=89 style='border-top:none;border-left:none;width:67pt;
+  background-color:rgba(0, 0, 0, 0)'>Jul 01, 2020</td>
+  <td class=xl65 width=88 style='border-top:none;border-left:none;width:66pt;
+  background-color:rgba(0, 0, 0, 0)'>Fetish &amp; BDSM</td>
+  <td class=xl65 width=78 style='border-top:none;border-left:none;width:59pt;
+  background-color:rgba(0, 0, 0, 0)'>Nov 07, 2020</td>
+  <td class=xl65 width=74 style='border-top:none;border-left:none;width:56pt;
+  background-color:rgba(0, 0, 0, 0)'>Nov 07, 2020</td>
+  <td class=xl65 width=99 style='border-top:none;border-left:none;width:74pt;
+  background-color:rgba(0, 0, 0, 0)'>$58.40</td>
+  <td class=xl65 width=87 style='border-top:none;border-left:none;width:65pt;
+  background-color:rgba(0, 0, 0, 0)'>$72.43</td>
+  <td class=xl65 width=87 style='border-top:none;border-left:none;width:65pt;
+  background-color:rgba(0, 0, 0, 0)'>$1.88</td>
+  <td class=xl65 width=94 style='border-top:none;border-left:none;width:71pt;
+  background-color:rgba(0, 0, 0, 0)'>Offline</td>
+  <td class=xl73 width=137 style='border-top:none;width:103pt;background-color:
+  rgba(0, 0, 0, 0)'>moana_cute</td>
+ </tr>
+<!-- end ngRepeat: host in $data track by host.HostId -->
+ <tr height=39 style='mso-height-source:userset;height:29.25pt'
+  ng-repeat="host in $data track by host.HostId">
+  <td height=39 class=xl66 width=62 style='height:29.25pt;border-top:none;
+  width:47pt'><span name=index>4</span></td>
+  <td class=xl66 width=70 style='border-top:none;border-left:none;width:53pt'>&nbsp;</td>
+  <td class=xl66 width=130 style='border-top:none;border-left:none;width:98pt'>
+  <div ng-class="{'hidden': hideIcons || hideLastSeen()}"></div>
+  <div ng-class="{'hidden': hideIcons &amp;&amp; !showEarnings}"></div>
+  <div ng-class="{'hidden': hideIcons || (!isDashboard &amp;&amp; !isSearch)}"></div>
+<!-- ngIf: masteraffiliateId>0 --></div>
+<!-- ngIf: nameSection() --><!-- end ngIf: nameSection() --><!-- ngIf: !noName && hostInfo.CurrentState==3 && hostInfo.GCount>0 --><!-- ngIf: giftPage && hostInfo.HostId>0 --></div>
+  johannroy</td>
+  <td class=xl66 width=89 style='border-top:none;border-left:none;width:67pt'>Approved</td>
+  <td class=xl66 width=89 style='border-top:none;border-left:none;width:67pt'>Jun
+  30, 2020</td>
+  <td class=xl66 width=88 style='border-top:none;border-left:none;width:66pt'>Guy
+  Alone (Gay)</td>
+  <td class=xl66 width=78 style='border-top:none;border-left:none;width:59pt'>Nov
+  07, 2020</td>
+  <td class=xl66 width=74 style='border-top:none;border-left:none;width:56pt'>Nov
+  07, 2020</td>
+  <td class=xl66 width=99 style='border-top:none;border-left:none;width:74pt'>$48.91</td>
+  <td class=xl66 width=87 style='border-top:none;border-left:none;width:65pt'>$67.10</td>
+  <td class=xl66 width=87 style='border-top:none;border-left:none;width:65pt'>$2.08</td>
+  <td class=xl66 width=94 style='border-top:none;border-left:none;width:71pt'>Offline</td>
+  <td class=xl74 width=137 style='border-top:none;width:103pt'>johan_roy</td>
+ </tr>
+<!-- end ngRepeat: host in $data track by host.HostId -->
+ <tr height=39 style='mso-height-source:userset;height:29.25pt'
+  ng-repeat="host in $data track by host.HostId">
+  <td height=39 class=xl65 width=62 style='height:29.25pt;border-top:none;
+  width:47pt;background-color:rgba(0, 0, 0, 0)'><span name=index>5</span></td>
+  <td class=xl65 width=70 style='border-top:none;border-left:none;width:53pt'>&nbsp;</td>
+  <td class=xl65 width=130 style='border-top:none;border-left:none;width:98pt'>
+  <div ng-class="{'hidden': hideIcons || hideLastSeen()}"></div>
+  <div ng-class="{'hidden': hideIcons &amp;&amp; !showEarnings}"></div>
+  <div ng-class="{'hidden': hideIcons || (!isDashboard &amp;&amp; !isSearch)}"></div>
+<!-- ngIf: masteraffiliateId>0 --></div>
+<!-- ngIf: nameSection() --><!-- end ngIf: nameSection() --><!-- ngIf: !noName && hostInfo.CurrentState==3 && hostInfo.GCount>0 --><!-- ngIf: giftPage && hostInfo.HostId>0 --></div>
+  miaburningg</td>
+  <td class=xl65 width=89 style='border-top:none;border-left:none;width:67pt;
+  background-color:rgba(0, 0, 0, 0)'>Approved</td>
+  <td class=xl65 width=89 style='border-top:none;border-left:none;width:67pt;
+  background-color:rgba(0, 0, 0, 0)'>Oct 21, 2020</td>
+  <td class=xl65 width=88 style='border-top:none;border-left:none;width:66pt;
+  background-color:rgba(0, 0, 0, 0)'>Girl Alone</td>
+  <td class=xl65 width=78 style='border-top:none;border-left:none;width:59pt;
+  background-color:rgba(0, 0, 0, 0)'>Nov 08, 2020</td>
+  <td class=xl65 width=74 style='border-top:none;border-left:none;width:56pt;
+  background-color:rgba(0, 0, 0, 0)'>Nov 07, 2020</td>
+  <td class=xl65 width=99 style='border-top:none;border-left:none;width:74pt;
+  background-color:rgba(0, 0, 0, 0)'>$2.58</td>
+  <td class=xl65 width=87 style='border-top:none;border-left:none;width:65pt;
+  background-color:rgba(0, 0, 0, 0)'>$31.71</td>
+  <td class=xl65 width=87 style='border-top:none;border-left:none;width:65pt;
+  background-color:rgba(0, 0, 0, 0)'>$0.78</td>
+  <td class=xl65 width=94 style='border-top:none;border-left:none;width:71pt;
+  background-color:rgba(0, 0, 0, 0)'>Offline</td>
+  <td class=xl73 width=137 style='border-top:none;width:103pt;background-color:
+  rgba(0, 0, 0, 0)'>miaburningg704</td>
+ </tr>
+<!-- end ngRepeat: host in $data track by host.HostId -->
+ <tr height=39 style='mso-height-source:userset;height:29.25pt'
+  ng-repeat="host in $data track by host.HostId">
+  <td height=39 class=xl66 width=62 style='height:29.25pt;border-top:none;
+  width:47pt'><span name=index>6</span></td>
+  <td class=xl66 width=70 style='border-top:none;border-left:none;width:53pt'>&nbsp;</td>
+  <td class=xl66 width=130 style='border-top:none;border-left:none;width:98pt'>
+  <div ng-class="{'hidden': hideIcons || hideLastSeen()}"></div>
+  <div ng-class="{'hidden': hideIcons &amp;&amp; !showEarnings}"></div>
+  <div ng-class="{'hidden': hideIcons || (!isDashboard &amp;&amp; !isSearch)}"></div>
+<!-- ngIf: masteraffiliateId>0 --></div>
+<!-- ngIf: nameSection() --><!-- end ngIf: nameSection() --><!-- ngIf: !noName && hostInfo.CurrentState==3 && hostInfo.GCount>0 --><!-- ngIf: giftPage && hostInfo.HostId>0 --></div>
+  dyllanwhite</td>
+  <td class=xl66 width=89 style='border-top:none;border-left:none;width:67pt'>Approved</td>
+  <td class=xl66 width=89 style='border-top:none;border-left:none;width:67pt'>Oct
+  16, 2020</td>
+  <td class=xl66 width=88 style='border-top:none;border-left:none;width:66pt'>Guy
+  Alone (Gay)</td>
+  <td class=xl66 width=78 style='border-top:none;border-left:none;width:59pt'>Nov
+  06, 2020</td>
+  <td class=xl66 width=74 style='border-top:none;border-left:none;width:56pt'>Nov
+  06, 2020</td>
+  <td class=xl66 width=99 style='border-top:none;border-left:none;width:74pt'>$3.30</td>
+  <td class=xl66 width=87 style='border-top:none;border-left:none;width:65pt'>$29.50</td>
+  <td class=xl66 width=87 style='border-top:none;border-left:none;width:65pt'>$2.25</td>
+  <td class=xl66 width=94 style='border-top:none;border-left:none;width:71pt'>Offline</td>
+  <td class=xl74 width=137 style='border-top:none;width:103pt'>dyllanwhite920</td>
+ </tr>
+<!-- end ngRepeat: host in $data track by host.HostId -->
+ <tr height=39 style='mso-height-source:userset;height:29.25pt'
+  ng-repeat="host in $data track by host.HostId">
+  <td height=39 class=xl65 width=62 style='height:29.25pt;border-top:none;
+  width:47pt;background-color:rgba(0, 0, 0, 0)'><span name=index>7</span></td>
+  <td class=xl65 width=70 style='border-top:none;border-left:none;width:53pt'>&nbsp;</td>
+  <td class=xl65 width=130 style='border-top:none;border-left:none;width:98pt'>
+  <div ng-class="{'hidden': hideIcons || hideLastSeen()}"></div>
+  <div ng-class="{'hidden': hideIcons &amp;&amp; !showEarnings}"></div>
+  <div ng-class="{'hidden': hideIcons || (!isDashboard &amp;&amp; !isSearch)}"></div>
+<!-- ngIf: masteraffiliateId>0 --></div>
+<!-- ngIf: nameSection() --><!-- end ngIf: nameSection() --><!-- ngIf: !noName && hostInfo.CurrentState==3 && hostInfo.GCount>0 --><!-- ngIf: giftPage && hostInfo.HostId>0 --></div>
+  nadeshda</td>
+  <td class=xl65 width=89 style='border-top:none;border-left:none;width:67pt;
+  background-color:rgba(0, 0, 0, 0)'>Approved</td>
+  <td class=xl65 width=89 style='border-top:none;border-left:none;width:67pt;
+  background-color:rgba(0, 0, 0, 0)'>Jun 08, 2020</td>
+  <td class=xl65 width=88 style='border-top:none;border-left:none;width:66pt;
+  background-color:rgba(0, 0, 0, 0)'>Girl Alone</td>
+  <td class=xl65 width=78 style='border-top:none;border-left:none;width:59pt;
+  background-color:rgba(0, 0, 0, 0)'>Nov 09, 2020</td>
+  <td class=xl65 width=74 style='border-top:none;border-left:none;width:56pt;
+  background-color:rgba(0, 0, 0, 0)'>Nov 03, 2020</td>
+  <td class=xl67 width=99 style='border-top:none;border-left:none;width:74pt;
+  background-color:rgba(0, 0, 0, 0)'>$ 0</td>
+  <td class=xl65 width=87 style='border-top:none;border-left:none;width:65pt;
+  background-color:rgba(0, 0, 0, 0)'>$12.91</td>
+  <td class=xl65 width=87 style='border-top:none;border-left:none;width:65pt;
+  background-color:rgba(0, 0, 0, 0)'>$0.36</td>
+  <td class=xl65 width=94 style='border-top:none;border-left:none;width:71pt;
+  background-color:rgba(0, 0, 0, 0)'>Online</td>
+  <td class=xl73 width=137 style='border-top:none;width:103pt;background-color:
+  rgba(0, 0, 0, 0)'>nadeshda603</td>
+ </tr>
+<!-- end ngRepeat: host in $data track by host.HostId -->
+ <tr height=39 style='mso-height-source:userset;height:29.25pt'
+  ng-repeat="host in $data track by host.HostId">
+  <td height=39 class=xl66 width=62 style='height:29.25pt;border-top:none;
+  width:47pt'><span name=index>8</span></td>
+  <td class=xl66 width=70 style='border-top:none;border-left:none;width:53pt'>&nbsp;</td>
+  <td class=xl66 width=130 style='border-top:none;border-left:none;width:98pt'>
+  <div ng-class="{'hidden': hideIcons || hideLastSeen()}"></div>
+  <div ng-class="{'hidden': hideIcons &amp;&amp; !showEarnings}"></div>
+  <div ng-class="{'hidden': hideIcons || (!isDashboard &amp;&amp; !isSearch)}"></div>
+<!-- ngIf: masteraffiliateId>0 --></div>
+<!-- ngIf: nameSection() --><!-- end ngIf: nameSection() --><!-- ngIf: !noName && hostInfo.CurrentState==3 && hostInfo.GCount>0 --><!-- ngIf: giftPage && hostInfo.HostId>0 --></div>
+  Evamaturex</td>
+  <td class=xl66 width=89 style='border-top:none;border-left:none;width:67pt'>Approved</td>
+  <td class=xl66 width=89 style='border-top:none;border-left:none;width:67pt'>Jun
+  11, 2020</td>
+  <td class=xl66 width=88 style='border-top:none;border-left:none;width:66pt'>Girl
+  Alone</td>
+  <td class=xl66 width=78 style='border-top:none;border-left:none;width:59pt'>Nov
+  07, 2020</td>
+  <td class=xl66 width=74 style='border-top:none;border-left:none;width:56pt'>Nov
+  07, 2020</td>
+  <td class=xl66 width=99 style='border-top:none;border-left:none;width:74pt'>$6.36</td>
+  <td class=xl66 width=87 style='border-top:none;border-left:none;width:65pt'>$8.81</td>
+  <td class=xl66 width=87 style='border-top:none;border-left:none;width:65pt'>$0.25</td>
+  <td class=xl66 width=94 style='border-top:none;border-left:none;width:71pt'>Offline</td>
+  <td class=xl74 width=137 style='border-top:none;width:103pt'>Eva_maturex</td>
+ </tr>
+<!-- end ngRepeat: host in $data track by host.HostId -->
+ <tr height=39 style='mso-height-source:userset;height:29.25pt'
+  ng-repeat="host in $data track by host.HostId">
+  <td height=39 class=xl65 width=62 style='height:29.25pt;border-top:none;
+  width:47pt;background-color:rgba(0, 0, 0, 0)'><span name=index>9</span></td>
+  <td class=xl65 width=70 style='border-top:none;border-left:none;width:53pt'>&nbsp;</td>
+  <td class=xl65 width=130 style='border-top:none;border-left:none;width:98pt'>
+  <div ng-class="{'hidden': hideIcons || hideLastSeen()}"></div>
+  <div ng-class="{'hidden': hideIcons &amp;&amp; !showEarnings}"></div>
+  <div ng-class="{'hidden': hideIcons || (!isDashboard &amp;&amp; !isSearch)}"></div>
+<!-- ngIf: masteraffiliateId>0 --></div>
+<!-- ngIf: nameSection() --><!-- end ngIf: nameSection() --><!-- ngIf: !noName && hostInfo.CurrentState==3 && hostInfo.GCount>0 --><!-- ngIf: giftPage && hostInfo.HostId>0 --></div>
+  Nairobimartell</td>
+  <td class=xl65 width=89 style='border-top:none;border-left:none;width:67pt;
+  background-color:rgba(0, 0, 0, 0)'>Approved</td>
+  <td class=xl65 width=89 style='border-top:none;border-left:none;width:67pt;
+  background-color:rgba(0, 0, 0, 0)'>Oct 03, 2020</td>
+  <td class=xl65 width=88 style='border-top:none;border-left:none;width:66pt;
+  background-color:rgba(0, 0, 0, 0)'>Girl Alone</td>
+  <td class=xl65 width=78 style='border-top:none;border-left:none;width:59pt;
+  background-color:rgba(0, 0, 0, 0)'>Nov 07, 2020</td>
+  <td class=xl65 width=74 style='border-top:none;border-left:none;width:56pt;
+  background-color:rgba(0, 0, 0, 0)'>Nov 07, 2020</td>
+  <td class=xl67 width=99 style='border-top:none;border-left:none;width:74pt;
+  background-color:rgba(0, 0, 0, 0)'>$ 0</td>
+  <td class=xl65 width=87 style='border-top:none;border-left:none;width:65pt;
+  background-color:rgba(0, 0, 0, 0)'>$2.04</td>
+  <td class=xl65 width=87 style='border-top:none;border-left:none;width:65pt;
+  background-color:rgba(0, 0, 0, 0)'>$0.12</td>
+  <td class=xl65 width=94 style='border-top:none;border-left:none;width:71pt;
+  background-color:rgba(0, 0, 0, 0)'>Offline</td>
+  <td class=xl73 width=137 style='border-top:none;width:103pt;background-color:
+  rgba(0, 0, 0, 0)'>Nairobimartell_</td>
+ </tr>
+<!-- end ngRepeat: host in $data track by host.HostId -->
+ <tr height=39 style='mso-height-source:userset;height:29.25pt'
+  ng-repeat="host in $data track by host.HostId">
+  <td height=39 class=xl66 width=62 style='height:29.25pt;border-top:none;
+  width:47pt'><span name=index>10</span></td>
+  <td class=xl66 width=70 style='border-top:none;border-left:none;width:53pt'>&nbsp;</td>
+  <td class=xl66 width=130 style='border-top:none;border-left:none;width:98pt'>
+  <div ng-class="{'hidden': hideIcons || hideLastSeen()}"></div>
+  <div ng-class="{'hidden': hideIcons &amp;&amp; !showEarnings}"></div>
+  <div ng-class="{'hidden': hideIcons || (!isDashboard &amp;&amp; !isSearch)}"></div>
+<!-- ngIf: masteraffiliateId>0 --></div>
+<!-- ngIf: nameSection() --><!-- end ngIf: nameSection() --><!-- ngIf: !noName && hostInfo.CurrentState==3 && hostInfo.GCount>0 --><!-- ngIf: giftPage && hostInfo.HostId>0 --></div>
+  valeria420</td>
+  <td class=xl66 width=89 style='border-top:none;border-left:none;width:67pt'>Approved</td>
+  <td class=xl66 width=89 style='border-top:none;border-left:none;width:67pt'>Oct
+  07, 2020</td>
+  <td class=xl66 width=88 style='border-top:none;border-left:none;width:66pt'>Girl
+  Alone</td>
+  <td class=xl66 width=78 style='border-top:none;border-left:none;width:59pt'>Nov
+  09, 2020</td>
+  <td class=xl66 width=74 style='border-top:none;border-left:none;width:56pt'>Nov
+  09, 2020</td>
+  <td class=xl68 width=99 style='border-top:none;border-left:none;width:74pt'>$
+  0</td>
+  <td class=xl66 width=87 style='border-top:none;border-left:none;width:65pt'>$1.45</td>
+  <td class=xl66 width=87 style='border-top:none;border-left:none;width:65pt'>$0.03</td>
+  <td class=xl66 width=94 style='border-top:none;border-left:none;width:71pt'>Online</td>
+  <td class=xl74 width=137 style='border-top:none;width:103pt'>valeria420_</td>
+ </tr>
+<!-- end ngRepeat: host in $data track by host.HostId -->
+ <tr height=39 style='mso-height-source:userset;height:29.25pt'
+  ng-repeat="host in $data track by host.HostId">
+  <td height=39 class=xl65 width=62 style='height:29.25pt;border-top:none;
+  width:47pt;background-color:rgba(0, 0, 0, 0)'><span name=index>11</span></td>
+  <td class=xl65 width=70 style='border-top:none;border-left:none;width:53pt'>&nbsp;</td>
+  <td class=xl65 width=130 style='border-top:none;border-left:none;width:98pt'>
+  <div ng-class="{'hidden': hideIcons || hideLastSeen()}"></div>
+  <div ng-class="{'hidden': hideIcons &amp;&amp; !showEarnings}"></div>
+  <div ng-class="{'hidden': hideIcons || (!isDashboard &amp;&amp; !isSearch)}"></div>
+<!-- ngIf: masteraffiliateId>0 --></div>
+<!-- ngIf: nameSection() --><!-- end ngIf: nameSection() --><!-- ngIf: !noName && hostInfo.CurrentState==3 && hostInfo.GCount>0 --><!-- ngIf: giftPage && hostInfo.HostId>0 --></div>
+  stefaniagarcia</td>
+  <td class=xl65 width=89 style='border-top:none;border-left:none;width:67pt;
+  background-color:rgba(0, 0, 0, 0)'>Approved</td>
+  <td class=xl65 width=89 style='border-top:none;border-left:none;width:67pt;
+  background-color:rgba(0, 0, 0, 0)'>Oct 16, 2020</td>
+  <td class=xl65 width=88 style='border-top:none;border-left:none;width:66pt;
+  background-color:rgba(0, 0, 0, 0)'>Girl Alone</td>
+  <td class=xl65 width=78 style='border-top:none;border-left:none;width:59pt;
+  background-color:rgba(0, 0, 0, 0)'>Nov 07, 2020</td>
+  <td class=xl65 width=74 style='border-top:none;border-left:none;width:56pt;
+  background-color:rgba(0, 0, 0, 0)'>Nov 07, 2020</td>
+  <td class=xl67 width=99 style='border-top:none;border-left:none;width:74pt;
+  background-color:rgba(0, 0, 0, 0)'>$ 0</td>
+  <td class=xl65 width=87 style='border-top:none;border-left:none;width:65pt;
+  background-color:rgba(0, 0, 0, 0)'>$0.92</td>
+  <td class=xl65 width=87 style='border-top:none;border-left:none;width:65pt;
+  background-color:rgba(0, 0, 0, 0)'>$0.08</td>
+  <td class=xl65 width=94 style='border-top:none;border-left:none;width:71pt;
+  background-color:rgba(0, 0, 0, 0)'>Offline</td>
+  <td class=xl73 width=137 style='border-top:none;width:103pt;background-color:
+  rgba(0, 0, 0, 0)'>StefaniaGarcia</td>
+ </tr>
+<!-- end ngRepeat: host in $data track by host.HostId -->
+ <tr height=39 style='mso-height-source:userset;height:29.25pt'
+  ng-repeat="host in $data track by host.HostId">
+  <td height=39 class=xl66 width=62 style='height:29.25pt;border-top:none;
+  width:47pt'><span name=index>12</span></td>
+  <td class=xl66 width=70 style='border-top:none;border-left:none;width:53pt'>&nbsp;</td>
+  <td class=xl66 width=130 style='border-top:none;border-left:none;width:98pt'>
+  <div ng-class="{'hidden': hideIcons || hideLastSeen()}"></div>
+  <div ng-class="{'hidden': hideIcons &amp;&amp; !showEarnings}"></div>
+  <div ng-class="{'hidden': hideIcons || (!isDashboard &amp;&amp; !isSearch)}"></div>
+<!-- ngIf: masteraffiliateId>0 --></div>
+<!-- ngIf: nameSection() --><!-- end ngIf: nameSection() --><!-- ngIf: !noName && hostInfo.CurrentState==3 && hostInfo.GCount>0 --><!-- ngIf: giftPage && hostInfo.HostId>0 --></div>
+  jacobbigass</td>
+  <td class=xl66 width=89 style='border-top:none;border-left:none;width:67pt'>Approved</td>
+  <td class=xl66 width=89 style='border-top:none;border-left:none;width:67pt'>Oct
+  27, 2020</td>
+  <td class=xl66 width=88 style='border-top:none;border-left:none;width:66pt'>Guy
+  Alone (Gay)</td>
+  <td class=xl66 width=78 style='border-top:none;border-left:none;width:59pt'>Nov
+  09, 2020</td>
+  <td class=xl66 width=74 style='border-top:none;border-left:none;width:56pt'>Nov
+  09, 2020</td>
+  <td class=xl68 width=99 style='border-top:none;border-left:none;width:74pt'>$
+  0</td>
+  <td class=xl66 width=87 style='border-top:none;border-left:none;width:65pt'>$0.86</td>
+  <td class=xl66 width=87 style='border-top:none;border-left:none;width:65pt'>$0.11</td>
+  <td class=xl66 width=94 style='border-top:none;border-left:none;width:71pt'>Online</td>
+  <td class=xl74 width=137 style='border-top:none;width:103pt'>jacobbigass981</td>
+ </tr>
+<!-- end ngRepeat: host in $data track by host.HostId -->
+ <tr height=39 style='mso-height-source:userset;height:29.25pt'
+  ng-repeat="host in $data track by host.HostId">
+  <td height=39 class=xl65 width=62 style='height:29.25pt;border-top:none;
+  width:47pt;background-color:rgba(0, 0, 0, 0)'><span name=index>13</span></td>
+  <td class=xl65 width=70 style='border-top:none;border-left:none;width:53pt'>&nbsp;</td>
+  <td class=xl65 width=130 style='border-top:none;border-left:none;width:98pt'>
+  <div ng-class="{'hidden': hideIcons || hideLastSeen()}"></div>
+  <div ng-class="{'hidden': hideIcons &amp;&amp; !showEarnings}"></div>
+  <div ng-class="{'hidden': hideIcons || (!isDashboard &amp;&amp; !isSearch)}"></div>
+<!-- ngIf: masteraffiliateId>0 --></div>
+<!-- ngIf: nameSection() --><!-- end ngIf: nameSection() --><!-- ngIf: !noName && hostInfo.CurrentState==3 && hostInfo.GCount>0 --><!-- ngIf: giftPage && hostInfo.HostId>0 --></div>
+  EddieJacksonn</td>
+  <td class=xl65 width=89 style='border-top:none;border-left:none;width:67pt;
+  background-color:rgba(0, 0, 0, 0)'>Approved</td>
+  <td class=xl65 width=89 style='border-top:none;border-left:none;width:67pt;
+  background-color:rgba(0, 0, 0, 0)'>Nov 04, 2020</td>
+  <td class=xl65 width=88 style='border-top:none;border-left:none;width:66pt;
+  background-color:rgba(0, 0, 0, 0)'>Guy Alone (Straight)</td>
+  <td class=xl65 width=78 style='border-top:none;border-left:none;width:59pt;
+  background-color:rgba(0, 0, 0, 0)'>Nov 06, 2020</td>
+  <td class=xl65 width=74 style='border-top:none;border-left:none;width:56pt;
+  background-color:rgba(0, 0, 0, 0)'>Nov 06, 2020</td>
+  <td class=xl67 width=99 style='border-top:none;border-left:none;width:74pt;
+  background-color:rgba(0, 0, 0, 0)'>$ 0</td>
+  <td class=xl65 width=87 style='border-top:none;border-left:none;width:65pt;
+  background-color:rgba(0, 0, 0, 0)'>$0.58</td>
+  <td class=xl65 width=87 style='border-top:none;border-left:none;width:65pt;
+  background-color:rgba(0, 0, 0, 0)'>$0.06</td>
+  <td class=xl65 width=94 style='border-top:none;border-left:none;width:71pt;
+  background-color:rgba(0, 0, 0, 0)'>Offline</td>
+  <td class=xl73 width=137 style='border-top:none;width:103pt;background-color:
+  rgba(0, 0, 0, 0)'>EddieJacksonn237</td>
+ </tr>
+<!-- end ngRepeat: host in $data track by host.HostId -->
+ <tr height=39 style='mso-height-source:userset;height:29.25pt'
+  ng-repeat="host in $data track by host.HostId">
+  <td height=39 class=xl66 width=62 style='height:29.25pt;border-top:none;
+  width:47pt'><span name=index>14</span></td>
+  <td class=xl66 width=70 style='border-top:none;border-left:none;width:53pt'>&nbsp;</td>
+  <td class=xl66 width=130 style='border-top:none;border-left:none;width:98pt'>
+  <div ng-class="{'hidden': hideIcons || hideLastSeen()}"></div>
+  <div ng-class="{'hidden': hideIcons &amp;&amp; !showEarnings}"></div>
+  <div ng-class="{'hidden': hideIcons || (!isDashboard &amp;&amp; !isSearch)}"></div>
+<!-- ngIf: masteraffiliateId>0 --></div>
+<!-- ngIf: nameSection() --><!-- end ngIf: nameSection() --><!-- ngIf: !noName && hostInfo.CurrentState==3 && hostInfo.GCount>0 --><!-- ngIf: giftPage && hostInfo.HostId>0 --></div>
+  salomepolanie</td>
+  <td class=xl66 width=89 style='border-top:none;border-left:none;width:67pt'>Approved</td>
+  <td class=xl66 width=89 style='border-top:none;border-left:none;width:67pt'>Oct
+  13, 2020</td>
+  <td class=xl66 width=88 style='border-top:none;border-left:none;width:66pt'>Girl
+  Alone</td>
+  <td class=xl66 width=78 style='border-top:none;border-left:none;width:59pt'>Nov
+  08, 2020</td>
+  <td class=xl66 width=74 style='border-top:none;border-left:none;width:56pt'>Nov
+  07, 2020</td>
+  <td class=xl68 width=99 style='border-top:none;border-left:none;width:74pt'>$
+  0</td>
+  <td class=xl66 width=87 style='border-top:none;border-left:none;width:65pt'>$0.24</td>
+  <td class=xl66 width=87 style='border-top:none;border-left:none;width:65pt'>$0.01</td>
+  <td class=xl66 width=94 style='border-top:none;border-left:none;width:71pt'>Offline</td>
+  <td class=xl74 width=137 style='border-top:none;width:103pt'>salomepolanie738</td>
+ </tr>
+<!-- end ngRepeat: host in $data track by host.HostId -->
+ <tr height=39 style='mso-height-source:userset;height:29.25pt'
+  ng-repeat="host in $data track by host.HostId">
+  <td height=39 class=xl65 width=62 style='height:29.25pt;border-top:none;
+  width:47pt;background-color:rgba(0, 0, 0, 0)'><span name=index>15</span></td>
+  <td class=xl65 width=70 style='border-top:none;border-left:none;width:53pt'>&nbsp;</td>
+  <td class=xl65 width=130 style='border-top:none;border-left:none;width:98pt'>
+  <div ng-class="{'hidden': hideIcons || hideLastSeen()}"></div>
+  <div ng-class="{'hidden': hideIcons &amp;&amp; !showEarnings}"></div>
+  <div ng-class="{'hidden': hideIcons || (!isDashboard &amp;&amp; !isSearch)}"></div>
+<!-- ngIf: masteraffiliateId>0 --></div>
+<!-- ngIf: nameSection() --><!-- end ngIf: nameSection() --><!-- ngIf: !noName && hostInfo.CurrentState==3 && hostInfo.GCount>0 --><!-- ngIf: giftPage && hostInfo.HostId>0 --></div>
+  Dashapurple</td>
+  <td class=xl65 width=89 style='border-top:none;border-left:none;width:67pt;
+  background-color:rgba(0, 0, 0, 0)'>Approved</td>
+  <td class=xl65 width=89 style='border-top:none;border-left:none;width:67pt;
+  background-color:rgba(0, 0, 0, 0)'>Jun 08, 2020</td>
+  <td class=xl65 width=88 style='border-top:none;border-left:none;width:66pt;
+  background-color:rgba(0, 0, 0, 0)'>Girl Alone</td>
+  <td class=xl65 width=78 style='border-top:none;border-left:none;width:59pt;
+  background-color:rgba(0, 0, 0, 0)'>Nov 04, 2020</td>
+  <td class=xl65 width=74 style='border-top:none;border-left:none;width:56pt;
+  background-color:rgba(0, 0, 0, 0)'>Nov 04, 2020</td>
+  <td class=xl67 width=99 style='border-top:none;border-left:none;width:74pt;
+  background-color:rgba(0, 0, 0, 0)'>$ 0</td>
+  <td class=xl67 width=87 style='border-top:none;border-left:none;width:65pt;
+  background-color:rgba(0, 0, 0, 0)'>$ 0</td>
+  <td class=xl67 width=87 style='border-top:none;border-left:none;width:65pt;
+  background-color:rgba(0, 0, 0, 0)'>$ 0</td>
+  <td class=xl65 width=94 style='border-top:none;border-left:none;width:71pt;
+  background-color:rgba(0, 0, 0, 0)'>Offline</td>
+  <td class=xl73 width=137 style='border-top:none;width:103pt;background-color:
+  rgba(0, 0, 0, 0)'>Dashapurple351</td>
+ </tr>
+<!-- end ngRepeat: host in $data track by host.HostId -->
+ <tr height=39 style='mso-height-source:userset;height:29.25pt'
+  ng-repeat="host in $data track by host.HostId">
+  <td height=39 class=xl66 width=62 style='height:29.25pt;border-top:none;
+  width:47pt'><span name=index>16</span></td>
+  <td class=xl66 width=70 style='border-top:none;border-left:none;width:53pt'>&nbsp;</td>
+  <td class=xl66 width=130 style='border-top:none;border-left:none;width:98pt'>
+  <div ng-class="{'hidden': hideIcons || hideLastSeen()}"></div>
+  <div ng-class="{'hidden': hideIcons &amp;&amp; !showEarnings}"></div>
+  <div ng-class="{'hidden': hideIcons || (!isDashboard &amp;&amp; !isSearch)}"></div>
+<!-- ngIf: masteraffiliateId>0 --></div>
+<!-- ngIf: nameSection() --><!-- end ngIf: nameSection() --><!-- ngIf: !noName && hostInfo.CurrentState==3 && hostInfo.GCount>0 --><!-- ngIf: giftPage && hostInfo.HostId>0 --></div>
+  alejareyes</td>
+  <td class=xl66 width=89 style='border-top:none;border-left:none;width:67pt'>Approved</td>
+  <td class=xl66 width=89 style='border-top:none;border-left:none;width:67pt'>Jun
+  27, 2020</td>
+  <td class=xl66 width=88 style='border-top:none;border-left:none;width:66pt'>Girl
+  Alone</td>
+  <td class=xl66 width=78 style='border-top:none;border-left:none;width:59pt'>Nov
+  05, 2020</td>
+  <td class=xl66 width=74 style='border-top:none;border-left:none;width:56pt'>Nov
+  05, 2020</td>
+  <td class=xl68 width=99 style='border-top:none;border-left:none;width:74pt'>$
+  0</td>
+  <td class=xl68 width=87 style='border-top:none;border-left:none;width:65pt'>$
+  0</td>
+  <td class=xl68 width=87 style='border-top:none;border-left:none;width:65pt'>$
+  0</td>
+  <td class=xl66 width=94 style='border-top:none;border-left:none;width:71pt'>Offline</td>
+  <td class=xl74 width=137 style='border-top:none;width:103pt'>alejareyes298</td>
+ </tr>
+<!-- end ngRepeat: host in $data track by host.HostId -->
+ <tr height=39 style='mso-height-source:userset;height:29.25pt'
+  ng-repeat="host in $data track by host.HostId">
+  <td height=39 class=xl65 width=62 style='height:29.25pt;border-top:none;
+  width:47pt;background-color:rgba(0, 0, 0, 0)'><span name=index>17</span></td>
+  <td class=xl65 width=70 style='border-top:none;border-left:none;width:53pt'>&nbsp;</td>
+  <td class=xl65 width=130 style='border-top:none;border-left:none;width:98pt'>
+  <div ng-class="{'hidden': hideIcons || hideLastSeen()}"></div>
+  <div ng-class="{'hidden': hideIcons &amp;&amp; !showEarnings}"></div>
+  <div ng-class="{'hidden': hideIcons || (!isDashboard &amp;&amp; !isSearch)}"></div>
+<!-- ngIf: masteraffiliateId>0 --></div>
+<!-- ngIf: nameSection() --><!-- end ngIf: nameSection() --><!-- ngIf: !noName && hostInfo.CurrentState==3 && hostInfo.GCount>0 --><!-- ngIf: giftPage && hostInfo.HostId>0 --></div>
+  AmyCalloway</td>
+  <td class=xl65 width=89 style='border-top:none;border-left:none;width:67pt;
+  background-color:rgba(0, 0, 0, 0)'>Approved</td>
+  <td class=xl65 width=89 style='border-top:none;border-left:none;width:67pt;
+  background-color:rgba(0, 0, 0, 0)'>Oct 03, 2020</td>
+  <td class=xl65 width=88 style='border-top:none;border-left:none;width:66pt;
+  background-color:rgba(0, 0, 0, 0)'>Girl Alone</td>
+  <td class=xl65 width=78 style='border-top:none;border-left:none;width:59pt;
+  background-color:rgba(0, 0, 0, 0)'>Nov 03, 2020</td>
+  <td class=xl65 width=74 style='border-top:none;border-left:none;width:56pt;
+  background-color:rgba(0, 0, 0, 0)'>Nov 03, 2020</td>
+  <td class=xl67 width=99 style='border-top:none;border-left:none;width:74pt;
+  background-color:rgba(0, 0, 0, 0)'>$ 0</td>
+  <td class=xl67 width=87 style='border-top:none;border-left:none;width:65pt;
+  background-color:rgba(0, 0, 0, 0)'>$ 0</td>
+  <td class=xl67 width=87 style='border-top:none;border-left:none;width:65pt;
+  background-color:rgba(0, 0, 0, 0)'>$ 0</td>
+  <td class=xl65 width=94 style='border-top:none;border-left:none;width:71pt;
+  background-color:rgba(0, 0, 0, 0)'>Offline</td>
+  <td class=xl73 width=137 style='border-top:none;width:103pt;background-color:
+  rgba(0, 0, 0, 0)'>AmyCalloway_</td>
+ </tr>
+<!-- end ngRepeat: host in $data track by host.HostId -->
+ <tr height=39 style='mso-height-source:userset;height:29.25pt'
+  ng-repeat="host in $data track by host.HostId">
+  <td height=39 class=xl66 width=62 style='height:29.25pt;border-top:none;
+  width:47pt'><span name=index>18</span></td>
+  <td class=xl66 width=70 style='border-top:none;border-left:none;width:53pt'>&nbsp;</td>
+  <td class=xl66 width=130 style='border-top:none;border-left:none;width:98pt'>
+  <div ng-class="{'hidden': hideIcons || hideLastSeen()}"></div>
+  <div ng-class="{'hidden': hideIcons &amp;&amp; !showEarnings}"></div>
+  <div ng-class="{'hidden': hideIcons || (!isDashboard &amp;&amp; !isSearch)}"></div>
+<!-- ngIf: masteraffiliateId>0 --></div>
+<!-- ngIf: nameSection() --><!-- end ngIf: nameSection() --><!-- ngIf: !noName && hostInfo.CurrentState==3 && hostInfo.GCount>0 --><!-- ngIf: giftPage && hostInfo.HostId>0 --></div>
+  jimena21</td>
+  <td class=xl66 width=89 style='border-top:none;border-left:none;width:67pt'>Approved</td>
+  <td class=xl66 width=89 style='border-top:none;border-left:none;width:67pt'>Nov
+  06, 2020</td>
+  <td class=xl66 width=88 style='border-top:none;border-left:none;width:66pt'>Girl
+  Alone</td>
+  <td class=xl66 width=78 style='border-top:none;border-left:none;width:59pt'>Nov
+  07, 2020</td>
+  <td class=xl66 width=74 style='border-top:none;border-left:none;width:56pt'>Nov
+  07, 2020</td>
+  <td class=xl68 width=99 style='border-top:none;border-left:none;width:74pt'>$
+  0</td>
+  <td class=xl68 width=87 style='border-top:none;border-left:none;width:65pt'>$
+  0</td>
+  <td class=xl68 width=87 style='border-top:none;border-left:none;width:65pt'>$
+  0</td>
+  <td class=xl66 width=94 style='border-top:none;border-left:none;width:71pt'>Offline</td>
+  <td class=xl75 width=137 style='border-top:none;width:103pt'>jimena_21</td>
+ </tr>
+ <![if supportMisalignedColumns]>
+ <tr height=0 style='display:none'>
+  <td width=62 style='width:47pt'></td>
+  <td width=70 style='width:53pt'></td>
+  <td width=130 style='width:98pt'></td>
+  <td width=89 style='width:67pt'></td>
+  <td width=89 style='width:67pt'></td>
+  <td width=88 style='width:66pt'></td>
+  <td width=78 style='width:59pt'></td>
+  <td width=74 style='width:56pt'></td>
+  <td width=99 style='width:74pt'></td>
+  <td width=87 style='width:65pt'></td>
+  <td width=87 style='width:65pt'></td>
+  <td width=94 style='width:71pt'></td>
+  <td width=137 style='width:103pt'></td>
+ </tr>
+ <![endif]><!-- end ngRepeat: host in $data track by host.HostId -->
+</table>
+
+</body>
+
+</html>
