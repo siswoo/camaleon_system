@@ -517,4 +517,18 @@ CREATE TABLE streamate (
 	responsable INT NOT NULL,
 	fecha_inicio DATE NOT NULL,
    	PRIMARY KEY (id)
-); ALTER TABLE streamate CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+); ALTER TABLE streamate CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci
+
+DROP TABLE IF EXISTS myfreecams;
+CREATE TABLE myfreecams (
+	id INT AUTO_INCREMENT,
+	id_modelo INT NOT NULL,
+	id_cuenta_modelo VARCHAR(250) NOT NULL,
+	tokens INT NOT NULL,
+	dolares FLOAT(11,2) NOT NULL,
+	fecha_desde DATE NOT NULL,
+	fecha_hasta DATE NOT NULL,
+	responsable INT NOT NULL,
+	fecha_inicio DATE NOT NULL,
+   	PRIMARY KEY (id)
+); ALTER TABLE myfreecams CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
