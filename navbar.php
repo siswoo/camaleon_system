@@ -109,6 +109,13 @@ while($row_verificacion = mysqli_fetch_array($verificacion_rol)) {
 	        	<a class="nav-link navbar-active-a" href="../pagos/index.php" id="a-pagos">Pagos</a>
 	      	</li>
 
+	      	<?php
+			if($_SESSION['rol']==1 or $_SESSION['rol']==7){ ?>
+	      	<li class="nav-item" id="li-erick">
+	        	<a class="nav-link navbar-active-a" href="../erick/index.php" id="a-erick">Erick</a>
+	      	</li>
+	      	<?php } ?>
+
 	    </ul>
 
 	    <ul class="nav navbar-nav flex-row justify-content-between ml-auto">

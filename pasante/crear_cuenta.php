@@ -138,6 +138,19 @@
 								<option value="Transexual">Transexual</option>
 							</select>
 					    </div>
+
+					    <div class="col-12 form-group form-check">
+						    <label for="genero">¿Cómo te has enterado de Camaleón? <small style="color:#F2B76F; font-size: 17px;">*</small></label>
+						    <select class="form-control" id="genero" name="genero" required>
+								<option value="">Seleccione</option>
+								<option value="Google">Google</option>
+								<option value="Facebook">Facebook</option>
+								<option value="Twitter">Twitter</option>
+								<option value="Instagram">Instagram</option>
+								<option value="Pagina Web">Pagina Web</option>
+								<option value="Conocido">Conocido</option>
+							</select>
+					    </div>
 				    </div>
 				    <!--
 				    <div class="row">

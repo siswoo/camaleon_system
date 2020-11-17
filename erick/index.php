@@ -49,38 +49,30 @@
 
 <?php
 	include('../script/conexion.php');
-	$ubicacion = "pagos";
+	$ubicacion = "erick";
 	include('../script/navbar_verificacion.php');
 	include('../navbar.php');
 ?>
-	<form id="formulario1" method="POST">
-		<input type="hidden" id="modelo_view" value="<?php echo $modelo_view; ?>">
-		<input type="hidden" id="modelo_edit" value="<?php echo $modelo_edit; ?>">
-		<input type="hidden" id="modelo_delete" value="<?php echo $modelo_delete; ?>">
-	</form>
-	<div class="row">
-		<div class="col-12 text-center mt-3 ml-3">
-			<a href="nuevo_pago.php" style="text-decoration: none;">
-				<input type="submit" class="btn btn-success" value="Nuevo Pago">
-			</a>
-			<input type="submit" class="btn btn-info" value="Descuentos" data-toggle="modal" data-target="#exampleModal3">
-			<button type="button" class="btn btn-info" value="No" id="graficos" onclick="mostrarSeccionGraficos1(this.id,value);">Gráficos</button>
-			<button type="button" class="btn btn-info" value="No" id="datos" onclick="mostrarSeccion1(this.id,value);">Datos</button>
-			<button type="button" class="btn btn-info" value="No" id="pendientes" onclick="mostrarSeccionPendientes1(this.id,value);">Pendientes</button>
-		</div>
-	</div>
 
-	<!--<div class="col-12 text-center" style="font-weight: bold; ">Resumen de Pagos Efectuados</div>-->
-
-	<div class="seccion1" id="seccion1" style="display: none;">
+	<div class="seccion1" id="seccion1">
 	    <div class="row">
-		    <button type="button" class="btn btn-info" value="No" id="Imlive" onclick="mostrarSeccion2(this.id,value);">Imlive</button>
-		    <button type="button" class="btn btn-info ml-3" value="No" id="XLove" onclick="mostrarSeccion2(this.id,value);">XLove</button>
-		    <button type="button" class="btn btn-info ml-3" value="No" id="chaturbate" onclick="mostrarSeccion2(this.id,value);">Chaturbate</button>
-		    <button type="button" class="btn btn-info ml-3" value="No" id="stripchat" onclick="mostrarSeccion2(this.id,value);">Stripchat</button>
-		    <button type="button" class="btn btn-info ml-3" value="No" id="streamate" onclick="mostrarSeccion2(this.id,value);">Streamate</button>
-		    <button type="button" class="btn btn-info ml-3" value="No" id="Myfreecams" onclick="mostrarSeccion2(this.id,value);">Myfreecams</button>
-		    <button type="button" class="btn btn-info ml-3" value="No" id="LiveJasmin" onclick="mostrarSeccion2(this.id,value);">LiveJasmin</button>
+	    	<div class="col-12 text-center" style="font-weight: bold; font-size: 30px; text-transform: uppercase;">
+	    		Procesos de Erick
+	    	</div>
+	    	<div class="col-12 text-center mt-3">
+	    		<a href="exportar1.php" style="text-decoration: none;">
+			    	<button type="button" class="btn btn-info">Modelos Registrados</button>
+	    		</a>
+	    		<a href="exportar2.php" style="text-decoration: none;">
+			    	<button type="button" class="btn btn-info ml-3">Pasantes Sin Aceptar</button>
+				</a>
+				<a href="exportar3.php" style="text-decoration: none;">
+			    	<button type="button" class="btn btn-info ml-3">Pasantes Aceptadas</button>
+				</a>
+				<a href="exportar4.php" style="text-decoration: none;">
+			    	<button type="button" class="btn btn-info ml-3">Modelos Sin Cuentas</button>
+				</a>
+	    	</div>
 		</div>
 	</div>
 

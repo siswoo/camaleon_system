@@ -8,8 +8,9 @@ use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
-$fecha_inicio = date('Y-m-d h-i-s');
+$fecha_inicio = date('Y-m-d');
 $fecha_Imlive = $_POST['fecha_Imlive'];
+$responsable = $_SESSION['id'];
 
 $archivo_nombre = $_FILES['file']['name'];
 $archivo_temporal = $_FILES['file']['tmp_name'];
@@ -17,7 +18,7 @@ $archivo_temporal = $_FILES['file']['tmp_name'];
 $extension = explode(".", $archivo_nombre);
 $extension = $extension[count($extension)-1];
 
-if($extension!='xls' and $extension!='xml' and $extension!='xlam'){
+if($extension!='xls' and $extension!='xml' and $extension!='xlam' and $extension!='xlsx'){
     echo 'error';
     exit;
 }
@@ -27,18 +28,28 @@ $worksheet = $spreadsheet->getActiveSheet();
 
 $limite = 1000;
 
+$sql2 = "DELETE FROM imlive WHERE fecha = '$fecha_Imlive'";
+$eliminar1 = mysqli_query($conexion,$sql2);
+
 for($i=2;$i<=$limite;$i++){
-    $imagen = $worksheet->getCell('B'.$i);
-    $username = $worksheet->getCell('C'.$i);
-    $status = utf8_decode($worksheet->getCell('D'.$i));
-    $date_approved = utf8_decode($worksheet->getCell('E'.$i));
-    $room = utf8_decode($worksheet->getCell('F'.$i));
-    $last = $worksheet->getCell('G'.$i);
-    $total_earnings = $worksheet->getCell('H'.$i);
-    $hostname = $worksheet->getCell('I'.$i);
-    $fechasql = $fecha_inicio;
+    if($worksheet->getCell('A'.$i)!=''){
+        $username = $worksheet->getCell('A'.$i);
+        $total = $worksheet->getCell('B'.$i);
+        if($total=='0'){
+            $total = 0;
+            $tokens = 0;
+        }else{
+            $ganancia = explode('$',$total);
+            $total = $ganancia[1];
+            $tokens = $total/0.05;
+        }
+        $fecha_inicio = $fecha_inicio;
+
+        $sql1 = "INSERT INTO imlive (nickname,dolares,tokens,responsable,fecha,fecha_inicio) VALUES ('$username','$total','$tokens','$responsable','$fecha_Imlive','$fecha_inicio')";
+        $registro1 = mysqli_query($conexion,$sql1);
+    }
 }
 
-echo $username;
+echo 'Correcto';
 
 ?>

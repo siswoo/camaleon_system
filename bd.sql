@@ -532,3 +532,15 @@ CREATE TABLE myfreecams (
 	fecha_inicio DATE NOT NULL,
    	PRIMARY KEY (id)
 ); ALTER TABLE myfreecams CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+DROP TABLE IF EXISTS imlive;
+CREATE TABLE imlive (
+	id INT AUTO_INCREMENT,
+	nickname VARCHAR(250) NOT NULL,
+	dolares FLOAT(11,2) NOT NULL,
+	tokens FLOAT(11,2) NOT NULL,
+	responsable INT NOT NULL,
+	fecha DATE NOT NULL,
+	fecha_inicio DATE NOT NULL,
+   	PRIMARY KEY (id)
+); ALTER TABLE imlive CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
