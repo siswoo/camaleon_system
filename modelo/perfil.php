@@ -506,7 +506,7 @@
 		<div class="row">
 			<div class="col-6 form-group form-check">
 				<label for="turno">Turno</label>
-				<select name="turno" id="turno" class="form-control" disabled>
+				<select name="turno" id="turno" class="form-control">
 					<option value="">Seleccione</option>
 					<option value="Mañana">Mañana</option>
 					<option value="Tarde">Tarde</option>
@@ -517,18 +517,18 @@
 
 			<div class="col-6 form-group form-check">
 				<label for="sede">Sede</label>
-				<select name="sede" id="sede" class="form-control" disabled>
+				<select name="sede" id="sede" class="form-control">
 					<option value="">Seleccione</option>
-					<option value="Norte">Norte</option>
-					<option value="Occidente 1">Occidente 1</option>
-					<option value="VIP Occidente">VIP Occidente</option>
-					<option value="VIP Suba">VIP Suba</option>
+					<option value="2">Norte</option>
+					<option value="3">Occidente 1</option>
+					<option value="1">VIP Occidente</option>
+					<option value="4">VIP Suba</option>
 				</select>
 			</div>
 
 			<div class="col-12 form-group form-check">
 				<label for="Htransmision">Horario de Transmisión</label>
-				<select name="Htransmision" id="Htransmision" id="Htransmision" class="form-control" disabled>
+				<select name="Htransmision" id="Htransmision" id="Htransmision" class="form-control">
 					<option value="">Seleccione</option>
 					<option value="Mañana">Mañana</option>
 					<option value="Tarde">Tarde</option>
@@ -561,7 +561,7 @@
 
 		<div class="row">
 			<div class="col-md-12 form-group form-check text-center">
-				<button type="submit" id="submit" class="btn btn-success" disabled style="width: 20%; font-weight: bold;">Actualizar</button>
+				<button type="submit" id="submit" class="btn btn-success" style="width: 20%; font-weight: bold;">Actualizar</button>
 			</div>
 		</div>
 	</form>
@@ -572,6 +572,9 @@
 	<!--**********************DOCUMENTOS*********************-->
 	<!--***********************************************************-->
 	<div id="formulario5" class="d-none">
+		<div class="col-12 text-center mt-3 mb-3" style="font-weight: bold; font-size: 20px; text-transform: capitalize; color: #00dcff;">
+			Se sube 1 documento a la vez, por favor darle clic al correspondiente boton de "Subir"
+		</div>
 		<input type="hidden" id="asunto" name="asunto" value="documentos">
 		<input type="hidden" id="id" name="id" value="<?php echo $id; ?>">
 		<?php
@@ -1724,7 +1727,7 @@
 			data: $('#formulario4').serialize(),
 			dataType: "JSON",
 			success: function(respuesta) {
-				//console.log(respuesta);
+				console.log(respuesta);
 				Swal.fire({
 	 				title: 'Correcto',
 	 				text: "Datos actualizados",

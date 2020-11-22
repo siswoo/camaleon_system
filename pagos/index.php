@@ -67,6 +67,8 @@
 			<button type="button" class="btn btn-info" value="No" id="graficos" onclick="mostrarSeccionGraficos1(this.id,value);">Gráficos</button>
 			<button type="button" class="btn btn-info" value="No" id="datos" onclick="mostrarSeccion1(this.id,value);">Datos</button>
 			<button type="button" class="btn btn-info" value="No" id="pendientes" onclick="mostrarSeccionPendientes1(this.id,value);">Pendientes</button>
+			<button type="button" class="btn btn-info" value="No" id="extras" onclick="mostrarSeccionExtras1(this.id,value);">Extras</button>
+			<button type="button" class="btn btn-info" value="No" id="desprendibles" onclick="mostrarSeccionDesprendible1(this.id,value);">Desprendible de Pagos</button>
 		</div>
 	</div>
 
@@ -74,13 +76,19 @@
 
 	<div class="seccion1" id="seccion1" style="display: none;">
 	    <div class="row">
-		    <button type="button" class="btn btn-info" value="No" id="Imlive" onclick="mostrarSeccion2(this.id,value);">Imlive</button>
-		    <button type="button" class="btn btn-info ml-3" value="No" id="XLove" onclick="mostrarSeccion2(this.id,value);">XLove</button>
-		    <button type="button" class="btn btn-info ml-3" value="No" id="chaturbate" onclick="mostrarSeccion2(this.id,value);">Chaturbate</button>
-		    <button type="button" class="btn btn-info ml-3" value="No" id="stripchat" onclick="mostrarSeccion2(this.id,value);">Stripchat</button>
-		    <button type="button" class="btn btn-info ml-3" value="No" id="streamate" onclick="mostrarSeccion2(this.id,value);">Streamate</button>
-		    <button type="button" class="btn btn-info ml-3" value="No" id="Myfreecams" onclick="mostrarSeccion2(this.id,value);">Myfreecams</button>
-		    <button type="button" class="btn btn-info ml-3" value="No" id="LiveJasmin" onclick="mostrarSeccion2(this.id,value);">LiveJasmin</button>
+	    	<div class="col-12 text-center">
+			    <button type="button" class="btn btn-info" value="No" id="Imlive" onclick="mostrarSeccion2(this.id,value);">Imlive</button>
+			    <button type="button" class="btn btn-info ml-3" value="No" id="XLove" onclick="mostrarSeccion2(this.id,value);">XLove</button>
+			    <button type="button" class="btn btn-info ml-3" value="No" id="chaturbate" onclick="mostrarSeccion2(this.id,value);">Chaturbate</button>
+			    <button type="button" class="btn btn-info ml-3" value="No" id="stripchat" onclick="mostrarSeccion2(this.id,value);">Stripchat</button>
+			    <button type="button" class="btn btn-info ml-3" value="No" id="streamate" onclick="mostrarSeccion2(this.id,value);">Streamate</button>
+			    <button type="button" class="btn btn-info ml-3" value="No" id="Myfreecams" onclick="mostrarSeccion2(this.id,value);">Myfreecams</button>
+			    <button type="button" class="btn btn-info ml-3" value="No" id="LiveJasmin" onclick="mostrarSeccion2(this.id,value);">LiveJasmin</button>
+			    <button type="button" class="btn btn-info ml-3" value="No" id="Bonga" onclick="mostrarSeccion2(this.id,value);">Bonga</button>
+			    <button type="button" class="btn btn-info ml-3" value="No" id="Cam4" onclick="mostrarSeccion2(this.id,value);">Cam4</button>
+			    <button type="button" class="btn btn-info ml-3" value="No" id="Camsoda" onclick="mostrarSeccion2(this.id,value);">Camsoda</button>
+			    <button type="button" class="btn btn-info ml-3" value="No" id="Flirt4free" onclick="mostrarSeccion2(this.id,value);">Flirt4free</button>
+		    </div>
 		</div>
 	</div>
 
@@ -90,16 +98,17 @@
 	    		<div class="form-group col-12">
 				    <p class="text-center" style="font-weight: bold; font-size: 20px;">Reporte de Imlive</p>
 				</div>
-				<div class="form-group col-6">
+				<div class="form-group col-12">
 				    <label for="archivo_Imlive">Archivo Generado</label>
-				    <input type="file" class="form-control" name="archivo_Imlive" id="archivo_Imlive" style="margin-left: 18px; margin-right: 16px;" required>
+				    <input type="file" class="form-control" name="archivo_Imlive" id="archivo_Imlive" required>
 				</div>
 				<div class="form-group col-6">
-				    <label for="fecha">Fecha</label>
-				    <?php
-				    	$fecha_actual = date('Y-m-d');
-				    ?>
-				    <input type="date" class="form-control" value="<?php echo $fecha_actual; ?>" id="fecha_Imlive" required>
+					<label>Fecha Desde</label>
+					<input type="date" id="fecha_desde_Imlive" name="fecha_desde_Imlive" class="form-control" required>
+				</div>
+				<div class="form-group col-6">
+					<label>Fecha Hasta</label>
+					<input type="date" id="fecha_hasta_Imlive" name="fecha_hasta_Imlive" class="form-control" required>
 				</div>
 				<div class="form-group col-12 text-center">
 				    <button type="submit" id="submit_Imlive" class="btn btn-primary">Cargar Datos</button>
@@ -114,50 +123,21 @@
 				<div class="form-group col-12">
 				    <p class="text-center" style="font-weight: bold; font-size: 20px;">Reporte de XLove</p>
 				</div>
-				<div class="form-group col-12">
+				<div class="form-group col-6">
 					<label>Archivo Excel</label>
 				    <input type="file" class="form-control" name="archivo_XLove" id="archivo_XLove" required>
-				</div>
-				<div class="form-group col-6">
-					<label>Recorte N°</label>
-					<select class="form-control" required name="recorte_XLove" id="recorte_XLove">
-						<option value="">Seleccione</option>
-						<option value="1">1</option>
-						<option value="2">2</option>
-					</select>
 				</div>
 				<div class="form-group col-6">
 					<label>EUR a USD Coste</label>
 					<input type="text" id="coste_euro_XLove" name="coste_euro_XLove" class="form-control" required>
 				</div>
 				<div class="form-group col-6">
-					<label>Mes</label>
-					<select class="form-control" required name="mes_XLove" id="mes_XLove">
-						<option value="">Seleccione</option>
-						<option value="Enero">Enero</option>
-						<option value="Febrero">Febrero</option>
-						<option value="Marzo">Marzo</option>
-						<option value="Abril">Abril</option>
-						<option value="Mayo">Mayo</option>
-						<option value="Junio">Junio</option>
-						<option value="Julio">Julio</option>
-						<option value="Agosto">Agosto</option>
-						<option value="Septiembre">Septiembre</option>
-						<option value="Octubre">Octubre</option>
-						<option value="Noviembre">Noviembre</option>
-						<option value="Diciembre">Diciembre</option>
-					</select>
+					<label>Fecha Desde</label>
+					<input type="date" id="fecha_desde_XLove" name="fecha_desde_XLove" class="form-control" required>
 				</div>
 				<div class="form-group col-6">
-					<label>Año</label>
-					<select class="form-control" required name="year_XLove" id="year_XLove">
-						<option value="2020">2020</option>
-						<option value="2021">2021</option>
-						<option value="2022">2022</option>
-						<option value="2023">2023</option>
-						<option value="2024">2024</option>
-						<option value="2025">2025</option>
-					</select>
+					<label>Fecha Hasta</label>
+					<input type="date" id="fecha_hasta_XLove" name="fecha_hasta_XLove" class="form-control" required>
 				</div>
 				<div class="form-group col-12 text-center">
 				    <button type="submit" id="submit_XLove" class="btn btn-primary">Ejecutar API</button>
@@ -214,13 +194,17 @@
 				<div class="form-group col-12">
 				    <p class="text-center" style="font-weight: bold; font-size: 20px;">Reporte de StreaMate</p>
 				</div>
-				<div class="form-group col-6">
+				<div class="form-group col-4">
 					<label>Archivo Excel</label>
 				    <input type="file" class="form-control" name="archivo_streamate" id="archivo_streamate" required>
 				</div>
-				<div class="form-group col-6">
-					<label>Fecha</label>
-					<input type="week" name="fecha_streamate" id="fecha_streamate" class="form-control" min="2020-11-09" required>
+				<div class="form-group col-4">
+					<label>Fecha Desde</label>
+					<input type="date" id="fecha_desde_streamate" name="fecha_desde_streamate" class="form-control" required>
+				</div>
+				<div class="form-group col-4">
+					<label>Fecha Hasta</label>
+					<input type="date" id="fecha_hasta_streamate" name="fecha_hasta_streamate" class="form-control" required>
 				</div>
 				<div class="form-group col-12 text-center">
 				    <button type="submit" id="submit_streamate" class="btn btn-primary">Ejecutar API</button>
@@ -298,27 +282,344 @@
 	</div>
 
 	<div class="seccion1" id="div_LiveJasmin" style="display: none; border: 3px solid black; border-radius: 1rem; padding: 5px 5px 5px 5px;">
-		<form id="formulario_LiveJasmin" method="POST" action="#">
-	    	<div class="row">
-	    		<div class="form-group col-12">
+		<div class="row">
+				<div class="form-group col-12">
 				    <p class="text-center" style="font-weight: bold; font-size: 20px;">Reporte de LiveJasmin</p>
 				</div>
-				<div class="form-group col-6">
-				    <label for="archivo_LiveJasmin">Archivo Generado</label>
-				    <input type="file" class="form-control" name="archivo_LiveJasmin" id="archivo_LiveJasmin" style="margin-left: 18px; margin-right: 16px;" required>
+				<div class="form-group col-3">
+					<label>Recorte N°</label>
+					<select class="form-control" name="recorte_LiveJasmin" id="recorte_LiveJasmin" required>
+						<option value="">Seleccione</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+					</select>
 				</div>
-				<div class="form-group col-6">
-				    <label for="fecha">Fecha</label>
-				    <?php
-				    	$fecha_actual = date('Y-m-d');
-				    ?>
-				    <input type="date" class="form-control" value="<?php echo $fecha_actual; ?>" id="fecha_LiveJasmin" required>
+				<div class="form-group col-3">
+					<label>Mes</label>
+					<select class="form-control" name="mes_LiveJasmin" id="mes_LiveJasmin" required>
+						<option value="">Seleccione</option>
+						<option value="01">Enero</option>
+						<option value="02">Febrero</option>
+						<option value="03">Marzo</option>
+						<option value="04">Abril</option>
+						<option value="05">Mayo</option>
+						<option value="06">Junio</option>
+						<option value="07">Julio</option>
+						<option value="08">Agosto</option>
+						<option value="09">Septiembre</option>
+						<option value="10">Octubre</option>
+						<option value="11">Noviembre</option>
+						<option value="12">Diciembre</option>
+					</select>
 				</div>
-				<div class="form-group col-12 text-center">
-				    <button type="submit" id="submit_LiveJasmin" class="btn btn-primary">Cargar Datos</button>
+				<div class="form-group col-3">
+					<label>Año</label>
+					<select class="form-control" name="year_LiveJasmin" id="year_LiveJasmin" required>
+						<option value="2020">2020</option>
+						<option value="2021">2021</option>
+						<option value="2022">2022</option>
+						<option value="2023">2023</option>
+						<option value="2024">2024</option>
+						<option value="2025">2025</option>
+					</select>
+				</div>
+				<div class="form-group col-3">
+				    <button type="submit" id="submit_LiveJasmin" class="btn btn-primary" style="margin-top: 31px;" onclick="consultarLiveJasmin();">Consultar Modelos</button>
 				</div>
 			</div>
-		</form>
+
+			<div id="div_LiveJasmin2">
+				<form id="formulario_LiveJasmin" method="POST" action="#">
+					<div id="resultado1_LiveJasmin" class="form-group col-12 text-center">
+						<table border="1" class="table">
+							<thead>
+								<tr>
+									<th>Modelo</th>
+									<th>Usuario</th>
+									<th>Contraseña</th>
+									<th>Dolares</th>
+									<th>Opciones</th>
+								</tr>
+							</thead>
+							<tbody id="tbody_LiveJasmin">
+							</tbody>
+						</table>
+					</div>
+				</form>
+			</div>
+	</div>
+
+	<div class="seccion1" id="div_Bonga" style="display: none; border: 3px solid black; border-radius: 1rem; padding: 5px 5px 5px 5px;">
+		<div class="row">
+				<div class="form-group col-12">
+				    <p class="text-center" style="font-weight: bold; font-size: 20px;">Reporte de Bonga</p>
+				</div>
+				<div class="form-group col-3">
+					<label>Recorte N°</label>
+					<select class="form-control" name="recorte_Bonga" id="recorte_Bonga" required>
+						<option value="">Seleccione</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+					</select>
+				</div>
+				<div class="form-group col-3">
+					<label>Mes</label>
+					<select class="form-control" name="mes_Bonga" id="mes_Bonga" required>
+						<option value="">Seleccione</option>
+						<option value="01">Enero</option>
+						<option value="02">Febrero</option>
+						<option value="03">Marzo</option>
+						<option value="04">Abril</option>
+						<option value="05">Mayo</option>
+						<option value="06">Junio</option>
+						<option value="07">Julio</option>
+						<option value="08">Agosto</option>
+						<option value="09">Septiembre</option>
+						<option value="10">Octubre</option>
+						<option value="11">Noviembre</option>
+						<option value="12">Diciembre</option>
+					</select>
+				</div>
+				<div class="form-group col-3">
+					<label>Año</label>
+					<select class="form-control" name="year_Bonga" id="year_Bonga" required>
+						<option value="2020">2020</option>
+						<option value="2021">2021</option>
+						<option value="2022">2022</option>
+						<option value="2023">2023</option>
+						<option value="2024">2024</option>
+						<option value="2025">2025</option>
+					</select>
+				</div>
+				<div class="form-group col-3">
+				    <button type="submit" id="submit_Bonga" class="btn btn-primary" style="margin-top: 31px;" onclick="consultarBonga();">Consultar Modelos</button>
+				</div>
+			</div>
+
+			<div id="div_Bonga2">
+				<form id="formulario_Bonga" method="POST" action="#">
+					<div id="resultado1_Bonga" class="form-group col-12 text-center">
+						<table border="1" class="table">
+							<thead>
+								<tr>
+									<th>Modelo</th>
+									<th>Usuario</th>
+									<th>Contraseña</th>
+									<th>Dolares</th>
+									<th>Opciones</th>
+								</tr>
+							</thead>
+							<tbody id="tbody_Bonga">
+							</tbody>
+						</table>
+					</div>
+				</form>
+			</div>
+	</div>
+
+
+	<div class="seccion1" id="div_Cam4" style="display: none; border: 3px solid black; border-radius: 1rem; padding: 5px 5px 5px 5px;">
+		<div class="row">
+				<div class="form-group col-12">
+				    <p class="text-center" style="font-weight: bold; font-size: 20px;">Reporte de Cam4</p>
+				</div>
+				<div class="form-group col-3">
+					<label>Recorte N°</label>
+					<select class="form-control" name="recorte_Cam4" id="recorte_Cam4" required>
+						<option value="">Seleccione</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+					</select>
+				</div>
+				<div class="form-group col-3">
+					<label>Mes</label>
+					<select class="form-control" name="mes_Cam4" id="mes_Cam4" required>
+						<option value="">Seleccione</option>
+						<option value="01">Enero</option>
+						<option value="02">Febrero</option>
+						<option value="03">Marzo</option>
+						<option value="04">Abril</option>
+						<option value="05">Mayo</option>
+						<option value="06">Junio</option>
+						<option value="07">Julio</option>
+						<option value="08">Agosto</option>
+						<option value="09">Septiembre</option>
+						<option value="10">Octubre</option>
+						<option value="11">Noviembre</option>
+						<option value="12">Diciembre</option>
+					</select>
+				</div>
+				<div class="form-group col-3">
+					<label>Año</label>
+					<select class="form-control" name="year_Cam4" id="year_Cam4" required>
+						<option value="2020">2020</option>
+						<option value="2021">2021</option>
+						<option value="2022">2022</option>
+						<option value="2023">2023</option>
+						<option value="2024">2024</option>
+						<option value="2025">2025</option>
+					</select>
+				</div>
+				<div class="form-group col-3">
+				    <button type="submit" id="submit_Cam4" class="btn btn-primary" style="margin-top: 31px;" onclick="consultarCam4();">Consultar Modelos</button>
+				</div>
+			</div>
+
+			<div id="div_Cam42">
+				<form id="formulario_Cam4" method="POST" action="#">
+					<div id="resultado1_Cam4" class="form-group col-12 text-center">
+						<table border="1" class="table">
+							<thead>
+								<tr>
+									<th>Modelo</th>
+									<th>Usuario</th>
+									<th>Contraseña</th>
+									<th>Dolares</th>
+									<th>Opciones</th>
+								</tr>
+							</thead>
+							<tbody id="tbody_Cam4">
+							</tbody>
+						</table>
+					</div>
+				</form>
+			</div>
+	</div>
+
+	<div class="seccion1" id="div_Camsoda" style="display: none; border: 3px solid black; border-radius: 1rem; padding: 5px 5px 5px 5px;">
+		<div class="row">
+				<div class="form-group col-12">
+				    <p class="text-center" style="font-weight: bold; font-size: 20px;">Reporte de Camsoda</p>
+				</div>
+				<div class="form-group col-3">
+					<label>Recorte N°</label>
+					<select class="form-control" name="recorte_Camsoda" id="recorte_Camsoda" required>
+						<option value="">Seleccione</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+					</select>
+				</div>
+				<div class="form-group col-3">
+					<label>Mes</label>
+					<select class="form-control" name="mes_Camsoda" id="mes_Camsoda" required>
+						<option value="">Seleccione</option>
+						<option value="01">Enero</option>
+						<option value="02">Febrero</option>
+						<option value="03">Marzo</option>
+						<option value="04">Abril</option>
+						<option value="05">Mayo</option>
+						<option value="06">Junio</option>
+						<option value="07">Julio</option>
+						<option value="08">Agosto</option>
+						<option value="09">Septiembre</option>
+						<option value="10">Octubre</option>
+						<option value="11">Noviembre</option>
+						<option value="12">Diciembre</option>
+					</select>
+				</div>
+				<div class="form-group col-3">
+					<label>Año</label>
+					<select class="form-control" name="year_Camsoda" id="year_Camsoda" required>
+						<option value="2020">2020</option>
+						<option value="2021">2021</option>
+						<option value="2022">2022</option>
+						<option value="2023">2023</option>
+						<option value="2024">2024</option>
+						<option value="2025">2025</option>
+					</select>
+				</div>
+				<div class="form-group col-3">
+				    <button type="submit" id="submit_Camsoda" class="btn btn-primary" style="margin-top: 31px;" onclick="consultarCamsoda();">Consultar Modelos</button>
+				</div>
+			</div>
+
+			<div id="div_Camsoda2">
+				<form id="formulario_Camsoda" method="POST" action="#">
+					<div id="resultado1_Camsoda" class="form-group col-12 text-center">
+						<table border="1" class="table">
+							<thead>
+								<tr>
+									<th>Modelo</th>
+									<th>Usuario</th>
+									<th>Contraseña</th>
+									<th>Tokens</th>
+									<th>Opciones</th>
+								</tr>
+							</thead>
+							<tbody id="tbody_Camsoda">
+							</tbody>
+						</table>
+					</div>
+				</form>
+			</div>
+	</div>
+
+	<div class="seccion1" id="div_Flirt4free" style="display: none; border: 3px solid black; border-radius: 1rem; padding: 5px 5px 5px 5px;">
+		<div class="row">
+				<div class="form-group col-12">
+				    <p class="text-center" style="font-weight: bold; font-size: 20px;">Reporte de Flirt4free</p>
+				</div>
+				<div class="form-group col-3">
+					<label>Recorte N°</label>
+					<select class="form-control" name="recorte_Flirt4free" id="recorte_Flirt4free" required>
+						<option value="">Seleccione</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+					</select>
+				</div>
+				<div class="form-group col-3">
+					<label>Mes</label>
+					<select class="form-control" name="mes_Flirt4free" id="mes_Flirt4free" required>
+						<option value="">Seleccione</option>
+						<option value="01">Enero</option>
+						<option value="02">Febrero</option>
+						<option value="03">Marzo</option>
+						<option value="04">Abril</option>
+						<option value="05">Mayo</option>
+						<option value="06">Junio</option>
+						<option value="07">Julio</option>
+						<option value="08">Agosto</option>
+						<option value="09">Septiembre</option>
+						<option value="10">Octubre</option>
+						<option value="11">Noviembre</option>
+						<option value="12">Diciembre</option>
+					</select>
+				</div>
+				<div class="form-group col-3">
+					<label>Año</label>
+					<select class="form-control" name="year_Flirt4free" id="year_Flirt4free" required>
+						<option value="2020">2020</option>
+						<option value="2021">2021</option>
+						<option value="2022">2022</option>
+						<option value="2023">2023</option>
+						<option value="2024">2024</option>
+						<option value="2025">2025</option>
+					</select>
+				</div>
+				<div class="form-group col-3">
+				    <button type="submit" id="submit_Flirt4free" class="btn btn-primary" style="margin-top: 31px;" onclick="consultarFlirt4free();">Consultar Modelos</button>
+				</div>
+			</div>
+
+			<div id="div_Flirt4free2">
+				<form id="formulario_Flirt4free" method="POST" action="#">
+					<div id="resultado1_Flirt4free" class="form-group col-12 text-center">
+						<table border="1" class="table">
+							<thead>
+								<tr>
+									<th>Modelo</th>
+									<th>Usuario</th>
+									<th>Contraseña</th>
+									<th>Dolares</th>
+									<th>Opciones</th>
+								</tr>
+							</thead>
+							<tbody id="tbody_Flirt4free">
+							</tbody>
+						</table>
+					</div>
+				</form>
+			</div>
 	</div>
 
 <!--****************************GRAFICOS****************************-->
@@ -393,6 +694,110 @@
 
 <!--****************************FIN PENDIENTES****************************-->
 
+
+<!--****************************EXTRAS****************************-->
+	
+	<div class="seccion1" id="div_extras" style="display: none; padding: 5px 5px 5px 5px;">
+		<div class="row">
+			<div class="form-group col-12 text-center">
+				<button class="btn btn-primary" type="button" value="No" id="crear_extras1" onclick="mostrarSeccionExtras2(this.id,value);">Crear Extras</button>
+				<button class="btn btn-primary ml-3" type="button" value="No" id="consultar_extras1" onclick="mostrarSeccionExtras3(this.id,value);">Consultar Extras</button>
+			</div>
+		</div>
+	</div>
+
+	<div class="seccion1" id="div_extras2" style="display: none; border: 3px solid black; border-radius: 1rem; padding: 5px 5px 5px 5px;">
+	    	<div class="row">
+				<div class="form-group col-12">
+				    <p class="text-center" style="font-weight: bold; font-size: 20px;">Crear Extras</p>
+				</div>
+				<div class="form-group col-12">
+				    <table class="table" border="1">
+				    	<thead>
+				    		<tr>
+				    			<th class="text-center">Modelo</th>
+				    			<th class="text-center">Tipo</th>
+				    			<th class="text-center">Concepto</th>
+				    			<th class="text-center">Valor</th>
+				    			<th class="text-center">Opción</th>
+				    		</tr>
+				    	</thead>
+				    	<tbody>
+				    		<tr>
+				    			<td>
+				    				<input type="search" name="extra_modelo" id="extra_modelo" list="listamodelos" class="form-control" onkeyup="buscarModelo(value);" autocomplete="off" required>
+				    				<datalist id="listamodelos">
+				    					<option></option>
+				   					</datalist>
+				    			</td>
+				    			<td>
+				    				<select class="form-control" name="extra_tipo1" id="extra_tipo1" required>
+				    					<option value="">Seleccione</option>
+				    					<option value="descuento">Descuento</option>
+				    					<option value="tienda">Tienda</option>
+				    					<option value="avances">Avances</option>
+				    					<option value="multas">Multas</option>
+				    				</select>
+				    			</td>
+				    			<td>
+				    				<input type="text" name="extra_concepto" id="extra_concepto" class="form-control" required>
+				    			</td>
+				    			<td>
+				    				<input type="number" name="extra_valor" id="extra_valor" class="form-control" required>
+				    			</td>
+				    			<td class="text-center">
+				    				<button class="btn btn-success" type="button" onclick="guardar_extra1();">Guardar</button>
+				    			</td>
+				    		</tr>
+				    	</tbody>
+				    </table>
+				</div>
+			</div>
+	</div>
+
+	<div class="seccion1" id="div_extras3" style="display: none; border: 3px solid black; border-radius: 1rem; padding: 5px 5px 5px 5px;">
+		<form id="formulario_extras" method="POST" action="#">
+	    	<div class="row">
+				<div class="form-group col-12">
+				    <p class="text-center" style="font-weight: bold; font-size: 20px;">Consultar Extras</p>
+				</div>
+				<div class="form-group col-12 text-center">
+					<button class="btn btn-primary" type="button" value="descuento" onclick="generar_extra(value);">Descuentos</button>
+					<button class="btn btn-primary ml-3" type="button" value="tienda" onclick="generar_extra(value);">Tienda</button>
+					<button class="btn btn-primary ml-3" type="button" value="avances" onclick="generar_extra(value);">Avances</button>
+					<button class="btn btn-primary ml-3" type="button" value="multas" onclick="generar_extra(value);">Multas</button>
+				</div>
+				<div class="form-group col-12" id="extra_generado1"></div>
+			</div>
+		</form>
+	</div>
+
+<!--****************************FIN EXTRAS****************************-->
+
+
+<!--****************************DESPRENDIBLES****************************-->
+
+	<div class="seccion1" id="div_desprendibles" style="display: none; border: 3px solid black; border-radius: 1rem; padding: 5px 5px 5px 5px;">
+	    	<div class="row">
+				<div class="form-group col-12">
+				    <p class="text-center" style="font-weight: bold; font-size: 20px;">Desprendibles</p>
+				</div>
+				<div class="form-group col-6">
+					<label for="desprendible_fecha_desde">Fecha Desde</label>
+					<input type="date" class="form-control" name="desprendible_fecha_desde" id="desprendible_fecha_desde" required>
+				</div>
+				<div class="form-group col-6">
+					<label for="desprendible_fecha_hasta">Fecha Hasta</label>
+					<input type="date" class="form-control" name="desprendible_fecha_hasta" id="desprendible_fecha_hasta" required>
+				</div>
+				<div class="form-group col-12 text-center">
+				    <button type="button" class="btn btn-success" onclick="generar_desprendible1();">Generar Desprendible</button>
+				</div>
+				<div class="form-group col-12" id="desprendible_generado1"></div>
+			</div>
+	</div>
+
+<!--****************************FIN DESPRENDIBLES****************************-->
 
 <?php include('../footer.php'); ?>
 
@@ -494,7 +899,8 @@
         var fd = new FormData();
         var files = $('#archivo_Imlive')[0].files[0];
         fd.append('file',files);
-        fd.append('fecha_Imlive',$('#fecha_Imlive').val());
+        fd.append('fecha_desde_Imlive',$('#fecha_desde_Imlive').val());
+        fd.append('fecha_hasta_Imlive',$('#fecha_hasta_Imlive').val());
 
         $.ajax({
             url: '../script/subir_imlive.php',
@@ -546,9 +952,8 @@
         var fd = new FormData();
         var files = $('#archivo_XLove')[0].files[0];
         fd.append('file',files);
-        fd.append('recorte_XLove',$('#recorte_XLove').val());
-        fd.append('mes_XLove',$('#mes_XLove').val());
-        fd.append('year_XLove',$('#year_XLove').val());
+        fd.append('fecha_desde_XLove',$('#fecha_desde_XLove').val());
+        fd.append('fecha_hasta_XLove',$('#fecha_hasta_XLove').val());
         fd.append('coste_euro_XLove',$('#coste_euro_XLove').val());
 
         $.ajax({
@@ -714,10 +1119,13 @@
 
     $("#formulario_streamate").on("submit", function(e){
 		e.preventDefault();
+		var fecha_desde_streamate = $('#fecha_desde_streamate').val();
+    	var fecha_hasta_streamate = $('#fecha_hasta_streamate').val();
         var fd = new FormData();
         var files = $('#archivo_streamate')[0].files[0];
         fd.append('file',files);
-        fd.append('fecha_streamate',$('#fecha_streamate').val());
+        fd.append('fecha_desde_streamate',$('#fecha_desde_streamate').val());
+        fd.append('fecha_hasta_streamate',$('#fecha_hasta_streamate').val());
 
         $.ajax({
             url: '../script/subir_streamate.php',
@@ -860,7 +1268,8 @@
             beforeSend: function (){},
 
             success: function(response){
-            	//console.log(response);			
+            	console.log(response);
+            	
             	var speedData = {
 					labels: [
 						response['fechas'][0],response['fechas'][1],response['fechas'][2],response['fechas'][3],"","",
@@ -922,8 +1331,8 @@
             beforeSend: function (){},
 
             success: function(response){
-            	console.log(response);
-            	
+            	//console.log(response);
+            	$('#respuesta_pendientes1').html(response);
             },
 
             error: function(response){
@@ -931,6 +1340,569 @@
             }
         });
     }
+
+    function consultarLiveJasmin(){
+    	var recorte_LiveJasmin = $('#recorte_LiveJasmin').val();
+    	var mes_LiveJasmin = $('#mes_LiveJasmin').val();
+    	var year_LiveJasmin = $('#year_LiveJasmin').val();
+
+    	if(recorte_LiveJasmin=='' || mes_LiveJasmin=='' || year_LiveJasmin==''){
+    		Swal.fire({
+		 		title: 'Desplegables sin Señalar',
+			 	text: "No olvide señalar un valor en cada campo por favor",
+			 	icon: 'error',
+			 	position: 'center',
+			 	showConfirmButton: false,
+			 	timer: 5000
+			});
+    		return false;
+    	}
+    	$.ajax({
+            url: '../script/consultar_livejasmin1.php',
+            type: 'POST',
+            data: {
+				"recorte_LiveJasmin": recorte_LiveJasmin,
+				"mes_LiveJasmin": mes_LiveJasmin,
+				"year_LiveJasmin": year_LiveJasmin,
+			},
+
+            beforeSend: function (){
+            	$('#submit_LiveJasmin').attr('disabled','true');
+            },
+
+            success: function(response){
+            	//console.log(response);
+            	$('#submit_LiveJasmin').removeAttr('disabled');
+            	$('#tbody_LiveJasmin').html(response);
+            },
+
+            error: function(response){
+            	console.log(response['responseText']);
+            }
+        });
+    }
+
+    function guardarToken_livejasmin(id){
+    	var dolares = $('#dolares_livejasmin_'+id).val();
+    	var fecha_desde_LiveJasmin = $('#fecha_desde_LiveJasmin').val();
+    	var fecha_hasta_LiveJasmin = $('#fecha_hasta_LiveJasmin').val();
+    	$.ajax({
+            url: '../script/guardar_tokens_livejasmin1.php',
+            type: 'POST',
+            data: {
+				"id": id,
+				"dolares": dolares,
+				"fecha_desde_LiveJasmin": fecha_desde_LiveJasmin,
+				"fecha_hasta_LiveJasmin": fecha_hasta_LiveJasmin,
+			},
+
+            beforeSend: function (){},
+
+            success: function(response){
+            	console.log(response);
+            	Swal.fire({
+			 		title: 'Guardado',
+				 	text: "Borrando Cache",
+				 	icon: 'success',
+				 	position: 'center',
+				 	showConfirmButton: false,
+				 	timer: 2000
+				});
+            },
+
+            error: function(response){
+            	console.log(response['responseText']);
+            }
+        });
+    }
+
+
+    function consultarBonga(){
+    	var recorte_Bonga = $('#recorte_Bonga').val();
+    	var mes_Bonga = $('#mes_Bonga').val();
+    	var year_Bonga = $('#year_Bonga').val();
+
+    	if(recorte_Bonga=='' || mes_Bonga=='' || year_Bonga==''){
+    		Swal.fire({
+		 		title: 'Desplegables sin Señalar',
+			 	text: "No olvide señalar un valor en cada campo por favor",
+			 	icon: 'error',
+			 	position: 'center',
+			 	showConfirmButton: false,
+			 	timer: 5000
+			});
+    		return false;
+    	}
+    	$.ajax({
+            url: '../script/consultar_bonga1.php',
+            type: 'POST',
+            data: {
+				"recorte_Bonga": recorte_Bonga,
+				"mes_Bonga": mes_Bonga,
+				"year_Bonga": year_Bonga,
+			},
+
+            beforeSend: function (){
+            	$('#submit_Bonga').attr('disabled','true');
+            },
+
+            success: function(response){
+            	//console.log(response);
+            	$('#submit_Bonga').removeAttr('disabled');
+            	$('#tbody_Bonga').html(response);
+            },
+
+            error: function(response){
+            	console.log(response['responseText']);
+            }
+        });
+    }
+
+    function guardarToken_bonga(id){
+    	var dolares = $('#dolares_bonga_'+id).val();
+    	var fecha_desde_Bonga = $('#fecha_desde_Bonga').val();
+    	var fecha_hasta_Bonga = $('#fecha_hasta_Bonga').val();
+    	$.ajax({
+            url: '../script/guardar_tokens_bonga1.php',
+            type: 'POST',
+            data: {
+				"id": id,
+				"dolares": dolares,
+				"fecha_desde_Bonga": fecha_desde_Bonga,
+				"fecha_hasta_Bonga": fecha_hasta_Bonga,
+			},
+
+            beforeSend: function (){},
+
+            success: function(response){
+            	console.log(response);
+            	Swal.fire({
+			 		title: 'Guardado',
+				 	text: "Borrando Cache",
+				 	icon: 'success',
+				 	position: 'center',
+				 	showConfirmButton: false,
+				 	timer: 2000
+				});
+            },
+
+            error: function(response){
+            	console.log(response['responseText']);
+            }
+        });
+    }
+
+    function consultarCam4(){
+    	var recorte_Cam4 = $('#recorte_Cam4').val();
+    	var mes_Cam4 = $('#mes_Cam4').val();
+    	var year_Cam4 = $('#year_Cam4').val();
+
+    	if(recorte_Cam4=='' || mes_Cam4=='' || year_Cam4==''){
+    		Swal.fire({
+		 		title: 'Desplegables sin Señalar',
+			 	text: "No olvide señalar un valor en cada campo por favor",
+			 	icon: 'error',
+			 	position: 'center',
+			 	showConfirmButton: false,
+			 	timer: 5000
+			});
+    		return false;
+    	}
+    	$.ajax({
+            url: '../script/consultar_cam41.php',
+            type: 'POST',
+            data: {
+				"recorte_Cam4": recorte_Cam4,
+				"mes_Cam4": mes_Cam4,
+				"year_Cam4": year_Cam4,
+			},
+
+            beforeSend: function (){
+            	$('#submit_Cam4').attr('disabled','true');
+            },
+
+            success: function(response){
+            	//console.log(response);
+            	$('#submit_Cam4').removeAttr('disabled');
+            	$('#tbody_Cam4').html(response);
+            },
+
+            error: function(response){
+            	console.log(response['responseText']);
+            }
+        });
+    }
+
+    function guardarToken_cam4(id){
+    	var dolares = $('#dolares_cam4_'+id).val();
+    	var fecha_desde_Cam4 = $('#fecha_desde_Cam4').val();
+    	var fecha_hasta_Cam4 = $('#fecha_hasta_Cam4').val();
+    	$.ajax({
+            url: '../script/guardar_tokens_cam41.php',
+            type: 'POST',
+            data: {
+				"id": id,
+				"dolares": dolares,
+				"fecha_desde_Cam4": fecha_desde_Cam4,
+				"fecha_hasta_Cam4": fecha_hasta_Cam4,
+			},
+
+            beforeSend: function (){},
+
+            success: function(response){
+            	console.log(response);
+            	Swal.fire({
+			 		title: 'Guardado',
+				 	text: "Borrando Cache",
+				 	icon: 'success',
+				 	position: 'center',
+				 	showConfirmButton: false,
+				 	timer: 2000
+				});
+            },
+
+            error: function(response){
+            	console.log(response['responseText']);
+            }
+        });
+    }
+
+
+    function consultarCamsoda(){
+    	var recorte_Camsoda = $('#recorte_Camsoda').val();
+    	var mes_Camsoda = $('#mes_Camsoda').val();
+    	var year_Camsoda = $('#year_Camsoda').val();
+
+    	if(recorte_Camsoda=='' || mes_Camsoda=='' || year_Camsoda==''){
+    		Swal.fire({
+		 		title: 'Desplegables sin Señalar',
+			 	text: "No olvide señalar un valor en cada campo por favor",
+			 	icon: 'error',
+			 	position: 'center',
+			 	showConfirmButton: false,
+			 	timer: 5000
+			});
+    		return false;
+    	}
+    	$.ajax({
+            url: '../script/consultar_camsoda1.php',
+            type: 'POST',
+            data: {
+				"recorte_Camsoda": recorte_Camsoda,
+				"mes_Camsoda": mes_Camsoda,
+				"year_Camsoda": year_Camsoda,
+			},
+
+            beforeSend: function (){
+            	$('#submit_Camsoda').attr('disabled','true');
+            },
+
+            success: function(response){
+            	//console.log(response);
+            	$('#submit_Camsoda').removeAttr('disabled');
+            	$('#tbody_Camsoda').html(response);
+            },
+
+            error: function(response){
+            	console.log(response['responseText']);
+            }
+        });
+    }
+
+    function guardarToken_camsoda(id){
+    	var tokens = $('#tokens_camsoda_'+id).val();
+    	var fecha_desde_Camsoda = $('#fecha_desde_Camsoda').val();
+    	var fecha_hasta_Camsoda = $('#fecha_hasta_Camsoda').val();
+    	$.ajax({
+            url: '../script/guardar_tokens_camsoda1.php',
+            type: 'POST',
+            data: {
+				"id": id,
+				"tokens": tokens,
+				"fecha_desde_Camsoda": fecha_desde_Camsoda,
+				"fecha_hasta_Camsoda": fecha_hasta_Camsoda,
+			},
+
+            beforeSend: function (){},
+
+            success: function(response){
+            	console.log(response);
+            	Swal.fire({
+			 		title: 'Guardado',
+				 	text: "Borrando Cache",
+				 	icon: 'success',
+				 	position: 'center',
+				 	showConfirmButton: false,
+				 	timer: 2000
+				});
+            },
+
+            error: function(response){
+            	console.log(response['responseText']);
+            }
+        });
+    }
+
+    function consultarFlirt4free(){
+    	var recorte_Flirt4free = $('#recorte_Flirt4free').val();
+    	var mes_Flirt4free = $('#mes_Flirt4free').val();
+    	var year_Flirt4free = $('#year_Flirt4free').val();
+
+    	if(recorte_Flirt4free=='' || mes_Flirt4free=='' || year_Flirt4free==''){
+    		Swal.fire({
+		 		title: 'Desplegables sin Señalar',
+			 	text: "No olvide señalar un valor en cada campo por favor",
+			 	icon: 'error',
+			 	position: 'center',
+			 	showConfirmButton: false,
+			 	timer: 5000
+			});
+    		return false;
+    	}
+    	$.ajax({
+            url: '../script/consultar_flirt4free1.php',
+            type: 'POST',
+            data: {
+				"recorte_Flirt4free": recorte_Flirt4free,
+				"mes_Flirt4free": mes_Flirt4free,
+				"year_Flirt4free": year_Flirt4free,
+			},
+
+            beforeSend: function (){
+            	$('#submit_Flirt4free').attr('disabled','true');
+            },
+
+            success: function(response){
+            	//console.log(response);
+            	$('#submit_Flirt4free').removeAttr('disabled');
+            	$('#tbody_Flirt4free').html(response);
+            },
+
+            error: function(response){
+            	console.log(response['responseText']);
+            }
+        });
+    }
+
+
+    function guardarToken_flirt4free(id){
+    	var dolares = $('#dolares_flirt4free_'+id).val();
+    	var fecha_desde_Flirt4free = $('#fecha_desde_Flirt4free').val();
+    	var fecha_hasta_Flirt4free = $('#fecha_hasta_Flirt4free').val();
+    	$.ajax({
+            url: '../script/guardar_tokens_flirt4free1.php',
+            type: 'POST',
+            data: {
+				"id": id,
+				"dolares": dolares,
+				"fecha_desde_Flirt4free": fecha_desde_Flirt4free,
+				"fecha_hasta_Flirt4free": fecha_hasta_Flirt4free,
+			},
+
+            beforeSend: function (){},
+
+            success: function(response){
+            	console.log(response);
+            	Swal.fire({
+			 		title: 'Guardado',
+				 	text: "Borrando Cache",
+				 	icon: 'success',
+				 	position: 'center',
+				 	showConfirmButton: false,
+				 	timer: 2000
+				});
+            },
+
+            error: function(response){
+            	console.log(response['responseText']);
+            }
+        });
+    }
+
+    function mostrarSeccionExtras1(button,value){
+    	if(value=='Si'){
+			$('#div_extras').hide('slow');
+			$('#'+button).val('No');
+		}else{
+			$('#div_extras').show('slow');
+			$('#'+button).val('Si');
+		}
+    }
+
+    function buscarModelo(value){
+		var cantidad = value.length;
+		if(cantidad<=3){
+			$('#listamodelos').html('ok');
+			return false;
+		}
+		$.ajax({
+			type: 'POST',
+			url: '../script/buscar_modelo4.php',
+            dataType: "JSON",
+			data: {
+				"value": value,
+			},
+
+			success: function(respuesta) {
+				if(respuesta['contador1']>=1){
+					$('#listamodelos').html(respuesta['html']);
+				}
+			},
+
+			error: function(respuesta) {
+				console.log(respuesta['responseText']);
+			}
+		});
+	}
+
+	function guardar_extra1(){
+		var modelo = $('#extra_modelo').val();
+		var tipo = $('#extra_tipo1').val();
+		var concepto = $('#extra_concepto').val();
+		var valor = $('#extra_valor').val();
+		$.ajax({
+			type: 'POST',
+			url: '../script/guardar_extra1.php',
+            dataType: "JSON",
+			data: {
+				"modelo": modelo,
+				"tipo": tipo,
+				"concepto": concepto,
+				"valor": valor,
+			},
+
+			success: function(respuesta) {
+				//console.log(respuesta['contador1']);
+				if(respuesta['contador1']==0){
+					Swal.fire({
+				 		title: 'Error',
+					 	text: "Verifique datos del Modelo",
+					 	icon: 'error',
+					 	position: 'center',
+					 	showConfirmButton: false,
+					 	timer: 3000
+					});
+					return false;
+				}
+				$('#extra_modelo').val('');
+				$('#extra_tipo1').val('');
+				$('#extra_concepto').val('');
+				$('#extra_valor').val('');
+				Swal.fire({
+			 		title: 'Guardado',
+				 	text: "Borrando Cache",
+				 	icon: 'success',
+				 	position: 'center',
+				 	showConfirmButton: false,
+				 	timer: 2000
+				});
+			},
+
+			error: function(respuesta) {
+				console.log(respuesta['responseText']);
+			}
+		});
+	}
+
+	function mostrarSeccionExtras2(button,value){
+		if(value=='Si'){
+			$('#div_extras2').hide('slow');
+			$('#div_extras3').hide('slow');
+			$('#'+button).val('No');
+			$('#consultar_extras1').val('No');
+		}else{
+			$('#div_extras2').show('slow');
+			$('#'+button).val('Si');
+		}
+	}
+
+	function mostrarSeccionExtras3(button,value){
+		if(value=='Si'){
+			$('#div_extras3').hide('slow');
+			$('#'+button).val('No');
+		}else{
+			$('#div_extras3').show('slow');
+			$('#'+button).val('Si');
+		}
+	}
+
+	function generar_extra(value){
+		$.ajax({
+			type: 'POST',
+			url: '../script/generar_consulta_extras1.php',
+            dataType: "JSON",
+			data: {
+				"value": value,
+			},
+
+			success: function(respuesta) {
+				//console.log(respuesta['contador1']);
+				$('#extra_generado1').hide('slow').html(respuesta['html']).fadeIn();
+			},
+
+			error: function(respuesta) {
+				console.log(respuesta['responseText']);
+			}
+		});
+	}
+
+	function mostrarSeccionDesprendible1(button,value){
+		if(value=='Si'){
+			$('#div_'+button).hide('slow');
+			$('#'+button).val('No');
+		}else{
+			$('#div_'+button).show('slow');
+			$('#'+button).val('Si');
+		}
+	}
+
+	function generar_desprendible1(){
+		var desprendible_fecha_desde = $('#desprendible_fecha_desde').val();
+		var desprendible_fecha_hasta = $('#desprendible_fecha_hasta').val();
+		if(desprendible_fecha_desde=='' || desprendible_fecha_hasta==''){
+			Swal.fire({
+		 		title: 'Campos Vacios',
+			 	text: "Por favor Llene todos los Campos",
+			 	icon: 'error',
+			 	position: 'center',
+			 	showConfirmButton: false,
+			 	timer: 3000
+			});
+			return false;
+		}
+
+		if(desprendible_fecha_desde>=desprendible_fecha_hasta){
+			Swal.fire({
+		 		title: 'Error',
+			 	text: "Rango de Fechas Erroneas",
+			 	icon: 'error',
+			 	position: 'center',
+			 	showConfirmButton: false,
+			 	timer: 3000
+			});
+			return false;
+		}
+
+		$.ajax({
+			type: 'POST',
+			url: '../script/generar_desprendible1.php',
+            dataType: "JSON",
+			data: {
+				"desprendible_fecha_desde": desprendible_fecha_desde,
+				"desprendible_fecha_hasta": desprendible_fecha_hasta,
+			},
+
+			success: function(respuesta) {
+				console.log(respuesta);
+				$('#desprendible_generado1').hide('slow').html(respuesta).fadeIn();
+			},
+
+			error: function(respuesta) {
+				console.log(respuesta['responseText']);
+			}
+		});
+
+	}
 
 
 </script>

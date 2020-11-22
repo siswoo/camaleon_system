@@ -65,8 +65,8 @@ $id = $_POST['id'];
 	}
 }else if($asunto=='empresa'){
 	/**********EMPRESA*****************/
-	//$turno = $_POST['turno'];
-	//$sede = $_POST['sede'];
+	$turno = $_POST['turno'];
+	$sede = $_POST['sede'];
 	$htransmision = $_POST['Htransmision'];
 	/*
 	$equipo = $_POST['equipo'];
@@ -82,7 +82,7 @@ $id = $_POST['id'];
 	if($Ptattu==null or $Ptattu==''){$Ptattu=='';}
 	if($Ppiercing==null or $Ppiercing==''){$Ppiercing=='';}
 	*/
-	$sql1 = "UPDATE modelos SET Htransmision = '$htransmision' WHERE id = ".$id;
+	$sql1 = "UPDATE modelos SET turno = '$turno', sede = '$sede', Htransmision = '$htransmision' WHERE id = ".$id;
 }
 
 

@@ -140,8 +140,8 @@
 					    </div>
 
 					    <div class="col-12 form-group form-check">
-						    <label for="genero">¿Cómo te has enterado de Camaleón? <small style="color:#F2B76F; font-size: 17px;">*</small></label>
-						    <select class="form-control" id="genero" name="genero" required>
+						    <label for="enterado">¿Cómo te has enterado de Camaleón? <small style="color:#F2B76F; font-size: 17px;">*</small></label>
+						    <select class="form-control" id="enterado" name="enterado" required>
 								<option value="">Seleccione</option>
 								<option value="Google">Google</option>
 								<option value="Facebook">Facebook</option>
@@ -212,6 +212,7 @@ $("#formulario1").on("submit", function(e){
 	var telefono1 			= $('#telefono1').val();
 	var direccion 			= $('#direccion').val();
 	var barrio 				= $('#barrio').val();
+	var enterado 			= $('#enterado').val();
 	//console.log(correo+" - "+correo2);
 	if(correo!=correo2){
 		Swal.fire({

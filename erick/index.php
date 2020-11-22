@@ -72,6 +72,9 @@
 				<a href="exportar4.php" style="text-decoration: none;">
 			    	<button type="button" class="btn btn-info ml-3">Modelos Sin Cuentas</button>
 				</a>
+				<a href="exportar5.php" style="text-decoration: none;">
+			    	<button type="button" class="btn btn-info ml-3">Todas las Pasantes</button>
+				</a>
 	    	</div>
 		</div>
 	</div>

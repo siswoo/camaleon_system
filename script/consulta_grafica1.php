@@ -53,8 +53,8 @@ if($pagina=='XLove'){
 }
 
 $datos = [
-	//"fechas"	=>	$fechas,
-	"fechas" => $fecha_array,
+	//"fechas"		=>	$fechas,
+	"fechas" 		=> $fecha_array,
 	//"meses"		=>	$meses,
 	//"years"		=>	$years,
 	//"tokens"		=>	$tokens,

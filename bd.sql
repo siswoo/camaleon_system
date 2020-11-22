@@ -218,6 +218,7 @@ CREATE TABLE pasantes (
 	direccion VARCHAR(250) NOT NULL,
 	sede INT NOT NULL,
 	estatus VARCHAR(250) DEFAULT 'Proceso',
+	enterado VARCHAR(250) NOT NULL,
 	fecha_inicio date NOT NULL,
 	PRIMARY KEY (id)
 ); ALTER TABLE pasantes CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
@@ -473,9 +474,8 @@ CREATE TABLE xlove (
 	dolares FLOAT(11,3) NOT NULL,
 	descuento FLOAT(11,3) NOT NULL,
 	tokens FLOAT(11,3) NOT NULL,
-	recorte VARCHAR(250) NOT NULL,
-	mes VARCHAR(250) NOT NULL,
-	year VARCHAR(250) NOT NULL,
+	fecha_desde DATE NOT NULL,
+	fecha_hasta DATE NOT NULL,
 	responsable INT NOT NULL,
 	fecha_inicio DATE NOT NULL,
    	PRIMARY KEY (id)
@@ -512,12 +512,12 @@ CREATE TABLE streamate (
 	nickname VARCHAR(250) NOT NULL,
 	ganancia FLOAT(11,2) NOT NULL,
 	tokens FLOAT(11,2) NOT NULL,
-	semana VARCHAR(250) NOT NULL,
-	year VARCHAR(250) NOT NULL,
+	fecha_desde DATE NOT NULL,
+	fecha_hasta DATE NOT NULL,
 	responsable INT NOT NULL,
 	fecha_inicio DATE NOT NULL,
    	PRIMARY KEY (id)
-); ALTER TABLE streamate CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci
+); ALTER TABLE streamate CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 DROP TABLE IF EXISTS myfreecams;
 CREATE TABLE myfreecams (
@@ -540,7 +540,155 @@ CREATE TABLE imlive (
 	dolares FLOAT(11,2) NOT NULL,
 	tokens FLOAT(11,2) NOT NULL,
 	responsable INT NOT NULL,
-	fecha DATE NOT NULL,
+	fecha_desde DATE NOT NULL,
+	fecha_hasta DATE NOT NULL,
 	fecha_inicio DATE NOT NULL,
    	PRIMARY KEY (id)
 ); ALTER TABLE imlive CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+DROP TABLE IF EXISTS livejasmin;
+CREATE TABLE livejasmin (
+	id INT AUTO_INCREMENT,
+	id_modelo INT NOT NULL,
+	id_cuenta_modelo VARCHAR(250) NOT NULL,
+	tokens INT NOT NULL,
+	dolares FLOAT(11,2) NOT NULL,
+	fecha_desde DATE NOT NULL,
+	fecha_hasta DATE NOT NULL,
+	responsable INT NOT NULL,
+	fecha_inicio DATE NOT NULL,
+   	PRIMARY KEY (id)
+); ALTER TABLE livejasmin CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+DROP TABLE IF EXISTS bonga;
+CREATE TABLE bonga (
+	id INT AUTO_INCREMENT,
+	id_modelo INT NOT NULL,
+	id_cuenta_modelo VARCHAR(250) NOT NULL,
+	tokens INT NOT NULL,
+	dolares FLOAT(11,2) NOT NULL,
+	fecha_desde DATE NOT NULL,
+	fecha_hasta DATE NOT NULL,
+	responsable INT NOT NULL,
+	fecha_inicio DATE NOT NULL,
+   	PRIMARY KEY (id)
+); ALTER TABLE bonga CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+DROP TABLE IF EXISTS cam4;
+CREATE TABLE cam4 (
+	id INT AUTO_INCREMENT,
+	id_modelo INT NOT NULL,
+	id_cuenta_modelo VARCHAR(250) NOT NULL,
+	tokens INT NOT NULL,
+	dolares FLOAT(11,2) NOT NULL,
+	fecha_desde DATE NOT NULL,
+	fecha_hasta DATE NOT NULL,
+	responsable INT NOT NULL,
+	fecha_inicio DATE NOT NULL,
+   	PRIMARY KEY (id)
+); ALTER TABLE cam4 CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+
+DROP TABLE IF EXISTS camsoda;
+CREATE TABLE camsoda (
+	id INT AUTO_INCREMENT,
+	id_modelo INT NOT NULL,
+	id_cuenta_modelo VARCHAR(250) NOT NULL,
+	tokens INT NOT NULL,
+	dolares FLOAT(11,2) NOT NULL,
+	fecha_desde DATE NOT NULL,
+	fecha_hasta DATE NOT NULL,
+	responsable INT NOT NULL,
+	fecha_inicio DATE NOT NULL,
+   	PRIMARY KEY (id)
+); ALTER TABLE camsoda CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+DROP TABLE IF EXISTS flirt4free;
+CREATE TABLE flirt4free (
+	id INT AUTO_INCREMENT,
+	id_modelo INT NOT NULL,
+	id_cuenta_modelo VARCHAR(250) NOT NULL,
+	tokens INT NOT NULL,
+	dolares FLOAT(11,2) NOT NULL,
+	fecha_desde DATE NOT NULL,
+	fecha_hasta DATE NOT NULL,
+	responsable INT NOT NULL,
+	fecha_inicio DATE NOT NULL,
+   	PRIMARY KEY (id)
+); ALTER TABLE flirt4free CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+DROP TABLE IF EXISTS descuento;
+CREATE TABLE descuento (
+	id INT AUTO_INCREMENT,
+	id_modelo INT NOT NULL,
+	concepto VARCHAR(250) NOT NULL,
+	valor INT NOT NULL,
+	responsable INT NOT NULL,
+	fecha_inicio DATE NOT NULL,
+   	PRIMARY KEY (id)
+); ALTER TABLE descuento CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+DROP TABLE IF EXISTS tienda;
+CREATE TABLE tienda (
+	id INT AUTO_INCREMENT,
+	id_modelo INT NOT NULL,
+	concepto VARCHAR(250) NOT NULL,
+	valor INT NOT NULL,
+	responsable INT NOT NULL,
+	fecha_inicio DATE NOT NULL,
+   	PRIMARY KEY (id)
+); ALTER TABLE tienda CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+DROP TABLE IF EXISTS avances;
+CREATE TABLE avances (
+	id INT AUTO_INCREMENT,
+	id_modelo INT NOT NULL,
+	concepto VARCHAR(250) NOT NULL,
+	valor INT NOT NULL,
+	responsable INT NOT NULL,
+	fecha_inicio DATE NOT NULL,
+   	PRIMARY KEY (id)
+); ALTER TABLE avances CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+DROP TABLE IF EXISTS multas;
+CREATE TABLE multas (
+	id INT AUTO_INCREMENT,
+	id_modelo INT NOT NULL,
+	concepto VARCHAR(250) NOT NULL,
+	valor INT NOT NULL,
+	responsable INT NOT NULL,
+	fecha_inicio DATE NOT NULL,
+   	PRIMARY KEY (id)
+); ALTER TABLE multas CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+
+DROP TABLE IF EXISTS pago_modelo;
+CREATE TABLE pago_modelo (
+	id INT AUTO_INCREMENT,
+	id_modelo INT NOT NULL,
+	sede INT NOT NULL,
+	inicio DATE NOT NULL,
+	fin DATE NOT NULL,
+	chaturbate FLOAT(11,2) NOT NULL,
+	imlive FLOAT(11,2) NOT NULL,
+	xlove FLOAT(11,2) NOT NULL,
+	stripchat FLOAT(11,2) NOT NULL,
+	streamate FLOAT(11,2) NOT NULL,
+	myfreecams FLOAT(11,2) NOT NULL,
+	livejasmin FLOAT(11,2) NOT NULL,
+	bonga FLOAT(11,2) NOT NULL,
+	cam4 FLOAT(11,2) NOT NULL,
+	camsoda FLOAT(11,2) NOT NULL,
+	flirt4free FLOAT(11,2) NOT NULL,
+	total_tokens FLOAT(11,2) NOT NULL,
+	subtotal_dolares FLOAT(11,2) NOT NULL,
+	rf FLOAT(11,2) NOT NULL,
+	meta_porcentajes VARCHAR(250) NOT NULL,
+	total_pesos FLOAT(11,2) NOT NULL,
+	total_dolares FLOAT(11,2) NOT NULL,
+	trm FLOAT(11,2) NOT NULL,
+	pv FLOAT(11,2) NOT NULL,
+	responsable INT NOT NULL,
+	fecha_inicio DATE NOT NULL,
+   	PRIMARY KEY (id)
+); ALTER TABLE pago_modelo CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;

@@ -10,9 +10,8 @@ use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 $fecha_inicio = date('Y-m-d h-i-s');
 $year = date('Y');
-$recorte_XLove = $_POST['recorte_XLove'];
-$mes_XLove = $_POST['mes_XLove'];
-$year_XLove = $_POST['year_XLove'];
+$fecha_desde_XLove = $_POST['fecha_desde_XLove'];
+$fecha_hasta_XLove = $_POST['fecha_hasta_XLove'];
 $coste_euro_XLove = $_POST['coste_euro_XLove'];
 $responsable = $_SESSION['id'];
 
@@ -32,7 +31,7 @@ $worksheet = $spreadsheet->getActiveSheet();
 
 $limite = 1000;
 
-$sql1 = "DELETE FROM xlove WHERE recorte = '".$recorte_XLove."' and mes = '".$mes_XLove."' and year = '".$year_XLove."'";
+$sql1 = "DELETE FROM xlove WHERE recorte = '".$recorte_XLove."' and fecha_desde BETWEEN '".$fecha_desde_XLove."' AND '".$fecha_hasta_XLove."' and fecha_hasta BETWEEN '".$fecha_desde_XLove."' AND '".$fecha_hasta_XLove."'";
 $eliminar1 = mysqli_query($conexion,$sql1);
 
 for($i=2;$i<=$limite;$i++){
@@ -45,7 +44,7 @@ for($i=2;$i<=$limite;$i++){
         $calculo_dolares = $coste_euro_XLove*$Amount_final;
         $calculo_tokens = $calculo_dolares/0.05;
         
-        $sql2 = "INSERT INTO xlove (nickname, amount, dolares, tokens, recorte, mes, year, responsable, fecha_inicio) VALUES ('$nickname','$Amount_final','$calculo_dolares','$calculo_tokens','$recorte_XLove','$mes_XLove','$year_XLove','$responsable','$fecha_inicio')";
+        $sql2 = "INSERT INTO xlove (nickname, amount, dolares, tokens, fecha_desde, fecha_hasta, responsable, fecha_inicio) VALUES ('$nickname','$Amount_final','$calculo_dolares','$calculo_tokens','$fecha_desde_XLove','$fecha_hasta_XLove','$responsable','$fecha_inicio')";
         $guardar1 = mysqli_query($conexion,$sql2);
     }
 }

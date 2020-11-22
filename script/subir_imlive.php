@@ -9,7 +9,8 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 $fecha_inicio = date('Y-m-d');
-$fecha_Imlive = $_POST['fecha_Imlive'];
+$fecha_desde_Imlive = $_POST['fecha_desde_Imlive'];
+$fecha_hasta_Imlive = $_POST['fecha_hasta_Imlive'];
 $responsable = $_SESSION['id'];
 
 $archivo_nombre = $_FILES['file']['name'];
@@ -28,7 +29,7 @@ $worksheet = $spreadsheet->getActiveSheet();
 
 $limite = 1000;
 
-$sql2 = "DELETE FROM imlive WHERE fecha = '$fecha_Imlive'";
+$sql2 = "DELETE FROM imlive WHERE fecha_desde BETWEEN '".$fecha_desde_Imlive."' AND '".$fecha_hasta_Imlive."' and fecha_hasta BETWEEN '".$fecha_desde_Imlive."' AND '".$fecha_hasta_Imlive."'";
 $eliminar1 = mysqli_query($conexion,$sql2);
 
 for($i=2;$i<=$limite;$i++){
@@ -45,7 +46,7 @@ for($i=2;$i<=$limite;$i++){
         }
         $fecha_inicio = $fecha_inicio;
 
-        $sql1 = "INSERT INTO imlive (nickname,dolares,tokens,responsable,fecha,fecha_inicio) VALUES ('$username','$total','$tokens','$responsable','$fecha_Imlive','$fecha_inicio')";
+        $sql1 = "INSERT INTO imlive (nickname,dolares,tokens,responsable,fecha_desde,fecha_hasta,fecha_inicio) VALUES ('$username','$total','$tokens','$responsable','$fecha_desde_Imlive','$fecha_hasta_Imlive','$fecha_inicio')";
         $registro1 = mysqli_query($conexion,$sql1);
     }
 }

@@ -263,6 +263,7 @@
 			                <th class="text-center">Opciones</th>
 			                <th class="text-center">Documentos</th>
 			                <th class="text-center">Cuentas</th>
+			                <th class="text-center">Recuperar</th>
 			            </tr>
 			        </thead>
 			        <tbody id="resultados">
@@ -446,6 +447,12 @@
 					        			<i class="fas fa-user-shield" style="cursor:pointer; font-size:20px;" data-toggle="modal" data-target="#Modal_cuentas1" onclick="cuentas('.$modelo_id.');"></i>
 					        			<strong>('.$contador3.')</strong>
 					        			<i class="fas fa-user-plus ml-3" style="cursor:pointer; font-size:20px;" data-toggle="modal" data-target="#Modal_cuentas2" onclick="cuentas2('.$modelo_id.');"></i>
+					        		</td>
+					        	';
+
+					        	echo '
+					        		<td class="text-center">
+					        			<button class="btn btn-success" value="'.$modelo_id.'" onclick="generar_clave1('.$modelo_id.');">Generar</button>
 					        		</td>
 					        	';
 						}
@@ -737,7 +744,7 @@
 
 							<div class="col-6 form-group form-check text-center">
 								<label for="Ptattu">¿Posee Tattu?</label>
-								<select class="form-control" id="Ptattu2" name="Ptattu2" required>
+								<select class="form-control" id="Ptattu2" name="Ptattu2">
 									<option value="">Seleccione</option>
 									<option value="Si">Si</option>
 									<option value="No">No</option>
@@ -746,7 +753,7 @@
 
 							<div class="col-6 form-group form-check text-center">
 								<label for="Ppiercing">¿Posee Piercing?</label>
-								<select class="form-control" id="Ppiercing2" name="Ppiercing2" required>
+								<select class="form-control" id="Ppiercing2" name="Ppiercing2">
 									<option value="">Seleccione</option>
 									<option value="Si">Si</option>
 									<option value="No">No</option>
@@ -2028,5 +2035,32 @@
             }
         });
     }
+
+    function generar_clave1(id){
+		$.ajax({
+			url: '../script/generar_clave1.php',
+			type: 'POST',
+			dataType: "JSON",
+			data: {
+				"id": id,
+			},
+
+			success: function(respuesta) {
+				console.log(respuesta);
+				Swal.fire({
+			 		title: 'Correo enviado',
+			 		text: "Se ha generado su clave",
+			 		icon: 'success',
+			 		position: 'center',
+			 		showConfirmButton: false,
+			 		timer: 3000
+				})
+			},
+
+			error: function(respuesta) {
+				console.log(respuesta['responseText']);
+			}
+		});
+	}
 
 </script>
