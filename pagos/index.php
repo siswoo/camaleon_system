@@ -790,6 +790,10 @@
 					<label for="desprendible_fecha_hasta">Fecha Hasta</label>
 					<input type="date" class="form-control" name="desprendible_fecha_hasta" id="desprendible_fecha_hasta" required>
 				</div>
+				<div class="form-group col-12">
+					<label for="desprendible_trm">TRM</label>
+					<input type="text" class="form-control" name="desprendible_trm" id="desprendible_trm" required>
+				</div>
 				<div class="form-group col-12 text-center">
 				    <button type="button" class="btn btn-success" onclick="generar_desprendible1();">Generar Desprendible</button>
 				</div>
@@ -1859,6 +1863,7 @@
 	function generar_desprendible1(){
 		var desprendible_fecha_desde = $('#desprendible_fecha_desde').val();
 		var desprendible_fecha_hasta = $('#desprendible_fecha_hasta').val();
+		var desprendible_trm 		= $('#desprendible_trm').val();
 		if(desprendible_fecha_desde=='' || desprendible_fecha_hasta==''){
 			Swal.fire({
 		 		title: 'Campos Vacios',

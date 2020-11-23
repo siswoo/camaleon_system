@@ -8,8 +8,9 @@ use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
-$desprendible_fecha_desde = $_POST['desprendible_fecha_desde'];
-$desprendible_fecha_hasta = $_POST['desprendible_fecha_hasta'];
+$desprendible_fecha_desde 	= $_POST['desprendible_fecha_desde'];
+$desprendible_fecha_hasta 	= $_POST['desprendible_fecha_hasta'];
+$desprendible_trm 			= $_POST['desprendible_trm'];
 $responsable = $_SESSION['id'];
 $fecha_inicio = date('Y-m-d');
 
@@ -180,7 +181,27 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 				$contador_tokens_xlove1 = $contador_tokens_xlove1 + $row3['tokens'];
 				$contador_dolares_xlove1 = $contador_dolares_xlove1 + $row3['dolares'];
 			}
-		}
+		}		
+
+		/*
+		$spreadsheet->getActiveSheet()->getCell('B'.$fila)->setValue($numero_documento);
+		$spreadsheet->getActiveSheet()->getStyle('B'.$fila)->getNumberFormat()->setFormatCode('00');
+		$sheet->setCellValue('C'.$fila, $primer_nombre);
+		$sheet->setCellValue('D'.$fila, $segundo_nombre);
+		$sheet->setCellValue('E'.$fila, $primer_apellido);
+		$sheet->setCellValue('F'.$fila, $segundo_apellido);
+		$sheet->setCellValue('G'.$fila, $genero);
+		$sheet->setCellValue('H'.$fila, $correo);
+		$sheet->setCellValue('I'.$fila, "".$telefono1."");
+		$sheet->setCellValue('J'.$fila, $direccion);
+		$sheet->setCellValue('K'.$fila, $estatus);
+		$sheet->setCellValue('L'.$fila, $barrio);
+		$sheet->setCellValue('M'.$fila, $sede_nombre);
+		$sheet->setCellValue('N'.$fila, $fecha_inicio);
+		$sheet->setCellValue('X'.$fila, $sede);
+		*/
+	}
+
 
 		$spreadsheet->getActiveSheet()->getColumnDimension('A')->setWidth(20);
 		$spreadsheet->getActiveSheet()->getColumnDimension('B')->setWidth(60);
@@ -224,54 +245,52 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 
 		$sheet->setCellValue('S'.$fila, $subt_total_dolares);
 
+		$retencion_fuente = $subt_total_dolares*0.03;
 
+		$sheet->setCellValue('T'.$fila, $retencion_fuente);
 
-		$sheet->setCellValue('T'.$fila, $total_tokens);
-		
+		if($total_tokens==0){
+			$meta1 = '0%';
+			$meta2 = 0;
+		}
 
-		/*
-		$spreadsheet->getActiveSheet()->getCell('B'.$fila)->setValue($numero_documento);
-		$spreadsheet->getActiveSheet()->getStyle('B'.$fila)->getNumberFormat()->setFormatCode('00');
-		$sheet->setCellValue('C'.$fila, $primer_nombre);
-		$sheet->setCellValue('D'.$fila, $segundo_nombre);
-		$sheet->setCellValue('E'.$fila, $primer_apellido);
-		$sheet->setCellValue('F'.$fila, $segundo_apellido);
-		$sheet->setCellValue('G'.$fila, $genero);
-		$sheet->setCellValue('H'.$fila, $correo);
-		$sheet->setCellValue('I'.$fila, "".$telefono1."");
-		$sheet->setCellValue('J'.$fila, $direccion);
-		$sheet->setCellValue('K'.$fila, $estatus);
-		$sheet->setCellValue('L'.$fila, $barrio);
-		$sheet->setCellValue('M'.$fila, $sede_nombre);
-		$sheet->setCellValue('N'.$fila, $fecha_inicio);
-		$sheet->setCellValue('X'.$fila, $sede);
-		*/
-	}
+		if($total_tokens>=1 and $total_tokens<=9999){
+			$meta1 = '50%';
+			$meta2 = 50;
+		}
 
-	/*********************************************/
+		if($total_tokens>=10000 and $total_tokens<=14999){
+			$meta1 = '55%';
+			$meta2 = 55;
+		}
+
+		if($total_tokens>=15000 and $total_tokens<=34999){
+			$meta1 = '60%';
+			$meta2 = 60;
+		}
+
+		if($total_tokens>=35000){
+			$meta1 = '65%';
+			$meta2 = 65;
+		}
+
+		//$desprendible_trm = 
+
+		//QUEDE AQUI!
 
 }
 
+$datos = [
+	"sql" 			=> $sql_paginas1,
+];
+
+echo json_encode($datos);
+
+/*
 $fecha_inicio1 = date('Y-m-d');
 $writer = new Xlsx($spreadsheet);
 $writer->save('test '.$fecha_inicio1.'.xlsx');
 header("Location: test ".$fecha_inicio1.".xlsx");
-
-$datos = [
-	"sql" 			=> $sql_paginas1,
-	"chaturbate1" 	=> $contador_tokens_chaturbate1,
-	"myfreecams1" 	=> $contador_tokens_myfreecams1,
-	"camsoda1" 		=> $contador_tokens_camsoda1,
-	"bonga1" 		=> $contador_tokens_bonga1,
-	"stripchat1" 	=> $contador_tokens_stripchat1,
-	"cam41" 		=> $contador_tokens_cam41,
-	"streamate1" 	=> $contador_tokens_streamate1,
-	"flirt4free1" 	=> $contador_tokens_flirt4free1,
-	"livejasmin1" 	=> $contador_tokens_livejasmin1,
-	"imlive1" 		=> $contador_tokens_imlive1,
-	"xlove1" 		=> $contador_tokens_xlove1,
-];
-
-echo json_encode($datos);
+*/
 
 ?>
