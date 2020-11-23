@@ -20,6 +20,20 @@
   		border-color: #735735 !important;
   		color: white !important;
   	}
+
+  	body{
+  		background-image: url("img/FONDO APP.png");
+  	}
+
+  	.btn-info{
+  		background-color: #A9814F !important;
+  		border-color: #A9814F !important;
+  	}
+
+  	.btn-primary{
+  		background-color: #A9814F !important;
+  		border-color: #A9814F !important;
+  	}
   </style>
 <body>
 	<script src="js/jquery-3.5.1.min.js"></script>
@@ -124,12 +138,16 @@
 	</div>
 	-->
 
-    <div class="seccion1">
+	<div class="col-12 text-center" style="margin-top: 4rem;">
+		<img src="img/logo_index1.png" style="width: 200px;">
+	</div>
+
+    <div class="seccion1" style="margin-top: 3rem;">
 	    <div class="row">
 		    <div class="container">
 			    <form action="#" method="POST" id="formulario1" style="margin-left: 30%; margin-right: 30%;">
 				    <div class="col-12" class="text-center">
-				    	<p class="text-center titulo1">Ingrese Datos de Ingreso</p>
+				    	<p class="text-center titulo1">Datos de Ingreso</p>
 				    </div>
 				    <div class="form-group form-check">
 					    <label for="usuario">Usuario o Correo</label>
@@ -155,8 +173,8 @@
 						</div>
 						-->
 						<div class="col-md-6 form-group form-check text-center" style="text-align: center;">
-						<p class="olvido1">
-							<a href="">Has olvidado la contraseña?</a>
+						<p class="">
+							<a href="" style="color:white; text-decoration: none; margin-top: 5px;">Has olvidado la contraseña?</a>
 						</p>
 					</div>
 					</div>

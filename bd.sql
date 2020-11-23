@@ -662,8 +662,8 @@ CREATE TABLE multas (
 ); ALTER TABLE multas CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 
-DROP TABLE IF EXISTS pago_modelo;
-CREATE TABLE pago_modelo (
+DROP TABLE IF EXISTS presabana;
+CREATE TABLE presabana (
 	id INT AUTO_INCREMENT,
 	id_modelo INT NOT NULL,
 	sede INT NOT NULL,
@@ -691,4 +691,4 @@ CREATE TABLE pago_modelo (
 	responsable INT NOT NULL,
 	fecha_inicio DATE NOT NULL,
    	PRIMARY KEY (id)
-); ALTER TABLE pago_modelo CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+); ALTER TABLE presabana CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;

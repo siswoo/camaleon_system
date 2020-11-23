@@ -25,6 +25,20 @@
   			background-color: #a67d4c;
   			border-color: #a67d4c;
   		}
+
+  		.btn-info{
+	  		background-color: #A9814F !important;
+	  		border-color: #A9814F !important;
+	  	}
+
+	  	.btn-primary{
+	  		background-color: #A9814F !important;
+	  		border-color: #A9814F !important;
+	  	}
+
+	  	body{
+  			background-image: url("../img/FONDO APP.png");
+  		}
   	</style>
 
 	<!--
@@ -47,7 +61,7 @@
 
 
 						<div class="col-12" class="text-center" style="text-align: center;">
-							<img src="../img/Dorado Completo.png" width="180" class="drop" >
+							<img src="../img/logo_index1.png" width="180" class="drop" >
 						</div>
 
 						<div class="col-2"></div>

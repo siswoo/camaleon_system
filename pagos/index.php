@@ -45,6 +45,23 @@
   		margin-left: 2rem;
   		margin-right: 2rem;
   	}
+
+  	.navbar-active{
+  		border-bottom: 2px solid #A9814F;
+  	}
+
+  	.btn-info{
+  		background-color: #A9814F !important;
+  		border-color: #A9814F !important;
+  	}
+
+  	.btn-primary{
+  		background-color: #A9814F !important;
+  		border-color: #A9814F !important;
+  	}
+
+
+
 	</style>
 
 <?php
@@ -60,14 +77,16 @@
 	</form>
 	<div class="row">
 		<div class="col-12 text-center mt-3 ml-3">
+			<!--
 			<a href="nuevo_pago.php" style="text-decoration: none;">
 				<input type="submit" class="btn btn-success" value="Nuevo Pago">
 			</a>
 			<input type="submit" class="btn btn-info" value="Descuentos" data-toggle="modal" data-target="#exampleModal3">
+			<button type="button" class="btn btn-info" value="No" id="pendientes" onclick="mostrarSeccionPendientes1(this.id,value);">Pendientes</button>
+			-->
+			<button type="button" class="btn btn-info" value="No" id="extras" onclick="mostrarSeccionExtras1(this.id,value);">Extras</button>
 			<button type="button" class="btn btn-info" value="No" id="graficos" onclick="mostrarSeccionGraficos1(this.id,value);">Gráficos</button>
 			<button type="button" class="btn btn-info" value="No" id="datos" onclick="mostrarSeccion1(this.id,value);">Datos</button>
-			<button type="button" class="btn btn-info" value="No" id="pendientes" onclick="mostrarSeccionPendientes1(this.id,value);">Pendientes</button>
-			<button type="button" class="btn btn-info" value="No" id="extras" onclick="mostrarSeccionExtras1(this.id,value);">Extras</button>
 			<button type="button" class="btn btn-info" value="No" id="desprendibles" onclick="mostrarSeccionDesprendible1(this.id,value);">Desprendible de Pagos</button>
 		</div>
 	</div>
@@ -719,6 +738,7 @@
 				    			<th class="text-center">Tipo</th>
 				    			<th class="text-center">Concepto</th>
 				    			<th class="text-center">Valor</th>
+				    			<th class="text-center">Fecha</th>
 				    			<th class="text-center">Opción</th>
 				    		</tr>
 				    	</thead>
@@ -744,6 +764,9 @@
 				    			</td>
 				    			<td>
 				    				<input type="number" name="extra_valor" id="extra_valor" class="form-control" required>
+				    			</td>
+				    			<td>
+				    				<input type="date" name="extra_fecha" id="extra_fecha" class="form-control" required>
 				    			</td>
 				    			<td class="text-center">
 				    				<button class="btn btn-success" type="button" onclick="guardar_extra1();">Guardar</button>
@@ -799,6 +822,11 @@
 				</div>
 				<div class="form-group col-12" id="desprendible_generado1"></div>
 			</div>
+			<form method="POST" action="../script/generar_desprendible1.php" id="formulario_desprendible_hidden1">
+				<input type="hidden" name="desprendible_fecha_desde_hidden" id="desprendible_fecha_desde_hidden">
+				<input type="hidden" name="desprendible_fecha_hasta_hidden" id="desprendible_fecha_hasta_hidden">
+				<input type="hidden" name="desprendible_trm_hidden" id="desprendible_trm_hidden">
+			</form>
 	</div>
 
 <!--****************************FIN DESPRENDIBLES****************************-->
@@ -1764,6 +1792,7 @@
 		var tipo = $('#extra_tipo1').val();
 		var concepto = $('#extra_concepto').val();
 		var valor = $('#extra_valor').val();
+		var fecha = $('#extra_fecha').val();
 		$.ajax({
 			type: 'POST',
 			url: '../script/guardar_extra1.php',
@@ -1773,6 +1802,7 @@
 				"tipo": tipo,
 				"concepto": concepto,
 				"valor": valor,
+				"fecha": fecha,
 			},
 
 			success: function(respuesta) {
@@ -1792,6 +1822,7 @@
 				$('#extra_tipo1').val('');
 				$('#extra_concepto').val('');
 				$('#extra_valor').val('');
+				$('#extra_fecha').val('');
 				Swal.fire({
 			 		title: 'Guardado',
 				 	text: "Borrando Cache",
@@ -1864,7 +1895,7 @@
 		var desprendible_fecha_desde = $('#desprendible_fecha_desde').val();
 		var desprendible_fecha_hasta = $('#desprendible_fecha_hasta').val();
 		var desprendible_trm 		= $('#desprendible_trm').val();
-		if(desprendible_fecha_desde=='' || desprendible_fecha_hasta==''){
+		if(desprendible_fecha_desde=='' || desprendible_fecha_hasta=='' || desprendible_trm==''){
 			Swal.fire({
 		 		title: 'Campos Vacios',
 			 	text: "Por favor Llene todos los Campos",
@@ -1888,6 +1919,12 @@
 			return false;
 		}
 
+		$('#desprendible_fecha_desde_hidden').val(desprendible_fecha_desde);
+		$('#desprendible_fecha_hasta_hidden').val(desprendible_fecha_hasta);
+		$('#desprendible_trm_hidden').val(desprendible_trm);
+		$('#formulario_desprendible_hidden1').submit();
+
+		/*
 		$.ajax({
 			type: 'POST',
 			url: '../script/generar_desprendible1.php',
@@ -1899,13 +1936,14 @@
 
 			success: function(respuesta) {
 				console.log(respuesta);
-				$('#desprendible_generado1').hide('slow').html(respuesta).fadeIn();
+				//$('#desprendible_generado1').hide('slow').html(respuesta).fadeIn();
 			},
 
 			error: function(respuesta) {
 				console.log(respuesta['responseText']);
 			}
 		});
+		*/
 
 	}
 

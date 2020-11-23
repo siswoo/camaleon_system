@@ -22,8 +22,25 @@ while($row_verificacion = mysqli_fetch_array($verificacion_rol)) {
 }
 ?>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-<a class="navbar-brand" id="navbar-home" href="../welcome.php" style="font-weight: bold; border: 2px solid black; padding: 6px 12px; border-radius: 5px;"><?php echo $usuario_rol; ?></a>
+<?php
+if($ubicacion == 'welcome'){ ?>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: black !important;">
+<?php }else{ ?>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: black !important;">
+<?php } ?>
+	<!--
+	<a class="navbar-brand" id="navbar-home" href="../welcome.php" style="font-weight: bold; border: 2px solid black; padding: 6px 12px; border-radius: 5px;"><?php echo $usuario_rol; ?></a>
+	-->
+	<?php
+	if($ubicacion == 'welcome'){ ?>
+		<a href="welcome.php" style="margin-right: 2rem;">
+			<img src="img/logo_index2.png" style="width: 240px;">
+		</a>
+	<?php }else{ ?>
+		<a href="../welcome.php" style="margin-right: 2rem;">
+			<img src="../img/logo_index2.png" style="width: 240px;">
+		</a>
+	<?php } ?>
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 	    <span class="navbar-toggler-icon"></span>
   	</button>
@@ -32,34 +49,39 @@ while($row_verificacion = mysqli_fetch_array($verificacion_rol)) {
 			<?php
 			if($verificacion_modelo_view==1){ ?>
 				<li class="nav-item" id="li-modelo">
-	        		<a class="nav-link navbar-active-a" href="../modelo/index.php" id="a-modelo">Modelos</a>
+	        		<a class="nav-link navbar-active-a" style="color: white !important;" href="../modelo/index.php" id="a-modelo">Modelos</a>
 	      		</li>
 			<?php } ?>
-
+			
+			<!--
 			<?php
 			if($verificacion_roles_view==1){ ?>
 		      	<li class="nav-item" id="li-roles">
 		        	<a class="nav-link navbar-active-a" href="../roles/index.php" id="a-roles">Roles</a>
 		      	</li>
 	      	<?php } ?>
+	      	-->
+	      	
 	      	<!--
 	      	<li class="nav-item" id="li-seguridad">
 	        	<a class="nav-link navbar-active-a" href="../seguridad/index.php" id="a-seguridad">Seguridad</a>
 	      	</li>
-	      	-->
+			-->
 	      	<?php
 			if($verificacion_pasante_view==1){ ?>
 		      	<li class="nav-item" id="li-pasante">
-		        	<a class="nav-link navbar-active-a" href="../pasante/index.php" id="a-pasante">Pasantes</a>
+		        	<a class="nav-link navbar-active-a" style="color: white !important;" href="../pasante/index.php" id="a-pasante">Pasantes</a>
 		      	</li>
 	      	<?php } ?>
-
+			
+			<!--
 	      	<?php
 			if($verificacion_usuarios_view==1){ ?>
 		      	<li class="nav-item" id="li-usuario">
 		        	<a class="nav-link navbar-active-a" href="../usuarios/index.php" id="a-usuario">Usuarios</a>
 		      	</li>
 	      	<?php } ?>
+	      	-->
 
 	      	<?php
 	      	/*
@@ -71,12 +93,14 @@ while($row_verificacion = mysqli_fetch_array($verificacion_rol)) {
 			*/
 	      	?>
 
+	      	<!--
 	      	<?php
 			if($verificacion_monitores_view==1){ ?>
 	      	<li class="nav-item" id="li-monitores">
 	        	<a class="nav-link navbar-active-a" href="../monitores/index.php" id="a-monitores">Monitores</a>
 	      	</li>
 	      	<?php } ?>
+	      	-->
 
 	      	<?php
 	      	/*
@@ -97,31 +121,33 @@ while($row_verificacion = mysqli_fetch_array($verificacion_rol)) {
 	      	<?php } 
 			*/
 	      	?>
-	      	
+	      	<!--
 	      	<?php
 			if($_SESSION['rol']==1 or $_SESSION['rol']==7){ ?>
 	      	<li class="nav-item" id="li-reportes">
 	        	<a class="nav-link navbar-active-a" href="../reportes/index.php" id="a-reportes">Reportes</a>
 	      	</li>
 	      	<?php } ?>
+	      	-->
 
 	      	<li class="nav-item" id="li-pagos">
-	        	<a class="nav-link navbar-active-a" href="../pagos/index.php" id="a-pagos">Pagos</a>
+	        	<a class="nav-link navbar-active-a" style="color: white !important;" href="../pagos/index.php" id="a-pagos">Pagos</a>
 	      	</li>
-
+	      	<!--
 	      	<?php
 			if($_SESSION['rol']==1 or $_SESSION['rol']==7){ ?>
 	      	<li class="nav-item" id="li-erick">
 	        	<a class="nav-link navbar-active-a" href="../erick/index.php" id="a-erick">Erick</a>
 	      	</li>
 	      	<?php } ?>
+	      	-->
 
 	    </ul>
 
 	    <ul class="nav navbar-nav flex-row justify-content-between ml-auto">
             <!--<li class="nav-item order-2 order-md-1"><a href="#" class="nav-link" title="settings"><i class="fa fa-cog fa-fw fa-lg"></i></a></li>-->
             <li class="dropdown order-1">
-				<button type="button" id="dropdownMenu1" data-toggle="dropdown" class="btn btn-outline-secondary dropdown-toggle"> 
+				<button type="button" id="dropdownMenu1" data-toggle="dropdown" class="btn btn-outline-secondary dropdown-toggle" style="color: white !important;"> 
 					<?php echo $usuario_rol; ?>
 					<span class="caret"></span>
 				</button>

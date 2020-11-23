@@ -38,6 +38,21 @@
   		color: white !important;
   		border-color: white !important;
   	}
+
+  	.navbar-active{
+  		border-bottom: 2px solid #A9814F;
+  	}
+
+  	.btn-info{
+  		background-color: #A9814F !important;
+  		border-color: #A9814F !important;
+  	}
+
+  	.btn-primary{
+  		background-color: #A9814F !important;
+  		border-color: #A9814F !important;
+  	}
+
 	</style>
 
 <?php
@@ -493,6 +508,7 @@
 							    	<option value="Cedula de Ciudadania">Cedula de Ciudadania</option>
 							    	<option value="Cedula de Extranjeria">Cedula de Extranjeria</option>
 							    	<option value="PEP">PEP</option>
+							    	<option value="Pasaporte">Pasaporte</option>
 							    </select>
 						    </div>
 						    <div class="col-6 form-group form-check">

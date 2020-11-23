@@ -35,6 +35,20 @@
   		color: white !important;
   		border-color: white !important;
   	}
+
+  	.navbar-active{
+  		border-bottom: 2px solid #A9814F;
+  	}
+
+  	.btn-info{
+  		background-color: #A9814F !important;
+  		border-color: #A9814F !important;
+  	}
+
+  	.btn-primary{
+  		background-color: #A9814F !important;
+  		border-color: #A9814F !important;
+  	}
 </style>
 <body>
 <?php

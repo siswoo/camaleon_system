@@ -6,7 +6,8 @@ $tipo = $_POST['tipo'];
 $concepto = $_POST['concepto'];
 $valor = $_POST['valor'];
 $responsable = $_SESSION['id'];
-$fecha_inicio = date('Y-m-d');
+//$fecha_inicio = date('Y-m-d');
+$fecha_inicio = $_POST['fecha'];
 
 $sql1 = "SELECT * FROM modelos WHERE documento_numero = ".$modelo;
 $consulta1 = mysqli_query($conexion,$sql1);

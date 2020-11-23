@@ -16,6 +16,13 @@
 	<link rel="stylesheet" href="css/welcome.css">
 	<title>Camaleon Sistem</title>
 </head>
+
+<style type="text/css">
+	body{
+  		background-image: url("img/FONDO APP.png");
+  	}
+</style>
+
 <body>
 <?php
 	include('script/conexion.php');

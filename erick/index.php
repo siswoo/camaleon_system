@@ -75,6 +75,9 @@
 				<a href="exportar5.php" style="text-decoration: none;">
 			    	<button type="button" class="btn btn-info ml-3">Todas las Pasantes</button>
 				</a>
+				<a href="exportar6.php" style="text-decoration: none;">
+			    	<button type="button" class="btn btn-info ml-3">Registrados con Banco</button>
+				</a>
 	    	</div>
 		</div>
 	</div>

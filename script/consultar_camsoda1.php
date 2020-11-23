@@ -41,6 +41,20 @@ while($row1 = mysqli_fetch_array($registro1)) {
         while($row4 = mysqli_fetch_array($registro4)) {
             $contador1 = $contador1 + 1;
         }
+
+        $sql8 = "SELECT * FROM modelos_cuentas WHERE id_modelos = ".$row1['id_modelos']." and id_paginas = 5 and estatus = 'Aprobada'";
+        $registro8 = mysqli_query($conexion,$sql8);
+        while($row8 = mysqli_fetch_array($registro8)) {
+            $nickname_modelo_stripchat = $row8['usuario'];
+            $clave_modelo_stripchat = $row8['clave'];
+            
+            $sql7 = "SELECT * FROM stripchat WHERE nickname ='".$nickname_modelo_stripchat."' and tokens >= 1 and fecha BETWEEN  '".$fecha_desde_Camsoda."' AND  '".$fecha_hasta_Camsoda."'";
+            $registro7 = mysqli_query($conexion,$sql7);
+            while($row7 = mysqli_fetch_array($registro7)) {
+                $contador1 = $contador1 + 1;
+            }
+        }
+
     }
 
     if($contador1>=1){

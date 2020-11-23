@@ -1,5 +1,8 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-<a class="navbar-brand" id="navbar-home" href="#" style="font-weight: bold; border: 2px solid black; padding: 6px 12px; border-radius: 5px;">Sección de Modelos</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: black !important;">
+<!--<a class="navbar-brand" id="navbar-home" href="#" style="font-weight: bold; border: 2px solid black; padding: 6px 12px; border-radius: 5px;">Sección de Modelos</a>-->
+<a href="welcome.php" style="margin-right: 2rem;">
+	<img src="../img/logo_index2.png" style="width: 260px;">
+</a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 	    <span class="navbar-toggler-icon"></span>
   	</button>
@@ -7,7 +10,7 @@
 	    <ul class="nav navbar-nav flex-row justify-content-between ml-auto">
             <!--<li class="nav-item order-2 order-md-1"><a href="#" class="nav-link" title="settings"><i class="fa fa-cog fa-fw fa-lg"></i></a></li>-->
             <li class="dropdown order-1">
-				<button type="button" id="dropdownMenu1" data-toggle="dropdown" class="btn btn-outline-secondary dropdown-toggle"> 
+				<button type="button" id="dropdownMenu1" data-toggle="dropdown" class="btn btn-outline-secondary dropdown-toggle" style="color:white !important;"> 
 					<?php echo $nombre1." ".$apellido1; ?>
 					<span class="caret"></span>
 				</button>

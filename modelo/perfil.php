@@ -37,6 +37,25 @@
   		border-color: #735735 !important;
   		color: white !important;
   	}
+
+  	body{
+  		background-image: url("../img/FONDO APP.png");
+  	}
+
+  	.btn-info{
+  		background-color: #A9814F !important;
+  		border-color: #A9814F !important;
+  	}
+
+  	.btn-primary{
+  		background-color: #A9814F !important;
+  		border-color: #A9814F !important;
+  	}
+
+  	.btn-success{
+  		background-color: #A9814F !important;
+  		border-color: #A9814F !important;
+  	}
 </style>
 
 	<?php
@@ -153,7 +172,7 @@
 		</div>
 		-->
 
-		<h1 class="col-12 text-center mt-2" style="text-transform: capitalize;">Barra de Progreso Camaleón Models</h1>
+		<h1 class="col-12 text-center mt-2" style="text-transform: capitalize;">Progreso Camaleón Models <span id="progreso_html1"></span></h1>
 
 		<div class="progress mb-3">
 			<div class="progress-bar" id="progressbar" role="progressbar" style="" aria-valuemin="0" aria-valuemax="100"></div>
@@ -183,6 +202,9 @@
 			</li>
 			<li class="nav-item">
 				<a class="nav-link" href="#" id="Dfotos" onclick="pestañas(this.id);" style="color:white; text-transform: uppercase;">Fotos</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#" id="Dpagos" onclick="pestañas(this.id);" style="color:white; text-transform: uppercase;">Pagos</a>
 			</li>
 		</ul>
 
@@ -572,7 +594,7 @@
 	<!--**********************DOCUMENTOS*********************-->
 	<!--***********************************************************-->
 	<div id="formulario5" class="d-none">
-		<div class="col-12 text-center mt-3 mb-3" style="font-weight: bold; font-size: 20px; text-transform: capitalize; color: #00dcff;">
+		<div class="col-12 text-center mt-3 mb-3" style="font-weight: bold; font-size: 20px; text-transform: capitalize; color: #A9814F;">
 			Se sube 1 documento a la vez, por favor darle clic al correspondiente boton de "Subir"
 		</div>
 		<input type="hidden" id="asunto" name="asunto" value="documentos">
@@ -1327,6 +1349,45 @@
 	<!--***********************************************************-->
 	<!--***********************************************************-->
 
+	<!--***********************************************************-->
+	<!--**********************PAGOS*********************-->
+	<!--***********************************************************-->
+	<form class="d-none" action="#" method="POST" id="formulario9">
+		<div class="row">
+				<?php
+				$sql7 = "SELECT * FROM presabana WHERE id_modelo = ".$id;
+				$consulta7 = mysqli_query($conexion,$sql7);
+				$contador6 = mysqli_num_rows($consulta7);
+				$html_presabana = '';
+					$html_presabana = '
+						<div class="col-12 text-center mt-3" style="font-weight:bold; font-size: 20px;">Desprendibles de Pagos</div>
+					';
+					while($row7 = mysqli_fetch_array($consulta7)) {
+						$documentos2_id = $row7['id'];
+						$dinero = $row7['total_dolares'];
+
+						if($dinero>=1){
+							$html_presabana.='
+								<div class="col-12 text-center form-group mt-3">
+									<a href="../script/generar_desprendible2.php?id='.$id.'" target="_blank" style="color: white; text-decoration: none;">
+									<button type="button" class="btn btn-success">
+										Descargar Reporte # '.$documentos2_id.' 
+									</a>
+								</div>
+							';
+						}else{
+							$html_presabana.='
+								<div class="col-12 form-group form-check text-center mt-3">No Tienes Pagos Efectuados</div>
+							';
+						}
+					}
+				echo $html_presabana;
+				?>
+		</div>
+	</form>
+	<!--***********************************************************-->
+	<!--***********************************************************-->
+
 
 
 	<!-- Modal Fotos Sensuales 1 -->
@@ -1464,6 +1525,7 @@
 				$('#Dcontrato').removeClass('active1');
 				$('#Dcuentas').removeClass('active1');
 				$('#Dfotos').removeClass('active1');
+				$('#Dpagos').removeClass('active1');
 				
 				$('#formulario1').removeClass('d-none');
 				$('#formulario2').addClass('d-none');
@@ -1473,6 +1535,7 @@
 				$('#formulario6').addClass('d-none');
 				$('#formulario7').addClass('d-none');
 				$('#formulario8').addClass('d-none');
+				$('#formulario9').addClass('d-none');
 			break;
 
 			case 'Dbancarios':
@@ -1485,6 +1548,7 @@
 				$('#Dcontrato').removeClass('active1');
 				$('#Dcuentas').removeClass('active1');
 				$('#Dfotos').removeClass('active1');
+				$('#Dpagos').removeClass('active1');
 				
 				$('#formulario1').addClass('d-none');
 				$('#formulario2').removeClass('d-none');
@@ -1494,6 +1558,7 @@
 				$('#formulario6').addClass('d-none');
 				$('#formulario7').addClass('d-none');
 				$('#formulario8').addClass('d-none');
+				$('#formulario9').addClass('d-none');
 			break;
 
 			case 'Dcorporales':
@@ -1506,6 +1571,7 @@
 				$('#Dcontrato').removeClass('active1');
 				$('#Dcuentas').removeClass('active1');
 				$('#Dfotos').removeClass('active1');
+				$('#Dpagos').removeClass('active1');
 				
 				$('#formulario1').addClass('d-none');
 				$('#formulario2').addClass('d-none');
@@ -1515,6 +1581,7 @@
 				$('#formulario6').addClass('d-none');
 				$('#formulario7').addClass('d-none');
 				$('#formulario8').addClass('d-none');
+				$('#formulario9').addClass('d-none');
 			break;
 
 			case 'Dempresa':
@@ -1527,6 +1594,7 @@
 				$('#Dcontrato').removeClass('active1');
 				$('#Dcuentas').removeClass('active1');
 				$('#Dfotos').removeClass('active1');
+				$('#Dpagos').removeClass('active1');
 				
 				$('#formulario1').addClass('d-none');
 				$('#formulario2').addClass('d-none');
@@ -1536,6 +1604,7 @@
 				$('#formulario6').addClass('d-none');
 				$('#formulario7').addClass('d-none');
 				$('#formulario8').addClass('d-none');
+				$('#formulario9').addClass('d-none');
 			break;
 
 			case 'Ddocumentos':
@@ -1548,6 +1617,7 @@
 				$('#Dcontrato').removeClass('active1');
 				$('#Dcuentas').removeClass('active1');
 				$('#Dfotos').removeClass('active1');
+				$('#Dpagos').removeClass('active1');
 				
 				$('#formulario1').addClass('d-none');
 				$('#formulario2').addClass('d-none');
@@ -1557,6 +1627,7 @@
 				$('#formulario6').addClass('d-none');
 				$('#formulario7').addClass('d-none');
 				$('#formulario8').addClass('d-none');
+				$('#formulario9').addClass('d-none');
 			break;
 
 			case 'Dcontrato':
@@ -1569,6 +1640,7 @@
 				$('#Ddocumentos').removeClass('active1');
 				$('#Dcuentas').removeClass('active1');
 				$('#Dfotos').removeClass('active1');
+				$('#Dpagos').removeClass('active1');
 				
 				$('#formulario1').addClass('d-none');
 				$('#formulario2').addClass('d-none');
@@ -1578,6 +1650,7 @@
 				$('#formulario6').removeClass('d-none');
 				$('#formulario7').addClass('d-none');
 				$('#formulario8').addClass('d-none');
+				$('#formulario9').addClass('d-none');
 			break;
 
 			case 'Dcuentas':
@@ -1590,6 +1663,7 @@
 				$('#Dpersonales').removeClass('active1');
 				$('#Ddocumentos').removeClass('active1');
 				$('#Dfotos').removeClass('active1');
+				$('#Dpagos').removeClass('active1');
 				
 				$('#formulario1').addClass('d-none');
 				$('#formulario2').addClass('d-none');
@@ -1599,6 +1673,7 @@
 				$('#formulario6').addClass('d-none');
 				$('#formulario7').removeClass('d-none');
 				$('#formulario8').addClass('d-none');
+				$('#formulario9').addClass('d-none');
 			break;
 
 			case 'Dfotos':
@@ -1611,6 +1686,7 @@
 				$('#Dcorporales').removeClass('active1');
 				$('#Dpersonales').removeClass('active1');
 				$('#Ddocumentos').removeClass('active1');
+				$('#Dpagos').removeClass('active1');
 				
 				$('#formulario1').addClass('d-none');
 				$('#formulario2').addClass('d-none');
@@ -1620,6 +1696,30 @@
 				$('#formulario6').addClass('d-none');
 				$('#formulario7').addClass('d-none');
 				$('#formulario8').removeClass('d-none');
+				$('#formulario9').addClass('d-none');
+			break;
+
+			case 'Dpagos':
+				$('#Dfotos').removeClass('active1');
+				$('#Dcuentas').removeClass('active1');
+				$('#Dcontrato').removeClass('active1');
+				$('#Dcontrato').removeClass('d-none');
+				$('#Dempresa').removeClass('active1');
+				$('#Dbancarios').removeClass('active1');
+				$('#Dcorporales').removeClass('active1');
+				$('#Dpersonales').removeClass('active1');
+				$('#Ddocumentos').removeClass('active1');
+				$('#Dpagos').addClass('active1');
+				
+				$('#formulario1').addClass('d-none');
+				$('#formulario2').addClass('d-none');
+				$('#formulario3').addClass('d-none');
+				$('#formulario4').addClass('d-none');
+				$('#formulario5').addClass('d-none');
+				$('#formulario6').addClass('d-none');
+				$('#formulario7').addClass('d-none');
+				$('#formulario8').addClass('d-none');
+				$('#formulario9').removeClass('d-none');
 			break;
 			
 		default:
@@ -1773,6 +1873,7 @@
 		if(variable3!=''){progreso=progreso+25;}
 		if(variable4!=''){progreso=progreso+25;}
 		barra.width(progreso+'%');
+		$('#progreso_html1').html(progreso+'%');
 		if(progreso==25){
 			barra.addClass('bg-danger');
 		}else if(progreso==50){
