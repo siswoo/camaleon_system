@@ -38,6 +38,8 @@ while($row2 = mysqli_fetch_array($consulta2)) {
 	//$deducidos = $row2['deducidos'];
 	$deducidos = 0;
 	$pv = $row2['pv'];
+	$rf = $row2['rf'];
+	$trm = $row2['trm'];
 
 	$total_pesos_chaturbate = $chaturbate*0.05;
 	$total_pesos_chaturbate = $total_pesos_chaturbate*3400;
@@ -118,7 +120,7 @@ while($row2 = mysqli_fetch_array($consulta2)) {
 	$pdf->Cell(70,5,utf8_decode(''.strtoupper($modelo_tipo_documento).": ".$modelo_cedula),0,1,'');
 	$pdf->Ln(2);
 	$pdf->Cell(120,5,utf8_decode('CARGO: ASESOR CALL CENTER'),0,0,'');
-	$pdf->Cell(70,5,utf8_decode('SUELDO BÁSICO (TRM): 3400'),0,1,'');
+	$pdf->Cell(70,5,utf8_decode('SUELDO BÁSICO (TRM): '.$trm),0,1,'');
 	$pdf->Ln(2);
 	$pdf->SetFont('Times','B',8);
 	$pdf->Cell(70,5,utf8_decode('CONCEPTO NÓMINA'),0,0,'');
@@ -132,8 +134,7 @@ while($row2 = mysqli_fetch_array($consulta2)) {
 		$pdf->Cell(65,5,utf8_decode('CB '.$meta_porcentajes."%"),0,0,'');
 		$pdf->Cell(30,5,utf8_decode($chaturbate),0,0,'C');
 		$pdf->Cell(30,5,utf8_decode($pv),0,0,'C');
-		//$pdf->Cell(30,5,utf8_decode($total_pesos_chaturbate),0,0,'C');
-		$pdf->Cell(30,5,utf8_decode($total_devengado_chaturbate),0,0,'C');
+		$pdf->Cell(30,5,"$".number_format($total_devengado_chaturbate,2,',','.'),0,0,'C');
 		$pdf->Cell(30,5,utf8_decode('0'),0,1,'C');
 	}
 
@@ -142,8 +143,7 @@ while($row2 = mysqli_fetch_array($consulta2)) {
 		$pdf->Cell(65,5,utf8_decode('IML '.$meta_porcentajes."%"),0,0,'');
 		$pdf->Cell(30,5,utf8_decode($imlive),0,0,'C');
 		$pdf->Cell(30,5,utf8_decode($pv),0,0,'C');
-		//$pdf->Cell(30,5,utf8_decode($total_pesos_imlive),0,0,'C');
-		$pdf->Cell(30,5,utf8_decode($total_devengado_imlive),0,0,'C');
+		$pdf->Cell(30,5,"$".number_format($total_devengado_imlive,2,',','.'),0,0,'C');
 		$pdf->Cell(30,5,utf8_decode('0'),0,1,'C');
 	}
 
@@ -152,8 +152,7 @@ while($row2 = mysqli_fetch_array($consulta2)) {
 		$pdf->Cell(65,5,utf8_decode('XLC '.$meta_porcentajes."%"),0,0,'');
 		$pdf->Cell(30,5,utf8_decode($xlove),0,0,'C');
 		$pdf->Cell(30,5,utf8_decode($pv),0,0,'C');
-		//$pdf->Cell(30,5,utf8_decode($total_pesos_xlove),0,0,'C');
-		$pdf->Cell(30,5,utf8_decode($total_devengado_xlove),0,0,'C');
+		$pdf->Cell(30,5,"$".number_format($total_devengado_xlove,2,',','.'),0,0,'C');
 		$pdf->Cell(30,5,utf8_decode('0'),0,1,'C');
 	}
 
@@ -162,8 +161,7 @@ while($row2 = mysqli_fetch_array($consulta2)) {
 		$pdf->Cell(65,5,utf8_decode('STP '.$meta_porcentajes."%"),0,0,'');
 		$pdf->Cell(30,5,utf8_decode($stripchat),0,0,'C');
 		$pdf->Cell(30,5,utf8_decode($pv),0,0,'C');
-		//$pdf->Cell(30,5,utf8_decode($total_pesos_stripchat),0,0,'C');
-		$pdf->Cell(30,5,utf8_decode($total_devengado_stripchat),0,0,'C');
+		$pdf->Cell(30,5,"$".number_format($total_devengado_stripchat,2,',','.'),0,0,'C');
 		$pdf->Cell(30,5,utf8_decode('0'),0,1,'C');
 	}
 
@@ -172,8 +170,7 @@ while($row2 = mysqli_fetch_array($consulta2)) {
 		$pdf->Cell(65,5,utf8_decode('STMT '.$meta_porcentajes."%"),0,0,'');
 		$pdf->Cell(30,5,utf8_decode($streamate),0,0,'C');
 		$pdf->Cell(30,5,utf8_decode($pv),0,0,'C');
-		//$pdf->Cell(30,5,utf8_decode($total_pesos_streamate),0,0,'C');
-		$pdf->Cell(30,5,utf8_decode($total_devengado_streamate),0,0,'C');
+		$pdf->Cell(30,5,"$".number_format($total_devengado_streamate,2,',','.'),0,0,'C');
 		$pdf->Cell(30,5,utf8_decode('0'),0,1,'C');
 	}
 
@@ -182,8 +179,7 @@ while($row2 = mysqli_fetch_array($consulta2)) {
 		$pdf->Cell(65,5,utf8_decode('MFC '.$meta_porcentajes."%"),0,0,'');
 		$pdf->Cell(30,5,utf8_decode($myfreecams),0,0,'C');
 		$pdf->Cell(30,5,utf8_decode($pv),0,0,'C');
-		//$pdf->Cell(30,5,utf8_decode($total_pesos_myfreecams),0,0,'C');
-		$pdf->Cell(30,5,utf8_decode($total_devengado_myfreecams),0,0,'C');
+		$pdf->Cell(30,5,"$".number_format($total_devengado_myfreecams,2,',','.'),0,0,'C');
 		$pdf->Cell(30,5,utf8_decode('0'),0,1,'C');
 	}
 
@@ -192,8 +188,7 @@ while($row2 = mysqli_fetch_array($consulta2)) {
 		$pdf->Cell(65,5,utf8_decode('LJ '.$meta_porcentajes."%"),0,0,'');
 		$pdf->Cell(30,5,utf8_decode($livejasmin),0,0,'C');
 		$pdf->Cell(30,5,utf8_decode($pv),0,0,'C');
-		//$pdf->Cell(30,5,utf8_decode($total_pesos_livejasmin),0,0,'C');
-		$pdf->Cell(30,5,utf8_decode($total_devengado_livejasmin),0,0,'C');
+		$pdf->Cell(30,5,"$".number_format($total_devengado_livejasmin,2,',','.'),0,0,'C');
 		$pdf->Cell(30,5,utf8_decode('0'),0,1,'C');
 	}
 
@@ -202,8 +197,7 @@ while($row2 = mysqli_fetch_array($consulta2)) {
 		$pdf->Cell(65,5,utf8_decode('BONG '.$meta_porcentajes."%"),0,0,'');
 		$pdf->Cell(30,5,utf8_decode($bonga),0,0,'C');
 		$pdf->Cell(30,5,utf8_decode($pv),0,0,'C');
-		//$pdf->Cell(30,5,utf8_decode($total_pesos_bonga),0,0,'C');
-		$pdf->Cell(30,5,utf8_decode($total_devengado_bonga),0,0,'C');
+		$pdf->Cell(30,5,"$".number_format($total_devengado_bonga,2,',','.'),0,0,'C');
 		$pdf->Cell(30,5,utf8_decode('0'),0,1,'C');
 	}
 
@@ -212,8 +206,7 @@ while($row2 = mysqli_fetch_array($consulta2)) {
 		$pdf->Cell(65,5,utf8_decode('C4 '.$meta_porcentajes."%"),0,0,'');
 		$pdf->Cell(30,5,utf8_decode($cam4),0,0,'C');
 		$pdf->Cell(30,5,utf8_decode($pv),0,0,'C');
-		//$pdf->Cell(30,5,utf8_decode($total_pesos_cam4),0,0,'C');
-		$pdf->Cell(30,5,utf8_decode($total_devengado_cam4),0,0,'C');
+		$pdf->Cell(30,5,"$".number_format($total_devengado_cam4,2,',','.'),0,0,'C');
 		$pdf->Cell(30,5,utf8_decode('0'),0,1,'C');
 	}
 
@@ -222,8 +215,7 @@ while($row2 = mysqli_fetch_array($consulta2)) {
 		$pdf->Cell(65,5,utf8_decode('CMS '.$meta_porcentajes."%"),0,0,'');
 		$pdf->Cell(30,5,utf8_decode($camsoda),0,0,'C');
 		$pdf->Cell(30,5,utf8_decode($pv),0,0,'C');
-		//$pdf->Cell(30,5,utf8_decode($total_pesos_camsoda),0,0,'C');
-		$pdf->Cell(30,5,utf8_decode($total_devengado_camsoda),0,0,'C');
+		$pdf->Cell(30,5,"$".number_format($total_devengado_camsoda,2,',','.'),0,0,'C');
 		$pdf->Cell(30,5,utf8_decode('0'),0,1,'C');
 	}
 
@@ -232,10 +224,41 @@ while($row2 = mysqli_fetch_array($consulta2)) {
 		$pdf->Cell(65,5,utf8_decode('F4F '.$meta_porcentajes."%"),0,0,'');
 		$pdf->Cell(30,5,utf8_decode($flirt4free),0,0,'C');
 		$pdf->Cell(30,5,utf8_decode($pv),0,0,'C');
-		//$pdf->Cell(30,5,utf8_decode($total_pesos_flirt4free),0,0,'C');
-		$pdf->Cell(30,5,utf8_decode($total_devengado_flirt4free),0,0,'C');
+		$pdf->Cell(30,5,"$".number_format($total_devengado_flirt4free,2,',','.'),0,0,'C');
 		$pdf->Cell(30,5,utf8_decode('0'),0,1,'C');
 	}
+
+	$total_tokens = $chaturbate+$imlive+$xlove+$stripchat+$streamate+$myfreecams+$livejasmin+$bonga+$cam4+$camsoda+$flirt4free;
+
+	$bono1 = 0;
+
+	if($total_tokens>=50000 and $total_tokens<=79999){
+		$bono1 = 100000;
+	}
+
+	if($total_tokens>=80000 and $total_tokens<=99999){
+		$bono1 = 300000;
+	}
+
+	if($total_tokens>=100000){
+		$bono1 = 500000;
+	}
+
+	if($bono1>=1){
+		$pdf->Ln(5);
+		$pdf->Cell(65,5,utf8_decode('BONO'),0,0,'');
+		$pdf->Cell(30,5,utf8_decode("0"),0,0,'C');
+		$pdf->Cell(30,5,utf8_decode("0"),0,0,'C');
+		$pdf->Cell(30,5,"$".number_format($bono1,2,',','.'),0,0,'C');
+		$pdf->Cell(30,5,utf8_decode('0'),0,1,'C');
+	}
+
+	$pdf->Ln(5);
+	$pdf->Cell(65,5,utf8_decode('RETENCIÓN EN LA FUENTE'),0,0,'');
+	$pdf->Cell(30,5,utf8_decode("0"),0,0,'C');
+	$pdf->Cell(30,5,utf8_decode("0"),0,0,'C');
+	$pdf->Cell(30,5,utf8_decode('0'),0,0,'C');
+	$pdf->Cell(30,5,utf8_decode($rf),0,1,'C');
 
 	$total_deducido = 0;
 
@@ -246,11 +269,11 @@ while($row2 = mysqli_fetch_array($consulta2)) {
 		$descuento_concepto = $row4['concepto'];
 		$total_deducido = $total_deducido+$descuento_valor;
 		$pdf->Ln(5);
-		$pdf->Cell(65,5,utf8_decode($descuento_concepto),0,0,'');
-		$pdf->Cell(30,5,utf8_decode(""),0,0,'C');
-		$pdf->Cell(30,5,utf8_decode(""),0,0,'C');
+		$pdf->Cell(65,5,utf8_decode(strtoupper($descuento_concepto)),0,0,'');
+		$pdf->Cell(30,5,utf8_decode("0"),0,0,'C');
+		$pdf->Cell(30,5,utf8_decode("0"),0,0,'C');
 		$pdf->Cell(30,5,utf8_decode('0'),0,0,'C');
-		$pdf->Cell(30,5,utf8_decode($descuento_valor),0,1,'C');
+		$pdf->Cell(30,5,"$".number_format($descuento_valor,2,',','.'),0,1,'C');
 	}
 
 	$sql5 = "SELECT * FROM tienda WHERE id_modelo = ".$id_modelo;
@@ -260,11 +283,11 @@ while($row2 = mysqli_fetch_array($consulta2)) {
 		$tienda_concepto = $row5['concepto'];
 		$total_deducido = $total_deducido+$tienda_valor;
 		$pdf->Ln(5);
-		$pdf->Cell(65,5,utf8_decode($tienda_concepto),0,0,'');
-		$pdf->Cell(30,5,utf8_decode(""),0,0,'C');
-		$pdf->Cell(30,5,utf8_decode(""),0,0,'C');
+		$pdf->Cell(65,5,utf8_decode(strtoupper($tienda_concepto)),0,0,'');
+		$pdf->Cell(30,5,utf8_decode("0"),0,0,'C');
+		$pdf->Cell(30,5,utf8_decode("0"),0,0,'C');
 		$pdf->Cell(30,5,utf8_decode('0'),0,0,'C');
-		$pdf->Cell(30,5,utf8_decode($tienda_valor),0,1,'C');
+		$pdf->Cell(30,5,"$".number_format($tienda_valor,2,',','.'),0,1,'C');
 	}
 
 	$sql6 = "SELECT * FROM avances WHERE id_modelo = ".$id_modelo;
@@ -274,11 +297,11 @@ while($row2 = mysqli_fetch_array($consulta2)) {
 		$avances_concepto = $row6['concepto'];
 		$total_deducido = $total_deducido+$avances_valor;
 		$pdf->Ln(5);
-		$pdf->Cell(65,5,utf8_decode($avances_concepto),0,0,'');
-		$pdf->Cell(30,5,utf8_decode(""),0,0,'C');
-		$pdf->Cell(30,5,utf8_decode(""),0,0,'C');
+		$pdf->Cell(65,5,utf8_decode(strtoupper($avances_concepto)),0,0,'');
+		$pdf->Cell(30,5,utf8_decode("0"),0,0,'C');
+		$pdf->Cell(30,5,utf8_decode("0"),0,0,'C');
 		$pdf->Cell(30,5,utf8_decode('0'),0,0,'C');
-		$pdf->Cell(30,5,utf8_decode($avances_valor),0,1,'C');
+		$pdf->Cell(30,5,"$".number_format($avances_valor,2,',','.'),0,1,'C');
 	}
 
 	$sql7 = "SELECT * FROM multas WHERE id_modelo = ".$id_modelo;
@@ -288,12 +311,13 @@ while($row2 = mysqli_fetch_array($consulta2)) {
 		$multas_concepto = $row7['concepto'];
 		$total_deducido = $total_deducido+$multas_valor;
 		$pdf->Ln(5);
-		$pdf->Cell(65,5,utf8_decode($multas_concepto),0,0,'');
-		$pdf->Cell(30,5,utf8_decode(""),0,0,'C');
-		$pdf->Cell(30,5,utf8_decode(""),0,0,'C');
+		$pdf->Cell(65,5,utf8_decode(strtoupper($multas_concepto)),0,0,'');
+		$pdf->Cell(30,5,utf8_decode("0"),0,0,'C');
+		$pdf->Cell(30,5,utf8_decode("0"),0,0,'C');
 		$pdf->Cell(30,5,utf8_decode('0'),0,0,'C');
-		$pdf->Cell(30,5,utf8_decode($multas_valor),0,1,'C');
+		$pdf->Cell(30,5,"$".number_format($multas_valor,2,',','.'),0,1,'C');
 	}
+
 
 	$total_final2 = $total_devengado_chaturbate+$total_devengado_imlive+$total_devengado_xlove+$total_devengado_stripchat+$total_devengado_streamate+$total_devengado_myfreecams+$total_devengado_livejasmin+$total_devengado_bonga+$total_devengado_cam4+$total_devengado_camsoda+$total_devengado_flirt4free;
 
@@ -301,12 +325,14 @@ while($row2 = mysqli_fetch_array($consulta2)) {
 	$pdf->SetFont('Arial','B',10);
 	$pdf->Cell(90,5,utf8_decode('FIRMA EMPLEADO _____________________'),0,0,'');
 	$pdf->Cell(30,5,utf8_decode('TOTAL '),0,0,'C');
-	$pdf->Cell(40,5,utf8_decode($total_final2),0,0,'C');
-	$pdf->Cell(20,5,utf8_decode($total_deducido),0,1,'C');
+	$pdf->Cell(40,5,"$".number_format($total_final2,2,',','.'),0,0,'C');
+	$pdf->Cell(20,5,"$".number_format($total_deducido,2,',','.'),0,1,'C');
 	$pdf->Ln(5);
 	$pdf->Cell(120,5,utf8_decode("NETO PAGADO"),0,0,'R');
 	$total_final3 = $total_final2-$total_deducido;
-	$pdf->Cell(55,5,utf8_decode($total_final3),0,0,'R');
+	$rf = $rf * $trm;
+	$total_final3 = $total_final3-$rf;
+	$pdf->Cell(55,5,"$".number_format($total_final3,2,',','.'),0,0,'R');
 
 }
 

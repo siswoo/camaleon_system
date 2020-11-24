@@ -245,7 +245,8 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 
 		$sheet->setCellValue('R'.$fila, $total_tokens);
 
-		$subt_total_dolares = $contador_dolares_chaturbate1+$contador_dolares_myfreecams1+$contador_dolares_camsoda1+$contador_dolares_bonga1+$contador_dolares_stripchat1+$contador_dolares_cam41+$contador_dolares_streamate1+$contador_dolares_flirt4free1+$contador_dolares_livejasmin1+$contador_dolares_imlive1+$contador_dolares_xlove1;
+		$subt_total_dolares = $total_tokens*0.05;
+		//$subt_total_dolares = $contador_dolares_chaturbate1+$contador_dolares_myfreecams1+$contador_dolares_camsoda1+$contador_dolares_bonga1+$contador_dolares_stripchat1+$contador_dolares_cam41+$contador_dolares_streamate1+$contador_dolares_flirt4free1+$contador_dolares_livejasmin1+$contador_dolares_imlive1+$contador_dolares_xlove1;
 
 		$sheet->setCellValue('S'.$fila, $subt_total_dolares);
 
@@ -287,12 +288,28 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 
 		$sheet->setCellValue('U'.$fila, $meta_porcentaje);
 
-		$total_dolares = $subt_total_dolares-$retencion_fuente;
+		//$total_dolares = $subt_total_dolares-$retencion_fuente;
+		$total_dolares = $subt_total_dolares*$meta3;
+		//$total_dolares = $total_dolares-$retencion_fuente;
+
+		$bono1 = 0;
+
+		if($total_tokens>=50000 and $total_tokens<=79999){
+			$bono1 = 100000/$desprendible_trm;
+		}
+
+		if($total_tokens>=80000 and $total_tokens<=99999){
+			$bono1 = 300000/$desprendible_trm;
+		}
+
+		if($total_tokens>=100000){
+			$bono1 = 500000/$desprendible_trm;
+		}
+
+		$total_dolares = $total_dolares+$bono1;
 
 		$total_pesos = $total_dolares*$desprendible_trm;
-		$total_pesos = $total_pesos*$meta3;
-
-		$sheet->setCellValue('V'.$fila, $total_pesos);
+		//$total_pesos = $total_pesos*$meta3;
 
 		$sheet->setCellValue('W'.$fila, $total_dolares);
 
@@ -302,7 +319,7 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 		/*** TOTAL TOKENS / (TDOLARES-RF*PORC. META)***/
 		/**********************************************/
 
-		$fvp1 = $total_dolares*$meta3;
+		$fvp1 = $total_dolares;
 		$fvp1 = $fvp1*$desprendible_trm;
 
 		if($fvp1==0){
@@ -353,6 +370,14 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 		$sheet->setCellValue('AA'.$fila, $contador_tienda);
 		$sheet->setCellValue('AB'.$fila, $contador_avances);
 		$sheet->setCellValue('AC'.$fila, $contador_multas);
+
+		$descuentos_totales = $contador_descuento+$contador_tienda+$contador_avances+$contador_multas;
+		$total_pesos_final1 = $total_pesos-$descuentos_totales;
+		$retencion_fuente_pesos = $retencion_fuente*$desprendible_trm;
+		$total_pesos_final1 = $total_pesos_final1-$retencion_fuente_pesos;
+
+
+		$sheet->setCellValue('V'.$fila, $total_pesos_final1);
 
 		$fila = $fila+1;
 
