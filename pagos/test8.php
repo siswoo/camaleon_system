@@ -42,12 +42,12 @@ $spreadsheet->getActiveSheet()->mergeCells('I3:I4');
 $spreadsheet->getActiveSheet()->mergeCells('J3:O3');
 
 $spreadsheet->getActiveSheet()->getColumnDimension('A')->setWidth(5);
-$spreadsheet->getActiveSheet()->getColumnDimension('B')->setWidth(20);
-$spreadsheet->getActiveSheet()->getColumnDimension('C')->setWidth(15);
+$spreadsheet->getActiveSheet()->getColumnDimension('B')->setWidth(25);
+$spreadsheet->getActiveSheet()->getColumnDimension('C')->setWidth(20);
 $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(20);
 $spreadsheet->getActiveSheet()->getColumnDimension('E')->setWidth(20);
-$spreadsheet->getActiveSheet()->getColumnDimension('F')->setWidth(15);
-$spreadsheet->getActiveSheet()->getColumnDimension('G')->setWidth(20);
+$spreadsheet->getActiveSheet()->getColumnDimension('F')->setWidth(20);
+$spreadsheet->getActiveSheet()->getColumnDimension('G')->setWidth(25);
 $spreadsheet->getActiveSheet()->getColumnDimension('H')->setWidth(15);
 $spreadsheet->getActiveSheet()->getColumnDimension('I')->setWidth(15);
 $spreadsheet->getActiveSheet()->getColumnDimension('J')->setWidth(20);
@@ -158,6 +158,10 @@ while($row3 = mysqli_fetch_array($consulta3)) {
 		$sheet->setCellValue('D'.$fila, '01-Corriente');
 	}
 
+	/*
+	$spreadsheet->getActiveSheet()->getCell('E'.$fila)->setValue($banco_numero);
+	$spreadsheet->getActiveSheet()->getStyle('E'.$fila)->getNumberFormat()->setFormatCode('00');
+	*/
 	$sheet->setCellValue('E'.$fila, $banco_numero);
 
 	/****************SECCION DE CONDICIONALES BANCOS*********************/
