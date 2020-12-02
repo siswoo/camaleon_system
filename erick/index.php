@@ -45,6 +45,20 @@
   		margin-left: 2rem;
   		margin-right: 2rem;
   	}
+
+  	.navbar-active{
+  		border-bottom: 2px solid #A9814F;
+  	}
+
+  	.btn-info{
+  		background-color: #A9814F !important;
+  		border-color: #A9814F !important;
+  	}
+
+  	.btn-primary{
+  		background-color: #A9814F !important;
+  		border-color: #A9814F !important;
+  	}
 	</style>
 
 <?php
@@ -57,7 +71,7 @@
 	<div class="seccion1" id="seccion1">
 	    <div class="row">
 	    	<div class="col-12 text-center" style="font-weight: bold; font-size: 30px; text-transform: uppercase;">
-	    		Procesos de Erick
+	    		Módulo de Erick
 	    	</div>
 	    	<div class="col-12 text-center mt-3">
 	    		<a href="exportar1.php" style="text-decoration: none;">
@@ -78,7 +92,29 @@
 				<a href="exportar6.php" style="text-decoration: none;">
 			    	<button type="button" class="btn btn-info ml-3">Registrados con Banco</button>
 				</a>
+				<a href="exportar7.php" style="text-decoration: none;">
+			    	<button type="button" class="btn btn-info ml-3">Faltantes Mixtos 1</button>
+				</a>
 	    	</div>
+
+	    	<div class="col-12 mt-3 text-center">
+	    		<hr style="background-color: black; height: 2px;">
+	    	</div>
+
+	    	<div class="col-12 mt-3 text-center" style="font-weight: bold; font-size: 30px; text-transform: uppercase;">
+	    		Zona de Test
+	    	</div>
+
+	    	<div class="col-12 mt-3 text-center">
+	    		<a href="../pagos/test7.php" style="text-decoration: none;">
+			    	<button type="button" class="btn btn-info">Generar Formato Software Contable</button>
+				</a>
+
+				<a href="../pagos/test8.php" style="text-decoration: none;">
+			    	<button type="button" class="btn btn-info ml-3">Planilla BBVA</button>
+				</a>
+	    	</div>
+
 		</div>
 	</div>
 
@@ -405,7 +441,7 @@
 <script src="../js/jquery.dataTables.min.js"></script>
 <script src="../js/dataTables.bootstrap4.min.js"></script>
 <script type="text/javascript" src="../js/mdb.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/js/toastr.min.js"></script>
+<!--<script src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/js/toastr.min.js"></script>-->
 <script src="../js/Chart.js"></script>
 
 <script type="text/javascript">

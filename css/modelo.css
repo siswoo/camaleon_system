@@ -59,3 +59,8 @@ label{
 td.highlight {
     background-color: whitesmoke !important;
 }
+
+.botones_navbar1{
+	color: white !important;
+	text-transform: uppercase;
+}

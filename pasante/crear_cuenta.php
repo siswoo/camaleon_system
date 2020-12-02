@@ -77,7 +77,7 @@
 						    <select name="tipo_documento" class="form-control" required>
 						    	<option value="">Seleccione</option>
 						    	<option value="Cedula de Ciudadania">Cedula de Ciudadania</option>
-						    	<option value="Cedula Extranjera">Cedula Extranjera</option>
+						    	<option value="Cedula de Extranjeria">Cedula de Extranjeria</option>
 						    	<option value="PEP">PEP</option>
 						    	<option value="Pasaporte">Pasaporte</option>
 						    </select>

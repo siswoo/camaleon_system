@@ -96,10 +96,19 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 	$spreadsheet->getActiveSheet()->getColumnDimension('H')->setWidth(30);
 	$spreadsheet->getActiveSheet()->getColumnDimension('I')->setWidth(20);
 	$spreadsheet->getActiveSheet()->getColumnDimension('J')->setWidth(30);
-	$spreadsheet->getActiveSheet()->getColumnDimension('K')->setWidth(10);
+	$spreadsheet->getActiveSheet()->getColumnDimension('K')->setWidth(30);
 	$spreadsheet->getActiveSheet()->getColumnDimension('L')->setWidth(15);
 	$spreadsheet->getActiveSheet()->getColumnDimension('M')->setWidth(15);
 	$spreadsheet->getActiveSheet()->getColumnDimension('N')->setWidth(15);
+	$spreadsheet->getActiveSheet()->getColumnDimension('O')->setWidth(15);
+	$spreadsheet->getActiveSheet()->getColumnDimension('P')->setWidth(15);
+	$spreadsheet->getActiveSheet()->getColumnDimension('Q')->setWidth(15);
+	$spreadsheet->getActiveSheet()->getColumnDimension('R')->setWidth(15);
+	$spreadsheet->getActiveSheet()->getColumnDimension('S')->setWidth(15);
+	$spreadsheet->getActiveSheet()->getColumnDimension('T')->setWidth(30);
+	$spreadsheet->getActiveSheet()->getColumnDimension('U')->setWidth(15);
+	$spreadsheet->getActiveSheet()->getColumnDimension('V')->setWidth(15);
+	$spreadsheet->getActiveSheet()->getColumnDimension('W')->setWidth(15);
 
 	$giros = 0;
 	$girosN = 0;
@@ -230,8 +239,8 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 		$newDate_fin = date("n/j/Y", strtotime($originalDate_fin));
 
 		$sheet->setCellValue('E'.$fila, $newDate_fin);
-		$sheet->setCellValue('F'.$fila, '1000438496');
-		$sheet->setCellValue('G'.$fila, '1000438496');
+		$sheet->setCellValue('F'.$fila, '');
+		$sheet->setCellValue('G'.$fila, '');
 
 		$sheet->setCellValue('H'.$fila, $newDate_inicio);
 
@@ -241,9 +250,9 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 		$sacar_inicio2 = $sacar_inicio[0];
 
 		if($sacar_inicio2==16){
-			$fecha_pago = $sacar_inicio[1]."/"."8"."/".$sacar_inicio[2];
+			$fecha_pago = $sacar_inicio[0]."/"."8"."/".$sacar_inicio[2];
 		}else{
-			$fecha_pago = $sacar_inicio[1]."/"."23"."/".$sacar_inicio[2];
+			$fecha_pago = $sacar_inicio[0]."/"."23"."/".$sacar_inicio[2];
 		}
 
 		$sheet->setCellValue('J'.$fila, $fecha_pago);
@@ -256,7 +265,7 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 
 			case 'Norte':
 				$generarK[0] = 'NORTE DEL ';
-				$generarR = 'NORTE';
+				$generarR = 'Norte';
 			break;
 
 			case 'Occidente I':
@@ -266,7 +275,7 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 
 			case 'VIP Suba':
 				$generarK[0] = 'SUBA DEL ';
-				$generarR = 'SUBA';
+				$generarR = 'Suba';
 			break;
 			
 			default:
@@ -285,47 +294,47 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 				$generarK[3] = 'ENERO';
 			break;
 
-			case 1:
+			case 2:
 				$generarK[3] = 'FEBRERO';
 			break;
 
-			case 1:
+			case 3:
 				$generarK[3] = 'MARZO';
 			break;
 
-			case 1:
+			case 4:
 				$generarK[3] = 'ABRIL';
 			break;
 
-			case 1:
+			case 5:
 				$generarK[3] = 'MAYO';
 			break;
 
-			case 1:
+			case 6:
 				$generarK[3] = 'JUNIO';
 			break;
 
-			case 1:
+			case 7:
 				$generarK[3] = 'JULIO';
 			break;
 
-			case 1:
+			case 8:
 				$generarK[3] = 'AGOSTO';
 			break;
 
-			case 1:
+			case 9:
 				$generarK[3] = 'SEPTIEMBRE';
 			break;
 
-			case 1:
+			case 10:
 				$generarK[3] = 'OCTUBRE';
 			break;
 
-			case 1:
+			case 11:
 				$generarK[3] = 'NOVIEMBRE';
 			break;
 
-			case 1:
+			case 12:
 				$generarK[3] = 'DICIEMBRE';
 			break;
 			

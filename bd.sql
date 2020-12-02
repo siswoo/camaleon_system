@@ -692,3 +692,12 @@ CREATE TABLE presabana (
 	fecha_inicio DATE NOT NULL,
    	PRIMARY KEY (id)
 ); ALTER TABLE presabana CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+
+DROP TABLE IF EXISTS temporal_falta_bancos;
+CREATE TABLE temporal_falta_bancos (
+	id INT AUTO_INCREMENT,
+	id_modelo INT NOT NULL,
+	fecha_inicio DATE NOT NULL,
+   	PRIMARY KEY (id)
+); ALTER TABLE temporal_falta_bancos CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;

@@ -639,18 +639,48 @@
 									<label for="banco_banco2">Banco </label>
 									<select name="banco_banco2" class="form-control" id="banco_banco2">
 										<option value="">Seleccione</option>
-										<option value="Banco agrario de colombia">Banco agrario de colombia</option>
+										<option value="Banco Agrario de Colombia">Banco Agrario de Colombia</option>
 										<option value="Banco AV Villas">Banco AV Villas</option>
-										<option value="Banco caja social">Banco caja social</option>
-										<option value="Banco de occidente ( colombia)">Banco de occidente ( colombia)</option>
-										<option value="Banco Popular (Colombia )">Banco Popular (Colombia )</option>
-										<option value="Bancóldex">Bancóldex</option>
+										<option value="Banco Caja Social">Banco Caja Social</option>
+										<option value="Banco de Occidente (Colombia)">Banco de Occidente (Colombia)</option>
+										<option value="Banco Popular (Colombia)">Banco Popular (Colombia)</option>
 										<option value="Bancolombia">Bancolombia</option>
 										<option value="BBVA Colombia">BBVA Colombia</option>
-										<option value="Banco de bogotá">Banco de bogotá</option>
-										<option value="Citi Colombia">Citi Colombia</option>
+										<option value="BBVA Movil">BBVA Movil</option>
+										<option value="Banco de Bogotá">Banco de Bogotá</option>
 										<option value="Colpatria">Colpatria</option>
 										<option value="Davivienda">Davivienda</option>
+										<option value="ITAU CorpBanca">ITAU CorpBanca</option>
+										<option value="Citibank">Citibank</option>
+										<option value="GNB Sudameris">GNB Sudameris</option>
+										<option value="ITAU">ITAU</option>
+										<option value="Scotiabank">Scotiabank</option>
+										<option value="Bancoldex">Bancoldex</option>
+										<option value="JPMorgan">JPMorgan</option>
+										<option value="BNP Paribas">BNP Paribas</option>
+										<option value="Banco ProCredit">Banco ProCredit</option>
+										<option value="Banco Pichincha">Banco Pichincha</option>
+										<option value="Bancoomeva">Bancoomeva</option>
+										<option value="Banco Finandina">Banco Finandina</option>
+										<option value="Banco CoopCentral">Banco CoopCentral</option>
+										<option value="Compensar">Compensar</option>
+										<option value="Aportes en linea">Aportes en linea</option>
+										<option value="Asopagos">Asopagos</option>
+										<option value="Fedecajas">Fedecajas</option>
+										<option value="Simple">Simple</option>
+										<option value="Enlace Operativo">Enlace Operativo</option>
+										<option value="CorfiColombiana">CorfiColombiana</option>
+										<option value="Old Mutual">Old Mutual</option>
+										<option value="Cotrafa">Cotrafa</option>
+										<option value="Confiar">Confiar</option>
+										<option value="JurisCoop">JurisCoop</option>
+										<option value="Deceval">Deceval</option>
+										<option value="Bancamia">Bancamia</option>
+										<option value="Nequi">Nequi</option>
+										<option value="Falabella">Falabella</option>
+										<option value="DGCPTN">DGCPTN</option>
+										<option value="BANCO WWB">BANCO WWB</option>
+										<option value="Cooperativa Financiera de Antioquia">Cooperativa Financiera de Antioquia</option>
 									</select>
 								</div>
 
@@ -759,7 +789,7 @@
 							</div>
 
 							<div class="col-6 form-group form-check text-center">
-								<label for="Ptattu">¿Posee Tattu?</label>
+								<label for="Ptattu">¿Posee Tattoo?</label>
 								<select class="form-control" id="Ptattu2" name="Ptattu2">
 									<option value="">Seleccione</option>
 									<option value="Si">Si</option>

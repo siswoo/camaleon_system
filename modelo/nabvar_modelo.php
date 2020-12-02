@@ -10,7 +10,7 @@
 	    <ul class="nav navbar-nav flex-row justify-content-between ml-auto">
             <!--<li class="nav-item order-2 order-md-1"><a href="#" class="nav-link" title="settings"><i class="fa fa-cog fa-fw fa-lg"></i></a></li>-->
             <li class="dropdown order-1">
-				<button type="button" id="dropdownMenu1" data-toggle="dropdown" class="btn btn-outline-secondary dropdown-toggle" style="color:white !important;"> 
+				<button type="button" id="dropdownMenu1" data-toggle="dropdown" class="btn btn-outline-secondary dropdown-toggle botones_navbar1"> 
 					<?php echo $nombre1." ".$apellido1; ?>
 					<span class="caret"></span>
 				</button>

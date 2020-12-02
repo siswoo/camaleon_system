@@ -844,7 +844,7 @@
 <script src="../js/jquery.dataTables.min.js"></script>
 <script src="../js/dataTables.bootstrap4.min.js"></script>
 <script type="text/javascript" src="../js/mdb.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/js/toastr.min.js"></script>
+<!--<script src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/js/toastr.min.js"></script>-->
 <script src="../js/Chart.js"></script>
 
 <script type="text/javascript">

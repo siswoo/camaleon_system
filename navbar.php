@@ -49,7 +49,7 @@ if($ubicacion == 'welcome'){ ?>
 			<?php
 			if($verificacion_modelo_view==1){ ?>
 				<li class="nav-item" id="li-modelo">
-	        		<a class="nav-link navbar-active-a" style="color: white !important;" href="../modelo/index.php" id="a-modelo">Modelos</a>
+	        		<a class="nav-link navbar-active-a botones_navbar1" href="../modelo/index.php" id="a-modelo">Modelos</a>
 	      		</li>
 			<?php } ?>
 			
@@ -70,7 +70,7 @@ if($ubicacion == 'welcome'){ ?>
 	      	<?php
 			if($verificacion_pasante_view==1){ ?>
 		      	<li class="nav-item" id="li-pasante">
-		        	<a class="nav-link navbar-active-a" style="color: white !important;" href="../pasante/index.php" id="a-pasante">Pasantes</a>
+		        	<a class="nav-link navbar-active-a botones_navbar1" href="../pasante/index.php" id="a-pasante">Pasantes</a>
 		      	</li>
 	      	<?php } ?>
 			
@@ -130,24 +130,27 @@ if($ubicacion == 'welcome'){ ?>
 	      	<?php } ?>
 	      	-->
 
-	      	<li class="nav-item" id="li-pagos">
-	        	<a class="nav-link navbar-active-a" style="color: white !important;" href="../pagos/index.php" id="a-pagos">Pagos</a>
-	      	</li>
-	      	<!--
 	      	<?php
-			if($_SESSION['rol']==1 or $_SESSION['rol']==7){ ?>
-	      	<li class="nav-item" id="li-erick">
-	        	<a class="nav-link navbar-active-a" href="../erick/index.php" id="a-erick">Erick</a>
+			if($_SESSION['rol']==1){ ?>
+	      	<li class="nav-item" id="li-pagos">
+	        	<a class="nav-link navbar-active-a botones_navbar1" href="../pagos/index.php" id="a-pagos">Pagos</a>
 	      	</li>
 	      	<?php } ?>
-	      	-->
+	      	
+	      	<?php
+			if($_SESSION['rol']==1){ ?>
+	      	<li class="nav-item" id="li-erick">
+	        	<a class="nav-link navbar-active-a botones_navbar1" href="../erick/index.php" id="a-erick">Erick</a>
+	      	</li>
+	      	<?php } ?>
+	      	
 
 	    </ul>
 
 	    <ul class="nav navbar-nav flex-row justify-content-between ml-auto">
             <!--<li class="nav-item order-2 order-md-1"><a href="#" class="nav-link" title="settings"><i class="fa fa-cog fa-fw fa-lg"></i></a></li>-->
             <li class="dropdown order-1">
-				<button type="button" id="dropdownMenu1" data-toggle="dropdown" class="btn btn-outline-secondary dropdown-toggle" style="color: white !important;"> 
+				<button type="button" id="dropdownMenu1" data-toggle="dropdown" class="btn btn-outline-secondary dropdown-toggle botones_navbar1"> 
 					<?php echo $usuario_rol; ?>
 					<span class="caret"></span>
 				</button>

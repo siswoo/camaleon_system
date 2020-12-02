@@ -258,7 +258,10 @@ while($row2 = mysqli_fetch_array($consulta2)) {
 	$pdf->Cell(30,5,utf8_decode("0"),0,0,'C');
 	$pdf->Cell(30,5,utf8_decode("0"),0,0,'C');
 	$pdf->Cell(30,5,utf8_decode('0'),0,0,'C');
-	$pdf->Cell(30,5,utf8_decode($rf),0,1,'C');
+
+	$rf_pesos = $rf*$trm;
+
+	$pdf->Cell(30,5,"$".number_format($rf_pesos,2,',','.'),0,1,'C');
 
 	$total_deducido = 0;
 
@@ -309,6 +312,7 @@ while($row2 = mysqli_fetch_array($consulta2)) {
 	while($row7 = mysqli_fetch_array($consulta7)) {
 		$multas_valor = $row7['valor'];
 		$multas_concepto = $row7['concepto'];
+		//$total_deducido = $total_deducido+$multas_valor;
 		$total_deducido = $total_deducido+$multas_valor;
 		$pdf->Ln(5);
 		$pdf->Cell(65,5,utf8_decode(strtoupper($multas_concepto)),0,0,'');
@@ -318,20 +322,23 @@ while($row2 = mysqli_fetch_array($consulta2)) {
 		$pdf->Cell(30,5,"$".number_format($multas_valor,2,',','.'),0,1,'C');
 	}
 
+	$total_deducido = $total_deducido+$rf_pesos;
+
 
 	$total_final2 = $total_devengado_chaturbate+$total_devengado_imlive+$total_devengado_xlove+$total_devengado_stripchat+$total_devengado_streamate+$total_devengado_myfreecams+$total_devengado_livejasmin+$total_devengado_bonga+$total_devengado_cam4+$total_devengado_camsoda+$total_devengado_flirt4free;
 
 	$pdf->Ln(15);
 	$pdf->SetFont('Arial','B',10);
-	$pdf->Cell(90,5,utf8_decode('FIRMA EMPLEADO _____________________'),0,0,'');
-	$pdf->Cell(30,5,utf8_decode('TOTAL '),0,0,'C');
+	//$pdf->Cell(90,5,utf8_decode('FIRMA EMPLEADO _____________________'),0,0,'');
+	$pdf->Cell(120,5,utf8_decode('TOTAL '),0,0,'R');
 	$pdf->Cell(40,5,"$".number_format($total_final2,2,',','.'),0,0,'C');
 	$pdf->Cell(20,5,"$".number_format($total_deducido,2,',','.'),0,1,'C');
 	$pdf->Ln(5);
 	$pdf->Cell(120,5,utf8_decode("NETO PAGADO"),0,0,'R');
 	$total_final3 = $total_final2-$total_deducido;
-	$rf = $rf * $trm;
-	$total_final3 = $total_final3-$rf;
+	/*$rf = $rf * $trm;
+	$total_final3 = $total_final3-$rf;*/
+
 	$pdf->Cell(55,5,"$".number_format($total_final3,2,',','.'),0,0,'R');
 
 }
