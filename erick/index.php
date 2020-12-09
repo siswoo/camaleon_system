@@ -18,6 +18,7 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
 	<!--<link rel="stylesheet" href="../css/mdb.css">-->
 	<!--<link rel="stylesheet" href="../css/style.css">-->
+	<link href="../resources/lightbox/dist/css/lightbox.css" rel="stylesheet">
 	<title>Camaleon Sistem</title>
 </head>
 <body>
@@ -114,6 +115,76 @@
 			    	<button type="button" class="btn btn-info ml-3">Planilla BBVA</button>
 				</a>
 	    	</div>
+
+	    	<div class="col-12 mt-3 text-center">
+	    		<hr style="background-color: black; height: 2px;">
+	    	</div>
+
+	    	<div class="col-12 mt-3 text-center" style="font-weight: bold; font-size: 30px; text-transform: uppercase;">
+	    		Zona de Consultas
+	    	</div>
+
+	    	<div class="col-12">
+	    		<form id="formulario_guiaRut" action="consulta_table1.php" method="POST">
+	    	</div>
+
+		    <div class="col-3 mt-3 text-center">
+		    	<input type="date" name="fecha_desde_guiaRut" id="fecha_desde_guiaRut" class="form-control">
+		    </div>
+		   	<div class="col-3 mt-3 text-center">
+		   		<input type="date" name="fecha_hasta_guiaRut" id="fecha_hasta_guiaRut" class="form-control">
+		   	</div>
+		    <div class="col-2 mt-3 text-center">
+		   		<select class="form-control" id="sede_guiaR" name="sede_guiaR">
+		   			<option value="0">Todos</option>
+		   			<option value="1">Vip Occidente</option>
+		   			<option value="2">Norte</option>
+	    			<option value="3">Occidente I</option>
+	    			<option value="4">Vip Suba</option>
+	    			<option value="5">Medellín</option>
+		    	</select>
+		    </div>
+		   	<div class="col-2 mt-3 text-center">
+		   		<select class="form-control" id="descargable_guiaR" name="descargable_guiaR">
+		   			<option value="No">No</option>
+		   			<option value="Si">Si</option>
+	    		</select>
+		    </div>
+		   	<div class="col-2 mt-3 text-center">
+			    <button type="button" class="btn btn-info" id="submit_guiaR" onclick="generar_consulta1();">Generar Consulta</button>
+	    	</div>
+
+		    <div class="col-12">
+	    		</form>
+	    	</div>
+
+	    	<div class="col-12 text-center" style="margin-top: 5rem;">
+		    	<table id="example" class="table row-border hover table-bordered" style="font-size: 12px;">
+				    <thead>
+				        <tr>
+				        	<th class="text-center">Nombre</th>
+				            <th class="text-center">Tipo</th>
+				            <th class="text-center">Documento</th>
+				            <th class="text-center">Telefono</th>
+				            <th class="text-center">Sede</th>
+				            <th class="text-center">Fecha</th>
+				            <th class="text-center">Firma</th>
+				            <th class="text-center">Pasaporte</th>
+				            <th class="text-center">Rut</th>
+				            <th class="text-center">C.Bancaria</th>
+				            <th class="text-center">EPS</th>
+				            <th class="text-center">Ant Disciplinarios</th>
+				            <th class="text-center">Ant Penales</th>
+				            <th class="text-center">Bancarios</th>
+				            <th class="text-center">Corporales</th>
+				            <th class="text-center">Empresa</th>
+				            <th class="text-center">Cuentas</th>
+				            <th class="text-center">Porcentaje</th>
+				        </tr>
+					</thead>
+				    <tbody id="resultados"></tbody>
+				</table>
+			</div>
 
 		</div>
 	</div>
@@ -427,6 +498,31 @@
 
 <!--****************************FIN PENDIENTES****************************-->
 
+<!-- Modal Documentos 1 -->
+	<div class="modal fade" id="Modal_documentos1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<form action="#" method="POST" id="form_modal_documentos1" style="">
+				<input type="hidden" name="edit_id" id="edit_id">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Documentos</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body" id="div_modal_documentos1"></div>
+					<!--
+					<div class="modal-footer">
+				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+				        <button type="submit" id="submit" class="btn btn-success">Guardar</button>
+			      	</div>
+			      	-->
+		      	</form>
+	    	</div>
+	  	</div>
+	</div>
+<!-- FIN Modal Documentos1 -->
+
 
 <?php include('../footer.php'); ?>
 
@@ -443,55 +539,57 @@
 <script type="text/javascript" src="../js/mdb.js"></script>
 <!--<script src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/js/toastr.min.js"></script>-->
 <script src="../js/Chart.js"></script>
+<script src="../resources/lightbox/dist/js/lightbox.js"></script>
 
 <script type="text/javascript">
 	$(document).ready(function() {
-    	var table = $('#example').DataTable( {
-        	//"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
-        	"lengthMenu": [[10, 25, 50, 100], [10, 25, 50, 100]],
+		var table = $('#example').DataTable( {
+	        	//"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+	        	"lengthMenu": [[10, 25, 50, 100], [10, 25, 50, 100]],
 
-        	"language": {
-	            "lengthMenu": "Mostrar _MENU_ Registros por página",
-	            "zeroRecords": "No se ha encontrado resultados",
-	            "info": "Ubicado en la página <strong>_PAGE_</strong> de <strong>_PAGES_</strong>",
-	            "infoEmpty": "Sin registros actualmente",
-	            "infoFiltered": "(Filtrado de <strong>_MAX_</strong> total registros)",
-	            "paginate": {
-			        "first":      "Primero",
-			        "last":       "Última",
-			        "next":       "Siguiente",
-			        "previous":   "Anterior"
-			    },
-			    "search": "Buscar",
-        	},
+	        	"language": {
+		            "lengthMenu": "Mostrar _MENU_ Registros por página",
+		            "zeroRecords": "No se ha encontrado resultados",
+		            "info": "Ubicado en la página <strong>_PAGE_</strong> de <strong>_PAGES_</strong>",
+		            "infoEmpty": "Sin registros actualmente",
+		            "infoFiltered": "(Filtrado de <strong>_MAX_</strong> total registros)",
+		            "paginate": {
+				        "first":      "Primero",
+				        "last":       "Última",
+				        "next":       "Siguiente",
+				        "previous":   "Anterior"
+				    },
+				    "search": "Buscar",
+	        	},
 
-        	"paging": true
+	        	"paging": true,
+	        	"order": [[ 9, "desc" ]],
 
-    	} );
+	    	} );
 
 
-    	/***************POPOVERS*******************/
-		$(function () {
-			$('[data-toggle="popover"]').popover()
-		})
+	    	/***************POPOVERS*******************/
+			$(function () {
+				$('[data-toggle="popover"]').popover()
+			})
 
-		// popovers initialization - on hover
-		$('[data-toggle="popover-hover"]').popover({
-		  html: true,
-		  trigger: 'hover',
-		  placement: 'bottom',
-		  /*content: function () { return '<img src="' + $(this).data('img') + '" />'; }*/
-		});
+			// popovers initialization - on hover
+			$('[data-toggle="popover-hover"]').popover({
+			  html: true,
+			  trigger: 'hover',
+			  placement: 'bottom',
+			  /*content: function () { return '<img src="' + $(this).data('img') + '" />'; }*/
+			});
 
-		// popovers initialization - on click
-		$('[data-toggle="popover-click"]').popover({
-		  html: true,
-		  trigger: 'click',
-		  placement: 'bottom',
-		  content: function () { return '<img src="' + $(this).data('img') + '" />'; }
-		});
-    	/******************************************/
-	} );
+			// popovers initialization - on click
+			$('[data-toggle="popover-click"]').popover({
+			  html: true,
+			  trigger: 'click',
+			  placement: 'bottom',
+			  content: function () { return '<img src="' + $(this).data('img') + '" />'; }
+			});
+	    	/******************************************/
+	});
 
 	$('#myModal').on('shown.bs.modal', function () {
 	  	$('#myInput').trigger('focus')
@@ -965,6 +1063,96 @@
             }
         });
     }
+
+    function generar_consulta1(){
+    	var fecha_desde = $('#fecha_desde_guiaRut').val();
+    	var fecha_hasta = $('#fecha_hasta_guiaRut').val();
+    	var descargable_guiaR = $('#descargable_guiaR').val();
+    	var sede = $('#sede_guiaR').val();
+    	
+    	if(fecha_desde=='' || fecha_hasta==''){
+    		Swal.fire({
+			 	title: 'Error',
+				text: "Colocar rango de Fechas",
+				icon: 'error',
+				position: 'center',
+				showConfirmButton: false,
+				timer: 3000
+			});
+    		return false;
+    	}
+
+    	if(descargable_guiaR=='Si'){
+    		document.getElementById("formulario_guiaRut").submit();
+    		return false;
+    	}
+    	
+
+    	$.ajax({
+            url: 'consulta_table1.php',
+            type: 'POST',
+            data: {
+				"fecha_desde_guiaRut": fecha_desde,
+				"fecha_hasta_guiaRut": fecha_hasta,
+				"sede_guiaR": sede,
+				"descargable_guiaR": descargable_guiaR,
+			},
+
+            beforeSend: function (){
+            	$('#submit_guiaR').attr('disabled','true');
+            },
+
+            success: function(response){
+            	//console.log(response);
+            	$('#submit_guiaR').removeAttr('disabled');
+            	$('#example').DataTable().destroy();
+            	$('#resultados').html(response);
+            	var table = $('#example').DataTable( {
+					"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, 'Todos']],
+
+				    "language": {
+						"lengthMenu": "Mostrar _MENU_ Registros por página",
+						"zeroRecords": "No se ha encontrado resultados",
+						"info": "Ubicado en la página <strong>_PAGE_</strong> de <strong>_PAGES_</strong>",
+						"infoEmpty": "Sin registros actualmente",
+						"infoFiltered": "(Filtrado de <strong>_MAX_</strong> total registros)",
+						"paginate": {
+							"first":      "Primero",
+							"last":       "Última",
+							"next":       "Siguiente",
+							"previous":   "Anterior"
+						},
+						"search": "Buscar",
+				    },
+				    "paging": true,
+				    //"bDestroy": true,
+			    });
+            },
+
+            error: function(response){
+            	console.log(response['responseText']);
+            }
+        });
+
+    }
+
+    function documentos1(variable){
+		$.ajax({
+			type: 'POST',
+			url: '../script/modelo_documentos1.php',
+			data: {"variable": variable},
+			dataType: "JSON",
+
+			success: function(respuesta) {
+				//console.log(respuesta['html_matriz']);
+				$('#div_modal_documentos1').html(respuesta['html_matriz']);
+			},
+
+			error: function(respuesta) {
+				console.log(respuesta['responseText']);
+			}
+		});
+	}
 
 
 </script>

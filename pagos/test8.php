@@ -114,179 +114,187 @@ while($row3 = mysqli_fetch_array($consulta3)) {
 
 	$sql1 = "SELECT * FROM modelos WHERE estatus = 'Activa' and banco_cedula != '' and id = ".$id_modelo_presabana;
 	$consulta1 = mysqli_query($conexion,$sql1);
-	while($row1 = mysqli_fetch_array($consulta1)) {
-		$id_sede 			= $row1['sede'];
-		$documento_tipo 	= $row1['documento_tipo'];
-		$documento_numero 	= $row1['documento_numero'];
-		$banco_cedula 		= $row1['banco_cedula'];
-		$banco_nombre 		= $row1['banco_nombre'];
-		$banco_tipo 		= $row1['banco_tipo'];
-		$banco_numero 		= $row1['banco_numero'];
-		$banco_banco 		= $row1['banco_banco'];
-		$BCPP 				= $row1['BCPP'];
+	$contador2 = mysqli_num_rows($consulta1);
+	if($contador2>=1 and $total_pesos>=1){
+		while($row1 = mysqli_fetch_array($consulta1)) {
+			$id_sede 			= $row1['sede'];
+			$documento_tipo 	= $row1['documento_tipo'];
+			$documento_numero 	= $row1['documento_numero'];
+			$banco_cedula 		= $row1['banco_cedula'];
+			$banco_nombre 		= $row1['banco_nombre'];
+			$banco_tipo 		= $row1['banco_tipo'];
+			$banco_numero 		= $row1['banco_numero'];
+			$banco_banco 		= $row1['banco_banco'];
+			$BCPP 				= $row1['BCPP'];
 
-		$nombre1 		= $row1['nombre1'];
-		$apellido1 		= $row1['apellido1'];
+			$nombre1 		= $row1['nombre1'];
+			$apellido1 		= $row1['apellido1'];
 
-		$nombre_c1 = $nombre1." ".$apellido1;
+			$nombre_c1 = $nombre1." ".$apellido1;
+			$nombre_c1 = mb_strtolower($nombre_c1,'UTF-8');
+			$nombre_c1 = ucwords($nombre_c1);
 
-		$sql2 = "SELECT * FROM sedes WHERE id =".$id_sede;
-		$consulta2 = mysqli_query($conexion,$sql2);
-		while($row2 = mysqli_fetch_array($consulta2)){
-			$sede_nombre = $row2['nombre'];
+			$sql2 = "SELECT * FROM sedes WHERE id =".$id_sede;
+			$consulta2 = mysqli_query($conexion,$sql2);
+			while($row2 = mysqli_fetch_array($consulta2)){
+				$sede_nombre = $row2['nombre'];
+			}
 		}
+
+		$sheet->setCellValue('A'.$fila, 'OK');
+
+		if($documento_tipo=='Cedula de Ciudadania'){
+			$sheet->setCellValue('B'.$fila, '01- Cédula de ciudadanía');
+		}else if($documento_tipo=='Cedula de Extranjeria'){
+			$sheet->setCellValue('B'.$fila, '02 - Cédula de extranjería');
+		}else if($documento_tipo=='Pasaporte'){
+			$sheet->setCellValue('B'.$fila, '05 - Pasaporte');
+		}else if($documento_tipo=='PEP'){
+			$sheet->setCellValue('B'.$fila, '06 - Nit Extranjería');
+		}
+
+		$spreadsheet->getActiveSheet()->getCell('C'.$fila)->setValue($documento_numero);
+		$spreadsheet->getActiveSheet()->getStyle('C'.$fila)->getNumberFormat()->setFormatCode('00');
+		$sheet->getStyle('C'.$fila)->getAlignment()->setHorizontal('left');
+
+		if($banco_tipo=='Ahorro'){
+			$sheet->setCellValue('D'.$fila, '02-Ahorros');
+		}else if($banco_tipo=='Corriente'){
+			$sheet->setCellValue('D'.$fila, '01-Corriente');
+		}
+
+		
+		$spreadsheet->getActiveSheet()->getCell('E'.$fila)->setValue($banco_numero);
+		$spreadsheet->getActiveSheet()->getStyle('E'.$fila)->getNumberFormat()->setFormatCode('00');
+		$sheet->getStyle('E'.$fila)->getAlignment()->setHorizontal('left');
+		
+		//$sheet->setCellValue('E'.$fila, strval($banco_numero));
+
+		/****************SECCION DE CONDICIONALES BANCOS*********************/
+
+		if($banco_banco=='Banco Agrario de Colombia'){
+			$sheet->setCellValue('F'.$fila, '040.BANCO AGRARIO ');
+		}else if($banco_banco=='Banco AV Villas'){
+			$sheet->setCellValue('F'.$fila, '052.AV VILLAS');
+		}else if($banco_banco=='Banco Caja Social'){
+			$sheet->setCellValue('F'.$fila, '032.BCSC ');
+		}else if($banco_banco=='Banco de Occidente (Colombia)'){
+			$sheet->setCellValue('F'.$fila, '023.DE OCCIDENTE');
+		}else if($banco_banco=='Banco Popular (Colombia)'){
+			$sheet->setCellValue('F'.$fila, '002.POPULAR');
+		}else if($banco_banco=='Bancolombia'){
+			$sheet->setCellValue('F'.$fila, '007.BANCOLOMBIA');
+		}else if($banco_banco=='BBVA Colombia'){
+			$sheet->setCellValue('F'.$fila, '013.BBVA ');
+		}else if($banco_banco=='BBVA Movil'){
+			$sheet->setCellValue('F'.$fila, '013.BBVA ');
+		}else if($banco_banco=='Banco de Bogotá'){
+			$sheet->setCellValue('F'.$fila, '001.BOGOTA ');
+		}else if($banco_banco=='Colpatria'){
+			$sheet->setCellValue('F'.$fila, '019.SCOTIABANK');
+		}else if($banco_banco=='Davivienda'){
+			$sheet->setCellValue('F'.$fila, '051.DAVIVIENDA');
+		}else if($banco_banco=='ITAU CorpBanca'){
+			$sheet->setCellValue('F'.$fila, '006.ITAU CORPBANCA');
+		}else if($banco_banco=='Citibank'){
+			$sheet->setCellValue('F'.$fila, '009.CITIBANK COLOMBIA');
+		}else if($banco_banco=='GNB Sudameris'){
+			$sheet->setCellValue('F'.$fila, '012.GNB SUDAMERIS');
+		}else if($banco_banco=='ITAU'){
+			$sheet->setCellValue('F'.$fila, '014.ITAU');
+		}else if($banco_banco=='Scotiabank'){
+			$sheet->setCellValue('F'.$fila, '019.SCOTIABANK');
+		}else if($banco_banco=='Bancoldex'){
+			$sheet->setCellValue('F'.$fila, '031.BANCOLDEX');
+		}else if($banco_banco=='JPMorgan'){
+			$sheet->setCellValue('F'.$fila, '041.JPMORGAN');
+		}else if($banco_banco=='BNP Paribas'){
+			$sheet->setCellValue('F'.$fila, '042.BNP PARIBAS');
+		}else if($banco_banco=='Banco ProCredit'){
+			$sheet->setCellValue('F'.$fila, '058.PROCREDIT');
+		}else if($banco_banco=='Banco Pichincha'){
+			$sheet->setCellValue('F'.$fila, '060.PICHINCHA');
+		}else if($banco_banco=='Bancoomeva'){
+			$sheet->setCellValue('F'.$fila, '061.BANCOOMEVA');
+		}else if($banco_banco=='Banco Finandina'){
+			$sheet->setCellValue('F'.$fila, '063.FINANDINA');
+		}else if($banco_banco=='Banco CoopCentral'){
+			$sheet->setCellValue('F'.$fila, '066.COOPCENTRAL');
+		}else if($banco_banco=='Compensar'){
+			$sheet->setCellValue('F'.$fila, '083.COMPENSAR');
+		}else if($banco_banco=='Aportes en linea'){
+			$sheet->setCellValue('F'.$fila, '084.APORTES EN LINEA');
+		}else if($banco_banco=='Asopagos'){
+			$sheet->setCellValue('F'.$fila, '086.ASOPAGOS');
+		}else if($banco_banco=='Fedecajas'){
+			$sheet->setCellValue('F'.$fila, '087.FEDECAJAS');
+		}else if($banco_banco=='Simple'){
+			$sheet->setCellValue('F'.$fila, '088.SIMPLE');
+		}else if($banco_banco=='Enlace Operativo'){
+			$sheet->setCellValue('F'.$fila, '089.ENLACE OPERATIVO ');
+		}else if($banco_banco=='CorfiColombiana'){
+			$sheet->setCellValue('F'.$fila, '090.CORFICOLOMBIANA');
+		}else if($banco_banco=='Old Mutual'){
+			$sheet->setCellValue('F'.$fila, '502.OLD MUTUAL');
+		}else if($banco_banco=='Cotrafa'){
+			$sheet->setCellValue('F'.$fila, '289.COTRAFA');
+		}else if($banco_banco=='Confiar'){
+			$sheet->setCellValue('F'.$fila, '292.CONFIAR');
+		}else if($banco_banco=='JurisCoop'){
+			$sheet->setCellValue('F'.$fila, '121.JURISCOOP');
+		}else if($banco_banco=='Deceval'){
+			$sheet->setCellValue('F'.$fila, '550.DECEVAL');
+		}else if($banco_banco=='Bancamia'){
+			$sheet->setCellValue('F'.$fila, '059.BANCAMIA');
+		}else if($banco_banco=='Nequi'){
+			$sheet->setCellValue('F'.$fila, '507.NEQUI');
+		}else if($banco_banco=='Falabella'){
+			$sheet->setCellValue('F'.$fila, '062.FALABELLA');
+		}else if($banco_banco=='DGCPTN'){
+			$sheet->setCellValue('F'.$fila, '683.DGCPTN');
+		}else if($banco_banco=='BANCO WWB'){
+			$sheet->setCellValue('F'.$fila, '1053.BANCO WWB');
+		}else if($banco_banco=='Cooperativa Financiera de Antioquia'){
+			$sheet->setCellValue('F'.$fila, '1283.COOPERATIVA FINANCIERA DE ANTIOQUIA');
+		}
+
+		/***************************************************************/
+
+		$sheet->setCellValue('G'.$fila, $nombre_c1);
+		$sheet->setCellValue('H'.$fila, 'Bogota');
+		$sheet->setCellValue('I'.$fila, '');
+
+		/*
+		$saber_telefono = substr($banco_numero,0,3);
+		$contador1 = strlen($banco_numero);
+
+		if($saber_telefono>=300 and $saber_telefono<=350 and $banco_banco=='BBVA Colombia' and $contador1 == 10){
+			$sheet->setCellValue('J'.$fila, '6- Deposito Electronico');
+		}else{
+			$sheet->setCellValue('J'.$fila, '1- Abono en Cuenta');
+		}
+		*/
+
+		if($banco_banco=='BBVA Movil'){
+			$sheet->setCellValue('J'.$fila, '6- Deposito Electronico');
+		}else{
+			$sheet->setCellValue('J'.$fila, '1- Abono en Cuenta');
+		}
+		
+		$sheet->setCellValue('K'.$fila, '');
+		//$sheet->setCellValue('L'.$fila, "$".number_format($total_pesos,2,',','.'));
+		$sheet->setCellValue('L'.$fila, round($total_pesos));
+		$sheet->setCellValue('M'.$fila, 'NominaMod');
+		$sheet->setCellValue('N'.$fila, '');
+		$sheet->setCellValue('O'.$fila, '');
+
+		$fila = $fila+1;
 	}
-
-	$sheet->setCellValue('A'.$fila, 'OK');
-
-	if($documento_tipo=='Cedula de Ciudadania'){
-		$sheet->setCellValue('B'.$fila, '01- Cédula de ciudadanía');
-	}else if($documento_tipo=='Cedula de Extranjeria'){
-		$sheet->setCellValue('B'.$fila, '02 - Cédula de extranjería');
-	}else if($documento_tipo=='Pasaporte'){
-		$sheet->setCellValue('B'.$fila, '05 - Pasaporte');
-	}else if($documento_tipo=='PEP'){
-		$sheet->setCellValue('B'.$fila, '06 - Nit Extranjería');
-	}
-
-	$spreadsheet->getActiveSheet()->getCell('C'.$fila)->setValue($documento_numero);
-	$spreadsheet->getActiveSheet()->getStyle('C'.$fila)->getNumberFormat()->setFormatCode('00');
-
-	if($banco_tipo=='Ahorro'){
-		$sheet->setCellValue('D'.$fila, '02-Ahorros');
-	}else if($banco_tipo=='Corriente'){
-		$sheet->setCellValue('D'.$fila, '01-Corriente');
-	}
-
-	/*
-	$spreadsheet->getActiveSheet()->getCell('E'.$fila)->setValue($banco_numero);
-	$spreadsheet->getActiveSheet()->getStyle('E'.$fila)->getNumberFormat()->setFormatCode('00');
-	*/
-	$sheet->setCellValue('E'.$fila, $banco_numero);
-
-	/****************SECCION DE CONDICIONALES BANCOS*********************/
-
-	if($banco_banco=='Banco Agrario de Colombia'){
-		$sheet->setCellValue('F'.$fila, '040.BANCO AGRARIO ');
-	}else if($banco_banco=='Banco AV Villas'){
-		$sheet->setCellValue('F'.$fila, '052.AV VILLAS');
-	}else if($banco_banco=='Banco Caja Social'){
-		$sheet->setCellValue('F'.$fila, '032.BCSC ');
-	}else if($banco_banco=='Banco de Occidente (Colombia)'){
-		$sheet->setCellValue('F'.$fila, '023.DE OCCIDENTE');
-	}else if($banco_banco=='Banco Popular (Colombia)'){
-		$sheet->setCellValue('F'.$fila, '002.POPULAR');
-	}else if($banco_banco=='Bancolombia'){
-		$sheet->setCellValue('F'.$fila, '007.BANCOLOMBIA');
-	}else if($banco_banco=='BBVA Colombia'){
-		$sheet->setCellValue('F'.$fila, '013.BBVA ');
-	}else if($banco_banco=='BBVA Movil'){
-		$sheet->setCellValue('F'.$fila, '013.BBVA ');
-	}else if($banco_banco=='Banco de Bogotá'){
-		$sheet->setCellValue('F'.$fila, '001.BOGOTA ');
-	}else if($banco_banco=='Colpatria'){
-		$sheet->setCellValue('F'.$fila, '019.SCOTIABANK');
-	}else if($banco_banco=='Davivienda'){
-		$sheet->setCellValue('F'.$fila, '051.DAVIVIENDA');
-	}else if($banco_banco=='ITAU CorpBanca'){
-		$sheet->setCellValue('F'.$fila, '006.ITAU CORPBANCA');
-	}else if($banco_banco=='Citibank'){
-		$sheet->setCellValue('F'.$fila, '009.CITIBANK COLOMBIA');
-	}else if($banco_banco=='GNB Sudameris'){
-		$sheet->setCellValue('F'.$fila, '012.GNB SUDAMERIS');
-	}else if($banco_banco=='ITAU'){
-		$sheet->setCellValue('F'.$fila, '014.ITAU');
-	}else if($banco_banco=='Scotiabank'){
-		$sheet->setCellValue('F'.$fila, '019.SCOTIABANK');
-	}else if($banco_banco=='Bancoldex'){
-		$sheet->setCellValue('F'.$fila, '031.BANCOLDEX');
-	}else if($banco_banco=='JPMorgan'){
-		$sheet->setCellValue('F'.$fila, '041.JPMORGAN');
-	}else if($banco_banco=='BNP Paribas'){
-		$sheet->setCellValue('F'.$fila, '042.BNP PARIBAS');
-	}else if($banco_banco=='Banco ProCredit'){
-		$sheet->setCellValue('F'.$fila, '058.PROCREDIT');
-	}else if($banco_banco=='Banco Pichincha'){
-		$sheet->setCellValue('F'.$fila, '060.PICHINCHA');
-	}else if($banco_banco=='Bancoomeva'){
-		$sheet->setCellValue('F'.$fila, '061.BANCOOMEVA');
-	}else if($banco_banco=='Banco Finandina'){
-		$sheet->setCellValue('F'.$fila, '063.FINANDINA');
-	}else if($banco_banco=='Banco CoopCentral'){
-		$sheet->setCellValue('F'.$fila, '066.COOPCENTRAL');
-	}else if($banco_banco=='Compensar'){
-		$sheet->setCellValue('F'.$fila, '083.COMPENSAR');
-	}else if($banco_banco=='Aportes en linea'){
-		$sheet->setCellValue('F'.$fila, '084.APORTES EN LINEA');
-	}else if($banco_banco=='Asopagos'){
-		$sheet->setCellValue('F'.$fila, '086.ASOPAGOS');
-	}else if($banco_banco=='Fedecajas'){
-		$sheet->setCellValue('F'.$fila, '087.FEDECAJAS');
-	}else if($banco_banco=='Simple'){
-		$sheet->setCellValue('F'.$fila, '088.SIMPLE');
-	}else if($banco_banco=='Enlace Operativo'){
-		$sheet->setCellValue('F'.$fila, '089.ENLACE OPERATIVO ');
-	}else if($banco_banco=='CorfiColombiana'){
-		$sheet->setCellValue('F'.$fila, '090.CORFICOLOMBIANA');
-	}else if($banco_banco=='Old Mutual'){
-		$sheet->setCellValue('F'.$fila, '502.OLD MUTUAL');
-	}else if($banco_banco=='Cotrafa'){
-		$sheet->setCellValue('F'.$fila, '289.COTRAFA');
-	}else if($banco_banco=='Confiar'){
-		$sheet->setCellValue('F'.$fila, '292.CONFIAR');
-	}else if($banco_banco=='JurisCoop'){
-		$sheet->setCellValue('F'.$fila, '121.JURISCOOP');
-	}else if($banco_banco=='Deceval'){
-		$sheet->setCellValue('F'.$fila, '550.DECEVAL');
-	}else if($banco_banco=='Bancamia'){
-		$sheet->setCellValue('F'.$fila, '059.BANCAMIA');
-	}else if($banco_banco=='Nequi'){
-		$sheet->setCellValue('F'.$fila, '507.NEQUI');
-	}else if($banco_banco=='Falabella'){
-		$sheet->setCellValue('F'.$fila, '062.FALABELLA');
-	}else if($banco_banco=='DGCPTN'){
-		$sheet->setCellValue('F'.$fila, '683.DGCPTN');
-	}else if($banco_banco=='BANCO WWB'){
-		$sheet->setCellValue('F'.$fila, '1053.BANCO WWB');
-	}else if($banco_banco=='Cooperativa Financiera de Antioquia'){
-		$sheet->setCellValue('F'.$fila, '1283.COOPERATIVA FINANCIERA DE ANTIOQUIA');
-	}
-
-	/***************************************************************/
-
-	$sheet->setCellValue('G'.$fila, $nombre_c1);
-	$sheet->setCellValue('H'.$fila, 'Bogota');
-	$sheet->setCellValue('I'.$fila, '');
-
-	/*
-	$saber_telefono = substr($banco_numero,0,3);
-	$contador1 = strlen($banco_numero);
-
-	if($saber_telefono>=300 and $saber_telefono<=350 and $banco_banco=='BBVA Colombia' and $contador1 == 10){
-		$sheet->setCellValue('J'.$fila, '6- Deposito Electronico');
-	}else{
-		$sheet->setCellValue('J'.$fila, '1- Abono en Cuenta');
-	}
-	*/
-
-	if($banco_banco=='BBVA Movil'){
-		$sheet->setCellValue('J'.$fila, '6- Deposito Electronico');
-	}else{
-		$sheet->setCellValue('J'.$fila, '1- Abono en Cuenta');
-	}
-	
-	$sheet->setCellValue('K'.$fila, '');
-	$sheet->setCellValue('L'.$fila, 'OK');
-	$sheet->setCellValue('M'.$fila, 'NominaMod');
-	$sheet->setCellValue('N'.$fila, '');
-	$sheet->setCellValue('O'.$fila, '');
-
-	$fila = $fila+1;
 
 }
 
 $fecha_inicio1 = date('Y-m-d');
 $writer = new Xlsx($spreadsheet);
-$writer->save('test7 '.$fecha_inicio1.'.xlsx');
-header("Location: test7 ".$fecha_inicio1.".xlsx");
+$writer->save('test8 '.$fecha_inicio1.'.xlsx');
+header("Location: test8 ".$fecha_inicio1.".xlsx");
 ?>
