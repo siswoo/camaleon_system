@@ -369,6 +369,7 @@
 	</div>
 
 	<div class="seccion1" id="div_Bonga" style="display: none; border: 3px solid black; border-radius: 1rem; padding: 5px 5px 5px 5px;">
+		<!--
 		<div class="row">
 				<div class="form-group col-12">
 				    <p class="text-center" style="font-weight: bold; font-size: 20px;">Reporte de Bonga</p>
@@ -434,10 +435,53 @@
 					</div>
 				</form>
 			</div>
+		-->
+
+		<form id="formulario_bonga" method="POST" action="#">
+	    	<div class="row">
+				<div class="form-group col-12">
+				    <p class="text-center" style="font-weight: bold; font-size: 20px;">Reporte de Bonga</p>
+				</div>
+				<div class="form-group col-4">
+					<label>Archivo Excel</label>
+				    <input type="file" class="form-control" name="archivo_bonga" id="archivo_bonga" required>
+				</div>
+				<div class="form-group col-4">
+					<label>Fecha Desde</label>
+					<input type="date" id="fecha_desde_bonga" name="fecha_desde_bonga" class="form-control" required>
+				</div>
+				<div class="form-group col-4">
+					<label>Fecha Hasta</label>
+					<input type="date" id="fecha_hasta_bonga" name="fecha_hasta_bonga" class="form-control" required>
+				</div>
+				<div class="form-group col-12 text-center">
+				    <button type="submit" id="submit_bonga" class="btn btn-primary">Ejecutar API</button>
+				</div>
+			</div>
+		</form>
 	</div>
 
 
 	<div class="seccion1" id="div_Cam4" style="display: none; border: 3px solid black; border-radius: 1rem; padding: 5px 5px 5px 5px;">
+		<form id="formulario_Cam4" method="POST" action="#">
+	    	<div class="row">
+				<div class="form-group col-12">
+				    <p class="text-center" style="font-weight: bold; font-size: 20px;">Reporte de Cam4</p>
+				</div>
+				<div class="form-group col-6">
+					<label>Archivo Excel</label>
+				    <input type="file" class="form-control" name="archivo_Cam4" id="archivo_Cam4" required>
+				</div>
+				<div class="form-group col-6">
+					<label>Fecha</label>
+					<input type="date" id="fecha_Cam4" class="form-control" name="fecha_Cam4" value="<?php echo date('Y-m-d'); ?>" required>
+				</div>
+				<div class="form-group col-12 text-center">
+				    <button type="submit" id="submit_Cam4" class="btn btn-primary">Ejecutar API</button>
+				</div>
+			</div>
+		</form>
+		<!--
 		<div class="row">
 				<div class="form-group col-12">
 				    <p class="text-center" style="font-weight: bold; font-size: 20px;">Reporte de Cam4</p>
@@ -503,6 +547,7 @@
 					</div>
 				</form>
 			</div>
+			-->
 	</div>
 
 	<div class="seccion1" id="div_Camsoda" style="display: none; border: 3px solid black; border-radius: 1rem; padding: 5px 5px 5px 5px;">
@@ -721,7 +766,7 @@
 			<div class="form-group col-12 text-center">
 				<button class="btn btn-primary" type="button" value="No" id="crear_extras1" onclick="mostrarSeccionExtras2(this.id,value);">Crear Extras</button>
 				<button class="btn btn-primary ml-3" type="button" value="No" id="consultar_extras1" onclick="mostrarSeccionExtras3(this.id,value);">Consultar Extras</button>
-				<button class="btn btn-primary ml-3" type="button" value="No" id="consultar_extras1" onclick="mostrarSeccionExtras4(this.id,value);">Subir Extras</button>
+				<button class="btn btn-primary ml-3" type="button" value="No" id="consultar_extras2" onclick="mostrarSeccionExtras4(this.id,value);">Subir Extras</button>
 			</div>
 		</div>
 	</div>
@@ -1133,8 +1178,8 @@
 
             success: function(response){
             	console.log(response);
+            	$('#submit_stripchat').removeAttr('disabled','false');
             	if(response=='error'){
-            		$('#submit_stripchat').attr('disabled','false');
             		Swal.fire({
 		 				title: 'Formato Invalido',
 			 			text: "Formato Validos -> xls xml xlam xlsx",
@@ -1153,9 +1198,11 @@
 		 				showConfirmButton: true,
 		 				timer: 2000
 					});
+					
 	            	setTimeout(function() {
 				      	window.location.href = "index.php";
 				    },2000);
+				    
             	}
             },
 
@@ -1551,6 +1598,7 @@
         });
     }
 
+    /*
     function consultarCam4(){
     	var recorte_Cam4 = $('#recorte_Cam4').val();
     	var mes_Cam4 = $('#mes_Cam4').val();
@@ -1625,6 +1673,119 @@
             }
         });
     }
+    */
+
+    $("#formulario_bonga").on("submit", function(e){
+		e.preventDefault();
+		var fecha_desde_bonga = $('#fecha_desde_bonga').val();
+		var fecha_hasta_bonga = $('#fecha_hasta_bonga').val();
+        var fd = new FormData();
+        var files = $('#archivo_bonga')[0].files[0];
+        fd.append('file',files);
+        fd.append('fecha_desde',$('#fecha_desde_bonga').val());
+        fd.append('fecha_hasta',$('#fecha_hasta_bonga').val());
+
+        $.ajax({
+            url: '../script/subir_bonga.php',
+            type: 'POST',
+            data: fd,
+            contentType: false,
+            processData: false,
+
+            beforeSend: function (){
+            	$('#submit_bonga').attr('disabled','true');
+            },
+
+            success: function(response){
+            	console.log(response);
+            	$('#submit_bonga').removeAttr('disabled','false');
+            	if(response=='error'){
+            		Swal.fire({
+		 				title: 'Formato Invalido',
+			 			text: "Formato Validos -> xls xml xlam xlsx",
+			 			icon: 'error',
+			 			position: 'center',
+			 			showConfirmButton: false,
+			 			timer: 3000
+					});
+            		return false;
+            	}else{
+            		Swal.fire({
+		 				title: 'Guardado exitosamente!',
+		 				text: "Limpiando Cache...",
+		 				icon: 'success',
+		 				position: 'center',
+		 				showConfirmButton: true,
+		 				timer: 2000
+					});
+					
+	            	setTimeout(function() {
+				      	window.location.href = "index.php";
+				    },2000);
+				    
+            	}
+            },
+
+            error: function(response){
+            	console.log(response['responseText']);
+            }
+        });
+    });
+
+    $("#formulario_Cam4").on("submit", function(e){
+		e.preventDefault();
+		var fecha_Cam4 = $('#fecha_Cam4').val();
+        var fd = new FormData();
+        var files = $('#archivo_Cam4')[0].files[0];
+        fd.append('file',files);
+        fd.append('fecha_Cam4',$('#fecha_Cam4').val());
+
+        $.ajax({
+            url: '../script/subir_cam4.php',
+            type: 'POST',
+            data: fd,
+            contentType: false,
+            processData: false,
+
+            beforeSend: function (){
+            	$('#submit_Cam4').attr('disabled','true');
+            },
+
+            success: function(response){
+            	console.log(response);
+            	$('#submit_Cam4').removeAttr('disabled','false');
+            	if(response=='error'){
+            		Swal.fire({
+		 				title: 'Formato Invalido',
+			 			text: "Formato Validos -> xls xml xlam xlsx",
+			 			icon: 'error',
+			 			position: 'center',
+			 			showConfirmButton: false,
+			 			timer: 3000
+					});
+            		return false;
+            	}else{
+            		Swal.fire({
+		 				title: 'Guardado exitosamente!',
+		 				text: "Limpiando Cache...",
+		 				icon: 'success',
+		 				position: 'center',
+		 				showConfirmButton: true,
+		 				timer: 2000
+					});
+					
+	            	setTimeout(function() {
+				      	window.location.href = "index.php";
+				    },2000);
+				    
+            	}
+            },
+
+            error: function(response){
+            	console.log(response['responseText']);
+            }
+        });
+    });
 
 
     function consultarCamsoda(){

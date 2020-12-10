@@ -449,23 +449,6 @@ CREATE TABLE temporal_ganancias1 (
    	PRIMARY KEY (id)
 ); ALTER TABLE temporal_ganancias1 CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
-DROP TABLE IF EXISTS pagos;
-CREATE TABLE pagos (
-	id INT AUTO_INCREMENT,
-	
-   	PRIMARY KEY (id)
-); ALTER TABLE pagos CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
-
-DROP TABLE IF EXISTS descuentos;
-CREATE TABLE descuentos (
-	id INT AUTO_INCREMENT,
-	id_modelo INT NOT NULL,
-
-	fecha DATETIME NOT NULL,
-   	PRIMARY KEY (id)
-); ALTER TABLE descuentos CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
-
-
 DROP TABLE IF EXISTS xlove;
 CREATE TABLE xlove (
 	id INT AUTO_INCREMENT,
@@ -563,8 +546,7 @@ CREATE TABLE livejasmin (
 DROP TABLE IF EXISTS bonga;
 CREATE TABLE bonga (
 	id INT AUTO_INCREMENT,
-	id_modelo INT NOT NULL,
-	id_cuenta_modelo VARCHAR(250) NOT NULL,
+	nickname VARCHAR(250) NOT NULL,
 	tokens INT NOT NULL,
 	dolares FLOAT(11,2) NOT NULL,
 	fecha_desde DATE NOT NULL,
@@ -577,8 +559,7 @@ CREATE TABLE bonga (
 DROP TABLE IF EXISTS cam4;
 CREATE TABLE cam4 (
 	id INT AUTO_INCREMENT,
-	id_modelo INT NOT NULL,
-	id_cuenta_modelo VARCHAR(250) NOT NULL,
+	nickname VARCHAR(250) NOT NULL,
 	tokens INT NOT NULL,
 	dolares FLOAT(11,2) NOT NULL,
 	fecha_desde DATE NOT NULL,
