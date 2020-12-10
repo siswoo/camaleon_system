@@ -76,7 +76,7 @@
 		<input type="hidden" id="modelo_delete" value="<?php echo $modelo_delete; ?>">
 	</form>
 	<div class="row">
-		<div class="col-12 text-center mt-3 ml-3">
+		<div class="col-12 text-center mt-3">
 			<!--
 			<a href="nuevo_pago.php" style="text-decoration: none;">
 				<input type="submit" class="btn btn-success" value="Nuevo Pago">
@@ -721,6 +721,7 @@
 			<div class="form-group col-12 text-center">
 				<button class="btn btn-primary" type="button" value="No" id="crear_extras1" onclick="mostrarSeccionExtras2(this.id,value);">Crear Extras</button>
 				<button class="btn btn-primary ml-3" type="button" value="No" id="consultar_extras1" onclick="mostrarSeccionExtras3(this.id,value);">Consultar Extras</button>
+				<button class="btn btn-primary ml-3" type="button" value="No" id="consultar_extras1" onclick="mostrarSeccionExtras4(this.id,value);">Subir Extras</button>
 			</div>
 		</div>
 	</div>
@@ -791,6 +792,32 @@
 					<button class="btn btn-primary ml-3" type="button" value="multas" onclick="generar_extra(value);">Multas</button>
 				</div>
 				<div class="form-group col-12" id="extra_generado1"></div>
+			</div>
+		</form>
+	</div>
+
+	<div class="seccion1" id="div_extras4" style="display: none; border: 3px solid black; border-radius: 1rem; padding: 5px 5px 5px 5px;">
+		<form id="formulario_subir_extras" method="POST" action="#">
+	    	<div class="row">
+				<div class="form-group col-12">
+				    <p class="text-center" style="font-weight: bold; font-size: 20px;">Subir Extras</p>
+				</div>
+				<div class="form-group col-4 text-center">
+					<label for="file_subir_extras">Archivo Excel</label>
+					<input type="file" id="file_subir_extras" name="file_subir_extras" required class="form-control">
+				</div>
+				<div class="form-group col-4 text-center">
+					<label for="fecha_desde_subir_extras">Fecha Desde</label>
+					<input type="date" id="fecha_desde_subir_extras" name="fecha_desde_subir_extras" required class="form-control">
+				</div>
+				<div class="form-group col-4 text-center">
+					<label for="fecha_hasta_subir_extras">Fecha Hasta</label>
+					<input type="date" id="fecha_hasta_subir_extras" name="fecha_hasta_subir_extras" required class="form-control">
+				</div>
+				<div class="form-group col-12 text-center">
+					<input type="submit" name="submit_subir_extras" id="submit_subir_extras" value="Generar API" class="btn btn-success">
+				</div>
+				<div class="form-group col-12" id="subir_extra_generado"></div>
 			</div>
 		</form>
 	</div>
@@ -1861,6 +1888,16 @@
 		}
 	}
 
+	function mostrarSeccionExtras4(button,value){
+		if(value=='Si'){
+			$('#div_extras4').hide('slow');
+			$('#'+button).val('No');
+		}else{
+			$('#div_extras4').show('slow');
+			$('#'+button).val('Si');
+		}
+	}
+
 	function generar_extra(value){
 		$.ajax({
 			type: 'POST',
@@ -1946,6 +1983,62 @@
 		*/
 
 	}
+
+	$("#formulario_subir_extras").on("submit", function(e){
+		e.preventDefault();
+        var fecha_desde_subir_extras = $('#fecha_desde_subir_extras').val();
+        var fecha_hasta_subir_extras = $('#fecha_hasta_subir_extras').val();
+        var fd = new FormData();
+        var files = $('#file_subir_extras')[0].files[0];
+        fd.append('file',files);
+        fd.append('fecha_desde_subir_extras',$('#fecha_desde_subir_extras').val());
+        fd.append('fecha_hasta_subir_extras',$('#fecha_hasta_subir_extras').val());
+        $.ajax({
+            url: '../script/subir_descuentos1.php',
+            type: 'POST',
+            data: fd,
+            contentType: false,
+            processData: false,
+
+            beforeSend: function (){
+            	$('#submit_subir_extras').attr('disabled','true');
+            },
+
+            success: function(response){
+            	console.log(response);
+            	$('#submit_subir_extras').removeAttr('disabled');
+            	if(response=='error'){
+            		Swal.fire({
+		 				title: 'Formato Invalido',
+			 			text: "Formato Validos -> xls xml xlam xlsx",
+			 			icon: 'error',
+			 			position: 'center',
+			 			showConfirmButton: false,
+			 			timer: 3000
+					});
+            		return false;
+            	}else{
+            		Swal.fire({
+		 				title: 'Subido exitosamente!',
+		 				text: "Limpiando Cache...",
+		 				icon: 'success',
+		 				position: 'center',
+		 				showConfirmButton: true,
+		 				timer: 2000
+					});
+					/*
+	            	setTimeout(function() {
+				      	window.location.href = "index.php";
+				    },2000);
+				    */
+            	}
+            },
+
+            error: function(response){
+            	console.log(response['responseText']);
+            }
+        });
+    });
 
 
 </script>

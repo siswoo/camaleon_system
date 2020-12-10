@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "descuentos-pendientes",
+  "private_key_id": "22adeb843d518cb5ff99d0ca53f238730be3bbeb",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDR2bAtjnyJENyV\nmp8qvpF4/jeWtWASFXuviiqx8PjQa8vWeBRK47bMCHCG0LeJjlUkK5tDSMMWTJ/v\nVxaDC5/AFTF0XQhz63sKhASMm5Ga97GPogFXcVdu+fhNfmOOomRkijRBZX/Jlr1n\nMz5ogTGgnqG3MZ9bUZyMYQqoVKSebWJsXvSeaIyuTWj3u7Jvo94ioLiM/jM7pyja\nBLtTlrSuycG8CTTv6bpaeCxeA2rYs+H8AfOqODWsqnUPPi87Tdum6rBoW/EK8Xr+\npMNpIq9Xpb181e1uda2/vx5OmvQg+f35h08o6M4K4DtmxXq24UeTxTKmUG89UYvT\nqV/HTFurAgMBAAECggEANs1t2Afc+AKiSKOPq58G6J0jMUV+qFpZ6bbgfYXbxLpS\nClljm0cqptARavO46sBz9bU5n/GxmPI71kpdA64WcxhVyPi+y18Uy+M8OOgrt1e2\nVDdPuGFOHxpCwSIfp9E6/JKnIOj73U5zei8Evk/3AOZMf0YDQtrmUjbJjLpGH2Ui\nKqU8/vfVf04h5MOb3W3qwLJH7D1cuWUmyv/sIoubDEujgtFwRHloELmp6blhlEHh\n3JG/ZtLqcnwiW9neP3642SboT2jTiyKz4yQcIg+ZdtmRmkrAZUZhEoks7cou0rjp\nrnPixk5G6I69iXclGSue9FUeuPRSYLfs+zAo/WxIAQKBgQD5ea9qdJhVVNlNEV26\nWQYSf3AfQ6QB1HpMuHLP2vcRcMGwaLc0e4Vc3GYC7TkCptAZw/nqZePMdGZ8gLRI\n/wbpXc7BPgHzwl62dVvzh/Ckam1EqWTT0p4kXspYf0lDdRXKz+ZCdoyoEPHs8q2u\nTgjU5GQV6HmtAQYA6GmX2zWHqwKBgQDXVrONwAU/wOf3x1o0j78iINk0/N6g4s1O\nw6PpbhE/PKzQYzTCIKJXcpZoZDjKM+bzi13CRPfZXb2b2Xzt+mOhSraW3aG6GCbZ\nFySJIKKEKqLb4KTjV5BNm/mr/lRMbUC08dBMIRNcfAH9QqXT6d/R+xvXtgAclD3Q\n527OGyB8AQKBgQCs1Co8G840v3VTOMawBGB6jCLG5ftG8UZQxC915AHp6S2l4sWY\n7EG11VIukN1AAwSD9Qq74h5wU+t0MU20jEjjfwNvSF/d2Tf4O1GaYwDJRpmwSZH6\nVR0NoUWZDYVZ4FFakbC5Npu3CxYuyuibqp/frOHRc55nxh+8nUYZ19k7xQKBgETS\nzxxU7NiNfRYyPuBhuQLdYM6Qq07cbiXoXXDz3stJRyprKqeI6pnsY6oFrijiIcRh\nHJxEkrqEPV+cSVN+HW2lhWn+d/wUUAY+YUz6gzaeseJ4j/qhN9u2KDwSUzsCCBZM\n2vgZ8igy8ifRr1Jlg0WHbkSpRKvdrUwhS8bP4LgBAoGAKELOZ7CgWGl6R02lKTHM\nkKJUShpmtKLKBWc6KhF90KFFMc9QhtNh8N/2VMcHdZwUSf99dYLWDk3Rcp8WAnkg\n0l0l8J2GfRmeB8jYEm8pobnP5dvGJMNBESuI4DvrluUSGQR0Anf5b2Qqzll4YoyS\n9t32SNP3wcOJmFruU1U3T7A=\n-----END PRIVATE KEY-----\n",
+  "client_email": "sheetsphp@descuentos-pendientes.iam.gserviceaccount.com",
+  "client_id": "110932635261597884650",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/sheetsphp%40descuentos-pendientes.iam.gserviceaccount.com"
+}

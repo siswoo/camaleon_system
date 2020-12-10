@@ -623,6 +623,8 @@ CREATE TABLE descuento (
 	id_modelo INT NOT NULL,
 	concepto VARCHAR(250) NOT NULL,
 	valor INT NOT NULL,
+	fecha_desde DATE NOT NULL,
+	fecha_hasta DATE NOT NULL,
 	responsable INT NOT NULL,
 	fecha_inicio DATE NOT NULL,
    	PRIMARY KEY (id)
@@ -634,6 +636,8 @@ CREATE TABLE tienda (
 	id_modelo INT NOT NULL,
 	concepto VARCHAR(250) NOT NULL,
 	valor INT NOT NULL,
+	fecha_desde DATE NOT NULL,
+	fecha_hasta DATE NOT NULL,
 	responsable INT NOT NULL,
 	fecha_inicio DATE NOT NULL,
    	PRIMARY KEY (id)
@@ -645,6 +649,8 @@ CREATE TABLE avances (
 	id_modelo INT NOT NULL,
 	concepto VARCHAR(250) NOT NULL,
 	valor INT NOT NULL,
+	fecha_desde DATE NOT NULL,
+	fecha_hasta DATE NOT NULL,
 	responsable INT NOT NULL,
 	fecha_inicio DATE NOT NULL,
    	PRIMARY KEY (id)
@@ -656,11 +662,12 @@ CREATE TABLE multas (
 	id_modelo INT NOT NULL,
 	concepto VARCHAR(250) NOT NULL,
 	valor INT NOT NULL,
+	fecha_desde DATE NOT NULL,
+	fecha_hasta DATE NOT NULL,
 	responsable INT NOT NULL,
 	fecha_inicio DATE NOT NULL,
    	PRIMARY KEY (id)
 ); ALTER TABLE multas CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
-
 
 DROP TABLE IF EXISTS presabana;
 CREATE TABLE presabana (
@@ -693,7 +700,6 @@ CREATE TABLE presabana (
    	PRIMARY KEY (id)
 ); ALTER TABLE presabana CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
-
 DROP TABLE IF EXISTS temporal_falta_bancos;
 CREATE TABLE temporal_falta_bancos (
 	id INT AUTO_INCREMENT,
@@ -701,3 +707,123 @@ CREATE TABLE temporal_falta_bancos (
 	fecha_inicio DATE NOT NULL,
    	PRIMARY KEY (id)
 ); ALTER TABLE temporal_falta_bancos CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+DROP TABLE IF EXISTS temporal_faltan_descuentos;
+CREATE TABLE temporal_faltan_descuentos (
+	id INT AUTO_INCREMENT,
+	nombre VARCHAR(250) NOT NULL,
+	identificacion VARCHAR(250) NOT NULL,
+	sede VARCHAR(250) NOT NULL,
+	fecha_inicio DATE NOT NULL,
+   	PRIMARY KEY (id)
+); ALTER TABLE temporal_faltan_descuentos CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+
+DROP TABLE IF EXISTS bonos_horas;
+CREATE TABLE bonos_horas (
+	id INT AUTO_INCREMENT,
+	id_modelo INT NOT NULL,
+	concepto VARCHAR(250) NOT NULL,
+	monto FLOAT(11,2) NOT NULL,
+	fecha_desde DATE NOT NULL,
+	fecha_hasta DATE NOT NULL,
+	fecha_inicio DATE NOT NULL,
+   	PRIMARY KEY (id)
+); ALTER TABLE bonos_horas CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+
+DROP TABLE IF EXISTS bonos_streamate;
+CREATE TABLE bonos_streamate (
+	id INT AUTO_INCREMENT,
+	id_modelo INT NOT NULL,
+	concepto VARCHAR(250) NOT NULL,
+	monto FLOAT(11,2) NOT NULL,
+	fecha_desde DATE NOT NULL,
+	fecha_hasta DATE NOT NULL,
+	fecha_inicio DATE NOT NULL,
+   	PRIMARY KEY (id)
+); ALTER TABLE bonos_streamate CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+DROP TABLE IF EXISTS odontologia;
+CREATE TABLE odontologia (
+	id INT AUTO_INCREMENT,
+	id_modelo INT NOT NULL,
+	concepto VARCHAR(250) NOT NULL,
+	monto FLOAT(11,2) NOT NULL,
+	fecha_desde DATE NOT NULL,
+	fecha_hasta DATE NOT NULL,
+	fecha_inicio DATE NOT NULL,
+   	PRIMARY KEY (id)
+); ALTER TABLE odontologia CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+DROP TABLE IF EXISTS seguridad_social;
+CREATE TABLE seguridad_social (
+	id INT AUTO_INCREMENT,
+	id_modelo INT NOT NULL,
+	concepto VARCHAR(250) NOT NULL,
+	monto FLOAT(11,2) NOT NULL,
+	fecha_desde DATE NOT NULL,
+	fecha_hasta DATE NOT NULL,
+	fecha_inicio DATE NOT NULL,
+   	PRIMARY KEY (id)
+); ALTER TABLE seguridad_social CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+DROP TABLE IF EXISTS coopserpak;
+CREATE TABLE coopserpak (
+	id INT AUTO_INCREMENT,
+	id_modelo INT NOT NULL,
+	concepto VARCHAR(250) NOT NULL,
+	monto FLOAT(11,2) NOT NULL,
+	fecha_desde DATE NOT NULL,
+	fecha_hasta DATE NOT NULL,
+	fecha_inicio DATE NOT NULL,
+   	PRIMARY KEY (id)
+); ALTER TABLE coopserpak CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+DROP TABLE IF EXISTS sexshop;
+CREATE TABLE sexshop (
+	id INT AUTO_INCREMENT,
+	id_modelo INT NOT NULL,
+	concepto VARCHAR(250) NOT NULL,
+	monto FLOAT(11,2) NOT NULL,
+	fecha_desde DATE NOT NULL,
+	fecha_hasta DATE NOT NULL,
+	fecha_inicio DATE NOT NULL,
+   	PRIMARY KEY (id)
+); ALTER TABLE sexshop CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+DROP TABLE IF EXISTS belleza;
+CREATE TABLE belleza (
+	id INT AUTO_INCREMENT,
+	id_modelo INT NOT NULL,
+	concepto VARCHAR(250) NOT NULL,
+	monto FLOAT(11,2) NOT NULL,
+	fecha_desde DATE NOT NULL,
+	fecha_hasta DATE NOT NULL,
+	fecha_inicio DATE NOT NULL,
+   	PRIMARY KEY (id)
+); ALTER TABLE belleza CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+DROP TABLE IF EXISTS sancionpagina;
+CREATE TABLE sancionpagina (
+	id INT AUTO_INCREMENT,
+	id_modelo INT NOT NULL,
+	concepto VARCHAR(250) NOT NULL,
+	monto FLOAT(11,2) NOT NULL,
+	fecha_desde DATE NOT NULL,
+	fecha_hasta DATE NOT NULL,
+	fecha_inicio DATE NOT NULL,
+   	PRIMARY KEY (id)
+); ALTER TABLE sancionpagina CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+DROP TABLE IF EXISTS lenceria;
+CREATE TABLE lenceria (
+	id INT AUTO_INCREMENT,
+	id_modelo INT NOT NULL,
+	concepto VARCHAR(250) NOT NULL,
+	monto FLOAT(11,2) NOT NULL,
+	fecha_desde DATE NOT NULL,
+	fecha_hasta DATE NOT NULL,
+	fecha_inicio DATE NOT NULL,
+   	PRIMARY KEY (id)
+); ALTER TABLE lenceria CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
