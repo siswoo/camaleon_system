@@ -322,8 +322,27 @@ while($row2 = mysqli_fetch_array($consulta2)) {
 		$pdf->Cell(30,5,"$".number_format($multas_valor,2,',','.'),0,1,'C');
 	}
 
-	$total_deducido = $total_deducido+$rf_pesos;
 
+
+
+	$sql8 = "SELECT * FROM bonos_horas WHERE id_modelo = ".$id_modelo." and fecha_desde BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."' and fecha_hasta BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."'";
+	$consulta8 = mysqli_query($conexion,$sql8);
+	while($row8 = mysqli_fetch_array($consulta8)) {
+		$bonos_horas_valor = $row8['monto'];
+		$bonos_horas_concepto = $row8['concepto'];
+		$total_devengado_bonos_horas = $total_devengado_bonos_horas+$bonos_horas_valor;
+		$pdf->Ln(5);
+		$pdf->Cell(65,5,utf8_decode(strtoupper($bonos_horas_concepto)),0,0,'');
+		$pdf->Cell(30,5,utf8_decode("0"),0,0,'C');
+		$pdf->Cell(30,5,utf8_decode("0"),0,0,'C');
+		$pdf->Cell(30,5,utf8_decode('0'),0,0,'C');
+		$pdf->Cell(30,5,"$".number_format($bonos_horas_valor,2,',','.'),0,1,'C');
+	}
+
+
+
+
+	$total_deducido = $total_deducido+$rf_pesos;
 
 	$total_final2 = $total_devengado_chaturbate+$total_devengado_imlive+$total_devengado_xlove+$total_devengado_stripchat+$total_devengado_streamate+$total_devengado_myfreecams+$total_devengado_livejasmin+$total_devengado_bonga+$total_devengado_cam4+$total_devengado_camsoda+$total_devengado_flirt4free;
 

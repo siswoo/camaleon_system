@@ -52,7 +52,11 @@ $sheet->setCellValue('Z1', 'Descuento');
 $sheet->setCellValue('AA1', 'Tienda');
 $sheet->setCellValue('AB1', 'Avances');
 $sheet->setCellValue('AC1', 'Multas');
-//$sheet->setCellValue('AD1', 'Total de Descuentos');
+
+$sheet->setCellValue('AD1', 'Bonos de Horas');
+$sheet->setCellValue('AE1', 'Bonos Streamate');
+$sheet->setCellValue('AF1', 'Sexshop');
+$sheet->setCellValue('AG1', 'Sancion Pagina');
 
 $fila = 2;
 
@@ -128,7 +132,7 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 		}
 
 		if($row2['id_paginas']==4){
-			$sql_paginas1 = "SELECT * FROM bonga WHERE id_modelo = ".$modelo_id." and fecha_desde BETWEEN '".$desprendible_fecha_desde."' AND '".$desprendible_fecha_hasta."' and  fecha_hasta BETWEEN '".$desprendible_fecha_desde."' AND '".$desprendible_fecha_hasta."'";
+			$sql_paginas1 = "SELECT * FROM bonga WHERE nickname = '".$row2['usuario']."' and fecha_desde BETWEEN '".$desprendible_fecha_desde."' AND '".$desprendible_fecha_hasta."' and  fecha_hasta BETWEEN '".$desprendible_fecha_desde."' AND '".$desprendible_fecha_hasta."'";
 			$consulta_paginas1 = mysqli_query($conexion,$sql_paginas1);
 			while($row3 = mysqli_fetch_array($consulta_paginas1)) {
 				$contador_tokens_bonga1 = $contador_tokens_bonga1 + $row3['tokens'];
@@ -146,7 +150,7 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 		}
 
 		if($row2['id_paginas']==6){
-			$sql_paginas1 = "SELECT * FROM cam4 WHERE id_modelo = ".$modelo_id." and fecha_desde BETWEEN '".$desprendible_fecha_desde."' AND '".$desprendible_fecha_hasta."' and  fecha_hasta BETWEEN '".$desprendible_fecha_desde."' AND '".$desprendible_fecha_hasta."'";
+			$sql_paginas1 = "SELECT * FROM cam4 WHERE nickname = '".$row2['usuario']."' and fecha_desde BETWEEN '".$desprendible_fecha_desde."' AND '".$desprendible_fecha_hasta."' and  fecha_hasta BETWEEN '".$desprendible_fecha_desde."' AND '".$desprendible_fecha_hasta."'";
 			$consulta_paginas1 = mysqli_query($conexion,$sql_paginas1);
 			while($row3 = mysqli_fetch_array($consulta_paginas1)) {
 				$contador_tokens_cam41 = $contador_tokens_cam41 + $row3['tokens'];
@@ -348,7 +352,7 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 			$contador_tienda = $valor_tienda + $contador_tienda;
 		}
 
-		$sql8 = "SELECT * FROM descuento WHERE id_modelo = ".$modelo_id." and fecha_inicio BETWEEN '".$desprendible_fecha_desde."' AND '".$desprendible_fecha_hasta."'";
+		$sql8 = "SELECT * FROM avances WHERE id_modelo = ".$modelo_id." and fecha_desde BETWEEN '".$desprendible_fecha_desde."' AND '".$desprendible_fecha_hasta."' and fecha_hasta BETWEEN '".$desprendible_fecha_desde."' AND '".$desprendible_fecha_hasta."'";
 		$consulta8 = mysqli_query($conexion,$sql8);
 		$contador_avances = 0;
 		while($row_avances = mysqli_fetch_array($consulta8)) {
@@ -357,7 +361,7 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 			$contador_avances = $valor_avances + $contador_avances;
 		}
 
-		$sql9 = "SELECT * FROM multas WHERE id_modelo = ".$modelo_id." and fecha_inicio BETWEEN '".$desprendible_fecha_desde."' AND '".$desprendible_fecha_hasta."'";
+		$sql9 = "SELECT * FROM multas WHERE id_modelo = ".$modelo_id." and fecha_desde BETWEEN '".$desprendible_fecha_desde."' AND '".$desprendible_fecha_hasta."' and fecha_hasta BETWEEN '".$desprendible_fecha_desde."' AND '".$desprendible_fecha_hasta."'";
 		$consulta9 = mysqli_query($conexion,$sql9);
 		$contador_multas = 0;
 		while($row_multas = mysqli_fetch_array($consulta9)) {
@@ -366,13 +370,66 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 			$contador_multas = $valor_multas + $contador_multas;
 		}
 
+		$sql10 = "SELECT * FROM bonos_horas WHERE id_modelo = ".$modelo_id." and fecha_desde BETWEEN '".$desprendible_fecha_desde."' AND '".$desprendible_fecha_hasta."' and fecha_hasta BETWEEN '".$desprendible_fecha_desde."' AND '".$desprendible_fecha_hasta."'";
+		$consulta10 = mysqli_query($conexion,$sql10);
+		$contador_bonos_horas = 0;
+		while($row_bonos_horas = mysqli_fetch_array($consulta10)) {
+			$concepto_bonos_horas = $row_bonos_horas['concepto'];
+			$valor_bonos_horas = $row_bonos_horas['monto'];
+			$contador_bonos_horas = $valor_bonos_horas + $contador_bonos_horas;
+		}
+
+		$sql11 = "SELECT * FROM bonos_streamate WHERE id_modelo = ".$modelo_id." and fecha_desde BETWEEN '".$desprendible_fecha_desde."' AND '".$desprendible_fecha_hasta."' and fecha_hasta BETWEEN '".$desprendible_fecha_desde."' AND '".$desprendible_fecha_hasta."'";
+		$consulta11 = mysqli_query($conexion,$sql11);
+		$contador_bonos_streamate = 0;
+		while($row_bonos_streamate = mysqli_fetch_array($consulta11)) {
+			$concepto_streamate = $row_bonos_streamate['concepto'];
+			$valor_streamate = $row_bonos_streamate['monto'];
+			$contador_bonos_streamate = $valor_streamate + $contador_bonos_streamate;
+		}
+
+		$sql12 = "SELECT * FROM sexshop WHERE id_modelo = ".$modelo_id." and fecha_desde BETWEEN '".$desprendible_fecha_desde."' AND '".$desprendible_fecha_hasta."' and fecha_hasta BETWEEN '".$desprendible_fecha_desde."' AND '".$desprendible_fecha_hasta."'";
+		$consulta12 = mysqli_query($conexion,$sql12);
+		$contador_sexshop = 0;
+		while($row_sexshop = mysqli_fetch_array($consulta12)) {
+			$concepto_sexshop = $row_sexshop['concepto'];
+			$valor_sexshop = $row_sexshop['monto'];
+			$contador_sexshop = $valor_sexshop + $contador_sexshop;
+		}
+
+		$sql13 = "SELECT * FROM sancionpagina WHERE id_modelo = ".$modelo_id." and fecha_desde BETWEEN '".$desprendible_fecha_desde."' AND '".$desprendible_fecha_hasta."' and fecha_hasta BETWEEN '".$desprendible_fecha_desde."' AND '".$desprendible_fecha_hasta."'";
+		$consulta13 = mysqli_query($conexion,$sql13);
+		$contador_sancionpagina = 0;
+		while($row_sancionpagina = mysqli_fetch_array($consulta13)) {
+			$concepto_sancionpagina = $row_sancionpagina['concepto'];
+			$valor_sancionpagina = $row_sancionpagina['monto'];
+			$contador_sancionpagina = $valor_sancionpagina + $contador_sancionpagina;
+		}
+
 		$sheet->setCellValue('Z'.$fila, $contador_descuento);
 		$sheet->setCellValue('AA'.$fila, $contador_tienda);
 		$sheet->setCellValue('AB'.$fila, $contador_avances);
 		$sheet->setCellValue('AC'.$fila, $contador_multas);
 
-		$descuentos_totales = $contador_descuento+$contador_tienda+$contador_avances+$contador_multas;
-		$total_pesos_final1 = $total_pesos-$descuentos_totales;
+		$sheet->setCellValue('AD'.$fila, $contador_bonos_horas);
+
+		if($contador_bonos_streamate>=1){
+			$contador_bonos_streamate = $contador_bonos_streamate*$desprendible_trm;
+		}
+
+		$sheet->setCellValue('AE'.$fila, $contador_bonos_streamate);
+		$sheet->setCellValue('AF'.$fila, $contador_sexshop);
+
+		if($contador_sancionpagina>=1){
+			$contador_sancionpagina = $contador_sancionpagina*$desprendible_trm;
+		}
+		
+		$sheet->setCellValue('AG'.$fila, $contador_sancionpagina);
+
+
+		$descuentos_totales = $contador_descuento+$contador_tienda+$contador_avances+$contador_multas+$contador_sexshop+$contador_sancionpagina;
+		$bonos_totales = $contador_bonos_horas+$contador_bonos_streamate;
+		$total_pesos_final1 = $total_pesos-$descuentos_totales+$bonos_totales;
 		$retencion_fuente_pesos = $retencion_fuente*$desprendible_trm;
 		$total_pesos_final1 = $total_pesos_final1-$retencion_fuente_pesos;
 

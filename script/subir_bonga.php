@@ -37,10 +37,9 @@ $eliminar1 = mysqli_query($conexion,$sql1);
 for($i=2;$i<=$limite;$i++){
     if($worksheet->getCell('A'.$i) != ""){
         $nickname = $worksheet->getCell('B'.$i);
-        $tokens = $worksheet->getCell('D'.$i)->getValue();
-        $tokens = intval($tokens);
         $dolares = $worksheet->getCell('E'.$i)->getValue();
-        $dolares = floatval($dolares);
+        //$dolares = floatval($dolares);
+        $tokens = $dolares/0.05;
             
         $sql2 = "INSERT INTO bonga (nickname, dolares, tokens, fecha_desde, fecha_hasta, responsable, fecha_inicio) VALUES ('$nickname','$dolares','$tokens','$fecha_desde','$fecha_hasta','$responsable','$fecha_inicio')";
         $guardar1 = mysqli_query($conexion,$sql2);

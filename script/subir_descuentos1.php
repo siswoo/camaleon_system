@@ -102,7 +102,7 @@ for($i=2;$i<=$limite;$i++){
             if($multas!=''){
                 $sql4 = "DELETE FROM multas WHERE id_modelo = $id_modelo and fecha_desde BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."' and fecha_hasta BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."'";
                 $consulta4 = mysqli_query($conexion,$sql4);
-                $sql2 = "INSERT INTO multas (id_modelo,concepto,valor,responsable,fecha_desde,fecha_hasta,fecha_inicio) VALUES ('$id_modelo','Coopserpak','$multas','$responsable','$fecha_desde','$fecha_hasta','$fecha_inicio')";
+                $sql2 = "INSERT INTO multas (id_modelo,concepto,valor,responsable,fecha_desde,fecha_hasta,fecha_inicio) VALUES ('$id_modelo','Multas','$multas','$responsable','$fecha_desde','$fecha_hasta','$fecha_inicio')";
                 $consulta2 = mysqli_query($conexion,$sql2);
             }
 
