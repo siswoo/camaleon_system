@@ -4,6 +4,7 @@ include('../script/conexion.php');
 require('../resources/fpdf/fpdf.php');
 
 $id_modelo = $_GET['id'];
+$presabana = $_GET['pre'];
 $id_sede = $_SESSION['sede'];
 
 $sql1 = "SELECT * FROM modelos WHERE id = ".$id_modelo;
@@ -14,10 +15,9 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 	$modelo_cedula = $row1['documento_numero'];
 }
 
-$sql2 = "SELECT * FROM presabana WHERE id_modelo = ".$id_modelo;
+$sql2 = "SELECT * FROM presabana WHERE id_modelo = ".$id_modelo." and id = ".$presabana;
 $consulta2 = mysqli_query($conexion,$sql2);
 while($row2 = mysqli_fetch_array($consulta2)) {
-
 	$fecha_desde = $row2['inicio'];
 	$fecha_hasta = $row2['fin'];
 
@@ -42,37 +42,37 @@ while($row2 = mysqli_fetch_array($consulta2)) {
 	$trm = $row2['trm'];
 
 	$total_pesos_chaturbate = $chaturbate*0.05;
-	$total_pesos_chaturbate = $total_pesos_chaturbate*3400;
+	$total_pesos_chaturbate = $total_pesos_chaturbate*$trm;
 
 	$total_pesos_imlive 	= $imlive*0.05;
-	$total_pesos_imlive 	= $total_pesos_imlive*3400;
+	$total_pesos_imlive 	= $total_pesos_imlive*$trm;
 
 	$total_pesos_xlove 		= $xlove*0.05;
-	$total_pesos_xlove 		= $total_pesos_xlove*3400;
+	$total_pesos_xlove 		= $total_pesos_xlove*$trm;
 
 	$total_pesos_stripchat 	= $stripchat*0.05;
-	$total_pesos_stripchat 	= $total_pesos_stripchat*3400;
+	$total_pesos_stripchat 	= $total_pesos_stripchat*$trm;
 
 	$total_pesos_streamate 	= $streamate*0.05;
-	$total_pesos_streamate 	= $total_pesos_streamate*3400;
+	$total_pesos_streamate 	= $total_pesos_streamate*$trm;
 
 	$total_pesos_myfreecams = $myfreecams*0.05;
-	$total_pesos_myfreecams = $total_pesos_myfreecams*3400;
+	$total_pesos_myfreecams = $total_pesos_myfreecams*$trm;
 
 	$total_pesos_livejasmin = $livejasmin*0.05;
-	$total_pesos_livejasmin = $total_pesos_livejasmin*3400;
+	$total_pesos_livejasmin = $total_pesos_livejasmin*$trm;
 
 	$total_pesos_bonga 		= $bonga*0.05;
-	$total_pesos_bonga 		= $total_pesos_bonga*3400;
+	$total_pesos_bonga 		= $total_pesos_bonga*$trm;
 
 	$total_pesos_cam4 		= $cam4*0.05;
-	$total_pesos_cam4 		= $total_pesos_cam4*3400;
+	$total_pesos_cam4 		= $total_pesos_cam4*$trm;
 
 	$total_pesos_camsoda 	= $camsoda*0.05;
-	$total_pesos_camsoda 	= $total_pesos_camsoda*3400;
+	$total_pesos_camsoda 	= $total_pesos_camsoda*$trm;
 
 	$total_pesos_flirt4free = $flirt4free*0.05;
-	$total_pesos_flirt4free = $total_pesos_flirt4free*3400;
+	$total_pesos_flirt4free = $total_pesos_flirt4free*$trm;
 
 	$total_final1 = $total_pesos_chaturbate+$total_pesos_imlive+$total_pesos_xlove+$total_pesos_stripchat+$total_pesos_streamate+$total_pesos_myfreecams+$total_pesos_livejasmin+$total_pesos_bonga+$total_pesos_cam4+$total_pesos_camsoda+$total_pesos_flirt4free;
 
@@ -128,6 +128,7 @@ while($row2 = mysqli_fetch_array($consulta2)) {
 	$pdf->Cell(30,5,utf8_decode('V/R. UNITARIO'),0,0,'');
 	$pdf->Cell(30,5,utf8_decode('DEVENGADO'),0,0,'');
 	$pdf->Cell(30,5,utf8_decode('DEDUCIDO'),0,1,'');
+
 
 	if($chaturbate>=1){
 		$pdf->Ln(5);
@@ -322,11 +323,9 @@ while($row2 = mysqli_fetch_array($consulta2)) {
 		$pdf->Cell(30,5,"$".number_format($multas_valor,2,',','.'),0,1,'C');
 	}
 
-
-
-
 	$sql8 = "SELECT * FROM bonos_horas WHERE id_modelo = ".$id_modelo." and fecha_desde BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."' and fecha_hasta BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."'";
 	$consulta8 = mysqli_query($conexion,$sql8);
+	$total_devengado_bonos_horas = 0;
 	while($row8 = mysqli_fetch_array($consulta8)) {
 		$bonos_horas_valor = $row8['monto'];
 		$bonos_horas_concepto = $row8['concepto'];
@@ -335,16 +334,128 @@ while($row2 = mysqli_fetch_array($consulta2)) {
 		$pdf->Cell(65,5,utf8_decode(strtoupper($bonos_horas_concepto)),0,0,'');
 		$pdf->Cell(30,5,utf8_decode("0"),0,0,'C');
 		$pdf->Cell(30,5,utf8_decode("0"),0,0,'C');
-		$pdf->Cell(30,5,utf8_decode('0'),0,0,'C');
-		$pdf->Cell(30,5,"$".number_format($bonos_horas_valor,2,',','.'),0,1,'C');
+		$pdf->Cell(30,5,"$".number_format($bonos_horas_valor,2,',','.'),0,0,'C');
+		$pdf->Cell(30,5,utf8_decode('0'),0,1,'C');
 	}
 
+	$sql9 = "SELECT * FROM bonos_streamate WHERE id_modelo = ".$id_modelo." and fecha_desde BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."' and fecha_hasta BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."'";
+	$consulta9 = mysqli_query($conexion,$sql9);
+	$total_devengado_bonos_streamate = 0;
+	while($row9 = mysqli_fetch_array($consulta9)) {
+		$bonos_streamate_valor = $row9['monto'];
+		$bonos_streamate_concepto = $row9['concepto'];
+		$total_devengado_bonos_streamate = $total_devengado_bonos_streamate+$bonos_streamate_valor;
+		$pdf->Ln(5);
+		$pdf->Cell(65,5,utf8_decode(strtoupper($bonos_streamate_concepto)),0,0,'');
+		$pdf->Cell(30,5,utf8_decode("0"),0,0,'C');
+		$pdf->Cell(30,5,utf8_decode("0"),0,0,'C');
+		$pdf->Cell(30,5,"$".number_format($bonos_streamate_valor*$trm,2,',','.'),0,0,'C');
+		$pdf->Cell(30,5,utf8_decode('0'),0,1,'C');
+	}
 
+	$sql10 = "SELECT * FROM odontologia WHERE id_modelo = ".$id_modelo." and fecha_desde BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."' and fecha_hasta BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."'";
+	$consulta10 = mysqli_query($conexion,$sql10);
+	while($row10 = mysqli_fetch_array($consulta10)) {
+		$deducido_odontologia_valor = $row10['monto'];
+		$deducido_odontologia_concepto = $row10['concepto'];
+		$total_deducido = $total_deducido+$deducido_odontologia_valor;
+		$pdf->Ln(5);
+		$pdf->Cell(65,5,utf8_decode(strtoupper($deducido_odontologia_concepto)),0,0,'');
+		$pdf->Cell(30,5,utf8_decode("0"),0,0,'C');
+		$pdf->Cell(30,5,utf8_decode("0"),0,0,'C');
+		$pdf->Cell(30,5,utf8_decode('0'),0,0,'C');
+		$pdf->Cell(30,5,"$".number_format($deducido_odontologia_valor,2,',','.'),0,1,'C');
+	}
 
+	$sql11 = "SELECT * FROM seguridad_social WHERE id_modelo = ".$id_modelo." and fecha_desde BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."' and fecha_hasta BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."'";
+	$consulta11 = mysqli_query($conexion,$sql11);
+	while($row11 = mysqli_fetch_array($consulta11)) {
+		$deducido_seguridad_social_valor = $row11['monto'];
+		$deducido_seguridad_social_concepto = $row11['concepto'];
+		$total_deducido = $total_deducido+$deducido_seguridad_social_valor;
+		$pdf->Ln(5);
+		$pdf->Cell(65,5,utf8_decode(strtoupper($deducido_seguridad_social_concepto)),0,0,'');
+		$pdf->Cell(30,5,utf8_decode("0"),0,0,'C');
+		$pdf->Cell(30,5,utf8_decode("0"),0,0,'C');
+		$pdf->Cell(30,5,utf8_decode('0'),0,0,'C');
+		$pdf->Cell(30,5,"$".number_format($deducido_seguridad_social_valor,2,',','.'),0,1,'C');
+	}
+
+	$sql12 = "SELECT * FROM coopserpak WHERE id_modelo = ".$id_modelo." and fecha_desde BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."' and fecha_hasta BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."'";
+	$consulta12 = mysqli_query($conexion,$sql12);
+	while($row12 = mysqli_fetch_array($consulta12)) {
+		$deducido_coopserpak_valor = $row12['monto'];
+		$deducido_coopserpak_concepto = $row12['concepto'];
+		$total_deducido = $total_deducido+$deducido_coopserpak_valor;
+		$pdf->Ln(5);
+		$pdf->Cell(65,5,utf8_decode(strtoupper($deducido_coopserpak_concepto)),0,0,'');
+		$pdf->Cell(30,5,utf8_decode("0"),0,0,'C');
+		$pdf->Cell(30,5,utf8_decode("0"),0,0,'C');
+		$pdf->Cell(30,5,utf8_decode('0'),0,0,'C');
+		$pdf->Cell(30,5,"$".number_format($deducido_coopserpak_valor,2,',','.'),0,1,'C');
+	}
+
+	$sql13 = "SELECT * FROM sexshop WHERE id_modelo = ".$id_modelo." and fecha_desde BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."' and fecha_hasta BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."'";
+	$consulta13 = mysqli_query($conexion,$sql13);
+	while($row13 = mysqli_fetch_array($consulta13)) {
+		$deducido_sexshop_valor = $row13['monto'];
+		$deducido_sexshop_concepto = $row13['concepto'];
+		$total_deducido = $total_deducido+$deducido_sexshop_valor;
+		$pdf->Ln(5);
+		$pdf->Cell(65,5,utf8_decode(strtoupper($deducido_sexshop_concepto)),0,0,'');
+		$pdf->Cell(30,5,utf8_decode("0"),0,0,'C');
+		$pdf->Cell(30,5,utf8_decode("0"),0,0,'C');
+		$pdf->Cell(30,5,utf8_decode('0'),0,0,'C');
+		$pdf->Cell(30,5,"$".number_format($deducido_sexshop_valor,2,',','.'),0,1,'C');
+	}
+
+	$sql14 = "SELECT * FROM belleza WHERE id_modelo = ".$id_modelo." and fecha_desde BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."' and fecha_hasta BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."'";
+	$consulta14 = mysqli_query($conexion,$sql14);
+	while($row14 = mysqli_fetch_array($consulta14)) {
+		$deducido_belleza_valor = $row14['monto'];
+		$deducido_belleza_concepto = $row14['concepto'];
+		$total_deducido = $total_deducido+$deducido_belleza_valor;
+		$pdf->Ln(5);
+		$pdf->Cell(65,5,utf8_decode(strtoupper($deducido_belleza_concepto)),0,0,'');
+		$pdf->Cell(30,5,utf8_decode("0"),0,0,'C');
+		$pdf->Cell(30,5,utf8_decode("0"),0,0,'C');
+		$pdf->Cell(30,5,utf8_decode('0'),0,0,'C');
+		$pdf->Cell(30,5,"$".number_format($deducido_belleza_valor,2,',','.'),0,1,'C');
+	}
+
+	$sql15 = "SELECT * FROM sancionpagina WHERE id_modelo = ".$id_modelo." and fecha_desde BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."' and fecha_hasta BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."'";
+	$consulta15 = mysqli_query($conexion,$sql15);
+	while($row15 = mysqli_fetch_array($consulta15)) {
+		$deducido_sancionpagina_valor = $row15['monto'];
+		$deducido_sancionpagina_concepto = $row15['concepto'];
+		$total_deducido = $total_deducido+$deducido_sancionpagina_valor;
+		$pdf->Ln(5);
+		$pdf->Cell(65,5,utf8_decode(strtoupper($deducido_sancionpagina_concepto)),0,0,'');
+		$pdf->Cell(30,5,utf8_decode("0"),0,0,'C');
+		$pdf->Cell(30,5,utf8_decode("0"),0,0,'C');
+		$pdf->Cell(30,5,utf8_decode('0'),0,0,'C');
+		$pdf->Cell(30,5,"$".number_format($deducido_sancionpagina_valor,2,',','.'),0,1,'C');
+	}
+
+	$sql16 = "SELECT * FROM lenceria WHERE id_modelo = ".$id_modelo." and fecha_desde BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."' and fecha_hasta BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."'";
+	$consulta16 = mysqli_query($conexion,$sql16);
+	while($row16 = mysqli_fetch_array($consulta16)) {
+		$deducido_lenceria_valor = $row16['monto'];
+		$deducido_lenceria_concepto = $row16['concepto'];
+		$total_deducido = $total_deducido+$deducido_lenceria_valor;
+		$pdf->Ln(5);
+		$pdf->Cell(65,5,utf8_decode(strtoupper($deducido_lenceria_concepto)),0,0,'');
+		$pdf->Cell(30,5,utf8_decode("0"),0,0,'C');
+		$pdf->Cell(30,5,utf8_decode("0"),0,0,'C');
+		$pdf->Cell(30,5,utf8_decode('0'),0,0,'C');
+		$pdf->Cell(30,5,"$".number_format($deducido_lenceria_valor,2,',','.'),0,1,'C');
+	}
 
 	$total_deducido = $total_deducido+$rf_pesos;
 
-	$total_final2 = $total_devengado_chaturbate+$total_devengado_imlive+$total_devengado_xlove+$total_devengado_stripchat+$total_devengado_streamate+$total_devengado_myfreecams+$total_devengado_livejasmin+$total_devengado_bonga+$total_devengado_cam4+$total_devengado_camsoda+$total_devengado_flirt4free;
+	$total_devengado_bonos_streamate = $total_devengado_bonos_streamate*$trm;
+
+	$total_final2 = $total_devengado_chaturbate+$total_devengado_imlive+$total_devengado_xlove+$total_devengado_stripchat+$total_devengado_streamate+$total_devengado_myfreecams+$total_devengado_livejasmin+$total_devengado_bonga+$total_devengado_cam4+$total_devengado_camsoda+$total_devengado_flirt4free+$total_devengado_bonos_horas+$total_devengado_bonos_streamate;
 
 	$pdf->Ln(15);
 	$pdf->SetFont('Arial','B',10);

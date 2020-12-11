@@ -20,7 +20,7 @@ $archivo_temporal = $_FILES['file']['tmp_name'];
 $extension = explode(".", $archivo_nombre);
 $extension = $extension[count($extension)-1];
 
-if($extension!='xls' and $extension!='xml' and $extension!='xlam' and $extension!='xlsx'){
+if($extension!='xls' and $extension!='xml' and $extension!='xlam' and $extension!='xlsx' and $extension!='csv'){
     echo 'error';
     exit;
 }

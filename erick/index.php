@@ -98,6 +98,46 @@
 				</a>
 	    	</div>
 
+	    	<!--****************************************************-->
+
+	    	<div class="col-12 mt-3 text-center">
+	    		<hr style="background-color: black; height: 2px;">
+	    	</div>
+
+	    	<div class="col-12 mt-3 text-center" style="font-weight: bold; font-size: 30px; text-transform: uppercase;">
+	    		Zona de Desprendibles
+	    	</div>
+
+		    <div class="col-12 mt-3 text-center">
+		    	<?php
+		    		$sql_presabana1 = "SELECT * FROM presabana GROUP BY fecha_inicio";
+		    		$consulta_presabana1 = mysqli_query($conexion,$sql_presabana1);
+					while($row1 = mysqli_fetch_array($consulta_presabana1)) {
+						echo '
+						<div class="form-group col-4">
+							<p style="font-size: 16px;">'.$row1["inicio"].' al '.$row1["fin"].'</p>
+						    <a href="ver_presabanas1.php?inicio='.$row1["inicio"].'&fin='.$row1["fin"].'" class="mr-2" style="text-decoration:none;" target="_blank">
+								<button class="btn btn-info">Positivos</button>
+							</a>
+							<a href="ver_presabanas2.php?inicio='.$row1["inicio"].'&fin='.$row1["fin"].'" class="mr-2" style="text-decoration:none;" target="_blank">
+								<button class="btn btn-info">Negativos</button>
+							</a>
+						</div>
+						';
+
+						/*
+						echo '
+						<a href="ver_presabanas1.php?inicio='.$row1["inicio"].'&fin='.$row1["fin"].'" class="mr-2" style="text-decoration:none;">
+							<button class="btn btn-info">Ver Presabanas ('.$row1["inicio"].' | '.$row1["fin"].')</button>
+						</a>
+						';
+						*/
+					}
+		    	?>
+		   	</div>
+
+		   	<!--****************************************************-->
+
 	    	<div class="col-12 mt-3 text-center">
 	    		<hr style="background-color: black; height: 2px;">
 	    	</div>

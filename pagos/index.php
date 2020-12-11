@@ -1246,8 +1246,8 @@
 
             success: function(response){
             	console.log(response);
+            	$('#submit_streamate').attr('disabled','false');
             	if(response=='error'){
-            		$('#submit_streamate').attr('disabled','false');
             		Swal.fire({
 		 				title: 'Formato Invalido',
 			 			text: "Formato Validos -> xls xml xlam xlsx",

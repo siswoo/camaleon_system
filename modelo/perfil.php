@@ -1405,7 +1405,7 @@
 						if($dinero>=1){
 							$html_presabana.='
 								<div class="col-12 text-center form-group mt-3">
-									<a href="../script/generar_desprendible2.php?id='.$id.'" target="_blank" style="color: white; text-decoration: none;">
+									<a href="../script/generar_desprendible2.php?id='.$id.'&pre='.$documentos2_id.'" target="_blank" style="color: white; text-decoration: none;">
 									<button type="button" class="btn btn-success">
 										Descargar Reporte # '.$documentos2_id.' 
 									</a>
