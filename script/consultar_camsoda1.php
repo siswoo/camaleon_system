@@ -58,7 +58,7 @@ while($row1 = mysqli_fetch_array($registro1)) {
     }
 
     if($contador1>=1){
-        $sql6 = "SELECT * FROM camsoda WHERE id_modelo = ".$row1['id_modelos']." and fecha_desde BETWEEN  '".$fecha_desde_Camsoda."' AND  '".$fecha_hasta_Camsoda."' and fecha_hasta BETWEEN  '".$fecha_desde_Camsoda."' AND  '".$fecha_hasta_Camsoda."' LIMIT 1";
+        $sql6 = "SELECT * FROM camsoda WHERE id_modelo = ".$row1['id_modelos']." and fecha_desde BETWEEN  '".$fecha_desde_Camsoda."' AND  '".$fecha_hasta_Camsoda."' AND  '".$fecha_hasta_Camsoda."' LIMIT 1";
         $registro6 = mysqli_query($conexion,$sql6);
         $contador2 = mysqli_num_rows($registro6);
 

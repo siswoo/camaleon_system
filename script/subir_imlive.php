@@ -35,14 +35,17 @@ $eliminar1 = mysqli_query($conexion,$sql2);
 for($i=2;$i<=$limite;$i++){
     if($worksheet->getCell('A'.$i)!=''){
         $username = $worksheet->getCell('A'.$i);
-        $total = $worksheet->getCell('B'.$i);
+        $total = $worksheet->getCell('B'.$i)->getValue();
+        $tokens = $total/0.05;
         if($total=='0'){
             $total = 0;
             $tokens = 0;
         }else{
+            /*
             $ganancia = explode('$',$total);
             $total = $ganancia[1];
             $tokens = $total/0.05;
+            */
         }
         $fecha_inicio = $fecha_inicio;
 

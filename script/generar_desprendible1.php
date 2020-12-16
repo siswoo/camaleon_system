@@ -123,7 +123,7 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 		}
 
 		if($row2['id_paginas']==3){
-			$sql_paginas1 = "SELECT * FROM camsoda WHERE id_modelo = ".$modelo_id." and fecha_desde BETWEEN '".$desprendible_fecha_desde."' AND '".$desprendible_fecha_hasta."' and  fecha_hasta BETWEEN '".$desprendible_fecha_desde."' AND '".$desprendible_fecha_hasta."'";
+			$sql_paginas1 = "SELECT * FROM camsoda WHERE id_modelo = ".$modelo_id." and fecha_desde BETWEEN '".$desprendible_fecha_desde."' AND '".$desprendible_fecha_hasta."'";
 			$consulta_paginas1 = mysqli_query($conexion,$sql_paginas1);
 			while($row3 = mysqli_fetch_array($consulta_paginas1)) {
 				$contador_tokens_camsoda1 = $contador_tokens_camsoda1 + $row3['tokens'];
@@ -438,7 +438,7 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 
 		$fila = $fila+1;
 
-		$sql4 = "INSERT INTO presabana (id_modelo,sede,inicio,fin,chaturbate,imlive,xlove,stripchat,streamate,myfreecams,livejasmin,bonga,cam4,camsoda,flirt4free,total_tokens,subtotal_dolares,rf,meta_porcentajes,total_pesos,total_dolares,trm,pv,responsable,fecha_inicio) VALUES ('$modelo_id','$modelo_sede','$desprendible_fecha_desde','$desprendible_fecha_hasta','$contador_tokens_chaturbate1','$contador_tokens_imlive1','$contador_tokens_xlove1','$contador_tokens_stripchat1','$contador_tokens_streamate1','$contador_tokens_myfreecams1','$contador_tokens_livejasmin1','$contador_tokens_bonga1','$contador_tokens_cam41','$contador_tokens_camsoda1','$contador_tokens_flirt4free1','$total_tokens','$subt_total_dolares','$retencion_fuente','$meta_porcentaje','$total_pesos','$total_dolares','$desprendible_trm','$fpv2','$responsable','$fecha_inicio')";
+		$sql4 = "INSERT INTO presabana (id_modelo,sede,inicio,fin,chaturbate,imlive,xlove,stripchat,streamate,myfreecams,livejasmin,bonga,cam4,camsoda,flirt4free,total_tokens,subtotal_dolares,rf,meta_porcentajes,total_pesos,total_dolares,trm,pv,responsable,estatus,fecha_inicio) VALUES ('$modelo_id','$modelo_sede','$desprendible_fecha_desde','$desprendible_fecha_hasta','$contador_tokens_chaturbate1','$contador_tokens_imlive1','$contador_tokens_xlove1','$contador_tokens_stripchat1','$contador_tokens_streamate1','$contador_tokens_myfreecams1','$contador_tokens_livejasmin1','$contador_tokens_bonga1','$contador_tokens_cam41','$contador_tokens_camsoda1','$contador_tokens_flirt4free1','$total_tokens','$subt_total_dolares','$retencion_fuente','$meta_porcentaje','$total_pesos','$total_dolares','$desprendible_trm','$fpv2','$responsable','Pendiente','$fecha_inicio')";
 		$consulta4 = mysqli_query($conexion,$sql4);
 }
 

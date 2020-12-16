@@ -679,6 +679,7 @@ CREATE TABLE presabana (
 	total_dolares FLOAT(11,2) NOT NULL,
 	trm FLOAT(11,2) NOT NULL,
 	pv FLOAT(11,2) NOT NULL,
+	estatus VARCHAR(250) NOT NULL,
 	responsable INT NOT NULL,
 	fecha_inicio DATE NOT NULL,
    	PRIMARY KEY (id)

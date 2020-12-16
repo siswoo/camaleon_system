@@ -727,7 +727,7 @@
 <!--****************************PENDIENTES****************************-->
 
 	<div class="seccion1" id="div_pendientes" style="display: none; border: 3px solid black; border-radius: 1rem; padding: 5px 5px 5px 5px;">
-		<form id="formulario_stripchat" method="POST" action="#">
+		<form id="formulario_pendientes" method="POST" action="#">
 	    	<div class="row">
 				<div class="form-group col-12">
 				    <p class="text-center" style="font-weight: bold; font-size: 20px;">PENDIENTES</p>
@@ -872,10 +872,19 @@
 
 <!--****************************DESPRENDIBLES****************************-->
 
-	<div class="seccion1" id="div_desprendibles" style="display: none; border: 3px solid black; border-radius: 1rem; padding: 5px 5px 5px 5px;">
+	<div class="seccion1" id="div_desprendibles" style="display: none;">
+	    <div class="row">
+			<div class="col-12 text-center">
+				<button class="btn btn-info" value="No" id="desprendibles1" onclick="mostrarSeccionDesprendible1(this.id,value);">Crear Desprendible</button>
+				<button class="btn btn-info ml-3" value="No" id="desprendibles2" onclick="mostrarSeccionDesprendible1(this.id,value);">Ver Desprendible</button>
+			</div>
+		</div>
+	</div>
+
+	<div class="seccion1" id="div_desprendibles1" style="display: none; border: 3px solid black; border-radius: 1rem; padding: 5px 5px 5px 5px;">
 	    	<div class="row">
 				<div class="form-group col-12">
-				    <p class="text-center" style="font-weight: bold; font-size: 20px;">Desprendibles</p>
+				    <p class="text-center" style="font-weight: bold; font-size: 20px;">Crear Desprendible</p>
 				</div>
 				<div class="form-group col-6">
 					<label for="desprendible_fecha_desde">Fecha Desde</label>
@@ -899,6 +908,61 @@
 				<input type="hidden" name="desprendible_fecha_hasta_hidden" id="desprendible_fecha_hasta_hidden">
 				<input type="hidden" name="desprendible_trm_hidden" id="desprendible_trm_hidden">
 			</form>
+	</div>
+
+	<div class="seccion1" id="div_desprendibles2" style="display: none; border: 3px solid black; border-radius: 1rem; padding: 5px 5px 5px 5px;">
+	    <div class="row">
+	    	<div class="col-12">
+				<p class="text-center" style="font-weight: bold; font-size: 20px;">Ver Desprendible</p>
+			</div>
+			<div class="col-12">
+				<table id="example" class="table row-border hover table-bordered" style="font-size: 12px;">
+			        <thead>
+			            <tr>
+			                <th class="text-center">Responsable</th>
+			                <th class="text-center">Estatus</th>
+			                <th class="text-center">Fecha Inicio</th>
+			                <th class="text-center">Fecha Fin</th>
+			                <th class="text-center">Fecha Creada</th>
+			                <th class="text-center">Opciones</th>
+			            </tr>
+			        </thead>
+			        <tbody id="resultados">
+			        	<?php
+			        	$sql1 = "SELECT * FROM presabana GROUP BY fecha_inicio";
+			        	$consulta1 = mysqli_query($conexion,$sql1);
+						while($row1 = mysqli_fetch_array($consulta1)) {
+							$id_presabana = $row1['id'];
+							$responsable = $row1['responsable'];
+							$estatus = $row1['estatus'];
+							$inicio = $row1['inicio'];
+							$fin = $row1['fin'];
+							$fecha_inicio = $row1['fecha_inicio'];
+
+							$sql2 = "SELECT * FROM usuarios WHERE id = ".$responsable;
+							$consulta2 = mysqli_query($conexion,$sql2);
+							while($row2 = mysqli_fetch_array($consulta2)) {
+								$responsable = $row2['nombre']." ".$row2['apellido'];
+							}
+							echo '
+								<tr id="tr_'.$id_presabana.'">
+			        				<td class="text-center">'.$responsable.'</td>
+			        				<td class="text-center" id="estatus_desprendible_'.$id_presabana.'">'.$estatus.'</td>
+			        				<td class="text-center">'.$inicio.'</td>
+			        				<td class="text-center">'.$fin.'</td>
+			        				<td class="text-center">'.$fecha_inicio.'</td>
+			        				<td class="text-center">
+			        			';?>
+			        					<button class="btn btn-info" id="activar_presabana_<?php echo $id_presabana; ?>" onclick="cambiarPresabana1(<?php echo $id_presabana; ?>,'activar')">Activar</button>
+			        					<button class="btn btn-info" id="desactivar_presabana_<?php echo $id_presabana; ?>" onclick="cambiarPresabana1(<?php echo $id_presabana; ?>,'desactivar')">Desactivar</button>
+			        					<!--<button class="btn btn-info" id="eliminar_presabana_<?php echo $id_presabana; ?>" onclick="cambiarPresabana1(<?php echo $id_presabana; ?>,'eliminar')">Eliminar</button>-->
+			        				</td>
+			        			</tr>
+						<?php } ?>
+			        </tbody>
+			    </table>
+			</div>
+		</div>
 	</div>
 
 <!--****************************FIN DESPRENDIBLES****************************-->
@@ -1019,8 +1083,8 @@
 
             success: function(response){
             	console.log(response);
+            	$('#submit_Imlive').removeAttr('disabled');
             	if(response=='error'){
-            		$('#submit_Imlive').removeAttr('disabled');
             		Swal.fire({
 		 				title: 'Formato Invalido',
 			 			text: "Formato Validos -> xls xml xlam xlsx",
@@ -1040,7 +1104,7 @@
 		 				timer: 2000
 					});
 	            	setTimeout(function() {
-				      	window.location.href = "index.php";
+				      	//window.location.href = "index.php";
 				    },2000);
             	}
             },
@@ -1094,7 +1158,7 @@
 		 				timer: 2000
 					});
 	            	setTimeout(function() {
-				      	window.location.href = "index.php";
+				      	//window.location.href = "index.php";
 				    },2000);
             	}
             },
@@ -1147,7 +1211,7 @@
 		 				timer: 2000
 					});
 	            	setTimeout(function() {
-				      	window.location.href = "index.php";
+				      	//window.location.href = "index.php";
 				    },2000);
             	}
             },
@@ -1200,7 +1264,7 @@
 					});
 					
 	            	setTimeout(function() {
-				      	window.location.href = "index.php";
+				      	//window.location.href = "index.php";
 				    },2000);
 				    
             	}
@@ -1267,7 +1331,7 @@
 		 				timer: 2000
 					});
 	            	setTimeout(function() {
-				      	window.location.href = "index.php";
+				      	//window.location.href = "index.php";
 				    },2000);
             	}
             },
@@ -1720,7 +1784,7 @@
 					});
 					
 	            	setTimeout(function() {
-				      	window.location.href = "index.php";
+				      	//window.location.href = "index.php";
 				    },2000);
 				    
             	}
@@ -1775,7 +1839,7 @@
 					});
 					
 	            	setTimeout(function() {
-				      	window.location.href = "index.php";
+				      	//window.location.href = "index.php";
 				    },2000);
 				    
             	}
@@ -2187,11 +2251,9 @@
 		 				showConfirmButton: true,
 		 				timer: 2000
 					});
-					/*
 	            	setTimeout(function() {
-				      	window.location.href = "index.php";
+				      	//window.location.href = "index.php";
 				    },2000);
-				    */
             	}
             },
 
@@ -2200,6 +2262,61 @@
             }
         });
     });
+
+	function cambiarPresabana1(id,condicion){
+		$.ajax({
+			type: 'POST',
+			url: '../script/crud_presabana1.php',
+            dataType: "JSON",
+			data: {
+				"id": id,
+				"condicion": condicion,
+			},
+
+			success: function(respuesta) {
+				console.log(respuesta);
+				if(condicion=='activar'){
+					Swal.fire({
+				 		title: 'Guardado',
+					 	text: "Presabana Activada",
+					 	icon: 'success',
+					 	position: 'center',
+					 	showConfirmButton: false,
+					 	timer: 2000
+					});
+					$('#estatus_desprendible_'+id).html('Activa');
+				}
+
+				if(condicion=='desactivar'){
+					Swal.fire({
+				 		title: 'Guardado',
+					 	text: "Presabana Desactivada",
+					 	icon: 'success',
+					 	position: 'center',
+					 	showConfirmButton: false,
+					 	timer: 2000
+					});
+					$('#estatus_desprendible_'+id).html('Desactivada');
+				}
+
+				if(condicion=='eliminar'){
+					Swal.fire({
+				 		title: 'Guardado',
+					 	text: "Presabana Eliminada",
+					 	icon: 'success',
+					 	position: 'center',
+					 	showConfirmButton: false,
+					 	timer: 2000
+					});
+					$('#tr_'+id).hide('slow');
+				}
+			},
+
+			error: function(respuesta) {
+				console.log(respuesta['responseText']);
+			}
+		});
+	}
 
 
 </script>

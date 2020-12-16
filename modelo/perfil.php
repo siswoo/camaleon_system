@@ -1056,7 +1056,7 @@
 				<div class="row mt-3 mb-3">
 					<div class="col-12 form-group form-check">
 						<button type="submit" class="btn btn-success" id="submit_pasaporte" style="height: 35px; margin-top: 6px; margin-bottom: 11px;margin-right: 20px;">Subir</button>
-						<label for="pasaporte">Pasaporte</label>
+						<label for="pasaporte">Cédula o Pasaporte</label>
 						<input type="file" style="height:43px;" class="form-control" name="pasaporte" id="pasaporte" required>
 					</div>
 				</div>
@@ -1391,7 +1391,7 @@
 	<form class="d-none" action="#" method="POST" id="formulario9">
 		<div class="row">
 				<?php
-				$sql7 = "SELECT * FROM presabana WHERE id_modelo = ".$id;
+				$sql7 = "SELECT * FROM presabana WHERE id_modelo = ".$id." and estatus = 'Activa'";
 				$consulta7 = mysqli_query($conexion,$sql7);
 				$contador6 = mysqli_num_rows($consulta7);
 				$html_presabana = '';
