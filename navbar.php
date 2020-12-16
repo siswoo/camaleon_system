@@ -129,7 +129,7 @@ if($ubicacion == 'welcome'){ ?>
 	      	-->
 
 	      	<?php
-			if($_SESSION['rol']==1){ ?>
+			if($_SESSION['rol']==1 or $_SESSION['rol']==13){ ?>
 	      	<li class="nav-item" id="li-pagos">
 	        	<a class="nav-link navbar-active-a botones_navbar1" href="../pagos/index.php" id="a-pagos">Pagos</a>
 	      	</li>

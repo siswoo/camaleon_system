@@ -14,6 +14,7 @@ while($row = mysqli_fetch_array($registro1)) {
 	$telefono1 			= $row['telefono1'];
 	$telefono2 			= $row['telefono2'];
 	$rol 				= $row['rol'];
+	$sedes 				= $row['sede'];
 	$fecha_inicio 		= $row['fecha_inicio'];
 }
 
@@ -28,6 +29,7 @@ $datos = [
 	"telefono1" 			=> $telefono1,
 	"telefono2" 			=> $telefono2,
 	"rol" 					=> $rol,
+	"sedes" 				=> $sedes,
 	"fecha_inicio" 			=> $fecha_inicio,
 ];
 

@@ -7,9 +7,10 @@ $primer_apellido = $_POST['primer_apellido'];
 $correo = $_POST['correo'];
 $telefono1 = $_POST['telefono1'];
 $usuario2 = $_POST['usuario'];
+$sede = $_POST['sedes'];
 $rol = $_POST['rol'];
 $clave = md5($_POST['clave']);
-$sede = $_SESSION['sede'];
+//$sede = $_SESSION['sede'];
 $fecha_inicio = date('Y-m-d');
 
 include('conexion.php');

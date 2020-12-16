@@ -244,9 +244,25 @@
 							    <input type="text" name="edit_telefono2" id="edit_telefono2" class="form-control" autocomplete="off">
 						    </div>
 
-						    <div class="col-12 form-group form-check">
+						    <div class="col-6 form-group form-check">
 							    <label for="edit_rol">Rol</label>
 							    <input type="text" name="edit_rol" id="edit_rol" class="form-control" autocomplete="off" disabled>
+						    </div>
+
+						    <div class="col-6 form-group form-check">
+							    <label for="rol">Sedes <small style="color:#F2B76F; font-size: 17px;">*</small></label>
+							    <select class="form-control" name="edit_sedes" id="edit_sedes" required>
+							    	<option value="">Seleccione</option>
+							    	<?php
+							    	$sql_sedes = "SELECT * FROM sedes";	
+									$resultado_sedes = mysqli_query($conexion,$sql_sedes);
+									while($row4 = mysqli_fetch_array($resultado_sedes)) {
+										$sedes_id = $row4['id'];
+										$sedes_nombre = $row4['nombre'];
+										echo '<option value="'.$sedes_id.'">'.$sedes_nombre.'</option>';
+									}
+							    	?>
+							    </select>
 						    </div>
 					    </div>
 					</div>
@@ -321,7 +337,7 @@
 							    <input type="password" name="clave" id="clave" class="form-control" autocomplete="off" required>
 						    </div>
 
-						    <div class="col-12 form-group form-check">
+						    <div class="col-6 form-group form-check">
 							    <label for="rol">Rol <small style="color:#F2B76F; font-size: 17px;">*</small></label>
 							    <select class="form-control" name="rol" id="rol" required>
 							    	<option value="">Seleccione</option>
@@ -336,6 +352,22 @@
 										$rol_id = $row3['id'];
 										$rol_nombre = $row3['nombre'];
 										echo '<option value="'.$rol_id.'">'.$rol_nombre.'</option>';
+									}
+							    	?>
+							    </select>
+						    </div>
+
+						    <div class="col-6 form-group form-check">
+							    <label for="rol">Sedes <small style="color:#F2B76F; font-size: 17px;">*</small></label>
+							    <select class="form-control" name="sedes" id="sedes" required>
+							    	<option value="">Seleccione</option>
+							    	<?php
+							    	$sql_sedes = "SELECT * FROM sedes";	
+									$resultado_sedes = mysqli_query($conexion,$sql_sedes);
+									while($row4 = mysqli_fetch_array($resultado_sedes)) {
+										$sedes_id = $row4['id'];
+										$sedes_nombre = $row4['nombre'];
+										echo '<option value="'.$sedes_id.'">'.$sedes_nombre.'</option>';
 									}
 							    	?>
 							    </select>
@@ -542,6 +574,7 @@
 				$('#edit_telefono1').val(respuesta['telefono1']);
 				$('#edit_telefono2').val(respuesta['telefono2']);
 				$('#edit_rol').val(respuesta['rol']);
+				$('#edit_sedes').val(respuesta['sedes']);
 				$('#edit_fecha_inicio').val(respuesta['fecha_inicio']);
 			},
 
@@ -592,6 +625,7 @@
 		var primer_apellido 	= $('#primer_apellido').val();
 		var correo 				= $('#correo').val();
 		var telefono1 			= $('#telefono1').val();
+		var sedes 				= $('#sedes').val();
 
 	    $.ajax({
 			type: 'POST',

@@ -33,6 +33,8 @@ CREATE TABLE roles (
 
 	community INT DEFAULT 0,
 
+	financiera INT DEFAULT 0,
+
 	test INT DEFAULT 0,
 
 	PRIMARY KEY (id)
@@ -49,6 +51,7 @@ INSERT INTO roles (id,nombre,modelo_view,modelo_edit) VALUES (9,'Soporte Junior'
 INSERT INTO roles (id,nombre,test) VALUES (10,'Diseñador',1);
 INSERT INTO roles (id,nombre) VALUES (11,'Monitor Junior');
 INSERT INTO roles (id,nombre,community) VALUES (12,'Community Manager',1);
+INSERT INTO roles (id,nombre,financiera) VALUES (13,'Financiera',1);
 ALTER TABLE roles CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 
@@ -96,7 +99,7 @@ INSERT INTO usuarios (nombre,apellido,documento_tipo,documento_numero,correo,usu
 ('Juan','Maldonado','PEP','955948708101993','juanmaldonado.co@gmail.com','admin','21232f297a57a5a743894a0e4a801fc3','3125318122','',1,1,'2020-08-18'),
 ('Leonardo','Matiz Prieto','Cedula de Ciudadania','1014231159','matizprietoleonardo@gmail.com','leomatiz','6e23d09664c2092e3c6f87e56e8efa1d','3197482852','',7,1,'2020-09-22'),
 ('Rocio','Delgado','Cedula de Ciudadania','1023886014','dptorrhhcamaleonmodels@gmail.com','recursoshumanos','77bedb3696d429d527deb55e83ccd8ed','3058126922','',8,1,'2020-09-23'),
-('Andrea','Perez','Cedula de Ciudadania','1233894005','adminnorte@bernal-group.com','andreap','12c22c3f68d4c7bc77f1f40bd78f5e9b','3162972851','',8,4,'2020-09-23'),
+('Andrea','Perez','Cedula de Ciudadania','1233894005','adminnorte@bernal-group.com','andreap','12c22c3f68d4c7bc77f1f40bd78f5e9b','3162972851','',13,4,'2020-09-23'),
 ('Pasantia','Test','PEP','11111111111','test@gmail.com','pasantia','21232f297a57a5a743894a0e4a801fc3','77777777','',4,1,'2020-08-27'),
 ('Pasantia2','Test2','PEP','22222222222','test2@gmail.com','pasantia2','21232f297a57a5a743894a0e4a801fc3','77777777','',4,2,'2020-10-13'),
 ('Pasantia3','Test3','PEP','333333333333','test3@gmail.com','pasantia3','21232f297a57a5a743894a0e4a801fc3','77777777','',4,3,'2020-10-13'),
