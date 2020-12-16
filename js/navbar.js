@@ -55,6 +55,9 @@ $(document).ready(function(){
         $('#a-monitores').attr('href','monitores/index.php');
         $('#a-reportes').attr('href','reportes/index.php');
         $('#a-pagos').attr('href','pagos/index.php');
+        $('#a-erick').attr('href','erick/index.php');
+        $('#a-community').attr('href','community/index.php');
+        $('#a-consultas').attr('href','consultas/index.php');
         $('#navbar-cerrarSesion').attr('href','script/cerrar_sesion.php');
     }else{
         $('#li-'+hidden_ubicacion).addClass('navbar-active');

@@ -74,14 +74,12 @@ if($ubicacion == 'welcome'){ ?>
 		      	</li>
 	      	<?php } ?>
 			
-			<!--
 	      	<?php
 			if($verificacion_usuarios_view==1){ ?>
 		      	<li class="nav-item" id="li-usuario">
-		        	<a class="nav-link navbar-active-a" href="../usuarios/index.php" id="a-usuario">Usuarios</a>
+		        	<a class="nav-link navbar-active-a botones_navbar1" href="../usuarios/index.php" id="a-usuario">Usuarios</a>
 		      	</li>
 	      	<?php } ?>
-	      	-->
 
 	      	<?php
 	      	/*
@@ -141,6 +139,20 @@ if($ubicacion == 'welcome'){ ?>
 			if($_SESSION['rol']==1){ ?>
 	      	<li class="nav-item" id="li-erick">
 	        	<a class="nav-link navbar-active-a botones_navbar1" href="../erick/index.php" id="a-erick">Erick</a>
+	      	</li>
+	      	<?php } ?>
+
+	      	<?php
+			if($_SESSION['rol']==1 or $_SESSION['rol']==12){ ?>
+	      	<li class="nav-item" id="li-community">
+	        	<a class="nav-link navbar-active-a botones_navbar1" href="../community/index.php" id="a-community">Community</a>
+	      	</li>
+	      	<?php } ?>
+
+	      	<?php
+			if($_SESSION['rol']==1 or $_SESSION['rol']==8){ ?>
+	      	<li class="nav-item" id="li-consultas">
+	        	<a class="nav-link navbar-active-a botones_navbar1" href="../consultas/index.php" id="a-consultas">Consultas</a>
 	      	</li>
 	      	<?php } ?>
 	      	

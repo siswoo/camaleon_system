@@ -30,7 +30,7 @@ $sheet->setCellValue('R1', 'Porcentaje');
 $fila = 2;
 
 session_start();
-include('../script/conexion.php');
+include('conexion.php');
 $descargable = $_POST['descargable_guiaR'];
 
 $html = '';
@@ -300,7 +300,7 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 			}else{
 				$html .= '
 				<td>
-					<a href="../resources/documentos/modelos/archivos/'.$modelo_id.'/firma_digital.pdf" data-lightbox="Documentos_'.$modelo_id.'" data-title="Firma Digital">
+					<a href="../resources/documentos/modelos/archivos/'.$modelo_id.'/firma_digital.pdf" target="_blank">
 						<img src="../img/icons/check_ok1.png" style="width:25px;">
 					</a>
 				</td>';
@@ -332,7 +332,7 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 			}else{
 				$html .= '
 				<td>
-					<a href="../resources/documentos/modelos/archivos/'.$modelo_id.'/pasaporte.pdf" data-lightbox="Documentos_'.$modelo_id.'" data-title="Pasaporte">
+					<a href="../resources/documentos/modelos/archivos/'.$modelo_id.'/pasaporte.pdf" target="_blank">
 						<img src="../img/icons/check_ok1.png" style="width:25px;">
 					</a>
 				</td>';
@@ -363,7 +363,7 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 			}else{
 				$html .= '
 				<td>
-					<a href="../resources/documentos/modelos/archivos/'.$modelo_id.'/rut.pdf" data-lightbox="Documentos_'.$modelo_id.'" data-title="RUT">
+					<a href="../resources/documentos/modelos/archivos/'.$modelo_id.'/rut.pdf" target="_blank">
 						<img src="../img/icons/check_ok1.png" style="width:25px;">
 					</a>
 				</td>';
@@ -394,7 +394,7 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 			}else{
 				$html .= '
 				<td>
-					<a href="../resources/documentos/modelos/archivos/'.$modelo_id.'/certificacion_bancaria.pdf" data-lightbox="Documentos_'.$modelo_id.'" data-title="Certificacion Bancario">
+					<a href="../resources/documentos/modelos/archivos/'.$modelo_id.'/certificacion_bancaria.pdf" target="_blank" Bancario">
 						<img src="../img/icons/check_ok1.png" style="width:25px;">
 					</a>
 				</td>';
@@ -425,7 +425,7 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 			}else{
 				$html .= '
 				<td>
-					<a href="../resources/documentos/modelos/archivos/'.$modelo_id.'/certificacion_bancaria.pdf" data-lightbox="Documentos_'.$modelo_id.'" data-title="Certificacion Bancario">
+					<a href="../resources/documentos/modelos/archivos/'.$modelo_id.'/certificacion_bancaria.pdf" target="_blank" Bancario">
 						<img src="../img/icons/check_ok1.png" style="width:25px;">
 					</a>
 				</td>';
@@ -456,7 +456,7 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 			}else{
 				$html .= '
 				<td>
-					<a href="../resources/documentos/modelos/archivos/'.$modelo_id.'/antecedentes_disciplinarios.pdf" data-lightbox="Documentos_'.$modelo_id.'" data-title="Antecedentes Disciplinarios">
+					<a href="../resources/documentos/modelos/archivos/'.$modelo_id.'/antecedentes_disciplinarios.pdf" target="_blank" Disciplinarios">
 						<img src="../img/icons/check_ok1.png" style="width:25px;">
 					</a>
 				</td>';
@@ -487,7 +487,7 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 			}else{
 				$html .= '
 				<td>
-					<a href="../resources/documentos/modelos/archivos/'.$modelo_id.'/antecedentes_penales.pdf" data-lightbox="Documentos_'.$modelo_id.'" data-title="Antecedentes Penales">
+					<a href="../resources/documentos/modelos/archivos/'.$modelo_id.'/antecedentes_penales.pdf" target="_blank">
 						<img src="../img/icons/check_ok1.png" style="width:25px;">
 					</a>
 				</td>';

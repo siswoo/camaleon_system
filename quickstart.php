@@ -73,7 +73,7 @@ $response = $service->spreadsheets_values->get($spreadsheetId, $range);
 $values = $response->getValues();
 
 
-/**************
+/**************/
 if (empty($values)) {
     print "No data found.\n";
 } else {
@@ -85,7 +85,7 @@ if (empty($values)) {
 }
 /***************/
 
-
+/*
 $valueInputOption = "USER_ENTERED";
 $values = [
     [
@@ -102,3 +102,4 @@ $params = [
 $result = $service->spreadsheets_values->update($spreadsheetId, $range,
 $body, $params);
 printf("%d cells updated.", $result->getUpdatedCells());
+*/

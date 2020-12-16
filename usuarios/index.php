@@ -18,6 +18,7 @@
 	<title>Camaleon Sistem</title>
 </head>
 <style type="text/css">
+	<style type="text/css">
 	#submit{
   		background-color: #A67D4C!important; 
   		border-color: #A67D4C;
@@ -34,6 +35,25 @@
   		border-color: #A67D4C;
   		color: white !important;
   		border-color: white !important;
+  	}
+
+  	.seccion1{
+  		margin-left: 2rem;
+  		margin-right: 2rem;
+  	}
+
+  	.navbar-active{
+  		border-bottom: 2px solid #A9814F;
+  	}
+
+  	.btn-info{
+  		background-color: #A9814F !important;
+  		border-color: #A9814F !important;
+  	}
+
+  	.btn-primary{
+  		background-color: #A9814F !important;
+  		border-color: #A9814F !important;
   	}
 
   	body{

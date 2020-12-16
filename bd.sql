@@ -31,7 +31,9 @@ CREATE TABLE roles (
 
 	seguridad_view INT DEFAULT 0,
 
-	test INT DEFAULT 0,	
+	community INT DEFAULT 0,
+
+	test INT DEFAULT 0,
 
 	PRIMARY KEY (id)
 );
@@ -46,6 +48,7 @@ INSERT INTO roles (id,nombre,modelo_view,modelo_edit,pasante_view,pasante_edit) 
 INSERT INTO roles (id,nombre,modelo_view,modelo_edit) VALUES (9,'Soporte Junior',1,1);
 INSERT INTO roles (id,nombre,test) VALUES (10,'Diseñador',1);
 INSERT INTO roles (id,nombre) VALUES (11,'Monitor Junior');
+INSERT INTO roles (id,nombre,community) VALUES (12,'Community Manager',1);
 ALTER TABLE roles CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 
