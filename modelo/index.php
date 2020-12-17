@@ -1550,7 +1550,16 @@
 			data: $('#form_modal_edit3').serialize(),
 			dataType: "JSON",
 			success: function(respuesta) {
-				console.log(respuesta);
+				//console.log(respuesta);
+				if(respuesta['resultado']=='error'){
+					Swal.fire({
+						position: 'center',
+						icon: 'error',
+						title: 'Cuenta ya existente!',
+						showConfirmButton: true,
+					});
+					return false;
+				}
 				Swal.fire({
 					position: 'center',
 					icon: 'success',
