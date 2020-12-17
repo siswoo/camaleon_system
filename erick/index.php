@@ -93,9 +93,14 @@
 				<a href="exportar6.php" style="text-decoration: none;">
 			    	<button type="button" class="btn btn-info ml-3">Registrados con Banco</button>
 				</a>
+				<!--
 				<a href="exportar7.php" style="text-decoration: none;">
 			    	<button type="button" class="btn btn-info ml-3">Faltantes Mixtos 1</button>
 				</a>
+				<a href="exportar8.php" style="text-decoration: none;">
+			    	<button type="button" class="btn btn-info ml-3">Cuentas Repetidas</button>
+				</a>
+				-->
 	    	</div>
 
 	    	<!--****************************************************-->
