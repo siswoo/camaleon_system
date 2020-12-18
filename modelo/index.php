@@ -1550,16 +1550,29 @@
 			data: $('#form_modal_edit3').serialize(),
 			dataType: "JSON",
 			success: function(respuesta) {
-				//console.log(respuesta);
+				//console.log(respuesta['duplicados_documentos']);
+				if(respuesta['resultado']=='duplicados'){
+					Swal.fire({
+						position: 'center',
+						icon: 'error',
+						title: 'Cuenta ya existentes! ',
+						text: respuesta['duplicados_documentos'][1]+' -> '+respuesta['duplicados_nombres'][1],
+						showConfirmButton: true,
+					});
+					return false;
+				}
+
 				if(respuesta['resultado']=='error'){
 					Swal.fire({
 						position: 'center',
 						icon: 'error',
 						title: 'Cuenta ya existente!',
+						text: 'Solo se permite una misma cuenta para esta pagina',
 						showConfirmButton: true,
 					});
 					return false;
 				}
+
 				Swal.fire({
 					position: 'center',
 					icon: 'success',
@@ -2116,6 +2129,65 @@
 				console.log(respuesta['responseText']);
 			}
 		});
+	}
+
+	function eliminar_foto1(id_modelo,documento,id_documento){
+		Swal.fire({
+		  title: 'Estas seguro?',
+		  text: "Esta acción no podra revertirse",
+		  icon: 'warning',
+		  showConfirmButton: true,
+		  showCancelButton: true,
+		  confirmButtonColor: '#3085d6',
+		  cancelButtonColor: '#d33',
+		  confirmButtonText: 'Si, Eliminar registro!',
+		  cancelButtonText: 'Cancelar'
+		}).then((result) => {
+			if (result.value) {
+		 		$.ajax({
+					url: '../script/borrar_foto_modelo1.php',
+					type: 'POST',
+					dataType: "JSON",
+					data: {
+						"id_modelo": id_modelo,
+						"documento": documento,
+						"id_documento": id_documento,
+					},
+
+					success: function(respuesta) {
+						console.log(respuesta);
+						if(respuesta['resultado']=='no existe'){
+							Swal.fire({
+						 		title: 'Error',
+						 		text: "Ya se ha eliminado archivo!",
+						 		icon: 'error',
+						 		position: 'center',
+						 		showConfirmButton: false,
+						 		timer: 2000
+							});
+						}
+
+						if(respuesta['resultado']=='correcto'){
+							Swal.fire({
+						 		title: 'Perfecto!',
+						 		text: "Se ha eliminado correctamente",
+						 		icon: 'success',
+						 		position: 'center',
+						 		showConfirmButton: false,
+						 		timer: 3000
+							})
+						}
+
+						$('#documento_'+id_documento).hide('slow');
+
+					},
+
+					error: function(respuesta) {
+						console.log(respuesta['responseText']);
+					}
+				});
+			}
+		})
 	}
 
 </script>

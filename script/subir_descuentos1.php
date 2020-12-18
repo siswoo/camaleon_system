@@ -49,9 +49,11 @@ for($i=2;$i<=$limite;$i++){
 
         $sql1 = "SELECT * FROM modelos WHERE documento_numero = ".$identificacion;
         $consulta1 = mysqli_query($conexion,$sql1);
-        $contador1 = mysqli_num_rows($consulta1);
-        while($row1 = mysqli_fetch_array($consulta1)) {
-            $id_modelo = $row1['id'];
+        if($consulta1==true){
+            $contador1 = mysqli_num_rows($consulta1);
+            while($row1 = mysqli_fetch_array($consulta1)) {
+                $id_modelo = $row1['id'];
+            }
         }
 
         $pase = 0;

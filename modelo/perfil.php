@@ -564,7 +564,7 @@
 		<div class="row">
 			<div class="col-6 form-group form-check">
 				<label for="turno">Turno</label>
-				<select name="turno" id="turno" class="form-control">
+				<select name="turno" id="turno" class="form-control" disabled>
 					<option value="">Seleccione</option>
 					<option value="Mañana">Mañana</option>
 					<option value="Tarde">Tarde</option>
@@ -575,7 +575,7 @@
 
 			<div class="col-6 form-group form-check">
 				<label for="sede">Sede</label>
-				<select name="sede" id="sede" class="form-control">
+				<select name="sede" id="sede" class="form-control" disabled>
 					<option value="">Seleccione</option>
 					<option value="2">Norte</option>
 					<option value="3">Occidente 1</option>
@@ -586,7 +586,7 @@
 
 			<div class="col-12 form-group form-check">
 				<label for="Htransmision">Horario de Transmisión</label>
-				<select name="Htransmision" id="Htransmision" id="Htransmision" class="form-control">
+				<select name="Htransmision" id="Htransmision" id="Htransmision" class="form-control" disabled>
 					<option value="">Seleccione</option>
 					<option value="Mañana">Mañana</option>
 					<option value="Tarde">Tarde</option>
@@ -611,7 +611,7 @@
 				<hr>
 				<div class="col-12 form-group form-check">
 					<label for="enlazar">Enlazar al Equipo?</label>
-					<select name="select_enlazar" id="select_enlazar" class="form-control" id="select_enlazar"></select>
+					<select name="select_enlazar" id="select_enlazar" class="form-control" id="select_enlazar" ></select>
 				</div>
 				<hr>
 			</div>

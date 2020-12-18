@@ -20,9 +20,10 @@ while($row5 = mysqli_fetch_array($consulta3)) {
 
 	if($modelos_documentos_id_documento==2){
 		$html_documento_identidad.='
-			<div class="col-12 form-group text-center">
+			<div class="col-12 form-group text-center" id="documento_'.$modelos_documentos_id.'">
 				<div><label for="" style="text-transform: capitalize;">Foto Documento de Identidad</label></div>
 				<img src="../resources/documentos/modelos/archivos/'.$modelo_id.'/documento_identidad.'.$modelos_documentos_tipo.'" style="width:250px;border-radius:5px;">
+				<p class="mt-3"><button type="button" class="btn btn-danger" id="'.$modelo_id.'" value="documento_identidad.'.$modelos_documentos_tipo.'" onclick="eliminar_foto1(this.id,value,'.$modelos_documentos_id.')">Borrar</button></p>
 				<hr style="background-color:black;">
 			</div>
 		';
@@ -30,9 +31,10 @@ while($row5 = mysqli_fetch_array($consulta3)) {
 
 	if($modelos_documentos_id_documento==8){
 		$html_foto_cedula_con_cara.='
-			<div class="col-12 form-group text-center">
+			<div class="col-12 form-group text-center" id="documento_'.$modelos_documentos_id.'">
 				<div><label for="" style="text-transform: capitalize;">Foto cédula con cara</label></div>
 				<img src="../resources/documentos/modelos/archivos/'.$modelo_id.'/foto_cedula_con_cara.'.$modelos_documentos_tipo.'" style="width:250px;border-radius:5px;">
+				<p class="mt-3"><button type="button" class="btn btn-danger" id="'.$modelo_id.'" value="foto_cedula_con_cara.'.$modelos_documentos_tipo.'" onclick="eliminar_foto1(this.id,value,'.$modelos_documentos_id.')">Borrar</button></p>
 				<hr style="background-color:black;">
 			</div>
 		';
@@ -40,9 +42,10 @@ while($row5 = mysqli_fetch_array($consulta3)) {
 
 	if($modelos_documentos_id_documento==9){
 		$html_foto_cedula_parte_frontal_cara.='
-			<div class="col-12 form-group text-center">
+			<div class="col-12 form-group text-center" id="documento_'.$modelos_documentos_id.'">
 				<div><label for="" style="text-transform: capitalize;">Foto cédula parte frontal con cara</label></div>
 				<img src="../resources/documentos/modelos/archivos/'.$modelo_id.'/foto_cedula_parte_frontal_cara.'.$modelos_documentos_tipo.'" style="width:250px;border-radius:5px;">
+				<p class="mt-3"><button type="button" class="btn btn-danger" id="'.$modelo_id.'" value="foto_cedula_parte_frontal_cara.'.$modelos_documentos_tipo.'" onclick="eliminar_foto1(this.id,value,'.$modelos_documentos_id.')">Borrar</button></p>
 				<hr style="background-color:black;">
 			</div>
 		';
@@ -50,9 +53,10 @@ while($row5 = mysqli_fetch_array($consulta3)) {
 
 	if($modelos_documentos_id_documento==10){
 		$html_foto_cedula_parte_respaldo.='
-			<div class="col-12 form-group text-center">
+			<div class="col-12 form-group text-center" id="documento_'.$modelos_documentos_id.'">
 				<div><label for="" style="text-transform: capitalize;">Foto Cédula Parte Respaldo</label></div>
 				<img src="../resources/documentos/modelos/archivos/'.$modelo_id.'/foto_cedula_parte_respaldo.'.$modelos_documentos_tipo.'" style="width:250px;border-radius:5px;">
+				<p class="mt-3"><button type="button" class="btn btn-danger" id="'.$modelo_id.'" value="foto_cedula_parte_respaldo.'.$modelos_documentos_tipo.'" onclick="eliminar_foto1(this.id,value,'.$modelos_documentos_id.')">Borrar</button></p>
 				<hr style="background-color:black;">
 			</div>
 		';

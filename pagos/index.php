@@ -88,6 +88,7 @@
 			<button type="button" class="btn btn-info" value="No" id="graficos" onclick="mostrarSeccionGraficos1(this.id,value);">Gráficos</button>
 			<button type="button" class="btn btn-info" value="No" id="datos" onclick="mostrarSeccion1(this.id,value);">Datos</button>
 			<button type="button" class="btn btn-info" value="No" id="desprendibles" onclick="mostrarSeccionDesprendible1(this.id,value);">Desprendible de Pagos</button>
+			<button type="button" class="btn btn-info" value="No" id="modelos" onclick="mostrarSeccionModelos1(this.id,value);">Consultar Modelos</button>
 		</div>
 	</div>
 
@@ -967,6 +968,62 @@
 
 <!--****************************FIN DESPRENDIBLES****************************-->
 
+<!--****************************DESPRENDIBLES****************************-->
+
+	<div class="seccion1" id="div_modelos" style="display: none;">
+	    <div class="row">
+	    	<div class="col-12">
+				<p class="text-center" style="font-weight: bold; font-size: 20px;">VER MODELOS</p>
+			</div>
+			<div class="col-12">
+				<table id="table1" class="table row-border hover table-bordered" style="font-size: 12px;">
+			        <thead>
+			            <tr>
+			                <th class="text-center">Nombre</th>
+			                <th class="text-center">Tipo Documento</th>
+			                <th class="text-center">N Documento</th>
+			                <th class="text-center">Teléfono</th>
+			                <th class="text-center">Sede</th>
+			                <!--<th class="text-center">Opciones</th>-->
+			            </tr>
+			        </thead>
+			        <tbody id="resultados">
+			        	<?php
+			        	$sql1 = "SELECT * FROM modelos";
+			        	$consulta1 = mysqli_query($conexion,$sql1);
+						while($row1 = mysqli_fetch_array($consulta1)) {
+							$id_modelo = $row1['id'];
+							$nombre_completo = $row1['nombre1']." ".$row1['nombre2']." ".$row1['apellido1']." ".$row1['apellido2'];
+							$documento_tipo = $row1['documento_tipo'];
+							$documento_numero = $row1['documento_numero'];
+							$telefono1 = $row1['telefono1'];
+							$sede = $row1['sede'];
+							$fecha_inicio = $row1['fecha_inicio'];
+
+							$sql2 = "SELECT * FROM sedes WHERE id = ".$sede;
+							$consulta2 = mysqli_query($conexion,$sql2);
+							while($row2 = mysqli_fetch_array($consulta2)) {
+								$sede_nombre = $row2['nombre'];
+							}
+							echo '
+								<tr id="tr_'.$id_modelo.'">
+			        				<td class="text-center">'.$nombre_completo.'</td>
+			        				<td class="text-center">'.$documento_tipo.'</td>
+			        				<td class="text-center">'.$documento_numero.'</td>
+			        				<td class="text-center">'.$telefono1.'</td>
+			        				<td class="text-center">'.$sede_nombre.'</td>
+			        			';
+			        		?>
+			        			</tr>
+						<?php } ?>
+			        </tbody>
+			    </table>
+			</div>
+		</div>
+	</div>
+
+<!--****************************FIN DESPRENDIBLES****************************-->
+
 <?php include('../footer.php'); ?>
 
 </body>
@@ -1008,6 +1065,28 @@
 
     	} );
 
+    	var table = $('#table1').DataTable( {
+        	//"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+        	"lengthMenu": [[10, 25, 50, 100], [10, 25, 50, 100]],
+
+        	"language": {
+	            "lengthMenu": "Mostrar _MENU_ Registros por página",
+	            "zeroRecords": "No se ha encontrado resultados",
+	            "info": "Ubicado en la página <strong>_PAGE_</strong> de <strong>_PAGES_</strong>",
+	            "infoEmpty": "Sin registros actualmente",
+	            "infoFiltered": "(Filtrado de <strong>_MAX_</strong> total registros)",
+	            "paginate": {
+			        "first":      "Primero",
+			        "last":       "Última",
+			        "next":       "Siguiente",
+			        "previous":   "Anterior"
+			    },
+			    "search": "Buscar",
+        	},
+
+        	"paging": true
+
+    	} );
 
     	/***************POPOVERS*******************/
 		$(function () {
@@ -2331,5 +2410,14 @@
 		});
 	}
 
+	function mostrarSeccionModelos1(button,value){
+		if(value=='Si'){
+			$('#div_'+button).hide('slow');
+			$('#'+button).val('No');
+		}else{
+			$('#div_'+button).show('slow');
+			$('#'+button).val('Si');
+		}
+	}
 
 </script>
