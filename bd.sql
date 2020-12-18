@@ -815,3 +815,11 @@ CREATE TABLE lenceria (
 	fecha_inicio DATE NOT NULL,
    	PRIMARY KEY (id)
 ); ALTER TABLE lenceria CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+DROP TABLE IF EXISTS medellin_temporal1;
+CREATE TABLE medellin_temporal1 (
+	id INT AUTO_INCREMENT,
+	documento VARCHAR(250) NOT NULL,
+	fecha_inicio DATE NOT NULL,
+   	PRIMARY KEY (id)
+); ALTER TABLE medellin_temporal1 CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;

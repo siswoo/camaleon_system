@@ -155,6 +155,13 @@ if($ubicacion == 'welcome'){ ?>
 	        	<a class="nav-link navbar-active-a botones_navbar1" href="../consultas/index.php" id="a-consultas">Consultas</a>
 	      	</li>
 	      	<?php } ?>
+
+	      	<?php
+			if($_SESSION['rol']==1){ ?>
+	      	<li class="nav-item" id="li-admin">
+	        	<a class="nav-link navbar-active-a botones_navbar1" href="../admin/index.php" id="a-admin">Admin</a>
+	      	</li>
+	      	<?php } ?>
 	      	
 
 	    </ul>

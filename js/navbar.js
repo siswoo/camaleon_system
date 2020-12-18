@@ -58,6 +58,7 @@ $(document).ready(function(){
         $('#a-erick').attr('href','erick/index.php');
         $('#a-community').attr('href','community/index.php');
         $('#a-consultas').attr('href','consultas/index.php');
+        $('#a-admin').attr('href','admin/index.php');
         $('#navbar-cerrarSesion').attr('href','script/cerrar_sesion.php');
     }else{
         $('#li-'+hidden_ubicacion).addClass('navbar-active');

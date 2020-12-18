@@ -11,6 +11,21 @@ if($tokens!=''){
 }
 $responsable = $_SESSION['id'];
 
+
+/*************VALIDACION DE FECHA HASTA****************/
+$fecha_hasta_Camsoda = explode('-',$fecha_hasta_Camsoda);
+$contador1 = 0;
+do {
+    if(checkdate($fecha_hasta_Camsoda[1], $fecha_hasta_Camsoda[2], $fecha_hasta_Camsoda[0])){
+		$contador1 = 1;
+	}else{
+		$fecha_hasta_Camsoda[2] = $fecha_hasta_Camsoda[2]-1;
+	}
+} while ($contador1==0);
+/*****************************************************/
+
+$fecha_hasta_Camsoda = $fecha_hasta_Camsoda[0]."-".$fecha_hasta_Camsoda[1]."-".$fecha_hasta_Camsoda[2];
+
 //$sql3 = "SELECT * FROM camsoda WHERE id_modelo = ".$id." and fecha_desde BETWEEN '".$fecha_desde_Camsoda."' AND  '".$fecha_hasta_Camsoda."'";
 
 if($tokens==''){

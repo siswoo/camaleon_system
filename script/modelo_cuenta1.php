@@ -9,9 +9,13 @@ $fecha_inicio = date('Y-m-d');
 
 include('conexion.php');
 
-$sql2 = "SELECT * FROM modelos_cuentas WHERE id_paginas = ".$pagina." and usuario = '".$cuenta."'";
-$registro1 = mysqli_query($conexion,$sql2);
-$contador1 = mysqli_num_rows($registro1);
+if($pagina == 1 or $pagina == 5 or $pagina == 7){
+	$contador1 = 0;
+}else{
+	$sql2 = "SELECT * FROM modelos_cuentas WHERE id_paginas = ".$pagina." and usuario = '".$cuenta."'";
+	$registro1 = mysqli_query($conexion,$sql2);
+	$contador1 = mysqli_num_rows($registro1);
+}
 
 if($contador1>=1){
 	$datos = [

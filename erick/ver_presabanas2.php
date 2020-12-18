@@ -159,7 +159,8 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 		$sql_separacion1 = "SELECT * FROM sancionpagina WHERE id_modelo = ".$id_modelo." and fecha_desde BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."' and fecha_hasta BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."'";
 		$consultas_separacion1 = mysqli_query($conexion,$sql_separacion1);
 		while($row_separacion1 = mysqli_fetch_array($consultas_separacion1)) {
-			$monto_sancionpagina = $row_separacion1["monto"]/0.05;
+			//$monto_sancionpagina = $row_separacion1["monto"]/0.05;
+			$monto_sancionpagina = $row_separacion1["monto"]*$trm;
 			$monto_separacion = $monto_separacion+$monto_sancionpagina;
 		}
 		$sql_separacion1 = "SELECT * FROM lenceria WHERE id_modelo = ".$id_modelo." and fecha_desde BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."' and fecha_hasta BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."'";
@@ -527,7 +528,7 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 			$sql15 = "SELECT * FROM sancionpagina WHERE id_modelo = ".$id_modelo." and fecha_desde BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."' and fecha_hasta BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."'";
 			$consulta15 = mysqli_query($conexion,$sql15);
 			while($row15 = mysqli_fetch_array($consulta15)) {
-				$deducido_sancionpagina_valor = $row15['monto'];
+				$deducido_sancionpagina_valor = $row15['monto']*$trm;
 				$deducido_sancionpagina_concepto = $row15['concepto'];
 				$total_deducido = $total_deducido+$deducido_sancionpagina_valor;
 				$pdf->Ln(5);

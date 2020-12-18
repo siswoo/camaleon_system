@@ -1388,6 +1388,19 @@
     	var tokens = $('#tokens_'+id).val();
     	var fecha_desde_Myfreecams = $('#fecha_desde_Myfreecams').val();
     	var fecha_hasta_Myfreecams = $('#fecha_hasta_Myfreecams').val();
+
+    	if(tokens<=399 && tokens>=1){
+    		Swal.fire({
+				title: 'Error',
+				text: "No menos de 400 Tokens!",
+				icon: 'error',
+				position: 'center',
+				showConfirmButton: false,
+				timer: 2000
+			});
+			return false;
+    	}
+
     	$.ajax({
             url: '../script/guardar_tokens_myfreecams1.php',
             type: 'POST',

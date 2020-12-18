@@ -143,6 +143,59 @@
 
 		   	<!--****************************************************-->
 
+		   	<!--****************************************************-->
+
+	    	<div class="col-12 mt-3 text-center">
+	    		<hr style="background-color: black; height: 2px;">
+	    	</div>
+
+	    	<div class="col-12 mt-3 text-center">
+	    		<form action="exportar9.php" method="GET" id="tm_formulario1">
+	    	</div>
+
+	    	<div class="col-12 mt-3 text-center" style="font-weight: bold; font-size: 30px; text-transform: uppercase;">
+	    		Terceros para Medellin
+	    	</div>
+
+		    <div class="col-6 mt-3 text-center">
+		    	<select name="tm_select_presabanas" id="tm_select_presabanas" class="form-control" required>
+		    		<option value="">Seleccione Presabana</option>
+		    		<?php
+		    		$sql1 = "SELECT * FROM presabana GROUP BY fecha_inicio";
+		    		$consulta1 = mysqli_query($conexion,$sql1);
+					while($row2 = mysqli_fetch_array($consulta1)) {
+						echo '<option value="'.$row2["id"].'">Generado el '.$row2["fecha_inicio"].'</option>';
+					}
+					?>
+		    	</select>
+		   	</div>
+
+		   	<div class="col-6 mt-3 text-center">
+		    	<button type="submit" class="btn btn-info ml-3">Generar Datos</button>
+		   	</div>
+
+		   	<div class="col-12 mt-3 text-center">
+	    		</form>
+	    	</div>
+
+	    	<div class="col-12 mt-3 text-center">
+	    		<form action="#" method="POST" id="tm_formulario2">
+	    	</div>
+
+	    	<div class="col-6 mt-3 text-center">
+		    	<input type="file" name="tm_temporales" id="tm_temporales" class="form-control">
+		   	</div>
+
+		   	<div class="col-6 mt-3 text-center">
+		    	<button type="submit" class="btn btn-info ml-3" id="submit_temporal1">Guardar Temporal</button>
+		   	</div>
+
+		   	<div class="col-12 mt-3 text-center">
+	    		</form>
+	    	</div>
+
+		   	<!--****************************************************-->
+
 	    	<div class="col-12 mt-3 text-center">
 	    		<hr style="background-color: black; height: 2px;">
 	    	</div>
@@ -1199,5 +1252,43 @@
 		});
 	}
 
+	$("#tm_formulario2").on("submit", function(e){
+		e.preventDefault();
+        var fd = new FormData();
+        var files = $('#tm_temporales')[0].files[0];
+        fd.append('file',files);
+
+        $.ajax({
+            url: '../script/subir_tm_temporal1.php',
+            type: 'POST',
+            data: fd,
+            contentType: false,
+            processData: false,
+
+            beforeSend: function (){
+            	$('#submit_temporal1').attr('disabled','true');
+            },
+
+            success: function(response){
+            	console.log(response);
+            	$('#submit_temporal1').removeAttr('disabled');
+            	Swal.fire({
+		 			title: 'Guardado exitosamente!',
+		 			text: "Limpiando Cache...",
+		 			icon: 'success',
+		 			position: 'center',
+		 			showConfirmButton: true,
+		 			timer: 2000
+				});
+	            setTimeout(function() {
+			     	//window.location.href = "index.php";
+				},2000);
+            },
+
+            error: function(response){
+            	console.log(response['responseText']);
+            }
+        });
+    });
 
 </script>

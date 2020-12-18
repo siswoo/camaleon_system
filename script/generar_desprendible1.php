@@ -150,11 +150,13 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 		}
 
 		if($row2['id_paginas']==6){
-			$sql_paginas1 = "SELECT * FROM cam4 WHERE nickname = '".$row2['usuario']."' and fecha_desde BETWEEN '".$desprendible_fecha_desde."' AND '".$desprendible_fecha_hasta."' and  fecha_hasta BETWEEN '".$desprendible_fecha_desde."' AND '".$desprendible_fecha_hasta."'";
-			$consulta_paginas1 = mysqli_query($conexion,$sql_paginas1);
-			while($row3 = mysqli_fetch_array($consulta_paginas1)) {
-				$contador_tokens_cam41 = $contador_tokens_cam41 + $row3['tokens'];
-				$contador_dolares_cam41 = $contador_dolares_cam41 + $row3['dolares'];
+			if($row2['estatus']=='Aprobada'){
+				$sql_paginas1 = "SELECT * FROM cam4 WHERE nickname = '".$row2['usuario']."' and fecha_desde BETWEEN '".$desprendible_fecha_desde."' AND '".$desprendible_fecha_hasta."' and  fecha_hasta BETWEEN '".$desprendible_fecha_desde."' AND '".$desprendible_fecha_hasta."'";
+				$consulta_paginas1 = mysqli_query($conexion,$sql_paginas1);
+				while($row3 = mysqli_fetch_array($consulta_paginas1)) {
+					$contador_tokens_cam41 = $contador_tokens_cam41 + $row3['tokens'];
+					$contador_dolares_cam41 = $contador_dolares_cam41 + $row3['dolares'];
+				}
 			}
 		}
 
