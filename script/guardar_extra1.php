@@ -7,6 +7,8 @@ $concepto = $_POST['concepto'];
 $valor = $_POST['valor'];
 $responsable = $_SESSION['id'];
 //$fecha_inicio = date('Y-m-d');
+$fecha_desde = $_POST['fecha'];
+$fecha_hasta = $_POST['fecha'];
 $fecha_inicio = $_POST['fecha'];
 
 $sql1 = "SELECT * FROM modelos WHERE documento_numero = ".$modelo;
@@ -27,7 +29,7 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 
 switch ($tipo) {
 	case 'descuento':
-		$sqlTipo = "INSERT INTO descuento (id_modelo,concepto,valor,responsable,fecha_inicio) VALUES ('$id_modelo','$concepto','$valor','$responsable','$fecha_inicio')";
+		$sqlTipo = "INSERT INTO descuento (id_modelo,concepto,valor,responsable,fecha_desde,fecha_hasta,fecha_inicio) VALUES ('$id_modelo','$concepto','$valor','$responsable','$fecha_desde','$fecha_hasta','$fecha_inicio')";
 		$consulta2 = mysqli_query($conexion,$sqlTipo);
 		$datos = [
 			"contador1" => $contador1,
@@ -36,7 +38,7 @@ switch ($tipo) {
 	break;
 
 	case 'tienda':
-		$sqlTipo = "INSERT INTO tienda (id_modelo,concepto,valor,responsable,fecha_inicio) VALUES ('$id_modelo','$concepto','$valor','$responsable','$fecha_inicio')";
+		$sqlTipo = "INSERT INTO tienda (id_modelo,concepto,valor,responsable,fecha_desde,fecha_hasta,fecha_inicio) VALUES ('$id_modelo','$concepto','$valor','$responsable','$fecha_desde','$fecha_hasta','$fecha_inicio')";
 		$consulta2 = mysqli_query($conexion,$sqlTipo);
 		$datos = [
 			"contador1" => $contador1,
@@ -45,7 +47,7 @@ switch ($tipo) {
 	break;
 
 	case 'avances':
-		$sqlTipo = "INSERT INTO avances (id_modelo,concepto,valor,responsable,fecha_inicio) VALUES ('$id_modelo','$concepto','$valor','$responsable','$fecha_inicio')";
+		$sqlTipo = "INSERT INTO avances (id_modelo,concepto,valor,responsable,fecha_desde,fecha_hasta,fecha_inicio) VALUES ('$id_modelo','$concepto','$valor','$responsable','$fecha_desde','$fecha_hasta','$fecha_inicio')";
 		$consulta2 = mysqli_query($conexion,$sqlTipo);
 		$datos = [
 			"contador1" => $contador1,
@@ -54,7 +56,7 @@ switch ($tipo) {
 	break;
 
 	case 'multas':
-		$sqlTipo = "INSERT INTO multas (id_modelo,concepto,valor,responsable,fecha_inicio) VALUES ('$id_modelo','$concepto','$valor','$responsable','$fecha_inicio')";
+		$sqlTipo = "INSERT INTO multas (id_modelo,concepto,valor,responsable,fecha_desde,fecha_hasta,fecha_inicio) VALUES ('$id_modelo','$concepto','$valor','$responsable','$fecha_desde','$fecha_hasta','$fecha_inicio')";
 		$consulta2 = mysqli_query($conexion,$sqlTipo);
 		$datos = [
 			"contador1" => $contador1,
@@ -63,7 +65,7 @@ switch ($tipo) {
 	break;
 
 	case 'bonos_horas':
-		$sqlTipo = "INSERT INTO bonos_horas (id_modelo,concepto,monto,responsable,fecha_inicio) VALUES ('$id_modelo','$concepto','$valor','$responsable','$fecha_inicio')";
+		$sqlTipo = "INSERT INTO bonos_horas (id_modelo,concepto,monto,responsable,fecha_desde,fecha_hasta,fecha_inicio) VALUES ('$id_modelo','$concepto','$valor','$responsable','$fecha_desde','$fecha_hasta','$fecha_inicio')";
 		$consulta2 = mysqli_query($conexion,$sqlTipo);
 		$datos = [
 			"contador1" => $contador1,
@@ -72,7 +74,7 @@ switch ($tipo) {
 	break;
 
 	case 'bonos_streamate':
-		$sqlTipo = "INSERT INTO bonos_streamate (id_modelo,concepto,monto,responsable,fecha_inicio) VALUES ('$id_modelo','$concepto','$valor','$responsable','$fecha_inicio')";
+		$sqlTipo = "INSERT INTO bonos_streamate (id_modelo,concepto,monto,responsable,fecha_desde,fecha_hasta,fecha_inicio) VALUES ('$id_modelo','$concepto','$valor','$responsable','$fecha_desde','$fecha_hasta','$fecha_inicio')";
 		$consulta2 = mysqli_query($conexion,$sqlTipo);
 		$datos = [
 			"contador1" => $contador1,
@@ -81,7 +83,7 @@ switch ($tipo) {
 	break;
 
 	case 'odontologia':
-		$sqlTipo = "INSERT INTO odontologia (id_modelo,concepto,monto,responsable,fecha_inicio) VALUES ('$id_modelo','$concepto','$valor','$responsable','$fecha_inicio')";
+		$sqlTipo = "INSERT INTO odontologia (id_modelo,concepto,monto,responsable,fecha_desde,fecha_hasta,fecha_inicio) VALUES ('$id_modelo','$concepto','$valor','$responsable','$fecha_desde','$fecha_hasta','$fecha_inicio')";
 		$consulta2 = mysqli_query($conexion,$sqlTipo);
 		$datos = [
 			"contador1" => $contador1,
@@ -90,7 +92,7 @@ switch ($tipo) {
 	break;
 
 	case 'seguridad_social':
-		$sqlTipo = "INSERT INTO seguridad_social (id_modelo,concepto,monto,responsable,fecha_inicio) VALUES ('$id_modelo','$concepto','$valor','$responsable','$fecha_inicio')";
+		$sqlTipo = "INSERT INTO seguridad_social (id_modelo,concepto,monto,responsable,fecha_desde,fecha_hasta,fecha_inicio) VALUES ('$id_modelo','$concepto','$valor','$responsable','$fecha_desde','$fecha_hasta','$fecha_inicio')";
 		$consulta2 = mysqli_query($conexion,$sqlTipo);
 		$datos = [
 			"contador1" => $contador1,
@@ -99,7 +101,7 @@ switch ($tipo) {
 	break;
 
 	case 'coopserpak':
-		$sqlTipo = "INSERT INTO coopserpak (id_modelo,concepto,monto,responsable,fecha_inicio) VALUES ('$id_modelo','$concepto','$valor','$responsable','$fecha_inicio')";
+		$sqlTipo = "INSERT INTO coopserpak (id_modelo,concepto,monto,responsable,fecha_desde,fecha_hasta,fecha_inicio) VALUES ('$id_modelo','$concepto','$valor','$responsable','$fecha_desde','$fecha_hasta','$fecha_inicio')";
 		$consulta2 = mysqli_query($conexion,$sqlTipo);
 		$datos = [
 			"contador1" => $contador1,
@@ -108,7 +110,7 @@ switch ($tipo) {
 	break;
 
 	case 'sexshop':
-		$sqlTipo = "INSERT INTO sexshop (id_modelo,concepto,monto,responsable,fecha_inicio) VALUES ('$id_modelo','$concepto','$valor','$responsable','$fecha_inicio')";
+		$sqlTipo = "INSERT INTO sexshop (id_modelo,concepto,monto,responsable,fecha_desde,fecha_hasta,fecha_inicio) VALUES ('$id_modelo','$concepto','$valor','$responsable','$fecha_desde','$fecha_hasta','$fecha_inicio')";
 		$consulta2 = mysqli_query($conexion,$sqlTipo);
 		$datos = [
 			"contador1" => $contador1,
@@ -117,7 +119,7 @@ switch ($tipo) {
 	break;
 
 	case 'belleza':
-		$sqlTipo = "INSERT INTO belleza (id_modelo,concepto,monto,responsable,fecha_inicio) VALUES ('$id_modelo','$concepto','$valor','$responsable','$fecha_inicio')";
+		$sqlTipo = "INSERT INTO belleza (id_modelo,concepto,monto,responsable,fecha_desde,fecha_hasta,fecha_inicio) VALUES ('$id_modelo','$concepto','$valor','$responsable','$fecha_desde','$fecha_hasta','$fecha_inicio')";
 		$consulta2 = mysqli_query($conexion,$sqlTipo);
 		$datos = [
 			"contador1" => $contador1,
@@ -126,7 +128,7 @@ switch ($tipo) {
 	break;
 
 	case 'sancionpagina':
-		$sqlTipo = "INSERT INTO sancionpagina (id_modelo,concepto,monto,responsable,fecha_inicio) VALUES ('$id_modelo','$concepto','$valor','$responsable','$fecha_inicio')";
+		$sqlTipo = "INSERT INTO sancionpagina (id_modelo,concepto,monto,responsable,fecha_desde,fecha_hasta,fecha_inicio) VALUES ('$id_modelo','$concepto','$valor','$responsable','$fecha_desde','$fecha_hasta','$fecha_inicio')";
 		$consulta2 = mysqli_query($conexion,$sqlTipo);
 		$datos = [
 			"contador1" => $contador1,
@@ -135,7 +137,7 @@ switch ($tipo) {
 	break;
 
 	case 'lenceria':
-		$sqlTipo = "INSERT INTO lenceria (id_modelo,concepto,monto,responsable,fecha_inicio) VALUES ('$id_modelo','$concepto','$valor','$responsable','$fecha_inicio')";
+		$sqlTipo = "INSERT INTO lenceria (id_modelo,concepto,monto,responsable,fecha_desde,fecha_hasta,fecha_inicio) VALUES ('$id_modelo','$concepto','$valor','$responsable','$fecha_desde','$fecha_hasta','$fecha_inicio')";
 		$consulta2 = mysqli_query($conexion,$sqlTipo);
 		$datos = [
 			"contador1" => $contador1,

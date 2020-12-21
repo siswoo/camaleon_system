@@ -92,10 +92,12 @@
 					       	<th class="text-center">Mensaje</th>
 					        <th class="text-center">Tema</th>
 					        <th class="text-center">Area</th>
+					        <th class="text-center">Estatus</th>
 					        <th class="text-center">Fecha</th>
 					        <?php
 					        if($_SESSION['rol']==1 or $_SESSION['rol']==13){
 					        echo '
+					        	<th class="text-center">Responsable</th>
 					        	<th class="text-center">Opciones</th>
 					        ';
 					    	} ?>
@@ -115,6 +117,7 @@
 							$mensaje_pqr = $row1['mensaje'];
 							$tema_pqr = $row1['tema'];
 							$area_pqr = $row1['area'];
+							$estatus_pqr = $row1['estatus'];
 							$fecha_inicio_pqr = $row1['fecha_inicio'];
 							$rol_responsable = $row1['rol_responsable'];
 
@@ -126,13 +129,14 @@
 							}
 
 							echo '
-								<tr>
+								<tr id="tr_pqr_'.$id_pqr.'">
 									<td>'.$id_pqr.'</td>
 									<td>'.$nombre_responsable.'</td>
 									<td>'.$documento_responsable.'</td>
 									<td>'.$mensaje_pqr.'</td>
 									<td>'.$tema_pqr.'</td>
 									<td>'.$area_pqr.'</td>
+									<td id="estatus_pqr_'.$id_pqr.'">'.$estatus_pqr.'</td>
 									<td>'.$fecha_inicio_pqr.'</td>
 								';
 								if($_SESSION['rol']==1 or $_SESSION['rol']==13){
@@ -167,8 +171,15 @@
 									echo '
 										</td>
 									';
-								}
 
+									echo '
+										<td class="text-center">
+											<button type="button" class="btn btn-info" value="listo" onclick="cambiar_estado_pqr1('.$id_pqr.',value)">Listo</button>
+											<button type="button" class="btn btn-info" value="proceso" onclick="cambiar_estado_pqr1('.$id_pqr.',value)">Proceso</button>
+											<button type="button" class="btn btn-info" value="eliminar" onclick="cambiar_estado_pqr1('.$id_pqr.',value)">Eliminar</button>
+										</td>
+									';
+								}
 									echo '
 								</tr>
 							';
@@ -285,6 +296,63 @@
 				 	showConfirmButton: false,
 				 	timer: 2000
 				});
+            },
+
+            error: function(response){
+            	console.log(response['responseText']);
+            }
+        });
+	}
+
+	function cambiar_estado_pqr1(id_pqr,condicion){
+		$.ajax({
+            url: '../script/crud_pqr.php',
+            type: 'POST',
+            dataType: "JSON",
+            data: {
+				"id_pqr": id_pqr,
+				"condicion": condicion,
+			},
+
+            beforeSend: function (){},
+
+            success: function(response){
+            	//console.log(response['respuesta']);
+            	if(response['respuesta']=='listo'){
+            		Swal.fire({
+				 		title: 'Perfecto!',
+					 	text: "Estatus Cambiado a listo",
+					 	icon: 'success',
+					 	position: 'center',
+					 	showConfirmButton: false,
+					 	timer: 2000
+					});
+					$('#estatus_pqr_'+id_pqr).html(condicion);
+            	}
+
+            	if(response['respuesta']=='proceso'){
+            		Swal.fire({
+				 		title: 'Perfecto!',
+					 	text: "Estatus Cambiado a proceso",
+					 	icon: 'success',
+					 	position: 'center',
+					 	showConfirmButton: false,
+					 	timer: 2000
+					});
+					$('#estatus_pqr_'+id_pqr).html(condicion);
+            	}
+
+            	if(response['respuesta']=='eliminar'){
+            		Swal.fire({
+				 		title: 'Perfecto!',
+					 	text: "Se ha eliminado el PQR",
+					 	icon: 'success',
+					 	position: 'center',
+					 	showConfirmButton: false,
+					 	timer: 2000
+					});
+					$('#tr_pqr_'+id_pqr).hide('slow');
+            	}
             },
 
             error: function(response){

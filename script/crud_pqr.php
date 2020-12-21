@@ -20,6 +20,42 @@ if($condicion=='asignar'){
 	$consulta1 = mysqli_query($conexion,$sql1);	
 }
 
+if($condicion=='listo'){
+	$id_pqr = $_POST['id_pqr'];
+	$sql1 = "UPDATE pqr SET estatus = 'listo' WHERE id = ".$id_pqr;
+	$consulta1 = mysqli_query($conexion,$sql1);
+	
+	$datos = [
+		"respuesta" => 'listo',
+	];
+	echo json_encode($datos);
+	exit;
+}
+
+if($condicion=='proceso'){
+	$id_pqr = $_POST['id_pqr'];
+	$sql1 = "UPDATE pqr SET estatus = 'proceso' WHERE id = ".$id_pqr;
+	$consulta1 = mysqli_query($conexion,$sql1);
+	
+	$datos = [
+		"respuesta" => 'proceso',
+	];
+	echo json_encode($datos);
+	exit;
+}
+
+if($condicion=='eliminar'){
+	$id_pqr = $_POST['id_pqr'];
+	$sql1 = "DELETE FROM pqr WHERE id = ".$id_pqr;
+	$consulta1 = mysqli_query($conexion,$sql1);
+	
+	$datos = [
+		"respuesta" => 'eliminar',
+	];
+	echo json_encode($datos);
+	exit;
+}
+
 $datos = [
 	"respuesta" => 'ok',
 ];

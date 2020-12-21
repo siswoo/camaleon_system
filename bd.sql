@@ -841,6 +841,7 @@ CREATE TABLE pqr (
 	tema VARCHAR(250) NOT NULL,
 	area VARCHAR(250) NOT NULL,
 	fecha_inicio DATE NOT NULL,
+	estatus VARCHAR(250) NOT NULL,
 	rol_responsable INT NOT NULL,
    	PRIMARY KEY (id)
 ); ALTER TABLE pqr CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
