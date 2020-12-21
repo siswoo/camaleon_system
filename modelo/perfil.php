@@ -66,6 +66,21 @@
 	<?php
 	include('../script/conexion.php');
 	$usuario = $_SESSION["usuario"];
+	$ubicacion = "perfil";
+	$consulta1 = "SELECT * FROM roles WHERE id = ".$_SESSION['rol']." LIMIT 1";
+	$resultado1 = mysqli_query( $conexion, $consulta1 );
+	while($row1 = mysqli_fetch_array($resultado1)) {
+		$usuario_rol = $row1['nombre'];
+		$pasante_view = $row1['pasante_view'];
+		$pasante_edit = $row1['pasante_edit'];
+		$pasante_delete = $row1['pasante_delete'];
+
+		/**************VALIDAR****************/
+		$roles_view = $row1['roles_view'];
+		$seguridad_view = $row1['seguridad_view'];
+		$modelo_view = $row1['modelo_view'];
+		/*************************************/
+	}
 	$sql1 = "SELECT * FROM modelos WHERE usuario = '".$usuario."'";
 	$consulta1 = mysqli_query($conexion,$sql1);
 	$contador1 = mysqli_num_rows($consulta1);

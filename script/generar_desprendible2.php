@@ -294,7 +294,7 @@ while($row2 = mysqli_fetch_array($consulta2)) {
 		$pdf->Cell(30,5,"$".number_format($tienda_valor,2,',','.'),0,1,'C');
 	}
 
-	$sql6 = "SELECT * FROM avances WHERE id_modelo = ".$id_modelo;
+	$sql6 = "SELECT * FROM avances WHERE id_modelo = ".$id_modelo." and fecha_desde BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."' and fecha_hasta BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."'";
 	$consulta6 = mysqli_query($conexion,$sql6);
 	while($row6 = mysqli_fetch_array($consulta6)) {
 		$avances_valor = $row6['valor'];
@@ -308,7 +308,7 @@ while($row2 = mysqli_fetch_array($consulta2)) {
 		$pdf->Cell(30,5,"$".number_format($avances_valor,2,',','.'),0,1,'C');
 	}
 
-	$sql7 = "SELECT * FROM multas WHERE id_modelo = ".$id_modelo;
+	$sql7 = "SELECT * FROM multas WHERE id_modelo = ".$id_modelo." and fecha_desde BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."' and fecha_hasta BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."'";
 	$consulta7 = mysqli_query($conexion,$sql7);
 	while($row7 = mysqli_fetch_array($consulta7)) {
 		$multas_valor = $row7['valor'];

@@ -90,10 +90,10 @@
 				<a href="exportar5.php" style="text-decoration: none;">
 			    	<button type="button" class="btn btn-info ml-3">Todas las Pasantes</button>
 				</a>
+				<!--
 				<a href="exportar6.php" style="text-decoration: none;">
 			    	<button type="button" class="btn btn-info ml-3">Registrados con Banco</button>
 				</a>
-				<!--
 				<a href="exportar7.php" style="text-decoration: none;">
 			    	<button type="button" class="btn btn-info ml-3">Faltantes Mixtos 1</button>
 				</a>
@@ -141,6 +141,34 @@
 		    	?>
 		   	</div>
 
+
+		   	<div class="col-12 mt-3 text-center">
+	    		<hr style="background-color: black; height: 2px;">
+	    	</div>
+
+	    	<div class="col-12 mt-3 text-center" style="font-weight: bold; font-size: 30px; text-transform: uppercase;">
+	    		Zona de Desprendibles Bancarios para Andrea y | <3 Camila *-* |
+	    	</div>
+
+		    <div class="col-12 mt-3 text-center">
+		    	<div class="row">
+		    	<?php
+		    		$sql_presabana1 = "SELECT * FROM presabana GROUP BY fecha_inicio";
+		    		$consulta_presabana1 = mysqli_query($conexion,$sql_presabana1);
+					while($row1 = mysqli_fetch_array($consulta_presabana1)) {
+						echo '
+						<div class="form-group col-4">
+							<p style="font-size: 16px;">'.$row1["inicio"].' al '.$row1["fin"].'</p>
+						    <a href="exportar6.php?inicio='.$row1["inicio"].'&fin='.$row1["fin"].'" class="mr-2" style="text-decoration:none;" target="_blank">
+								<button class="btn btn-info">Generar Datos</button>
+							</a>
+						</div>
+						';
+					}
+		    	?>
+		    	</div>
+		   	</div>
+
 		   	<!--****************************************************-->
 
 		   	<!--****************************************************-->
@@ -150,7 +178,7 @@
 	    	</div>
 
 	    	<div class="col-12 mt-3 text-center">
-	    		<form action="exportar9.php" method="GET" id="tm_formulario1">
+	    		<form action="exportar10.php" method="GET" id="tm_formulario1">
 	    	</div>
 
 	    	<div class="col-12 mt-3 text-center" style="font-weight: bold; font-size: 30px; text-transform: uppercase;">
@@ -161,10 +189,10 @@
 		    	<select name="tm_select_presabanas" id="tm_select_presabanas" class="form-control" required>
 		    		<option value="">Seleccione Presabana</option>
 		    		<?php
-		    		$sql1 = "SELECT * FROM presabana GROUP BY fecha_inicio";
+		    		$sql1 = "SELECT * FROM presabana GROUP BY inicio";
 		    		$consulta1 = mysqli_query($conexion,$sql1);
 					while($row2 = mysqli_fetch_array($consulta1)) {
-						echo '<option value="'.$row2["id"].'">Generado el '.$row2["fecha_inicio"].'</option>';
+						echo '<option value="'.$row2["id"].'">Generado desde '.$row2["inicio"].' hasta '.$row2["fin"].'</option>';
 					}
 					?>
 		    	</select>

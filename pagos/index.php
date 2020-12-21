@@ -804,6 +804,15 @@
 				    					<option value="tienda">Tienda</option>
 				    					<option value="avances">Avances</option>
 				    					<option value="multas">Multas</option>
+				    					<option value="bonos_horas">Bonos Horas</option>
+				    					<option value="bonos_streamate">Bonos Streamate</option>
+				    					<option value="odontologia">Odontologia</option>
+				    					<option value="seguridad_social">Seguridad Social</option>
+				    					<option value="coopserpak">Coopserpak</option>
+				    					<option value="sexshop">Sexshop</option>
+				    					<option value="belleza">Belleza</option>
+				    					<option value="sancionpagina">Sanción Pagina</option>
+				    					<option value="lenceria">Lenceria</option>
 				    				</select>
 				    			</td>
 				    			<td>

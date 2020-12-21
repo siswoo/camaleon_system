@@ -48,11 +48,17 @@ if($contador1>=1){
 	exit;
 }
 
+/*
 if($pagina != 1 and $pagina != 5 and $pagina != 7){
 	$sql4 = "SELECT * FROM modelos_cuentas WHERE usuario = '".$cuenta."' and id_modelos = ".$id_modelo;
 	$registro4 = mysqli_query($conexion,$sql4);
 	$contador3 = mysqli_num_rows($registro4);
 }
+*/
+
+$sql4 = "SELECT * FROM modelos_cuentas WHERE usuario = '".$cuenta."' and id_modelos != ".$id_modelo;
+$registro4 = mysqli_query($conexion,$sql4);
+$contador3 = mysqli_num_rows($registro4);
 
 if($contador3>=1){
 	$datos = [

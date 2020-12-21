@@ -136,7 +136,7 @@ if($ubicacion == 'welcome'){ ?>
 	      	<?php } ?>
 	      	
 	      	<?php
-			if($_SESSION['rol']==1){ ?>
+			if($_SESSION['rol']==1 or $_SESSION['rol']==13){ ?>
 	      	<li class="nav-item" id="li-erick">
 	        	<a class="nav-link navbar-active-a botones_navbar1" href="../erick/index.php" id="a-erick">Erick</a>
 	      	</li>
@@ -160,6 +160,13 @@ if($ubicacion == 'welcome'){ ?>
 			if($_SESSION['rol']==1){ ?>
 	      	<li class="nav-item" id="li-admin">
 	        	<a class="nav-link navbar-active-a botones_navbar1" href="../admin/index.php" id="a-admin">Admin</a>
+	      	</li>
+	      	<?php } ?>
+
+	      	<?php
+			if($_SESSION['rol']==1 or $_SESSION['rol']==13 or $_SESSION['rol']==8 or $_SESSION['rol']==2){ ?>
+	      	<li class="nav-item" id="li-pqr">
+	        	<a class="nav-link navbar-active-a botones_navbar1" href="../pqr/index.php" id="a-pqr">PQR</a>
 	      	</li>
 	      	<?php } ?>
 	      	

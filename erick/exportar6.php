@@ -12,6 +12,9 @@ $sheet = $spreadsheet->getActiveSheet();
 
 include('../script/conexion.php');
 
+$inicio = $_GET['inicio'];
+$fin = $_GET['fin'];
+
 $sheet->setCellValue('A1', 'Nombre Completo');
 $sheet->setCellValue('B1', 'Numero Documento');
 $sheet->setCellValue('C1', 'Sede Registrado');
@@ -23,7 +26,10 @@ $sheet->setCellValue('H1', 'Numero de cuenta');
 $sheet->setCellValue('I1', 'Banco');
 $fila = 2;
 
+/*
 $sql1 = "SELECT * FROM modelos WHERE estatus = 'Activa' and banco_cedula != '' ORDER BY sede";
+*/
+$sql1 = "SELECT * FROM presabana WHERE inicio BETWEEN '".$inicio."' AND '".$fin."' and fin BETWEEN '".$inicio."' AND '".$fin."' and total_dolares >=1";
 $consulta = mysqli_query($conexion,$sql1);
 while($row1 = mysqli_fetch_array($consulta)) {
 	$spreadsheet->getActiveSheet()->getColumnDimension('A')->setWidth(40);
@@ -36,15 +42,21 @@ while($row1 = mysqli_fetch_array($consulta)) {
 	$spreadsheet->getActiveSheet()->getColumnDimension('H')->setWidth(40);
 	$spreadsheet->getActiveSheet()->getColumnDimension('I')->setWidth(40);
 
-	$nombre_modelo = $row1['nombre1']." ".$row1['nombre2']." ".$row1['apellido1']." ".$row1['apellido2'];
-	$numero_documento = $row1['documento_numero'];
-	$id_sede = $row1['sede'];
-	$banco_cedula = $row1['banco_cedula'];
-	$banco_nombre = $row1['banco_nombre'];
-	$banco_tipo = $row1['banco_tipo'];
-	$banco_numero = $row1['banco_numero'];
-	$banco_banco = $row1['banco_banco'];
-	$bcpp = $row1['BCPP'];
+	$id_modelo = $row1['id_modelo'];
+
+	$sql3 = "SELECT * FROM modelos WHERE id = ".$id_modelo;
+	$consulta3 = mysqli_query($conexion,$sql3);
+	while($row3 = mysqli_fetch_array($consulta3)) {
+		$nombre_modelo = $row3['nombre1']." ".$row3['nombre2']." ".$row3['apellido1']." ".$row3['apellido2'];
+		$numero_documento = $row3['documento_numero'];
+		$id_sede = $row3['sede'];
+		$banco_cedula = $row3['banco_cedula'];
+		$banco_nombre = $row3['banco_nombre'];
+		$banco_tipo = $row3['banco_tipo'];
+		$banco_numero = $row3['banco_numero'];
+		$banco_banco = $row3['banco_banco'];
+		$bcpp = $row3['BCPP'];
+	}
 
 	$sql2 = "SELECT * FROM sedes WHERE id = ".$id_sede;
 	$consulta2 = mysqli_query($conexion,$sql2);
@@ -75,7 +87,7 @@ while($row1 = mysqli_fetch_array($consulta)) {
 
 $fecha_inicio = date('Y-m-d');
 $writer = new Xlsx($spreadsheet);
-$writer->save('Registrados Banco '.$fecha_inicio.'.xlsx');
-header("Location: Registrados Banco ".$fecha_inicio.".xlsx");
+$writer->save('Registro de Banco '.$fecha_inicio.'.xlsx');
+header("Location: Registro de Banco ".$fecha_inicio.".xlsx");
 
 ?>

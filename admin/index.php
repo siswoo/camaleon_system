@@ -73,6 +73,7 @@
 	    <div class="row">
 	    	<div class="col-12 text-center mt-3">
 			    <button type="button" class="btn btn-info" value="No" id="verificar1" onclick="mostrarSeccion1(this.id,value)">Verificar Documentos</button>
+			    <button type="button" class="btn btn-info ml-3" value="No" id="pqr1" onclick="mostrarSeccion1(this.id,value)">PQR'S</button>
 	    	</div>
 	    	<!--
 	    	<div class="col-12 mt-3 text-center">
@@ -83,7 +84,7 @@
 
 <!--****************************VERIFICAR1****************************-->
 
-	<div class="seccion1" id="div_verificar1" style="/*display: none;*/">
+	<div class="seccion1" id="div_verificar1" style="display: none;">
 	    <div class="row">
 			<div class="form-group col-12">
 			    <p class="text-center" style="font-weight: bold; font-size: 20px;">Verificar Documentos</p>
@@ -345,6 +346,63 @@
 		</div>
 	</div>
 
+
+	<div class="seccion1" id="div_pqr1" style="display: none;">
+	    <div class="row">
+			<div class="form-group col-12">
+			    <p class="text-center" style="font-weight: bold; font-size: 20px;">CONSULTA DE PQR'S</p>
+			</div>
+			<div class="col-12 text-center">
+			    <table id="example2" class="table row-border hover table-bordered" style="font-size: 12px; width: 90%;">
+					<thead>
+					    <tr>
+					        <th class="text-center">ID</th>
+					        <th class="text-center">Nombre</th>
+					        <th class="text-center">Documento</th>
+					       	<th class="text-center">Mensaje</th>
+					        <th class="text-center">Tema</th>
+					        <th class="text-center">Area</th>
+					        <th class="text-center">Fecha</th>
+					    </tr>
+					</thead>
+					<tbody>
+						<?php
+						$sql1 = "SELECT * FROM pqr";
+						$consulta1 = mysqli_query($conexion,$sql1);
+						while($row1 = mysqli_fetch_array($consulta1)) {
+							$id_pqr = $row1['id'];
+							$responsable_pqr = $row1['responsable'];
+							$mensaje_pqr = $row1['mensaje'];
+							$tema_pqr = $row1['tema'];
+							$area_pqr = $row1['area'];
+							$fecha_inicio_pqr = $row1['fecha_inicio'];
+
+							$sql2 = "SELECT * FROM modelos WHERE id = ".$responsable_pqr;
+							$consulta2 = mysqli_query($conexion,$sql2);
+							while($row2 = mysqli_fetch_array($consulta2)) {
+								$nombre_responsable = $row2['nombre1']." ".$row2['nombre2']." ".$row2['apellido1']." ".$row2['apellido2'];
+								$documento_responsable = $row2['documento_numero'];
+							}
+
+							echo '
+								<tr>
+									<td>'.$id_pqr.'</td>
+									<td>'.$nombre_responsable.'</td>
+									<td>'.$documento_responsable.'</td>
+									<td>'.$mensaje_pqr.'</td>
+									<td>'.$tema_pqr.'</td>
+									<td>'.$area_pqr.'</td>
+									<td>'.$fecha_inicio_pqr.'</td>
+								</tr>
+							';
+						}
+						?>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
 <!--****************************FIN VERIFICAR1****************************-->
 
 <?php include('../footer.php'); ?>
@@ -386,6 +444,29 @@
 
 	        	"paging": true,
 	        	"order": [[ 9, "desc" ]],
+
+	    	} );
+
+		var table = $('#example2').DataTable( {
+	        	//"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+	        	"lengthMenu": [[10, 25, 50, 100], [10, 25, 50, 100]],
+
+	        	"language": {
+		            "lengthMenu": "Mostrar _MENU_ Registros por página",
+		            "zeroRecords": "No se ha encontrado resultados",
+		            "info": "Ubicado en la página <strong>_PAGE_</strong> de <strong>_PAGES_</strong>",
+		            "infoEmpty": "Sin registros actualmente",
+		            "infoFiltered": "(Filtrado de <strong>_MAX_</strong> total registros)",
+		            "paginate": {
+				        "first":      "Primero",
+				        "last":       "Última",
+				        "next":       "Siguiente",
+				        "previous":   "Anterior"
+				    },
+				    "search": "Buscar",
+	        	},
+
+	        	"paging": true,
 
 	    	} );
 

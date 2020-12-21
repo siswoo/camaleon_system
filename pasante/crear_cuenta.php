@@ -157,7 +157,7 @@
 						    <label for="enterado">¿Cómo te has enterado de Camaleón? <small style="color:#F2B76F; font-size: 17px;">*</small></label>
 						    <select class="form-control" id="enterado" name="enterado" required>
 								<option value="">Seleccione</option>
-								<option value="Google">Google</option>
+								<!--<option value="Google">Google</option>-->
 								<option value="Facebook">Facebook</option>
 								<option value="Twitter">Twitter</option>
 								<option value="Instagram">Instagram</option>

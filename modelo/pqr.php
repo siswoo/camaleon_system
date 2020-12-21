@@ -63,7 +63,7 @@
 <body>
 <?php
 	include('../script/conexion.php');
-	$ubicacion = "community";
+	$ubicacion = "pqr";
 	$consulta1 = "SELECT * FROM roles WHERE id = ".$_SESSION['rol']." LIMIT 1";
 	$resultado1 = mysqli_query( $conexion, $consulta1 );
 	while($row1 = mysqli_fetch_array($resultado1)) {
@@ -78,60 +78,47 @@
 		$modelo_view = $row1['modelo_view'];
 		/*************************************/
 	}
-	include('../navbar.php');
+	include('nabvar_modelo.php');
 ?>
 	<div class="seccion1">
 	    <div class="row">
 	    	<div class="col-12 text-center">
-	    		<button class="btn btn-info" id="enterados" value="No" onclick="mostrarseccion1(this.id,value);">Estadisticas de Enterados</button>
+	    		<span style="font-weight: bold; font-size: 25px;">SECCIÓN PQR</span>
 	    	</div>
-		</div>
-	</div>
 
-	<div class="seccion1">
-		<div class="row" id="div_enterados" style="display: none;">
-			<div class="col-12 mb-3 text-center">
-				<span style="font-weight: bold; font-size: 17px;">Total Pasantes: </span>
-				<span id="span_total1">0</span>
-			</div>
-			<!--
-			<div class="col-3 mb-3">
-				Google: 
-				<span id="span_google1">0</span>
-				 | 
-				<span id="span_google2">0</span>
-			</div>
-			-->
-			<div class="col-3 mb-3">
-				Facebook: 
-				<span id="span_facebook1">0</span>
-				 | 
-				<span id="span_facebook2">0</span>
-			</div>
-			<div class="col-3 mb-3">
-				Twitter: 
-				<span id="span_twitter1">0</span>
-				 | 
-				<span id="span_twitter2">0</span>
-			</div>
-			<div class="col-3 mb-3">
-				Instagram: 
-				<span id="span_instagram1">0</span>
-				 | 
-				<span id="span_instagram2">0</span>
-			</div>
-			<div class="col-3 mb-3">
-				Pagina Web: 
-				<span id="span_pw1">0</span>
-				 | 
-				<span id="span_pw2">0</span>
-			</div>
-			<div class="col-3 mb-3">
-				Conocido: 
-				<span id="span_conocido1">0</span>
-				 | 
-				<span id="span_conocido2">0</span>
-			</div>
+	    	<?php
+	    	$usuario = $_SESSION["usuario"];
+	    	$sql1 = "SELECT * FROM modelos WHERE usuario = '".$usuario."'";
+			$consulta1 = mysqli_query($conexion,$sql1);
+			while($row = mysqli_fetch_array($consulta1)) {
+				$id_modelo = $row['id'];
+			}
+			?>
+
+	    	<input type="hidden" id="id_modelo" name="id_modelo" value="<?php echo $id_modelo; ?>">
+
+	    	<div class="col-4 mt-3">&nbsp;</div>
+			<div class="col-4 mt-3">
+				<label form="mensaje" style="font-size: 20px;">Mensaje del Problema Sugerencia o Duda</label>
+	    		<textarea id="mensaje" name="mensaje" class="form-control"></textarea>
+	    	</div>
+	    	<div class="col-4 mt-3">&nbsp;</div>
+
+	    	<div class="col-4 mt-3">&nbsp;</div>
+	    	<div class="col-4 mt-3">
+				<label form="tema" style="font-size: 20px;">Tema Referente al Ticket</label>
+	    		<select name="tema" id="tema" class="form-control" required>
+	    			<option value="">Seleccione</option>
+	    			<option value="Problema">Problema</option>
+	    			<option value="Sugerencia">Sugerencia</option>
+	    			<option value="Duda con mi Desprendible">Duda con mi Desprendible</option>
+	    		</select>
+	    	</div>
+	    	<div class="col-4 mt-3">&nbsp;</div>
+
+	    	<div class="col-12 mt-3 text-center">
+	    		<button class="btn btn-success" onclick="enviarpqr1();">Enviar PQR</button>
+	    	</div>
 		</div>
 	</div>
 
@@ -201,38 +188,42 @@
 	  	$('#myInput').trigger('focus')
 	});
 
-	function mostrarseccion1(button,value){
-		//console.log(button);
+	function enviarpqr1(){
+		var id_modelo = $('#id_modelo').val();
+		var mensaje = $('#mensaje').val();
+		var tema = $('#tema').val();
+		condicion = 'guardar';
+		if(mensaje=='' || tema==''){
+			Swal.fire({
+				position: 'center',
+				title: 'Error',
+				text: 'Por favor llenar todos los campos',
+				icon: 'error',
+				showConfirmButton: true,
+			})
+			return false;
+		}
 		$.ajax({
 			type: 'POST',
-			url: '../script/community_enterados1.php',
-			data: {"value": value},
+			url: '../script/crud_pqr.php',
+			data: {
+				"id_modelo": id_modelo,
+				"mensaje": mensaje,
+				"tema": tema,
+				"condicion": condicion,
+			},
 			dataType: "JSON",
 			success: function(respuesta) {
 				//console.log(respuesta);
-				$('#span_total1').html(respuesta['suma']);
-
-				//$('#span_google1').html(respuesta['contador_google']);
-				$('#span_facebook1').html(respuesta['contador_facebook']);
-				$('#span_twitter1').html(respuesta['contador_twitter']);
-				$('#span_instagram1').html(respuesta['contador_instagram']);
-				$('#span_pw1').html(respuesta['contador_pw']);
-				$('#span_conocido1').html(respuesta['contador_conocido']);
-
-				$('#span_google2').html(respuesta['porcentaje_google']+'%');
-				$('#span_facebook2').html(respuesta['porcentaje_facebook']+'%');
-				$('#span_twitter2').html(respuesta['porcentaje_twitter']+'%');
-				$('#span_instagram2').html(respuesta['porcentaje_instagram']+'%');
-				$('#span_pw2').html(respuesta['porcentaje_pw']+'%');
-				$('#span_conocido2').html(respuesta['porcentaje_conocido']+'%');
-
-				if(value=='Si'){
-					$('#div_'+button).hide('slow');
-					$('#'+button).val('No');
-				}else{
-					$('#div_'+button).show('slow');
-					$('#'+button).val('Si');
-				}
+				Swal.fire({
+					position: 'center',
+					title: 'Perfecto',
+					text: 'Se ha generado el Ticket satisfactoriamente',
+					icon: 'success',
+					showConfirmButton: true,
+				});
+				$('#mensaje').val('');
+				$('#tema').val('');
 			},
 
 			error: function(respuesta) {

@@ -61,6 +61,87 @@ switch ($tipo) {
 		];
 		echo json_encode($datos);
 	break;
+
+	case 'bonos_horas':
+		$sqlTipo = "INSERT INTO bonos_horas (id_modelo,concepto,monto,responsable,fecha_inicio) VALUES ('$id_modelo','$concepto','$valor','$responsable','$fecha_inicio')";
+		$consulta2 = mysqli_query($conexion,$sqlTipo);
+		$datos = [
+			"contador1" => $contador1,
+		];
+		echo json_encode($datos);
+	break;
+
+	case 'bonos_streamate':
+		$sqlTipo = "INSERT INTO bonos_streamate (id_modelo,concepto,monto,responsable,fecha_inicio) VALUES ('$id_modelo','$concepto','$valor','$responsable','$fecha_inicio')";
+		$consulta2 = mysqli_query($conexion,$sqlTipo);
+		$datos = [
+			"contador1" => $contador1,
+		];
+		echo json_encode($datos);
+	break;
+
+	case 'odontologia':
+		$sqlTipo = "INSERT INTO odontologia (id_modelo,concepto,monto,responsable,fecha_inicio) VALUES ('$id_modelo','$concepto','$valor','$responsable','$fecha_inicio')";
+		$consulta2 = mysqli_query($conexion,$sqlTipo);
+		$datos = [
+			"contador1" => $contador1,
+		];
+		echo json_encode($datos);
+	break;
+
+	case 'seguridad_social':
+		$sqlTipo = "INSERT INTO seguridad_social (id_modelo,concepto,monto,responsable,fecha_inicio) VALUES ('$id_modelo','$concepto','$valor','$responsable','$fecha_inicio')";
+		$consulta2 = mysqli_query($conexion,$sqlTipo);
+		$datos = [
+			"contador1" => $contador1,
+		];
+		echo json_encode($datos);
+	break;
+
+	case 'coopserpak':
+		$sqlTipo = "INSERT INTO coopserpak (id_modelo,concepto,monto,responsable,fecha_inicio) VALUES ('$id_modelo','$concepto','$valor','$responsable','$fecha_inicio')";
+		$consulta2 = mysqli_query($conexion,$sqlTipo);
+		$datos = [
+			"contador1" => $contador1,
+		];
+		echo json_encode($datos);
+	break;
+
+	case 'sexshop':
+		$sqlTipo = "INSERT INTO sexshop (id_modelo,concepto,monto,responsable,fecha_inicio) VALUES ('$id_modelo','$concepto','$valor','$responsable','$fecha_inicio')";
+		$consulta2 = mysqli_query($conexion,$sqlTipo);
+		$datos = [
+			"contador1" => $contador1,
+		];
+		echo json_encode($datos);
+	break;
+
+	case 'belleza':
+		$sqlTipo = "INSERT INTO belleza (id_modelo,concepto,monto,responsable,fecha_inicio) VALUES ('$id_modelo','$concepto','$valor','$responsable','$fecha_inicio')";
+		$consulta2 = mysqli_query($conexion,$sqlTipo);
+		$datos = [
+			"contador1" => $contador1,
+		];
+		echo json_encode($datos);
+	break;
+
+	case 'sancionpagina':
+		$sqlTipo = "INSERT INTO sancionpagina (id_modelo,concepto,monto,responsable,fecha_inicio) VALUES ('$id_modelo','$concepto','$valor','$responsable','$fecha_inicio')";
+		$consulta2 = mysqli_query($conexion,$sqlTipo);
+		$datos = [
+			"contador1" => $contador1,
+		];
+		echo json_encode($datos);
+	break;
+
+	case 'lenceria':
+		$sqlTipo = "INSERT INTO lenceria (id_modelo,concepto,monto,responsable,fecha_inicio) VALUES ('$id_modelo','$concepto','$valor','$responsable','$fecha_inicio')";
+		$consulta2 = mysqli_query($conexion,$sqlTipo);
+		$datos = [
+			"contador1" => $contador1,
+		];
+		echo json_encode($datos);
+	break;
 	
 	default:
 		$datos = [

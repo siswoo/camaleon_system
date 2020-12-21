@@ -715,6 +715,7 @@ CREATE TABLE bonos_horas (
 	monto FLOAT(11,2) NOT NULL,
 	fecha_desde DATE NOT NULL,
 	fecha_hasta DATE NOT NULL,
+	responsable INT NOT NULL,
 	fecha_inicio DATE NOT NULL,
    	PRIMARY KEY (id)
 ); ALTER TABLE bonos_horas CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
@@ -728,6 +729,7 @@ CREATE TABLE bonos_streamate (
 	monto FLOAT(11,2) NOT NULL,
 	fecha_desde DATE NOT NULL,
 	fecha_hasta DATE NOT NULL,
+	responsable INT NOT NULL,
 	fecha_inicio DATE NOT NULL,
    	PRIMARY KEY (id)
 ); ALTER TABLE bonos_streamate CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
@@ -740,6 +742,7 @@ CREATE TABLE odontologia (
 	monto FLOAT(11,2) NOT NULL,
 	fecha_desde DATE NOT NULL,
 	fecha_hasta DATE NOT NULL,
+	responsable INT NOT NULL,
 	fecha_inicio DATE NOT NULL,
    	PRIMARY KEY (id)
 ); ALTER TABLE odontologia CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
@@ -752,6 +755,7 @@ CREATE TABLE seguridad_social (
 	monto FLOAT(11,2) NOT NULL,
 	fecha_desde DATE NOT NULL,
 	fecha_hasta DATE NOT NULL,
+	responsable INT NOT NULL,
 	fecha_inicio DATE NOT NULL,
    	PRIMARY KEY (id)
 ); ALTER TABLE seguridad_social CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
@@ -764,6 +768,7 @@ CREATE TABLE coopserpak (
 	monto FLOAT(11,2) NOT NULL,
 	fecha_desde DATE NOT NULL,
 	fecha_hasta DATE NOT NULL,
+	responsable INT NOT NULL,
 	fecha_inicio DATE NOT NULL,
    	PRIMARY KEY (id)
 ); ALTER TABLE coopserpak CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
@@ -776,6 +781,7 @@ CREATE TABLE sexshop (
 	monto FLOAT(11,2) NOT NULL,
 	fecha_desde DATE NOT NULL,
 	fecha_hasta DATE NOT NULL,
+	responsable INT NOT NULL,
 	fecha_inicio DATE NOT NULL,
    	PRIMARY KEY (id)
 ); ALTER TABLE sexshop CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
@@ -788,6 +794,7 @@ CREATE TABLE belleza (
 	monto FLOAT(11,2) NOT NULL,
 	fecha_desde DATE NOT NULL,
 	fecha_hasta DATE NOT NULL,
+	responsable INT NOT NULL,
 	fecha_inicio DATE NOT NULL,
    	PRIMARY KEY (id)
 ); ALTER TABLE belleza CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
@@ -800,6 +807,7 @@ CREATE TABLE sancionpagina (
 	monto FLOAT(11,2) NOT NULL,
 	fecha_desde DATE NOT NULL,
 	fecha_hasta DATE NOT NULL,
+	responsable INT NOT NULL,
 	fecha_inicio DATE NOT NULL,
    	PRIMARY KEY (id)
 ); ALTER TABLE sancionpagina CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
@@ -812,6 +820,7 @@ CREATE TABLE lenceria (
 	monto FLOAT(11,2) NOT NULL,
 	fecha_desde DATE NOT NULL,
 	fecha_hasta DATE NOT NULL,
+	responsable INT NOT NULL,
 	fecha_inicio DATE NOT NULL,
    	PRIMARY KEY (id)
 ); ALTER TABLE lenceria CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
@@ -823,3 +832,16 @@ CREATE TABLE medellin_temporal1 (
 	fecha_inicio DATE NOT NULL,
    	PRIMARY KEY (id)
 ); ALTER TABLE medellin_temporal1 CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+DROP TABLE IF EXISTS pqr;
+CREATE TABLE pqr (
+	id INT AUTO_INCREMENT,
+	responsable INT NOT NULL,
+	mensaje VARCHAR(250) NOT NULL,
+	tema VARCHAR(250) NOT NULL,
+	area VARCHAR(250) NOT NULL,
+	fecha_inicio DATE NOT NULL,
+	rol_responsable INT NOT NULL,
+   	PRIMARY KEY (id)
+); ALTER TABLE pqr CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
