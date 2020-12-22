@@ -83,7 +83,7 @@
 			    <p class="text-center" style="font-weight: bold; font-size: 20px;">CONSULTA DE PQR'S</p>
 			</div>
 			<div class="col-12 text-center">
-			    <table id="example2" class="table row-border hover table-bordered" style="font-size: 12px; width: 90%;">
+			    <table id="example2" class="table row-border hover table-bordered" style="font-size: 12px; width: 100%;">
 					<thead>
 					    <tr>
 					        <th class="text-center">ID</th>
@@ -131,17 +131,17 @@
 							echo '
 								<tr id="tr_pqr_'.$id_pqr.'">
 									<td>'.$id_pqr.'</td>
-									<td>'.$nombre_responsable.'</td>
+									<td nowrap>'.$nombre_responsable.'</td>
 									<td>'.$documento_responsable.'</td>
 									<td>'.$mensaje_pqr.'</td>
 									<td>'.$tema_pqr.'</td>
 									<td>'.$area_pqr.'</td>
 									<td id="estatus_pqr_'.$id_pqr.'">'.$estatus_pqr.'</td>
-									<td>'.$fecha_inicio_pqr.'</td>
+									<td nowrap>'.$fecha_inicio_pqr.'</td>
 								';
 								if($_SESSION['rol']==1 or $_SESSION['rol']==13){
 									echo '
-										<td class="text-center">
+										<td class="text-center" style="width:130px;">
 									';
 									if($rol_responsable==0){
 										echo '
@@ -173,7 +173,7 @@
 									';
 
 									echo '
-										<td class="text-center">
+										<td class="text-center" nowrap>
 											<button type="button" class="btn btn-info" value="listo" onclick="cambiar_estado_pqr1('.$id_pqr.',value)">Listo</button>
 											<button type="button" class="btn btn-info" value="proceso" onclick="cambiar_estado_pqr1('.$id_pqr.',value)">Proceso</button>
 											<button type="button" class="btn btn-info" value="eliminar" onclick="cambiar_estado_pqr1('.$id_pqr.',value)">Eliminar</button>
@@ -231,6 +231,7 @@
 	        	},
 
 	        	"paging": true,
+	        	"order": [[ 7, "desc" ]],
 
 	    	} );
 

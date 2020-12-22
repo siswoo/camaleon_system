@@ -178,7 +178,7 @@
 	    	</div>
 
 	    	<div class="col-12 mt-3 text-center">
-	    		<form action="exportar10.php" method="GET" id="tm_formulario1">
+	    		<form action="exportar11.php" method="GET" id="tm_formulario1">
 	    	</div>
 
 	    	<div class="col-12 mt-3 text-center" style="font-weight: bold; font-size: 30px; text-transform: uppercase;">
