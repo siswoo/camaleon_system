@@ -129,10 +129,27 @@
 			        </thead>
 			        <tbody id="resultados">
 			        	<?php
+			        	$condicion_administracion = 0;
 			        	if($_SESSION['rol']==2){
 			        		$consulta2 = "SELECT * FROM usuarios WHERE rol = 9";	
+			        	}else if($_SESSION['rol']==15){
+			        		$sql3 = "SELECT * FROM usuarios WHERE id = ".$_SESSION['id'];
+				        	$resultado3 = mysqli_query($conexion,$sql3);
+							while($row3 = mysqli_fetch_array($resultado3)) {
+								$usuario_documento = $row3['documento_numero'];
+
+								if($usuario_documento=='1023886014'){
+									$condicion_administracion = 1;
+									$consulta2 = "SELECT * FROM usuarios WHERE (rol != 1 and rol != 99 and rol != 5 and rol != 4 and rol != 14 and rol !=15 and sede = 1) or (rol != 1 and rol != 99 and rol != 5 and rol != 4 and rol != 14 and rol !=15 and sede = 3)";
+								}else if($usuario_documento=='24616438'){
+									$condicion_administracion = 2;
+									$consulta2 = "SELECT * FROM usuarios WHERE (rol != 1 and rol != 99 and rol != 5 and rol != 4 and rol != 14 and rol !=15 and sede = 2) or (rol != 1 and rol != 99 and rol != 5 and rol != 4 and rol != 14 and rol !=15 and sede = 4)";
+								}else{
+									$consulta2 = "SELECT * FROM usuarios WHERE rol != 1 and rol != 99";
+								}
+							}
 			        	}else{
-			        		$consulta2 = "SELECT * FROM usuarios WHERE id != 1 and rol != 99";
+			        		$consulta2 = "SELECT * FROM usuarios WHERE rol != 1 and rol != 99";
 			        	}
 						$resultado2 = mysqli_query( $conexion, $consulta2 );
 						while($row2 = mysqli_fetch_array($resultado2)) {
@@ -179,8 +196,6 @@
 		    </div>
 		</div>
 	</div>
-
-<?php include('../footer.php'); ?>
 
 <!-- Modal Editar Registro -->
 	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -254,7 +269,13 @@
 							    <select class="form-control" name="edit_sedes" id="edit_sedes" required>
 							    	<option value="">Seleccione</option>
 							    	<?php
-							    	$sql_sedes = "SELECT * FROM sedes";	
+							    	if($condicion_administracion == 1){
+							    		$sql_sedes = "SELECT * FROM sedes WHERE id = 1 or id = 3";	
+							    	}else if($condicion_administracion == 2){
+							    		$sql_sedes = "SELECT * FROM sedes WHERE id = 2 or id = 4";
+							    	}else{
+							    		$sql_sedes = "SELECT * FROM sedes";
+							    	}
 									$resultado_sedes = mysqli_query($conexion,$sql_sedes);
 									while($row4 = mysqli_fetch_array($resultado_sedes)) {
 										$sedes_id = $row4['id'];
@@ -342,12 +363,17 @@
 							    <select class="form-control" name="rol" id="rol" required>
 							    	<option value="">Seleccione</option>
 							    	<?php
-							    	if($_SESSION['rol']==2){
-							    		$sql_rol = "SELECT * FROM roles WHERE id = 9";	
-							    	}else{
-							    		$sql_rol = "SELECT * FROM roles WHERE id != 1 and id!=5";
-							    	}
-									$resultado_rol = mysqli_query($conexion, $sql_rol);
+							    	if($condicion_administracion == 1){
+							    		$sql_rol = "SELECT * FROM roles WHERE id != 1 and id != 4 and id != 5 and id != 13 and id != 14 and id != 15";
+							    	}else if($condicion_administracion == 2){
+							    		$sql_rol = "SELECT * FROM roles WHERE id != 1 and id != 4 and id != 5 and id != 13 and id != 14 and id != 15";
+							    	}else if($_SESSION['rol']==2){
+								    	$sql_rol = "SELECT * FROM roles WHERE id = 9";	
+								    }else{
+								    	$sql_rol = "SELECT * FROM roles WHERE id != 1 and id!=5";
+								    }
+								    
+							    	$resultado_rol = mysqli_query($conexion,$sql_rol);
 									while($row3 = mysqli_fetch_array($resultado_rol)) {
 										$rol_id = $row3['id'];
 										$rol_nombre = $row3['nombre'];
@@ -362,7 +388,13 @@
 							    <select class="form-control" name="sedes" id="sedes" required>
 							    	<option value="">Seleccione</option>
 							    	<?php
-							    	$sql_sedes = "SELECT * FROM sedes";	
+							    	if($condicion_administracion == 1){
+							    		$sql_sedes = "SELECT * FROM sedes WHERE id = 1 or id = 3";	
+							    	}else if($condicion_administracion == 2){
+							    		$sql_sedes = "SELECT * FROM sedes WHERE id = 2 or id = 4";
+							    	}else{
+							    		$sql_sedes = "SELECT * FROM sedes";	
+							    	}
 									$resultado_sedes = mysqli_query($conexion,$sql_sedes);
 									while($row4 = mysqli_fetch_array($resultado_sedes)) {
 										$sedes_id = $row4['id'];
@@ -401,6 +433,8 @@
 <script src="../js/navbar.js"></script>
 <script src="../js/jquery.dataTables.min.js"></script>
 <script src="../js/dataTables.bootstrap4.min.js"></script>
+
+<?php include('../footer.php'); ?>
 
 <script type="text/javascript">
 	$(document).ready(function() {

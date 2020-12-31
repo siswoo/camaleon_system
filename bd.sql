@@ -35,6 +35,10 @@ CREATE TABLE roles (
 
 	financiera INT DEFAULT 0,
 
+	jefe INT DEFAULT 0,
+
+	administracion INT DEFAULT 0,
+
 	test INT DEFAULT 0,
 
 	PRIMARY KEY (id)
@@ -52,6 +56,8 @@ INSERT INTO roles (id,nombre,test) VALUES (10,'Diseñador',1);
 INSERT INTO roles (id,nombre) VALUES (11,'Monitor Junior');
 INSERT INTO roles (id,nombre,community) VALUES (12,'Community Manager',1);
 INSERT INTO roles (id,nombre,financiera) VALUES (13,'Financiera',1);
+INSERT INTO roles (id,nombre,jefe) VALUES (14,'Jefe',1);
+INSERT INTO roles (id,nombre,administracion) VALUES (15,'Administración Sede',1);
 ALTER TABLE roles CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 
@@ -98,7 +104,7 @@ CREATE TABLE usuarios (
 INSERT INTO usuarios (nombre,apellido,documento_tipo,documento_numero,correo,usuario,clave,telefono1,telefono2,rol,sede,fecha_inicio) VALUES 
 ('Juan','Maldonado','PEP','955948708101993','juanmaldonado.co@gmail.com','admin','21232f297a57a5a743894a0e4a801fc3','3125318122','',1,1,'2020-08-18'),
 ('Leonardo','Matiz Prieto','Cedula de Ciudadania','1014231159','matizprietoleonardo@gmail.com','leomatiz','6e23d09664c2092e3c6f87e56e8efa1d','3197482852','',7,1,'2020-09-22'),
-('Rocio','Delgado','Cedula de Ciudadania','1023886014','dptorrhhcamaleonmodels@gmail.com','recursoshumanos','77bedb3696d429d527deb55e83ccd8ed','3058126922','',8,1,'2020-09-23'),
+('Rocio','Delgado','Cedula de Ciudadania','1023886014','dptorrhhcamaleonmodels@gmail.com','recursoshumanos','77bedb3696d429d527deb55e83ccd8ed','3058126922','',15,1,'2020-09-23'),
 ('Andrea','Perez','Cedula de Ciudadania','1233894005','adminnorte@bernal-group.com','adminsuba','12c22c3f68d4c7bc77f1f40bd78f5e9b','3162972851','',13,4,'2020-09-23'),
 ('Pasantia','Test','PEP','11111111111','test@gmail.com','pasantia','21232f297a57a5a743894a0e4a801fc3','77777777','',4,1,'2020-08-27'),
 ('Pasantia2','Test2','PEP','22222222222','test2@gmail.com','pasantia2','21232f297a57a5a743894a0e4a801fc3','77777777','',4,2,'2020-10-13'),
@@ -108,7 +114,8 @@ INSERT INTO usuarios (nombre,apellido,documento_tipo,documento_numero,correo,usu
 ('Test','Test','PEP','123123123','test@gmail.com','modelo','21232f297a57a5a743894a0e4a801fc3','77777777','',5,1,'2020-09-23'),
 ('Variable','Variable','PEP','77777777','Variable@gmail.com','Variable','21232f297a57a5a743894a0e4a801fc3','77777777','',99,1,'2020-09-29'),
 ('Carlos','Vargas','Cedula de Ciudadania','1108456684','vargas1101@gmail.com','Soporte123','827ccb0eea8a706c4c34a16891f84e7b','','',2,1,'2020-10-06'),
-('Denisse Giannyna','Gonzalez Cifuentes','Cedula de Ciudadania','1001184301','denisse.gonzalez1234@gmail.com','denisse.gonzales','723a1d81851c596931b050cae056197f','','',8,2,'2020-10-08');
+('Denisse Giannyna','Gonzalez Cifuentes','Cedula de Ciudadania','1001184301','denisse.gonzalez1234@gmail.com','denisse.gonzales','723a1d81851c596931b050cae056197f','','',8,2,'2020-10-08'),
+('Andres Fernando','Bernal Correa','Cedula de Ciudadania','80.774.671','gerencia@bernal-group.com','gerencia','800e6e2dd493e8db8d867f021d1c25a7','','',14,1,'2020-12-30');
 ALTER TABLE usuarios CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 DROP TABLE IF EXISTS modelos;
@@ -842,7 +849,18 @@ CREATE TABLE pqr (
 	area VARCHAR(250) NOT NULL,
 	fecha_inicio DATE NOT NULL,
 	estatus VARCHAR(250) NOT NULL,
+	respuesta VARCHAR(250) NOT NULL,
 	rol_responsable INT NOT NULL,
    	PRIMARY KEY (id)
 ); ALTER TABLE pqr CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
+
+DROP TABLE IF EXISTS recuperar_password;
+CREATE TABLE recuperar_password (
+	id INT AUTO_INCREMENT,
+	responsable INT NOT NULL,
+	codigo VARCHAR(250) NOT NULL,
+	verificado INT NOT NULL,
+	fecha_inicio DATE NOT NULL,
+   	PRIMARY KEY (id)
+); ALTER TABLE recuperar_password CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;

@@ -16,14 +16,15 @@ $inicio = $_GET['inicio'];
 $fin = $_GET['fin'];
 
 $sheet->setCellValue('A1', 'Nombre Completo');
-$sheet->setCellValue('B1', 'Numero Documento');
-$sheet->setCellValue('C1', 'Sede Registrado');
-$sheet->setCellValue('D1', 'Cuenta P/P');
-$sheet->setCellValue('E1', 'Numero cedula titular');
-$sheet->setCellValue('F1', 'Nombre titular');
-$sheet->setCellValue('G1', 'Tipo de cuenta');
-$sheet->setCellValue('H1', 'Numero de cuenta');
-$sheet->setCellValue('I1', 'Banco');
+$sheet->setCellValue('B1', 'Tipo Documento');
+$sheet->setCellValue('C1', 'Numero Documento');
+$sheet->setCellValue('D1', 'Sede Registrado');
+$sheet->setCellValue('E1', 'Cuenta P/P');
+$sheet->setCellValue('F1', 'Numero cedula titular');
+$sheet->setCellValue('G1', 'Nombre titular');
+$sheet->setCellValue('H1', 'Tipo de cuenta');
+$sheet->setCellValue('I1', 'Numero de cuenta');
+$sheet->setCellValue('J1', 'Banco');
 $fila = 2;
 
 /*
@@ -41,6 +42,7 @@ while($row1 = mysqli_fetch_array($consulta)) {
 	$spreadsheet->getActiveSheet()->getColumnDimension('G')->setWidth(20);
 	$spreadsheet->getActiveSheet()->getColumnDimension('H')->setWidth(40);
 	$spreadsheet->getActiveSheet()->getColumnDimension('I')->setWidth(40);
+	$spreadsheet->getActiveSheet()->getColumnDimension('J')->setWidth(40);
 
 	$id_modelo = $row1['id_modelo'];
 
@@ -48,6 +50,7 @@ while($row1 = mysqli_fetch_array($consulta)) {
 	$consulta3 = mysqli_query($conexion,$sql3);
 	while($row3 = mysqli_fetch_array($consulta3)) {
 		$nombre_modelo = $row3['nombre1']." ".$row3['nombre2']." ".$row3['apellido1']." ".$row3['apellido2'];
+		$tipo_documento = $row3['documento_tipo'];
 		$numero_documento = $row3['documento_numero'];
 		$id_sede = $row3['sede'];
 		$banco_cedula = $row3['banco_cedula'];
@@ -65,20 +68,21 @@ while($row1 = mysqli_fetch_array($consulta)) {
 	}
 
 	$sheet->setCellValue('A'.$fila, $nombre_modelo);
-	$spreadsheet->getActiveSheet()->getCell('B'.$fila)->setValue($numero_documento);
-	$spreadsheet->getActiveSheet()->getStyle('B'.$fila)->getNumberFormat()->setFormatCode('00');
+	$spreadsheet->getActiveSheet()->getCell('B'.$fila)->setValue($tipo_documento);
+	$spreadsheet->getActiveSheet()->getCell('C'.$fila)->setValue($numero_documento);
+	$spreadsheet->getActiveSheet()->getStyle('C'.$fila)->getNumberFormat()->setFormatCode('00');
 	//$sheet->setCellValue('B'.$fila, $numero_documento);
-	$sheet->setCellValue('C'.$fila, $nombre_sede);
-	$sheet->setCellValue('D'.$fila, $bcpp);
-	$spreadsheet->getActiveSheet()->getCell('E'.$fila)->setValue($banco_cedula);
-	$spreadsheet->getActiveSheet()->getStyle('E'.$fila)->getNumberFormat()->setFormatCode('00');
+	$sheet->setCellValue('D'.$fila, $nombre_sede);
+	$sheet->setCellValue('E'.$fila, $bcpp);
+	$spreadsheet->getActiveSheet()->getCell('F'.$fila)->setValue($banco_cedula);
+	$spreadsheet->getActiveSheet()->getStyle('G'.$fila)->getNumberFormat()->setFormatCode('00');
 	//$sheet->setCellValue('E'.$fila, $banco_cedula);
-	$sheet->setCellValue('F'.$fila, $banco_nombre);
-	$sheet->setCellValue('G'.$fila, $banco_tipo);
-	$spreadsheet->getActiveSheet()->getCell('H'.$fila)->setValue($banco_numero);
-	$spreadsheet->getActiveSheet()->getStyle('H'.$fila)->getNumberFormat()->setFormatCode('00');
+	$sheet->setCellValue('G'.$fila, $banco_nombre);
+	$sheet->setCellValue('H'.$fila, $banco_tipo);
+	$spreadsheet->getActiveSheet()->getCell('I'.$fila)->setValue($banco_numero);
+	$spreadsheet->getActiveSheet()->getStyle('I'.$fila)->getNumberFormat()->setFormatCode('00');
 	//$sheet->setCellValue('H'.$fila, $banco_numero);
-	$sheet->setCellValue('I'.$fila, $banco_banco);
+	$sheet->setCellValue('J'.$fila, $banco_banco);
 
 	$fila = $fila+1;
 

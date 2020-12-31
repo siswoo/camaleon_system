@@ -72,7 +72,8 @@
 	<div class="seccion1" id="seccion1">
 	    <div class="row">
 	    	<div class="col-12 text-center mt-3">
-			    <button type="button" class="btn btn-info ml-3" value="No" id="pqr1" onclick="mostrarSeccion1(this.id,value)">PQR'S</button>
+			    <button type="button" class="btn btn-info" value="No" id="pqr1" onclick="mostrarSeccion1(this.id,value)">PQR'S PENDIENTES</button>
+			    <button type="button" class="btn btn-info ml-3" value="No" id="pqr2" onclick="mostrarSeccion1(this.id,value)">PQR'S LISTOS</button>
 	    	</div>
 	    </div>
 
@@ -80,7 +81,7 @@
 	<div class="seccion1" id="div_pqr1" style="display: none;">
 	    <div class="row">
 			<div class="form-group col-12">
-			    <p class="text-center" style="font-weight: bold; font-size: 20px;">CONSULTA DE PQR'S</p>
+			    <p class="text-center" style="font-weight: bold; font-size: 20px;">CONSULTA DE PQR'S PENDIENTES</p>
 			</div>
 			<div class="col-12 text-center">
 			    <table id="example2" class="table row-border hover table-bordered" style="font-size: 12px; width: 100%;">
@@ -106,9 +107,9 @@
 					<tbody>
 						<?php
 						if($_SESSION['rol']!=1 and $_SESSION['rol']!=13){
-							$sql1 = "SELECT * FROM pqr WHERE rol_responsable = ".$_SESSION['rol'];
+							$sql1 = "SELECT * FROM pqr WHERE rol_responsable = ".$_SESSION['rol']." and estatus = 'Proceso'";
 						}else{
-							$sql1 = "SELECT * FROM pqr";
+							$sql1 = "SELECT * FROM pqr WHERE estatus = 'Proceso'";
 						}
 						$consulta1 = mysqli_query($conexion,$sql1);
 						while($row1 = mysqli_fetch_array($consulta1)) {
@@ -193,7 +194,123 @@
 
 <!--****************************FIN PQR1****************************-->
 
-<?php include('../footer.php'); ?>
+
+<!--****************************PQR2****************************-->
+	<div class="seccion1" id="div_pqr2" style="display: none;">
+	    <div class="row">
+			<div class="form-group col-12">
+			    <p class="text-center" style="font-weight: bold; font-size: 20px;">CONSULTA DE PQR'S LISTOS</p>
+			</div>
+			<div class="col-12 text-center">
+			    <table id="example2" class="table row-border hover table-bordered" style="font-size: 12px; width: 100%;">
+					<thead>
+					    <tr>
+					        <th class="text-center">ID</th>
+					        <th class="text-center">Nombre</th>
+					        <th class="text-center">Documento</th>
+					       	<th class="text-center">Mensaje</th>
+					        <th class="text-center">Tema</th>
+					        <th class="text-center">Area</th>
+					        <th class="text-center">Estatus</th>
+					        <th class="text-center">Fecha</th>
+					        <?php
+					        if($_SESSION['rol']==1 or $_SESSION['rol']==13){
+					        echo '
+					        	<th class="text-center">Responsable</th>
+					        	<th class="text-center">Opciones</th>
+					        ';
+					    	} ?>
+					    </tr>
+					</thead>
+					<tbody>
+						<?php
+						if($_SESSION['rol']!=1 and $_SESSION['rol']!=13){
+							$sql1 = "SELECT * FROM pqr WHERE rol_responsable = ".$_SESSION['rol']." and estatus = 'listo'";
+						}else{
+							$sql1 = "SELECT * FROM pqr WHERE estatus = 'listo'";
+						}
+						$consulta1 = mysqli_query($conexion,$sql1);
+						while($row1 = mysqli_fetch_array($consulta1)) {
+							$id_pqr = $row1['id'];
+							$responsable_pqr = $row1['responsable'];
+							$mensaje_pqr = $row1['mensaje'];
+							$tema_pqr = $row1['tema'];
+							$area_pqr = $row1['area'];
+							$estatus_pqr = $row1['estatus'];
+							$fecha_inicio_pqr = $row1['fecha_inicio'];
+							$rol_responsable = $row1['rol_responsable'];
+
+							$sql2 = "SELECT * FROM modelos WHERE id = ".$responsable_pqr;
+							$consulta2 = mysqli_query($conexion,$sql2);
+							while($row2 = mysqli_fetch_array($consulta2)) {
+								$nombre_responsable = $row2['nombre1']." ".$row2['nombre2']." ".$row2['apellido1']." ".$row2['apellido2'];
+								$documento_responsable = $row2['documento_numero'];
+							}
+
+							echo '
+								<tr id="tr_pqr_'.$id_pqr.'">
+									<td>'.$id_pqr.'</td>
+									<td nowrap>'.$nombre_responsable.'</td>
+									<td>'.$documento_responsable.'</td>
+									<td>'.$mensaje_pqr.'</td>
+									<td>'.$tema_pqr.'</td>
+									<td>'.$area_pqr.'</td>
+									<td id="estatus_pqr_'.$id_pqr.'">'.$estatus_pqr.'</td>
+									<td nowrap>'.$fecha_inicio_pqr.'</td>
+								';
+								if($_SESSION['rol']==1 or $_SESSION['rol']==13){
+									echo '
+										<td class="text-center" style="width:130px;">
+									';
+									if($rol_responsable==0){
+										echo '
+											<select class="form-control" onchange="asignarpqr1('.$id_pqr.','.$responsable_pqr.',value);">
+												<option value="0">Sin Responsable</option>
+												<option value="2">Soporte</option>
+												<option value="8">Recursos Humanos</option>
+											</select>
+										';
+									}else if($rol_responsable==2){
+										echo '
+											<select class="form-control" onchange="asignarpqr1('.$id_pqr.','.$responsable_pqr.',value);">
+												<option value="0">Sin Responsable</option>
+												<option value="2" selected>Soporte</option>
+												<option value="8">Recursos Humanos</option>
+											</select>
+										';
+									}else if($rol_responsable==8){
+										echo '
+											<select class="form-control" onchange="asignarpqr1('.$id_pqr.','.$responsable_pqr.',value);">
+												<option value="0">Sin Responsable</option>
+												<option value="2">Soporte</option>
+												<option value="8" selected>Recursos Humanos</option>
+											</select>
+										';
+									}
+									echo '
+										</td>
+									';
+
+									echo '
+										<td class="text-center" nowrap>
+											<button type="button" class="btn btn-info" value="listo" onclick="cambiar_estado_pqr1('.$id_pqr.',value)">Listo</button>
+											<button type="button" class="btn btn-info" value="proceso" onclick="cambiar_estado_pqr1('.$id_pqr.',value)">Proceso</button>
+											<button type="button" class="btn btn-info" value="eliminar" onclick="cambiar_estado_pqr1('.$id_pqr.',value)">Eliminar</button>
+										</td>
+									';
+								}
+									echo '
+								</tr>
+							';
+						}
+						?>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+<!--****************************FIN PQR2****************************-->
 
 </body>
 </html>
@@ -208,6 +325,8 @@
 <script type="text/javascript" src="../js/mdb.js"></script>
 <script src="../js/Chart.js"></script>
 <script src="../resources/lightbox/dist/js/lightbox.js"></script>
+
+<?php include('../footer.php'); ?>
 
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -306,60 +425,98 @@
 	}
 
 	function cambiar_estado_pqr1(id_pqr,condicion){
-		$.ajax({
-            url: '../script/crud_pqr.php',
-            type: 'POST',
-            dataType: "JSON",
-            data: {
-				"id_pqr": id_pqr,
-				"condicion": condicion,
-			},
+		console.log(condicion);
+		if(condicion=='listo'){
+			Swal.fire({
+				title: '¿Razón?',
+				input: 'text',
+				inputAttributes: {
+				    autocapitalize: 'off'
+				},
+				showCancelButton: true,
+				confirmButtonText: 'Guardar',
+				showLoaderOnConfirm: true,
+			}).then((result) => {
+				if(result.value!=""){
+					$.ajax({
+			            url: '../script/crud_pqr.php',
+			            type: 'POST',
+			            dataType: "JSON",
+			            data: {
+							"id_pqr": id_pqr,
+							"condicion": condicion,
+							"razon": result.value,
+						},
 
-            beforeSend: function (){},
+			            beforeSend: function (){},
 
-            success: function(response){
-            	//console.log(response['respuesta']);
-            	if(response['respuesta']=='listo'){
-            		Swal.fire({
-				 		title: 'Perfecto!',
-					 	text: "Estatus Cambiado a listo",
-					 	icon: 'success',
-					 	position: 'center',
-					 	showConfirmButton: false,
-					 	timer: 2000
-					});
-					$('#estatus_pqr_'+id_pqr).html(condicion);
-            	}
+			            success: function(response){
+			            	//console.log(response['respuesta']);
+			            	if(response['respuesta']=='listo'){
+			            		Swal.fire({
+							 		title: 'Perfecto!',
+								 	text: "Estatus Cambiado a listo",
+								 	icon: 'success',
+								 	position: 'center',
+								 	showConfirmButton: false,
+								 	timer: 2000
+								});
+								$('#estatus_pqr_'+id_pqr).html(condicion);
+			            	}
+			            },
 
-            	if(response['respuesta']=='proceso'){
-            		Swal.fire({
-				 		title: 'Perfecto!',
-					 	text: "Estatus Cambiado a proceso",
-					 	icon: 'success',
-					 	position: 'center',
-					 	showConfirmButton: false,
-					 	timer: 2000
-					});
-					$('#estatus_pqr_'+id_pqr).html(condicion);
-            	}
+			            error: function(response){
+			            	console.log(response['responseText']);
+			            }
+			        });
+				}
+			})
+		}else{
+			$.ajax({
+			    url: '../script/crud_pqr.php',
+			    type: 'POST',
+		        dataType: "JSON",
+		        data: {
+					"id_pqr": id_pqr,
+					"condicion": condicion,
+					"razon": result.value,
+				},
 
-            	if(response['respuesta']=='eliminar'){
-            		Swal.fire({
-				 		title: 'Perfecto!',
-					 	text: "Se ha eliminado el PQR",
-					 	icon: 'success',
-					 	position: 'center',
-					 	showConfirmButton: false,
-					 	timer: 2000
-					});
-					$('#tr_pqr_'+id_pqr).hide('slow');
-            	}
-            },
+			    beforeSend: function (){},
 
-            error: function(response){
-            	console.log(response['responseText']);
-            }
-        });
+			   	success: function(response){
+			        //console.log(response['respuesta']);
+
+			        if(response['respuesta']=='proceso'){
+			           	Swal.fire({
+							title: 'Perfecto!',
+							text: "Estatus Cambiado a proceso",
+							icon: 'success',
+							position: 'center',
+							showConfirmButton: false,
+							timer: 2000
+						});
+						$('#estatus_pqr_'+id_pqr).html(condicion);
+			        }
+
+			        if(response['respuesta']=='eliminar'){
+			        	Swal.fire({
+							title: 'Perfecto!',
+							text: "Se ha eliminado el PQR",
+							icon: 'success',
+							position: 'center',
+							showConfirmButton: false,
+							timer: 2000
+						});
+						$('#tr_pqr_'+id_pqr).hide('slow');
+			        }
+			    },
+
+			    error: function(response){
+			        console.log(response['responseText']);
+			    }
+			});
+		}
 	}
 
 </script>

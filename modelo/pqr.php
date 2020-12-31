@@ -80,11 +80,13 @@
 	}
 	include('nabvar_modelo.php');
 ?>
-	<div class="seccion1">
+	<div class="seccion1" id="seccion1">
 	    <div class="row">
-	    	<div class="col-12 text-center">
-	    		<span style="font-weight: bold; font-size: 25px;">SECCIÓN PQR</span>
+	    	<div class="col-12 text-center mt-3">
+			    <button type="button" class="btn btn-info" value="No" id="pqr1" onclick="mostrarSeccion1(this.id,value)">ENVIAR PQR</button>
+			    <button type="button" class="btn btn-info ml-3" value="No" id="pqr2" onclick="mostrarSeccion1(this.id,value)">CONSULTAR PQR'S</button>
 	    	</div>
+	    </div>
 
 	    	<?php
 	    	$usuario = $_SESSION["usuario"];
@@ -95,31 +97,77 @@
 			}
 			?>
 
-	    	<input type="hidden" id="id_modelo" name="id_modelo" value="<?php echo $id_modelo; ?>">
+			<div class="seccion1" id="div_pqr1" style="display: none;">
+				<div class="row">
+			    	<input type="hidden" id="id_modelo" name="id_modelo" value="<?php echo $id_modelo; ?>">
 
-	    	<div class="col-4 mt-3">&nbsp;</div>
-			<div class="col-4 mt-3">
-				<label form="mensaje" style="font-size: 20px;">Mensaje del Problema Sugerencia o Duda</label>
-	    		<textarea id="mensaje" name="mensaje" class="form-control"></textarea>
-	    	</div>
-	    	<div class="col-4 mt-3">&nbsp;</div>
+			    	<div class="col-4 mt-3">&nbsp;</div>
+					<div class="col-4 mt-3">
+						<label form="mensaje" style="font-size: 20px;">Mensaje del Problema Sugerencia o Duda</label>
+			    		<textarea id="mensaje" name="mensaje" class="form-control"></textarea>
+			    	</div>
+			    	<div class="col-4 mt-3">&nbsp;</div>
 
-	    	<div class="col-4 mt-3">&nbsp;</div>
-	    	<div class="col-4 mt-3">
-				<label form="tema" style="font-size: 20px;">Tema Referente al Ticket</label>
-	    		<select name="tema" id="tema" class="form-control" required>
-	    			<option value="">Seleccione</option>
-	    			<option value="Problema">Problema</option>
-	    			<option value="Sugerencia">Sugerencia</option>
-	    			<option value="Duda con mi Desprendible">Duda con mi Desprendible</option>
-	    		</select>
-	    	</div>
-	    	<div class="col-4 mt-3">&nbsp;</div>
+			    	<div class="col-4 mt-3">&nbsp;</div>
+			    	<div class="col-4 mt-3">
+						<label form="tema" style="font-size: 20px;">Tema Referente al Ticket</label>
+			    		<select name="tema" id="tema" class="form-control" required>
+			    			<option value="">Seleccione</option>
+			    			<option value="Problema">Problema</option>
+			    			<option value="Sugerencia">Sugerencia</option>
+			    			<option value="Duda con mi Desprendible">Duda con mi Desprendible</option>
+			    		</select>
+			    	</div>
+			    	<div class="col-4 mt-3">&nbsp;</div>
 
-	    	<div class="col-12 mt-3 text-center">
-	    		<button class="btn btn-success" onclick="enviarpqr1();">Enviar PQR</button>
-	    	</div>
-		</div>
+			    	<div class="col-12 mt-3 text-center">
+			    		<button class="btn btn-success" onclick="enviarpqr1();">Enviar PQR</button>
+			    	</div>
+				</div>
+			</div>
+
+			<div class="seccion1" id="div_pqr2" style="display: none;">
+				<div class="row">
+					<div class="col-12 mt-3">
+						<table id="example" class="table row-border hover table-bordered" style="font-size: 12px; width: 100%;">
+					<thead>
+					    <tr>
+					        <th class="text-center">Mensaje</th>
+					        <th class="text-center">Tema</th>
+					        <th class="text-center">Estatus</th>
+					       	<th class="text-center">Fecha</th>
+					       	<th class="text-center">Respuesta</th>
+					    </tr>
+					</thead>
+					<tbody>
+						<?php
+						$sql1 = "SELECT * FROM pqr WHERE responsable = ".$id_modelo;
+						$consulta1 = mysqli_query($conexion,$sql1);
+						while($row1 = mysqli_fetch_array($consulta1)) {
+							$id_pqr = $row1['id'];
+							$mensaje_pqr = $row1['mensaje'];
+							$tema_pqr = $row1['tema'];
+							$area_pqr = $row1['area'];
+							$estatus_pqr = $row1['estatus'];
+							$fecha_inicio_pqr = $row1['fecha_inicio'];
+							$repuesta_pqr = $row1['respuesta'];
+
+							echo '
+								<tr id="tr_pqr_'.$id_pqr.'">
+									<td>'.$mensaje_pqr.'</td>
+									<td nowrap>'.$tema_pqr.'</td>
+									<td nowrap>'.$estatus_pqr.'</td>
+									<td>'.$fecha_inicio_pqr.'</td>
+									<td>'.$respuesta_pqr.'</td>
+								</tr>
+							';
+						}
+						?>
+					</tbody>
+				</table>
+					</div>
+				</div>
+			</div>
 	</div>
 
 <?php include('../footer.php'); ?>
@@ -155,7 +203,8 @@
 			    "search": "Buscar",
         	},
 
-        	"paging": true
+        	"paging": true,
+        	"order": [[ 3, "desc" ]],
 
     	} );
 
@@ -230,6 +279,16 @@
 				console.log(respuesta['responseText']);
 			}
 		});
+	}
+
+	function mostrarSeccion1(button,value){
+		if(value=='Si'){
+			$('#div_'+button).hide('slow');
+			$('#'+button).val('No');
+		}else{
+			$('#div_'+button).show('slow');
+			$('#'+button).val('Si');
+		}
 	}
 
 </script>

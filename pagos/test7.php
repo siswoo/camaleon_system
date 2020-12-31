@@ -7,17 +7,17 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
-/*
-$fecha_inicio_post = $_POST['fecha_inicio_post'];
-$fecha_fin_post = $_POST['fecha_fin_post'];
-*/
-
-$fecha_inicio_post = '2020-11-01';
-$fecha_fin_post = '2020-11-15';
-
+$presabana_id = $_POST['select_sc'];
 include('../script/conexion.php');
-$sql1 = "SELECT * FROM presabana";
 
+$sql8 = "SELECT * FROM presabana WHERE id =".$presabana_id;
+$consulta8 = mysqli_query($conexion,$sql8);
+while($row8 = mysqli_fetch_array($consulta8)) {
+	$fecha_inicio_post = $row8['inicio'];
+	$fecha_fin_post = $row8['fin'];
+}
+
+$sql1 = "SELECT * FROM presabana WHERE inicio BETWEEN '".$fecha_inicio_post."' AND '".$fecha_fin_post."' and fin BETWEEN '".$fecha_inicio_post."' AND '".$fecha_fin_post."'";
 $consulta1 = mysqli_query($conexion,$sql1);
 $fecha_inicio1 = date('Y-m-d');
 
@@ -192,7 +192,7 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 	$giros_multa = 0;
 	$valor_multa = 0;
 
-	$sql3 = "SELECT * FROM descuento WHERE id_modelo = ".$id_modelo." and fecha_inicio BETWEEN '".$fecha_inicio_post."' AND '".$fecha_fin_post."'";
+	$sql3 = "SELECT * FROM descuento WHERE id_modelo = ".$id_modelo." and fecha_desde BETWEEN '".$fecha_inicio_post."' AND '".$fecha_fin_post."' and fecha_hasta BETWEEN '".$fecha_inicio_post."' AND '".$fecha_fin_post."'";
 	
 	$consulta3 = mysqli_query($conexion,$sql3);
 	while($row3 = mysqli_fetch_array($consulta3)){
@@ -201,7 +201,7 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 		$giros = $giros + 1;
 	}
 
-	$sql4 = "SELECT * FROM tienda WHERE id_modelo = ".$id_modelo." and fecha_inicio BETWEEN '".$fecha_inicio_post."' AND '".$fecha_fin_post."'";
+	$sql4 = "SELECT * FROM tienda WHERE id_modelo = ".$id_modelo." and fecha_desde BETWEEN '".$fecha_inicio_post."' AND '".$fecha_fin_post."' and fecha_hasta BETWEEN '".$fecha_inicio_post."' AND '".$fecha_fin_post."'";
 	$consulta4 = mysqli_query($conexion,$sql4);
 	while($row4 = mysqli_fetch_array($consulta4)){
 		$valor_tienda = $valor_tienda + $row4['valor'];
@@ -209,7 +209,7 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 		$giros = $giros + 1;
 	}
 
-	$sql5 = "SELECT * FROM avances WHERE id_modelo = ".$id_modelo." and fecha_inicio BETWEEN '".$fecha_inicio_post."' AND '".$fecha_fin_post."'";
+	$sql5 = "SELECT * FROM avances WHERE id_modelo = ".$id_modelo." and fecha_desde BETWEEN '".$fecha_inicio_post."' AND '".$fecha_fin_post."' and fecha_hasta BETWEEN '".$fecha_inicio_post."' AND '".$fecha_fin_post."'";
 	$consulta5 = mysqli_query($conexion,$sql5);
 	while($row5 = mysqli_fetch_array($consulta5)){
 		$valor_avances = $valor_avances + $row5['valor'];
@@ -217,7 +217,7 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 		$giros = $giros + 1;
 	}
 
-	$sql6 = "SELECT * FROM multas WHERE id_modelo = ".$id_modelo." and fecha_inicio BETWEEN '".$fecha_inicio_post."' AND '".$fecha_fin_post."'";
+	$sql6 = "SELECT * FROM multas WHERE id_modelo = ".$id_modelo." and fecha_desde BETWEEN '".$fecha_inicio_post."' AND '".$fecha_fin_post."' and fecha_hasta BETWEEN '".$fecha_inicio_post."' AND '".$fecha_fin_post."'";
 	$consulta6 = mysqli_query($conexion,$sql6);
 	while($row6 = mysqli_fetch_array($consulta6)){
 		$valor_multa = $valor_multa + $row6['valor'];

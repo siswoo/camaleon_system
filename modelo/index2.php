@@ -70,57 +70,12 @@
 	<div class="seccion1">
 	    <div class="row">
 		    <div class="container_consulta1">
-		    	<?php
-		    	if($_SESSION['rol']==1 or $_SESSION['rol']==2){ ?>
-			    	<div class="row mb-3">
-			    		<div class="col-12">
-			    			<span style="font-weight:bold;">Filtro de Soportes</span>
-			    			<select class="form-control" style="width: 200px;" onchange="filtros2(value);">
-								<option value="">Todos</option>
-								<?php
-								$sql_soportes = "SELECT * FROM usuarios WHERE rol = 9";
-								$consulta_soportes = mysqli_query($conexion,$sql_soportes);
-								while($row_soportes = mysqli_fetch_array($consulta_soportes)) {
-									$soporte_id = $row_soportes['id'];
-									$soporte_nombre = $row_soportes['nombre'];
-									echo '
-										<option value="'.$soporte_id.'">'.$soporte_nombre.'</option>
-									';
-								}
-								?>
-							</select>
-			    		</div>
-			    		<div class="col-md-12 text-center">
-			    			<?php
-			    			$sql_sedes1 = "SELECT * FROM sedes";
-			    			$consulta_sedes = mysqli_query($conexion,$sql_sedes1);
-							while($row_sedes1 = mysqli_fetch_array($consulta_sedes)) {
-								$sede_id 		= $row_sedes1['id'];
-								$sede_nombre 	= $row_sedes1['nombre'];
-								$sede_macro 	= $_SESSION['sede'];
-								echo '
-									<button type="button" class="btn btn-info ml-3" value="'.$sede_id.'" onclick="filtros(value,'.$sede_macro.');">'.$sede_nombre.'</button>
-								';
-							} ?>
-			    		</div>
-			    		<!--
-			    		<div class="col-md-6 text-right">
-			    			<a href="crear_cuenta.php">
-			    				<input type="button" class="btn btn-success" value="Nuevo Registro">
-			    			</a>
-			    		</div>
-			    		-->
-			    	</div>
-			    <?php } ?>
-
-
-
 			    <?php
-			    if($_SESSION['rol']==9){ ?>
+			    if($_SESSION['rol']==14 or $_SESSION['rol']==15){ ?>
 		    	<table id="example" class="table row-border hover table-bordered" style="font-size: 12px;">
 			        <thead>
 			            <tr>
-			            	<th class="text-center">Responsabilidad</th>
+			            	<th class="text-center">ID</th>
 			                <th class="text-center">Nombre</th>
 			                <th class="text-center">Apellido</th>
 			                <th class="text-center">Tipo Doc</th>
@@ -136,12 +91,23 @@
 			        </thead>
 			        <tbody id="resultados">
 			        	<?php
-			        	$consulta3 = "SELECT * FROM soporte_responsable_modelo WHERE id_soporte =".$_SESSION['id'];
-			        	$resultado4 = mysqli_query($conexion,$consulta3);
-			        	while($row5 = mysqli_fetch_array($resultado4)) {
-			        		$modelo_de_junior = $row5['id_modelo'];
+			        		if($_SESSION['rol']==14){
+				        		$consulta2 = "SELECT * FROM modelos";
+				        	}else{
+				        		$sql3 = "SELECT * FROM usuarios WHERE id = ".$_SESSION['id'];
+				        		$resultado3 = mysqli_query($conexion,$sql3);
+								while($row3 = mysqli_fetch_array($resultado3)) {
+									$usuario_documento = $row3['documento_numero'];
 
-				        	$consulta2 = "SELECT * FROM modelos WHERE id =".$modelo_de_junior;
+									if($usuario_documento=='1023886014'){
+										$consulta2 = "SELECT * FROM modelos WHERE sede = 1 or sede = 3";
+									}else if($usuario_documento=='24616438'){
+										$consulta2 = "SELECT * FROM modelos WHERE sede = 2 or sede = 4";
+									}else{
+										$consulta2 = "SELECT * FROM modelos WHERE sede = 1";
+									}
+								}
+				        	}
 							$resultado2 = mysqli_query( $conexion, $consulta2 );
 							while($row2 = mysqli_fetch_array($resultado2)) {
 								$modelo_id 					= $row2['id'];
@@ -161,20 +127,13 @@
 								$modelo_nickname 			= $row2['sugerenciaNickname'];
 								$modelo_fecha_inicio 		= $row2['fecha_inicio'];
 
-								$sql_responsable1 = "SELECT * FROM soporte_responsable_modelo WHERE id_modelo = ".$modelo_id;
-								$resultado3 = mysqli_query($conexion,$sql_responsable1);
-								$contador1 = mysqli_num_rows($resultado3);
-								while($row8 = mysqli_fetch_array($resultado3)) {
-									$soporte_responsable_fecha_inicio = $row8['fecha_inicio'];
-								}
-
 								$sql_modelos_cuentas = "SELECT * FROM modelos_cuentas WHERE id_modelos = ".$modelo_id;
 								$resultado9 = mysqli_query($conexion,$sql_modelos_cuentas);
 								$contador3 = mysqli_num_rows($resultado9);
 
 								echo '
 									<tr>
-										<td class="text-center">'.$soporte_responsable_fecha_inicio.'</td>
+										<td class="text-center">'.$modelo_id.'</td>
 						                <td nowrap>'.$modelo_nombre1.' '.$modelo_nombre2.'</td>
 						                <td nowrap>'.$modelo_apellido1.' '.$modelo_apellido2.'</td>
 						                <td class="text-center">'.$modelo_documento_tipo.'</td>
@@ -202,44 +161,14 @@
 									echo '
 						                <td class="text-center">'.$modelo_fecha_inicio.'</td>
 						                <td class="text-center">
-						            ';
-
-						        	if($verificacion_modelo_edit==1){
-						        		echo '
 						                	<i class="fas fa-edit" style="color:#0095ff; cursor:pointer;" title="" value="'.$modelo_id.'" data-toggle="modal" data-target="#exampleModal_soporte1" onclick="modal_edit2('.$modelo_id.');"></i>
-						                ';
-						        	}else{
-						        		echo '
-						                	<i class="fas fa-edit" style="color:#c3bebe; cursor:pointer;" data-toggle="popover-hover" data-placement="top" title="Deshabilitado" data-content="Falta de permisos"></i>
-						                ';
-						        	}
-						        	echo '</td>
-						        		</td>
-							        	<td class="text-center">';
-
-						        	if($_SESSION['rol']==1 or $_SESSION['rol']==8){
-							        	echo '
+						                </td>
+							        	<td class="text-center">
 							        		<i class="fas fa-folder-open" style="cursor:pointer; font-size:20px;" title="" value="'.$modelo_id.'" data-toggle="modal" data-target="#Modal_documentos1" onclick="documentos1('.$modelo_id.');"></i>
-							        	';
-						        	}
-
-						        	if($_SESSION['rol']==1 or $_SESSION['rol']==2 or $_SESSION['rol']==9){
-						        		echo '
-						        			<i class="fas fa-camera-retro" style="cursor:pointer; font-size:20px;" title="" value="'.$modelo_id.'" data-toggle="modal" data-target="#Modal_fotos1" onclick="fotos1('.$modelo_id.');"></i>
-						        		';
-						        	}
-
-						        	if($_SESSION['rol']==1 or $_SESSION['rol']==2 or $_SESSION['rol']==9){
-						        		echo '
-						        			<i class="fas fa-images ml-3" style="cursor:pointer; font-size:20px;" title="" value="'.$modelo_id.'" data-toggle="modal" data-target="#Modal_fotos2" onclick="fotos2('.$modelo_id.');"></i>
-						        		';
-						        	}
-						        	
-						        	echo '</td>';
-
-						        	echo '
+							        		<i class="fas fa-camera-retro" style="cursor:pointer; font-size:20px;" title="" value="'.$modelo_id.'" data-toggle="modal" data-target="#Modal_fotos1" onclick="fotos1('.$modelo_id.');"></i>
+							        		<i class="fas fa-images ml-3" style="cursor:pointer; font-size:20px;" title="" value="'.$modelo_id.'" data-toggle="modal" data-target="#Modal_fotos2" onclick="fotos2('.$modelo_id.');"></i>
+							        	</td>
 						        		<td class="text-center">
-						        			<!--<p class="text-center"><strong>('.$contador3.')</strong></p>-->
 						        			<i class="fas fa-user-shield" style="cursor:pointer; font-size:20px;" data-toggle="modal" data-target="#Modal_cuentas1" onclick="cuentas('.$modelo_id.');"></i>
 						        			<strong>('.$contador3.')</strong>
 						        			<i class="fas fa-user-plus ml-3" style="cursor:pointer; font-size:20px;" data-toggle="modal" data-target="#Modal_cuentas2" onclick="cuentas2('.$modelo_id.');"></i>
@@ -250,237 +179,7 @@
 						?>
 			        </tbody>
 			    </table>
-				<?php } ?>
 
-
-
-
-
-			    <?php
-			    if($_SESSION['rol']!=9){ ?>
-		    	<table id="example" class="table row-border hover table-bordered" style="font-size: 12px;">
-			        <thead>
-			            <tr>
-			                <th class="text-center">Responsable</th>
-			                <th class="text-center">Nombre</th>
-			                <th class="text-center">Apellido</th>
-			                <th class="text-center">Tipo Doc</th>
-			                <th class="text-center">Número Doc</th>
-			                <th class="text-center">NickName</th>
-			                <th class="text-center">Turno</th>
-			                <th class="text-center">Sede</th>
-			                <?php
-			                	if($_SESSION['rol']==1 or $_SESSION['rol']==2){ ?>
-			                		<th class="text-center">Teléfono</th>
-			                	<?php }
-			                ?>
-			                <th class="text-center">Fecha Inicio</th>
-			                <th class="text-center">Opciones</th>
-			                <th class="text-center">Documentos</th>
-			                <th class="text-center">Cuentas</th>
-			                <th class="text-center">Recuperar</th>
-			            </tr>
-			        </thead>
-			        <tbody id="resultados">
-			        	<?php
-			        	$consulta2 = "SELECT * FROM modelos";
-						$resultado2 = mysqli_query( $conexion, $consulta2 );
-						while($row2 = mysqli_fetch_array($resultado2)) {
-							$modelo_id 					= $row2['id'];
-							$modelo_nombre1 			= $row2['nombre1'];
-							$modelo_nombre2 			= $row2['nombre2'];
-							$modelo_apellido1 			= $row2['apellido1'];
-							$modelo_apellido2 			= $row2['apellido2'];
-							$modelo_documento_tipo 		= $row2['documento_tipo'];
-							$modelo_documento_numero 	= $row2['documento_numero'];
-							$modelo_correo 				= $row2['correo'];
-							$modelo_usuario 			= $row2['usuario'];
-							$modelo_telefono1 			= $row2['telefono1'];
-							$modelo_telefono2 			= $row2['telefono2'];
-							$modelo_turno 				= $row2['turno'];
-							$modelo_estatus 			= $row2['estatus'];
-							$modelo_sede 				= $row2['sede'];
-							$modelo_nickname 			= $row2['sugerenciaNickname'];
-							$modelo_fecha_inicio 		= $row2['fecha_inicio'];
-
-							$soporte_responsable_usuario = '';
-							$soporte_responsable_id = '';
-							$html_responsable_usuario = '';
-							
-							$sql_modelos_cuentas = "SELECT * FROM modelos_cuentas WHERE id_modelos = ".$modelo_id;
-							$resultado9 = mysqli_query($conexion,$sql_modelos_cuentas);
-							$contador3 = mysqli_num_rows($resultado9);
-
-							$sql_responsable1 = "SELECT * FROM soporte_responsable_modelo WHERE id_modelo = ".$modelo_id;
-							$resultado3 = mysqli_query($conexion,$sql_responsable1);
-							$contador2 = mysqli_num_rows($resultado3);
-
-							if($contador2>=1){
-								while($row6 = mysqli_fetch_array($resultado3)) {
-									$soporte_responsable_id = $row6['id_soporte'];
-								}
-
-								$sql_responsable2 = "SELECT * FROM usuarios WHERE id = ".$soporte_responsable_id;
-								$resultado4 = mysqli_query($conexion,$sql_responsable2);
-								while($row7 = mysqli_fetch_array($resultado4)) {
-									$soporte_responsable_id = $row7['id'];
-									$soporte_responsable_usuario = $row7['usuario'];
-								}
-							}
-
-							$sql_responsable3 = "SELECT * FROM usuarios WHERE rol = 9";
-							$resultado5 = mysqli_query($conexion,$sql_responsable3);
-
-							echo '
-								<tr>
-							';
-
-								if($contador2>=1){
-									echo '
-										<td class="text-center">
-											<select class="form-control" id="select_responsable_'.$modelo_id.'" onchange="colocar_responsable('.$modelo_id.',value);">
-												<option value="">Nadie</option>
-											';
-											while($row9 = mysqli_fetch_array($resultado5)) {
-												$soporte_responsable_id_general = $row9['id'];
-												$soporte_responsable_usuario_general = $row9['usuario'];
-												if($soporte_responsable_id == $soporte_responsable_id_general){
-													echo '
-														<option value="'.$soporte_responsable_id_general.'" selected="selected">'.$soporte_responsable_usuario_general.'</option>
-													';	
-												}else{
-													echo '
-														<option value="'.$soporte_responsable_id_general.'">'.$soporte_responsable_usuario_general.'</option>
-													';
-												}
-											}
-									echo '
-											</select>
-										</td>
-									';
-								}else{
-									echo '
-										<td class="text-center">
-											<select class="form-control" id="select_responsable_'.$modelo_id.'" onchange="colocar_responsable('.$modelo_id.',value);">
-												<option value="">Nadie</option>
-												';
-												while($row9 = mysqli_fetch_array($resultado5)) {
-													$soporte_responsable_id_general = $row9['id'];
-													$soporte_responsable_usuario_general = $row9['usuario'];
-													echo '
-														<option value="'.$soporte_responsable_id_general.'">'.$soporte_responsable_usuario_general.'</option>
-													';
-												}
-									echo '
-											</select>
-										</td>
-									';
-								}
-							echo '
-									<!--
-									<td class="text-center">
-										<p style="font-weight:bold;"> '.$soporte_responsable_usuario.'</p> 
-										<i class="fas fa-chalkboard-teacher" value="'.$modelo_id.'" style="font-size: 20px; cursor:pointer;" data-toggle="modal" data-target="#exampleModal_responsable1" onclick="modal_responsable1('.$modelo_id.');"></i>
-									</td>
-									-->
-					                <td nowrap>'.$modelo_nombre1.' '.$modelo_nombre2.'</td>
-					                <td nowrap>'.$modelo_apellido1.' '.$modelo_apellido2.'</td>
-					                <td class="text-center">'.$modelo_documento_tipo.'</td>
-					                <td class="text-center">'.$modelo_documento_numero.'</td>
-					                <td class="text-center">'.$modelo_nickname.'</td>
-					                <td class="text-center">'.$modelo_turno.'</td>
-					            ';
-					            	if($modelo_sede==''){
-					            		echo '<td class="text-center">Desconocido</td>';
-					            	}else{
-						            	$sql_rol2 = "SELECT * FROM sedes WHERE id = ".$modelo_sede." LIMIT 1";
-										$resultado_rol2 = mysqli_query($conexion, $sql_rol2);
-										$fila1 = mysqli_num_rows($resultado_rol2);
-										while($row4 = mysqli_fetch_array($resultado_rol2)) {
-											$rol_id2 = $row4['id'];
-											$rol_nombre2 = $row4['nombre'];
-											echo '<td class="text-center">'.$rol_nombre2.'</td>';
-										}
-									}
-									
-									if($_SESSION['rol']==1 or $_SESSION['rol']==2){
-										echo '<td class="text-center">'.$modelo_telefono1.'</td>';
-									}
-
-								echo '
-					                <td class="text-center">'.$modelo_fecha_inicio.'</td>
-					                <td class="text-center">
-					            ';
-
-					        	if($verificacion_modelo_edit==1){
-					        		echo '
-					                	<i class="fas fa-edit" style="color:#0095ff; cursor:pointer;" title="" value="'.$modelo_id.'" data-toggle="modal" data-target="#exampleModal_soporte1" onclick="modal_edit2('.$modelo_id.');"></i>
-					                ';
-					        	}else{
-					        		echo '
-					                	<i class="fas fa-edit" style="color:#c3bebe; cursor:pointer;" data-toggle="popover-hover" data-placement="top" title="Deshabilitado" data-content="Falta de permisos"></i>
-					                ';
-					        	}
-					        	/*
-					        	if($modelo_delete==1){
-					        		echo '
-					                	<i class="fas fa-trash-alt ml-3" style="color:red; cursor:pointer;" data-toggle="popover-hover" onclick="eliminar('.$modelo_id.');" value="'.$modelo_id.'"></i>
-					                ';
-					        	}else{
-					        		echo '
-					                	<i class="fas fa-trash-alt ml-3" style="color:#c3bebe; cursor:pointer;" data-toggle="popover-hover" data-placement="top" title="Deshabilitado" data-content="Falta de permisos"></i>
-					        		';
-					        	}
-					        	*/
-
-					        	echo '</td>
-					        		</td>
-						        	<td class="text-center">';
-
-					        	if($_SESSION['rol']==1 or $_SESSION['rol']==8){
-						        	echo '
-						        		<i class="fas fa-folder-open" style="cursor:pointer; font-size:20px;" title="" value="'.$modelo_id.'" data-toggle="modal" data-target="#Modal_documentos1" onclick="documentos1('.$modelo_id.');"></i>
-						        	';
-					        	}
-
-					        	if($_SESSION['rol']==1 or $_SESSION['rol']==2 or $_SESSION['rol']==9 or $_SESSION['rol']==8){
-					        		echo '
-					        			<i class="fas fa-camera-retro" style="cursor:pointer; font-size:20px;" title="" value="'.$modelo_id.'" data-toggle="modal" data-target="#Modal_fotos1" onclick="fotos1('.$modelo_id.');"></i>
-					        		';
-					        	}
-
-					        	if($_SESSION['rol']==1 or $_SESSION['rol']==2 or $_SESSION['rol']==9){
-					        		echo '
-					        			<i class="fas fa-images ml-3" style="cursor:pointer; font-size:20px;" title="" value="'.$modelo_id.'" data-toggle="modal" data-target="#Modal_fotos2" onclick="fotos2('.$modelo_id.');"></i>
-					        		';
-					        	}
-
-					        	echo '</td>';
-
-					        	echo '
-					        		<td class="text-center">
-					        			<i class="fas fa-user-shield" style="cursor:pointer; font-size:20px;" data-toggle="modal" data-target="#Modal_cuentas1" onclick="cuentas('.$modelo_id.');"></i>
-					        			<strong>('.$contador3.')</strong>
-					        			<i class="fas fa-user-plus ml-3" style="cursor:pointer; font-size:20px;" data-toggle="modal" data-target="#Modal_cuentas2" onclick="cuentas2('.$modelo_id.');"></i>
-					        		</td>
-					        	';
-
-					        	echo '
-					        		<td class="text-center">
-					        			<button class="btn btn-success" value="'.$modelo_id.'" onclick="generar_clave1('.$modelo_id.');">Generar</button>
-					        		</td>
-					        	';
-						}
-						?>
-			            <!-- Caracteristicas interesantes!
-			            <tr>
-			            	<td data-order="1303689600">Mon 25th Apr 11</td>
-                			<td data-order="320800">$320,800/y</td>
-			            </tr>
-			        	-->
-			        </tbody>
-			    </table>
-				<?php } ?>
 		    </div>
 		</div>
 	</div>

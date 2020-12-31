@@ -141,6 +141,20 @@
 				        	<?php
 				        	if($_SESSION['rol']==1){
 				        		$consulta2 = "SELECT * FROM pasantes";	
+				        	}else if($_SESSION['rol']==15){
+				        		$sql3 = "SELECT * FROM usuarios WHERE id = ".$_SESSION['id'];
+				        		$resultado3 = mysqli_query($conexion,$sql3);
+								while($row5 = mysqli_fetch_array($resultado3)) {
+									$usuario_documento = $row5['documento_numero'];
+
+									if($usuario_documento=='1023886014'){
+										$consulta2 = "SELECT * FROM pasantes WHERE sede = 1 or sede = 3";
+									}else if($usuario_documento=='24616438'){
+										$consulta2 = "SELECT * FROM pasantes WHERE sede = 2 or sede = 4";
+									}else{
+										$consulta2 = "SELECT * FROM pasantes WHERE sede = 1";
+									}
+								}
 				        	}else{
 				        		$session_sede = $_SESSION['sede'];
 				        		$consulta2 = "SELECT * FROM pasantes WHERE sede = $session_sede";
@@ -196,7 +210,7 @@
 						                <td class="text-center">
 						            ';
 
-						        	if($pasante_edit==1){
+						        	if($pasante_edit==1 or $_SESSION['rol']==15){
 						        		echo '
 						                	<i class="fas fa-edit" style="color:#0095ff; cursor:pointer;" title="" value="'.$id.'" data-toggle="modal" data-target="#exampleModal" onclick="modal_edit('.$id.');"></i>
 						                ';
@@ -206,7 +220,7 @@
 						                ';
 						        	}
 
-						        	if($pasante_delete==1){
+						        	if($pasante_delete==1 or $_SESSION['rol']==15){
 						        		echo '
 						                	<i class="fas fa-trash-alt ml-3" style="color:red; cursor:pointer;" data-toggle="popover-hover" onclick="eliminar('.$id.');" value="'.$id.'"></i>
 						                ';
@@ -264,6 +278,20 @@
 				        	<?php
 				        	if($_SESSION['rol']==1){
 				        		$consulta2 = "SELECT * FROM modelos";	
+				        	}else if($_SESSION['rol']==15){
+				        		$sql3 = "SELECT * FROM usuarios WHERE id = ".$_SESSION['id'];
+				        		$resultado3 = mysqli_query($conexion,$sql3);
+								while($row5 = mysqli_fetch_array($resultado3)) {
+									$usuario_documento = $row5['documento_numero'];
+
+									if($usuario_documento=='1023886014'){
+										$consulta2 = "SELECT * FROM modelos WHERE sede = 1 or sede = 3";
+									}else if($usuario_documento=='24616438'){
+										$consulta2 = "SELECT * FROM modelos WHERE sede = 2 or sede = 4";
+									}else{
+										$consulta2 = "SELECT * FROM modelos WHERE sede = $session_sede";
+									}
+								}
 				        	}else{
 				        		$session_sede = $_SESSION['sede'];
 				        		$consulta2 = "SELECT * FROM modelos WHERE sede = $session_sede";
@@ -370,8 +398,6 @@
 		    </div>
 		</div>
 	</div>
-
-<?php include('../footer.php'); ?>
 
 <!-- Modal Editar Registro -->
 	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -570,6 +596,8 @@
 <script src="../js/navbar.js"></script>
 <script src="../js/jquery.dataTables.min.js"></script>
 <script src="../js/dataTables.bootstrap4.min.js"></script>
+
+<?php include('../footer.php'); ?>
 
 <script type="text/javascript">
 	$(document).ready(function() {

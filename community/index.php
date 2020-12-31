@@ -135,8 +135,6 @@
 		</div>
 	</div>
 
-<?php include('../footer.php'); ?>
-
 </body>
 </html>
 
@@ -147,6 +145,8 @@
 <script src="../js/navbar.js"></script>
 <script src="../js/jquery.dataTables.min.js"></script>
 <script src="../js/dataTables.bootstrap4.min.js"></script>
+
+<?php include('../footer.php'); ?>
 
 <script type="text/javascript">
 	$(document).ready(function() {

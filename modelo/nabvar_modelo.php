@@ -12,13 +12,13 @@
 			if($ubicacion=='pqr'){
 				echo '
 					<li class="nav-item navbar-active" id="li-pqr">
-		        		<a class="nav-link navbar-active-a botones_navbar1" href="pqr.php" id="a-pqr">PQR</a>
+		        		<a class="nav-link navbar-active-a botones_navbar1" href="pqr.php" style="font-size: 24px;" id="a-pqr">PQR</a>
 		      		</li>
 	      		';
 			}else{
 				echo '
 					<li class="nav-item" id="li-pqr">
-		        		<a class="nav-link navbar-active-a botones_navbar1" href="pqr.php" id="a-pqr">PQR</a>
+		        		<a class="nav-link navbar-active-a botones_navbar1" href="pqr.php" style="font-size: 24px;" id="a-pqr">PQR</a>
 		      		</li>
 	      		';
 			}

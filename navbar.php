@@ -52,6 +52,13 @@ if($ubicacion == 'welcome'){ ?>
 	        		<a class="nav-link navbar-active-a botones_navbar1" href="../modelo/index.php" id="a-modelo">Modelos</a>
 	      		</li>
 			<?php } ?>
+
+			<?php
+			if($_SESSION['rol']==14 or $_SESSION['rol']==15){ ?>
+				<li class="nav-item" id="li-modelo">
+	        		<a class="nav-link navbar-active-a botones_navbar1" href="../modelo/index2.php" id="a-modelo2">Modelos</a>
+	      		</li>
+			<?php } ?>
 			
 			<!--
 			<?php
@@ -68,14 +75,14 @@ if($ubicacion == 'welcome'){ ?>
 	      	</li>
 			-->
 	      	<?php
-			if($verificacion_pasante_view==1){ ?>
+			if($verificacion_pasante_view==1 or $_SESSION['rol']==14 or $_SESSION['rol']==15){ ?>
 		      	<li class="nav-item" id="li-pasante">
 		        	<a class="nav-link navbar-active-a botones_navbar1" href="../pasante/index.php" id="a-pasante">Pasantes</a>
 		      	</li>
 	      	<?php } ?>
 			
 	      	<?php
-			if($verificacion_usuarios_view==1){ ?>
+			if($verificacion_usuarios_view==1 or $_SESSION['rol']==15){ ?>
 		      	<li class="nav-item" id="li-usuario">
 		        	<a class="nav-link navbar-active-a botones_navbar1" href="../usuarios/index.php" id="a-usuario">Usuarios</a>
 		      	</li>
@@ -129,7 +136,7 @@ if($ubicacion == 'welcome'){ ?>
 	      	-->
 
 	      	<?php
-			if($_SESSION['rol']==1 or $_SESSION['rol']==13){ ?>
+			if($_SESSION['rol']==1 or $_SESSION['rol']==13 or $_SESSION['rol']==14){ ?>
 	      	<li class="nav-item" id="li-pagos">
 	        	<a class="nav-link navbar-active-a botones_navbar1" href="../pagos/index.php" id="a-pagos">Pagos</a>
 	      	</li>
@@ -139,6 +146,13 @@ if($ubicacion == 'welcome'){ ?>
 			if($_SESSION['rol']==1 or $_SESSION['rol']==13){ ?>
 	      	<li class="nav-item" id="li-erick">
 	        	<a class="nav-link navbar-active-a botones_navbar1" href="../erick/index.php" id="a-erick">Erick</a>
+	      	</li>
+	      	<?php } ?>
+
+	      	<?php
+			if($_SESSION['rol']==14){ ?>
+	      	<li class="nav-item" id="li-erick">
+	        	<a class="nav-link navbar-active-a botones_navbar1" href="../erick/index.php" id="a-erick">Desprendibles</a>
 	      	</li>
 	      	<?php } ?>
 

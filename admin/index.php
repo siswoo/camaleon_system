@@ -405,8 +405,6 @@
 
 <!--****************************FIN VERIFICAR1****************************-->
 
-<?php include('../footer.php'); ?>
-
 </body>
 </html>
 
@@ -420,6 +418,8 @@
 <script type="text/javascript" src="../js/mdb.js"></script>
 <script src="../js/Chart.js"></script>
 <script src="../resources/lightbox/dist/js/lightbox.js"></script>
+
+<?php include('../footer.php'); ?>
 
 <script type="text/javascript">
 	$(document).ready(function() {

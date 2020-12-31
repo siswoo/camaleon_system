@@ -16,6 +16,7 @@ $presabana = $_GET['tm_select_presabanas'];
 
 $sheet->setCellValue('A1', 'Tipo Identificación');
 $sheet->setCellValue('B1', 'Identificación');
+$sheet->getStyle('B1')->getAlignment()->setHorizontal('right');
 $sheet->setCellValue('C1', 'Identificación Ciudad ');
 $sheet->setCellValue('D1', 'Primer Nombre');
 $sheet->setCellValue('E1', 'Segundo Nombre');
@@ -112,6 +113,15 @@ function eliminar_acentos($cadena){
 }
 /************************************************************/
 
+function eliminar_especiales($cadena){
+	$cadena = str_replace(
+		array('.',',','#','-','*','º','·'),
+		array('','','','','','',''),
+		$cadena
+	);
+	return $cadena;
+}
+
 $spreadsheet->getActiveSheet()->getColumnDimension('A')->setWidth(15);
 $spreadsheet->getActiveSheet()->getColumnDimension('B')->setWidth(20);
 $spreadsheet->getActiveSheet()->getColumnDimension('C')->setWidth(15);
@@ -160,15 +170,14 @@ while($row2 = mysqli_fetch_array($consulta2)) {
 			if($contador2==0){
 
 				$tipo_documento = $row3['documento_tipo'];
+
 				if($tipo_documento=='Cedula de Ciudadania'){
 					$tipo_documento = 'CC';
-				}else if($tipo_documento=='Cedula de Extranjeria'){
-					$tipo_documento = 'Cedula de Extranjeria';
-				}
-				else if($tipo_documento=='Pasaporte'){
-					$tipo_documento = 'Pasaporte';
-				}
-				else if($tipo_documento=='PEP'){
+				}else if($tipo_documento=='Cedula de Extranjeria' or $tipo_documento=='PEP'){
+					$tipo_documento = 'Documento de identificación extranjero';
+				}else if($tipo_documento=='Pasaporte'){
+					$tipo_documento = 'PASAPORTE';
+				}else if($tipo_documento=='PEP'){
 					$tipo_documento = 'PEP';
 				}
 
@@ -192,6 +201,14 @@ while($row2 = mysqli_fetch_array($consulta2)) {
 					$sede_nombre = 'VIP';
 				}
 
+				if($sede_nombre=='VIP Suba'){
+					$sede_nombre = 'Suba';
+				}
+
+				if($sede_nombre=='Occidente I'){
+					$sede_nombre = 'Occidente 1';
+				}
+
 				$direccion = $row3['direccion'];
 				$telefono1 = $row3['telefono1'];
 				$correo = $row3['correo'];
@@ -209,7 +226,11 @@ while($row2 = mysqli_fetch_array($consulta2)) {
 				$apellido2 = mb_strtoupper($apellido2);
 
 				$sheet->setCellValue('A'.$fila, $tipo_documento);
+
 				$sheet->setCellValue('B'.$fila, $numero_documento);
+				$spreadsheet->getActiveSheet()->getStyle('B'.$fila)->getNumberFormat()->setFormatCode('00');
+				$sheet->getStyle('B'.$fila)->getAlignment()->setHorizontal('right');
+
 				$sheet->setCellValue('C'.$fila, 'Bogota D.C.');
 				$sheet->setCellValue('D'.$fila, $nombre1);
 				$sheet->setCellValue('E'.$fila, $nombre2);
@@ -217,8 +238,9 @@ while($row2 = mysqli_fetch_array($consulta2)) {
 				$sheet->setCellValue('G'.$fila, $apellido2);
 				$sheet->setCellValue('H'.$fila, 'Indefinido');
 				
-				$fecha_generada1 = date('m-d-Y');
-				$sheet->setCellValue('I'.$fila, $fecha_generada1);
+				//$fecha_generada1 = date('d-m-Y');
+				$inicio2 = date("d/m/Y", strtotime($inicio));
+				$sheet->setCellValue('I'.$fila, $inicio2);
 
 				$sheet->setCellValue('J'.$fila, 'Administrativa');
 				$sheet->setCellValue('K'.$fila, 'Normal');
@@ -236,7 +258,12 @@ while($row2 = mysqli_fetch_array($consulta2)) {
 				$sheet->setCellValue('W'.$fila, '');
 				$sheet->setCellValue('X'.$fila, 'Bogota D.C.');
 				$sheet->setCellValue('Y'.$fila, 'Casa');
+
+				$direccion = eliminar_acentos($direccion);
+				$direccion = mb_strtoupper($direccion);
+				$direccion = eliminar_especiales($direccion);
 				$sheet->setCellValue('Z'.$fila, $direccion);
+
 				$sheet->setCellValue('AA'.$fila, $telefono1);
 				$sheet->setCellValue('AB'.$fila, $correo);
 				$sheet->setCellValue('AC'.$fila, '');
@@ -252,7 +279,7 @@ while($row2 = mysqli_fetch_array($consulta2)) {
 				$sheet->setCellValue('AM'.$fila, '');
 				$sheet->setCellValue('AN'.$fila, '');
 				$sheet->setCellValue('AO'.$fila, '6.96%');
-				$sheet->setCellValue('AP'.$fila, 'Normal');
+				$sheet->setCellValue('AP'.$fila, '');
 				$sheet->setCellValue('AQ'.$fila, '');
 				$sheet->setCellValue('AR'.$fila, '');
 				$sheet->setCellValue('AS'.$fila, '');

@@ -3,3 +3,11 @@
 		<!--<a href="https://mdbootstrap.com/"> Camaleonmg.com</a>-->
 	</div>
 </footer>
+
+<?php
+	if($ubicacion=='welcome'){ ?>
+		<script src="script/refrescar_logeo3.js"></script>
+	<?php }else{ ?>
+		<script src="../script/refrescar_logeo.js"></script>
+	<?php }
+?>

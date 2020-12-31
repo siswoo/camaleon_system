@@ -8,7 +8,8 @@ if($condicion=='guardar'){
 	$mensaje 	= $_POST['mensaje'];
 	$tema 		= $_POST['tema'];
 	$area 		= 'Modelos';
-	$sql1 = "INSERT INTO pqr (responsable,mensaje,tema,area,fecha_inicio) VALUES ('$id_modelo','$mensaje','$tema','$area','$fecha_inicio')";
+	$estatus 	= 'Proceso';
+	$sql1 = "INSERT INTO pqr (responsable,mensaje,tema,area,estatus,fecha_inicio) VALUES ('$id_modelo','$mensaje','$tema','$area','$estatus','$fecha_inicio')";
 	$consulta1 = mysqli_query($conexion,$sql1);
 }
 
@@ -22,7 +23,8 @@ if($condicion=='asignar'){
 
 if($condicion=='listo'){
 	$id_pqr = $_POST['id_pqr'];
-	$sql1 = "UPDATE pqr SET estatus = 'listo' WHERE id = ".$id_pqr;
+	$razon = $_POST['razon'];
+	$sql1 = "UPDATE pqr SET estatus = 'listo', respuesta = '$razon' WHERE id = ".$id_pqr;
 	$consulta1 = mysqli_query($conexion,$sql1);
 	
 	$datos = [

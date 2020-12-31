@@ -102,7 +102,6 @@
     </div>
 	-->
 
-<?php include('footer.php'); ?>
 
 </body>
 </html>
@@ -111,3 +110,4 @@
 <script src="js/bootstrap.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script src="js/navbar.js"></script>
+<?php include('footer.php'); ?>

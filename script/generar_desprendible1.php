@@ -71,6 +71,7 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 	$documento_tipo = $row1['documento_tipo'];
 	$documento_numero = $row1['documento_numero'];
 	$modelo_nombre_completo = $row1['nombre1']." ".$row1['nombre2']." ".$row1['apellido1']." ".$row1['apellido2'];
+	$turno = $row1['turno'];
 
 	$sql2 = "SELECT * FROM modelos_cuentas WHERE id_modelos = ".$modelo_id;
 	$consulta2 = mysqli_query($conexion,$sql2);
@@ -292,6 +293,12 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 
 		$meta_porcentaje = $meta2;
 
+		if($turno=='Satelite'){
+			$meta1 = '80%';
+			$meta_porcentaje = 80;
+			$meta3 = 0.8;
+		}
+
 		$sheet->setCellValue('U'.$fila, $meta_porcentaje);
 
 		//$total_dolares = $subt_total_dolares-$retencion_fuente;
@@ -408,6 +415,15 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 			$contador_sancionpagina = $valor_sancionpagina + $contador_sancionpagina;
 		}
 
+		if($turno=='Satelite'){
+			$contador_descuento = 0;
+			$contador_tienda = 0;
+			$contador_avances = 0;
+			$contador_multas = 0;
+			$contador_bonos_horas = 0;
+			$as = 0;
+		}
+
 		$sheet->setCellValue('Z'.$fila, $contador_descuento);
 		$sheet->setCellValue('AA'.$fila, $contador_tienda);
 		$sheet->setCellValue('AB'.$fila, $contador_avances);
@@ -419,11 +435,19 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 			$contador_bonos_streamate = $contador_bonos_streamate*$desprendible_trm;
 		}
 
+		if($turno=='Satelite'){
+			$contador_bonos_streamate = 0;
+		}
+
 		$sheet->setCellValue('AE'.$fila, $contador_bonos_streamate);
 		$sheet->setCellValue('AF'.$fila, $contador_sexshop);
 
 		if($contador_sancionpagina>=1){
 			$contador_sancionpagina = $contador_sancionpagina*$desprendible_trm;
+		}
+
+		if($turno=='Satelite'){
+			$contador_sancionpagina = 0;
 		}
 		
 		$sheet->setCellValue('AG'.$fila, $contador_sancionpagina);

@@ -17,6 +17,7 @@ $(document).ready(function(){
 
     var hidden_usuario_view = $('#hidden_usuario_view').val();
 
+    /*
     if(hidden_modelo_view==0){
         $('#a-modelo').addClass('disabled');
         $('#a-modelo').removeClass('navbar-active-a');
@@ -36,6 +37,7 @@ $(document).ready(function(){
         $('#a-pasante').addClass('disabled');
         $('#a-pasante').removeClass('navbar-active-a');
     }
+    */
 
     /*
     if(hidden_usuario_view==0){
@@ -47,6 +49,7 @@ $(document).ready(function(){
     if(hidden_ubicacion=="welcome"){
         $('#navbar-home').attr('href','welcome.php');
         $('#a-modelo').attr('href','modelo/index.php');
+        $('#a-modelo2').attr('href','modelo/index2.php');
         $('#a-roles').attr('href','roles/index.php');
         $('#a-seguridad').attr('href','seguridad/index.php');
         $('#a-pasante').attr('href','pasante/index.php');

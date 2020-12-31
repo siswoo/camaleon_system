@@ -162,32 +162,14 @@
 					    <small id="emailHelp" class="form-text text-muted">Los datos de ingreso son totalmente confidenciales.</small>
 				    </div>
 					<div class="row">
-						<div class="col-md-6 form-group form-check text-center">
+						<div class="col-md-5 form-group form-check text-center">
 							<button type="submit" id="submit" class="btn btn-success">Ingresar</button>
 						</div>
-						<!--
-						<div class="col-6" class="text-center" style="text-align: center;">
-							<a href="pasante/crear_cuenta.php">
-								<input type="button" class="btn btn-info" value="Crear Cuenta">
-							</a>
+						<div class="col-md-7 form-group form-check text-center">
+							<a href="recuperar_contraseña1.php" style="color:white; text-decoration: none; margin-top: 5px;">¿Has olvidado la contraseña?</a>
 						</div>
-						-->
-						<div class="col-md-6 form-group form-check text-center" style="text-align: center;">
-						<p class="">
-							<a href="" style="color:white; text-decoration: none; margin-top: 5px;">Has olvidado la contraseña?</a>
-						</p>
-					</div>
 					</div>
 			    </form>
-			    <!--
-			    <div class="row">
-			    	<div class="col-md-6 form-group form-check text-center" style="text-align: center;">
-						<p class="olvido1">
-							<a href="">Has olvidado la contraseña?</a>
-						</p>
-					</div>
-				</div>
-				-->
 
 		    </div>
 	    </div>

@@ -68,46 +68,46 @@
 	include('../script/navbar_verificacion.php');
 	include('../navbar.php');
 ?>
-
 	<div class="seccion1" id="seccion1">
 	    <div class="row">
-	    	<div class="col-12 text-center" style="font-weight: bold; font-size: 30px; text-transform: uppercase;">
-	    		Módulo de Erick
-	    	</div>
-	    	<div class="col-12 text-center mt-3">
-	    		<a href="exportar1.php" style="text-decoration: none;">
-			    	<button type="button" class="btn btn-info">Modelos Registrados</button>
-	    		</a>
-	    		<a href="exportar2.php" style="text-decoration: none;">
-			    	<button type="button" class="btn btn-info ml-3">Pasantes Sin Aceptar</button>
-				</a>
-				<a href="exportar3.php" style="text-decoration: none;">
-			    	<button type="button" class="btn btn-info ml-3">Pasantes Aceptadas</button>
-				</a>
-				<a href="exportar4.php" style="text-decoration: none;">
-			    	<button type="button" class="btn btn-info ml-3">Modelos Sin Cuentas</button>
-				</a>
-				<a href="exportar5.php" style="text-decoration: none;">
-			    	<button type="button" class="btn btn-info ml-3">Todas las Pasantes</button>
-				</a>
-				<!--
-				<a href="exportar6.php" style="text-decoration: none;">
-			    	<button type="button" class="btn btn-info ml-3">Registrados con Banco</button>
-				</a>
-				<a href="exportar7.php" style="text-decoration: none;">
-			    	<button type="button" class="btn btn-info ml-3">Faltantes Mixtos 1</button>
-				</a>
-				<a href="exportar8.php" style="text-decoration: none;">
-			    	<button type="button" class="btn btn-info ml-3">Cuentas Repetidas</button>
-				</a>
-				-->
-	    	</div>
+	    	<?php
+			if($_SESSION['rol']!=14){?>
+		    	<div class="col-12 text-center" style="font-weight: bold; font-size: 30px; text-transform: uppercase;">
+		    		Módulo de Erick
+		    	</div>
+		    	<div class="col-12 text-center mt-3">
+		    		<a href="exportar1.php" style="text-decoration: none;">
+				    	<button type="button" class="btn btn-info">Modelos Registrados</button>
+		    		</a>
+		    		<a href="exportar2.php" style="text-decoration: none;">
+				    	<button type="button" class="btn btn-info ml-3">Pasantes Sin Aceptar</button>
+					</a>
+					<a href="exportar3.php" style="text-decoration: none;">
+				    	<button type="button" class="btn btn-info ml-3">Pasantes Aceptadas</button>
+					</a>
+					<a href="exportar4.php" style="text-decoration: none;">
+				    	<button type="button" class="btn btn-info ml-3">Modelos Sin Cuentas</button>
+					</a>
+					<a href="exportar5.php" style="text-decoration: none;">
+				    	<button type="button" class="btn btn-info ml-3">Todas las Pasantes</button>
+					</a>
+					<!--
+					<a href="exportar6.php" style="text-decoration: none;">
+				    	<button type="button" class="btn btn-info ml-3">Registrados con Banco</button>
+					</a>
+					<a href="exportar7.php" style="text-decoration: none;">
+				    	<button type="button" class="btn btn-info ml-3">Faltantes Mixtos 1</button>
+					</a>
+					<a href="exportar8.php" style="text-decoration: none;">
+				    	<button type="button" class="btn btn-info ml-3">Cuentas Repetidas</button>
+					</a>
+					-->
+		    	</div>
+		    	<div class="col-12 mt-3 text-center">
+		    		<hr style="background-color: black; height: 2px;">
+		    	</div>
+			<?php } ?>
 
-	    	<!--****************************************************-->
-
-	    	<div class="col-12 mt-3 text-center">
-	    		<hr style="background-color: black; height: 2px;">
-	    	</div>
 
 	    	<div class="col-12 mt-3 text-center" style="font-weight: bold; font-size: 30px; text-transform: uppercase;">
 	    		Zona de Desprendibles
@@ -145,6 +145,9 @@
 		   	<div class="col-12 mt-3 text-center">
 	    		<hr style="background-color: black; height: 2px;">
 	    	</div>
+
+	    	<?php
+			if($_SESSION['rol']!=14){?>
 
 	    	<div class="col-12 mt-3 text-center" style="font-weight: bold; font-size: 30px; text-transform: uppercase;">
 	    		Zona de Desprendibles Bancarios para Andrea y | <3 Camila *-* |
@@ -228,18 +231,42 @@
 	    		<hr style="background-color: black; height: 2px;">
 	    	</div>
 
-	    	<div class="col-12 mt-3 text-center" style="font-weight: bold; font-size: 30px; text-transform: uppercase;">
-	    		Zona de Test
+	    	<div class="col-12 mt-3 text-center">
+	    		<form action="../pagos/test7.php" method="POST" id="formulario_sc1">
 	    	</div>
 
-	    	<div class="col-12 mt-3 text-center">
-	    		<a href="../pagos/test7.php" style="text-decoration: none;">
-			    	<button type="button" class="btn btn-info">Generar Formato Software Contable</button>
-				</a>
+	    	<div class="col-12 mt-3 text-center" style="font-weight: bold; font-size: 30px; text-transform: uppercase;">
+	    		Zona de Software Contable
+	    	</div>
 
+	    	<div class="col-6 mt-3 text-center">
+	    		<select class="form-control" id="select_sc" name="select_sc" required>
+	    			<option value="">Seleccione Presabana</option>
+	    		<?php
+	    			$sql_presabana2 = "SELECT * FROM presabana GROUP BY fecha_inicio";
+		    		$consulta_presabana2 = mysqli_query($conexion,$sql_presabana2);
+					while($row3 = mysqli_fetch_array($consulta_presabana2)) {
+						echo '
+							<option value="'.$row3["id"].'">'.$row3["inicio"].' - '.$row3["fin"].'</option>
+						';
+					}
+	    		?>
+	    		</select>
+	    	</div>
+
+	    	<div class="col-6 mt-3 text-center">
+	    		<a href="../pagos/test7.php" style="text-decoration: none;">
+			    	<button type="submit" id="submit_sc1" class="btn btn-info">Generar Formato Software Contable</button>
+				</a>
+				<!--
 				<a href="../pagos/test8.php" style="text-decoration: none;">
 			    	<button type="button" class="btn btn-info ml-3">Planilla BBVA</button>
 				</a>
+				-->
+	    	</div>
+
+	    	<div class="col-12 mt-3 text-center">
+	    		</form>
 	    	</div>
 
 	    	<div class="col-12 mt-3 text-center">
@@ -311,6 +338,8 @@
 				    <tbody id="resultados"></tbody>
 				</table>
 			</div>
+
+			<?php } ?>
 
 		</div>
 	</div>
@@ -649,9 +678,6 @@
 	</div>
 <!-- FIN Modal Documentos1 -->
 
-
-<?php include('../footer.php'); ?>
-
 </body>
 </html>
 
@@ -666,6 +692,8 @@
 <!--<script src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/js/toastr.min.js"></script>-->
 <script src="../js/Chart.js"></script>
 <script src="../resources/lightbox/dist/js/lightbox.js"></script>
+
+<?php include('../footer.php'); ?>
 
 <script type="text/javascript">
 	$(document).ready(function() {

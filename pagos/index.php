@@ -75,22 +75,32 @@
 		<input type="hidden" id="modelo_edit" value="<?php echo $modelo_edit; ?>">
 		<input type="hidden" id="modelo_delete" value="<?php echo $modelo_delete; ?>">
 	</form>
-	<div class="row">
-		<div class="col-12 text-center mt-3">
-			<!--
-			<a href="nuevo_pago.php" style="text-decoration: none;">
-				<input type="submit" class="btn btn-success" value="Nuevo Pago">
-			</a>
-			<input type="submit" class="btn btn-info" value="Descuentos" data-toggle="modal" data-target="#exampleModal3">
-			<button type="button" class="btn btn-info" value="No" id="pendientes" onclick="mostrarSeccionPendientes1(this.id,value);">Pendientes</button>
-			-->
-			<button type="button" class="btn btn-info" value="No" id="extras" onclick="mostrarSeccionExtras1(this.id,value);">Extras</button>
-			<button type="button" class="btn btn-info" value="No" id="graficos" onclick="mostrarSeccionGraficos1(this.id,value);">Gráficos</button>
-			<button type="button" class="btn btn-info" value="No" id="datos" onclick="mostrarSeccion1(this.id,value);">Datos</button>
-			<button type="button" class="btn btn-info" value="No" id="desprendibles" onclick="mostrarSeccionDesprendible1(this.id,value);">Desprendible de Pagos</button>
-			<button type="button" class="btn btn-info" value="No" id="modelos" onclick="mostrarSeccionModelos1(this.id,value);">Consultar Modelos</button>
+
+	<?php
+	if($_SESSION['rol']==14){ ?>
+		<div class="row">
+			<div class="col-12 text-center mt-3">
+				<button type="button" class="btn btn-info" value="No" id="graficos" onclick="mostrarSeccionGraficos1(this.id,value);">Gráficos</button>
+			</div>
 		</div>
-	</div>
+	<?php }else{ ?>
+		<div class="row">
+			<div class="col-12 text-center mt-3">
+				<!--
+				<a href="nuevo_pago.php" style="text-decoration: none;">
+					<input type="submit" class="btn btn-success" value="Nuevo Pago">
+				</a>
+				<input type="submit" class="btn btn-info" value="Descuentos" data-toggle="modal" data-target="#exampleModal3">
+				<button type="button" class="btn btn-info" value="No" id="pendientes" onclick="mostrarSeccionPendientes1(this.id,value);">Pendientes</button>
+				-->
+				<button type="button" class="btn btn-info" value="No" id="extras" onclick="mostrarSeccionExtras1(this.id,value);">Extras</button>
+				<button type="button" class="btn btn-info" value="No" id="graficos" onclick="mostrarSeccionGraficos1(this.id,value);">Gráficos</button>
+				<button type="button" class="btn btn-info" value="No" id="datos" onclick="mostrarSeccion1(this.id,value);">Datos</button>
+				<button type="button" class="btn btn-info" value="No" id="desprendibles" onclick="mostrarSeccionDesprendible1(this.id,value);">Desprendible de Pagos</button>
+				<button type="button" class="btn btn-info" value="No" id="modelos" onclick="mostrarSeccionModelos1(this.id,value);">Consultar Modelos</button>
+			</div>
+		</div>
+	<?php } ?>
 
 	<!--<div class="col-12 text-center" style="font-weight: bold; ">Resumen de Pagos Efectuados</div>-->
 
@@ -695,7 +705,7 @@
 				<div class="form-group col-12">
 				    <p class="text-center" style="font-weight: bold; font-size: 20px;">Reporte de Gráficos</p>
 				</div>
-				<div class="form-group col-12">
+				<div class="form-group col-4">
 					<label>Gráficos</label>
 				    <select class="form-control" name="select_graficos1" id="select_graficos1" required>
 				    	<option value="">Seleccione</option>
@@ -705,6 +715,24 @@
 				    	<option value="Stripchat">Stripchat</option>
 				    	<option value="Streamate">Streamate</option>
 				    	<option value="Myfreecams">Myfreecams</option>
+				    	<option value="LiveJasmin">LiveJasmin</option>
+				    	<option value="Bonga">Bonga</option>
+				    	<option value="Cam4">Cam4</option>
+				    	<option value="Camsoda">Camsoda</option>
+				    	<option value="Flirt4free">Flirt4free</option>
+				    </select>
+				</div>
+				<div class="form-group col-4">
+					<label>Valor del TRM</label>
+				    <input type="text" name="trm_graficos1" id="trm_graficos1" class="form-control" required>
+				</div>
+				<div class="form-group col-4">
+					<label>Moneda</label>
+					<select class="form-control" name="moneda_graficos1" id="moneda_graficos1" required>
+				    	<option value="">Seleccione</option>
+				    	<option value="Dolares">Dolares</option>
+				    	<option value="Pesos">Pesos</option>
+				    	<option value="Tokens">Tokens</option>
 				    </select>
 				</div>
 				<div class="form-group col-12 text-center">
@@ -715,7 +743,11 @@
 
 		<div class="container" id="div_grafica_mostrar1" style="max-height: 400px; max-width: 800px; display: none;">
 			<div class="col-12">
-				<canvas id="speedCanvas" height="400vw" width="800vw"></canvas>
+				<!--<canvas id="speedCanvas" height="400vw" width="800vw"></canvas>-->
+				<div id="chart-container">
+			        <canvas id="graphCanvas"></canvas>
+			    </div>
+			    <input type="hidden" name="seguridad_chart1" id="seguridad_chart1" value="0">
 			</div>
 		</div>
 
@@ -1067,8 +1099,6 @@
 
 <!--****************************FIN DESPRENDIBLES****************************-->
 
-<?php include('../footer.php'); ?>
-
 </body>
 </html>
 
@@ -1082,6 +1112,8 @@
 <script type="text/javascript" src="../js/mdb.js"></script>
 <!--<script src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/js/toastr.min.js"></script>-->
 <script src="../js/Chart.js"></script>
+
+<?php include('../footer.php'); ?>
 
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -1555,6 +1587,9 @@
 
     function creargrafica1(submit){
     	var select_graficos1 = $('#select_graficos1').val();
+    	var trm_graficos1 = $('#trm_graficos1').val();
+    	var moneda_graficos1 = $('#moneda_graficos1').val();
+
     	if(select_graficos1==''){
     		$('#div_grafica_mostrar1').hide('slow');
     		return false;
@@ -1562,56 +1597,71 @@
     		$('#div_grafica_mostrar1').show('slow');
     	}
 
-    	$.ajax({
-            url: '../script/consulta_grafica1.php',
-            type: 'POST',
-            dataType: "JSON",
-            data: {
-				"select_graficos1": select_graficos1,
-			},
+    	showGraph();
 
-            beforeSend: function (){},
-
-            success: function(response){
-            	console.log(response);
-            	
-            	var speedData = {
-					labels: [
-						response['fechas'][0],response['fechas'][1],response['fechas'][2],response['fechas'][3],"","",
-						//fechas_resultados
-						//response['fechas']
-						//"Uno,Dos,Tres"
-						//"Noviembre-2020","Octubre-2020","Enero-2021"
-					],
-					datasets: [
-						dataFirst = {
-							label: select_graficos1,
-							lineTension: 0.3,
-							data: [
-								//response['tokens']
-								100,3000,5000
-							],
+    	function showGraph(){
+            	{
+            		$.ajax({                   
+			           type: "POST",             
+			           url: "../script/consulta_grafica1.php",                     
+			           data: {
+							"select_graficos1": select_graficos1,
+							"trm_graficos1": trm_graficos1,
+							"moneda_graficos1": moneda_graficos1,
 						},
-						/*
-						dataSecond = {
-							label: "Chaturbate",
-							data: [0, 59, 75, 20, 20, 55, 40],
-							lineTension: 0.3,
-						},
-						*/
-					]
-				};
 
-				var lineChart = new Chart(speedCanvas, {
-					type: 'bar',
-					data: speedData
-				});
-            },
+			           success: function(data){
+			           	console.log(data);
+			           	var tokens = [];
+		                var dolares = [];
+		                var desde = [];
+		                var hasta = [];
+		                var fecha_inicio = [];
+		                var moneda = moneda_graficos1;
+		                var pagina = select_graficos1;
+		                var total = [];
+						
+						for (var i in data) {
+	                        total.push(data[i].total);
+	                        desde.push(data[i].desde);
+	                        hasta.push(data[i].hasta);
+	                        if(select_graficos1=='Chaturbate' || select_graficos1=='Stripchat'){
+	                        	fecha_inicio.push(data[i].desde);	
+	                        }else{
+	                        	fecha_inicio.push(data[i].desde+" | "+data[i].hasta);
+	                        }
+	                    }
 
-            error: function(response){
-            	console.log(response['responseText']);
+	                    var chartdata = {
+	                        labels: fecha_inicio,
+	                        datasets: [
+	                            {
+	                                label: pagina,
+	                                backgroundColor: '#49e2ff',
+	                                borderColor: '#46d5f1',
+	                                hoverBackgroundColor: '#CCCCCC',
+	                                hoverBorderColor: '#666666',
+	                                data: total,
+	                            }
+	                        ]
+	                    };
+
+	                    $('#graphCanvas').remove(); 
+	                    $('#chart-container').append('<canvas id="graphCanvas"><canvas>');
+
+	                    var graphTarget = $("#graphCanvas");
+
+	                    var barGraph = new Chart(graphTarget, {
+		                       type: 'bar',
+		                       data: chartdata
+	                    });
+
+	                    $('#seguridad_chart1').val(1);
+	                    
+			           }
+			       });
             }
-        });
+        }
     }
 
     function mostrarSeccionPendientes1(button,value){
@@ -2464,3 +2514,66 @@
 	}
 
 </script>
+
+
+
+
+    <script>
+        /*
+        $(document).ready(function () {
+            showGraph();
+        });
+        */
+        /*
+        function iniciar(){
+            showGraph();
+        
+            function showGraph(){
+            	{
+	                $.post("test9_1.php",
+	                function (data){
+	                    console.log(data);
+	                    var tokens = [];
+	                    var dolares = [];
+	                    var fecha_desde = [];
+	                    var fecha_hasta = [];
+	                    var fecha_inicio = [];
+	                    var moneda = "Dolares";
+	                    var pagina = "XLove";
+
+	                    for (var i in data) {
+	                        tokens.push(data[i].tokens);
+	                        dolares.push(data[i].dolares);
+	                        fecha_desde.push(data[i].fecha_desde);
+	                        fecha_hasta.push(data[i].fecha_hasta);
+	                        fecha_inicio.push(data[i].fecha_desde+" | "+data[i].fecha_hasta);
+	                    }
+
+	                    var chartdata = {
+	                        labels: fecha_inicio,
+	                        datasets: [
+	                            {
+	                                label: pagina,
+	                                backgroundColor: '#49e2ff',
+	                                borderColor: '#46d5f1',
+	                                hoverBackgroundColor: '#CCCCCC',
+	                                hoverBorderColor: '#666666',
+	                                data: dolares,
+	                            }
+	                        ]
+	                    };
+
+	                    var graphTarget = $("#graphCanvas");
+
+	                    var barGraph = new Chart(graphTarget, {
+	                        type: 'bar',
+	                        data: chartdata
+	                    });
+	                });
+            }
+        }
+
+        }
+        */
+
+        </script>
