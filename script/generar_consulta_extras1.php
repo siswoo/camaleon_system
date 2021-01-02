@@ -28,9 +28,21 @@ switch ($tipo) {
 		$consulta2 = mysqli_query($conexion,$sqlTipo);
 	break;
 	
-	default:
+	default:/*
 		$html .= '
 			<div class="col-12 text-center">Sin resultados</div>
+		';
+		*/
+		$html .= '
+		<tr>
+			<td class="text-center">Error</td>
+			<td class="text-center">Error</td>
+			<td class="text-center">Error</td>
+			<td class="text-center">Error</td>
+			<td class="text-center">Error</td>
+			<td class="text-center">Error</td>
+			<td class="text-center">Error</td>
+		</tr>
 		';
 		$datos = [
 			"html" => $html,
@@ -40,6 +52,7 @@ switch ($tipo) {
 	break;
 }
 
+/*
 $html .= '
 	<table class="table" border="1">
 		<thead>
@@ -55,6 +68,7 @@ $html .= '
 		</thead>
 		<tbody>
 ';
+*/
 
 while($row1 = mysqli_fetch_array($consulta2)) {
 	$id_modelo = $row1['id_modelo'];
@@ -80,16 +94,18 @@ while($row1 = mysqli_fetch_array($consulta2)) {
 			<td class="text-center">'.$valor.'</td>
 			<td class="text-center">'.$fecha_inicio.'</td>
 			<td class="text-center">
-				<button class="btn btn-danger" type="button" onclick="borrar_extra1();">Pagado</button>
+				<button class="btn btn-danger" type="button" onclick="borrar_extra1();">Eliminar</button>
 			</td>
 		</tr>
 	';
 }
 
+/*
 $html .= '
 		</tbody>
 	</table>
 ';
+*/
 
 $datos = [
 	"html" => $html,

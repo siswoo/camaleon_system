@@ -42,7 +42,7 @@ if($ubicacion == 'welcome'){ ?>
 		</a>
 	<?php } ?>
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-	    <span class="navbar-toggler-icon"></span>
+	    <span class="navbar-toggler-icon" style="background-color: white;"></span>
   	</button>
 	<div class="collapse navbar-collapse" id="navbarSupportedContent">
 		<ul class="navbar-nav mr-auto">
@@ -136,7 +136,7 @@ if($ubicacion == 'welcome'){ ?>
 	      	-->
 
 	      	<?php
-			if($_SESSION['rol']==1 or $_SESSION['rol']==13 or $_SESSION['rol']==14){ ?>
+			if($_SESSION['rol']==1 or $_SESSION['rol']==13 or $_SESSION['rol']==14 or $_SESSION['rol']==8 or $_SESSION['rol']==15){ ?>
 	      	<li class="nav-item" id="li-pagos">
 	        	<a class="nav-link navbar-active-a botones_navbar1" href="../pagos/index.php" id="a-pagos">Pagos</a>
 	      	</li>

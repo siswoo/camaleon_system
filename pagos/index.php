@@ -83,6 +83,12 @@
 				<button type="button" class="btn btn-info" value="No" id="graficos" onclick="mostrarSeccionGraficos1(this.id,value);">Gráficos</button>
 			</div>
 		</div>
+	<?php }else if($_SESSION['rol']==15 or $_SESSION['rol']==8){ ?>
+		<div class="row">
+			<div class="col-12 text-center mt-3">
+				<button type="button" class="btn btn-info" value="No" id="extras" onclick="mostrarSeccionExtras1(this.id,value);">Extras</button>
+			</div>
+		</div>
 	<?php }else{ ?>
 		<div class="row">
 			<div class="col-12 text-center mt-3">
@@ -872,6 +878,7 @@
 				<div class="form-group col-12">
 				    <p class="text-center" style="font-weight: bold; font-size: 20px;">Consultar Extras</p>
 				</div>
+				<!--
 				<div class="form-group col-2 text-center">
 					<button class="btn btn-primary" type="button" value="descuento" onclick="generar_extra(value);">Descuentos</button>
 				</div>
@@ -911,11 +918,52 @@
 				<div class="form-group col-2 text-center">	
 					<button class="btn btn-primary" type="button" value="lenceria" onclick="generar_extra(value);">Lenceria</button>
 				</div>
+				-->
+				<div class="form-group col-10">
+					<select class="form-control" name="pagina_consultar_extra1" id="pagina_consultar_extra1" required>
+					    <option value="">Seleccione</option>
+					    <option value="descuento">Descuento</option>
+					    <option value="tienda">Tienda</option>
+					    <option value="avances">Avances</option>
+					    <option value="multas">Multas</option>
+					    <option value="bonos_horas">Bonos Horas</option>
+					    <option value="bonos_streamate">Bonos Streamate</option>
+					    <option value="odontologia">Odontologia</option>
+					    <option value="seguridad_social">Seguridad Social</option>
+					    <option value="coopserpak">Coopserpak</option>
+					    <option value="sexshop">Sexshop</option>
+					    <option value="belleza">Belleza</option>
+					    <option value="sancionpagina">Sanción Pagina</option>
+					    <option value="lenceria">Lenceria</option>
+					</select>
 				</div>
-				<div class="form-group col-12" id="extra_generado1"></div>
+
+				<div class="text-center col-2">
+					<button type="button" id="submit_consultar_extra1" class="btn btn-info" onclick="generar_extra();">Consultar</button>
+				</div>
 			</div>
+
+			<div class="form-group col-12 mt-3">
+				<table id="table2" class="table row-border hover table-bordered" style="font-size: 12px;">
+					<thead>
+						<tr>
+							<th class="text-center">Tipo Documento</th>
+							<th class="text-center">Número Documento</th>
+							<th class="text-center">Modelo</th>
+							<th class="text-center">Concepto</th>
+							<th class="text-center">Valor</th>
+							<th class="text-center">Fecha</th>
+							<th class="text-center">Opción</th>
+						</tr>
+					</thead>
+					<tbody id="extra_generado1"></tbody>
+				</table>
+			</div>
+		</div>
 		</form>
 	</div>
+	
+	<!--<div id="extra_generado1">holaaa</div>-->
 
 	<div class="seccion1" id="div_extras4" style="display: none; border: 3px solid black; border-radius: 1rem; padding: 5px 5px 5px 5px;">
 		<form id="formulario_subir_extras" method="POST" action="#">
@@ -1141,6 +1189,29 @@
     	} );
 
     	var table = $('#table1').DataTable( {
+        	//"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+        	"lengthMenu": [[10, 25, 50, 100], [10, 25, 50, 100]],
+
+        	"language": {
+	            "lengthMenu": "Mostrar _MENU_ Registros por página",
+	            "zeroRecords": "No se ha encontrado resultados",
+	            "info": "Ubicado en la página <strong>_PAGE_</strong> de <strong>_PAGES_</strong>",
+	            "infoEmpty": "Sin registros actualmente",
+	            "infoFiltered": "(Filtrado de <strong>_MAX_</strong> total registros)",
+	            "paginate": {
+			        "first":      "Primero",
+			        "last":       "Última",
+			        "next":       "Siguiente",
+			        "previous":   "Anterior"
+			    },
+			    "search": "Buscar",
+        	},
+
+        	"paging": true
+
+    	} );
+
+    	var table2 = $('#table2').DataTable( {
         	//"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
         	"lengthMenu": [[10, 25, 50, 100], [10, 25, 50, 100]],
 
@@ -2308,7 +2379,19 @@
 		}
 	}
 
-	function generar_extra(value){
+	function generar_extra(){
+		var value = $('#pagina_consultar_extra1').val();
+		if(value==''){
+			Swal.fire({
+				title: 'Error',
+				text: "Indique que va ha consultar!",
+				icon: 'error',
+			 	position: 'center',
+				showConfirmButton: false,
+			 	timer: 3000
+			});
+			return false;
+		}
 		$.ajax({
 			type: 'POST',
 			url: '../script/generar_consulta_extras1.php',
@@ -2318,9 +2401,59 @@
 			},
 
 			success: function(respuesta) {
-				//console.log(respuesta['contador1']);
-				$('#extra_generado1').hide('slow').html(respuesta['html']).fadeIn();
-			},
+				//console.log(respuesta['html']);
+
+				$('#table2').DataTable().destroy();
+				
+				$('#extra_generado1').html(respuesta['html']);
+				
+				//$('#extra_generado1').hide('slow').html(respuesta['html']).fadeIn();
+				
+				var table = $('#table2').DataTable( {
+		        	"lengthMenu": [[10, 25, 50, 100], [10, 25, 50, 100]],
+
+		        	"language": {
+			            "lengthMenu": "Mostrar _MENU_ Registros por página",
+			            "zeroRecords": "No se ha encontrado resultados",
+			            "info": "Ubicado en la página <strong>_PAGE_</strong> de <strong>_PAGES_</strong>",
+			            "infoEmpty": "Sin registros actualmente",
+			            "infoFiltered": "(Filtrado de <strong>_MAX_</strong> total registros)",
+			            "paginate": {
+					        "first":      "Primero",
+					        "last":       "Última",
+					        "next":       "Siguiente",
+					        "previous":   "Anterior"
+					    },
+					    "search": "Buscar",
+		        	},
+
+		        	"paging": true,
+		        	"order": [[ 5, "desc" ]],
+
+	    			} );
+
+					/***************POPOVERS*******************/
+					$(function () {
+						$('[data-toggle="popover"]').popover()
+					})
+
+					// popovers initialization - on hover
+					$('[data-toggle="popover-hover"]').popover({
+					  html: true,
+					  trigger: 'hover',
+					  placement: 'bottom',
+					  /*content: function () { return '<img src="' + $(this).data('img') + '" />'; }*/
+					});
+
+					// popovers initialization - on click
+					$('[data-toggle="popover-click"]').popover({
+					  html: true,
+					  trigger: 'click',
+					  placement: 'bottom',
+					  content: function () { return '<img src="' + $(this).data('img') + '" />'; }
+					});
+			    	/******************************************/
+				},
 
 			error: function(respuesta) {
 				console.log(respuesta['responseText']);
