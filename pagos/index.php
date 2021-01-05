@@ -81,6 +81,7 @@
 		<div class="row">
 			<div class="col-12 text-center mt-3">
 				<button type="button" class="btn btn-info" value="No" id="graficos" onclick="mostrarSeccionGraficos1(this.id,value);">Gráficos</button>
+				<button type="button" class="btn btn-info ml-3" value="No" id="totales" onclick="mostrarSeccion2(this.id,value);">Totales</button>
 			</div>
 		</div>
 	<?php }else if($_SESSION['rol']==15 or $_SESSION['rol']==8){ ?>
@@ -762,6 +763,128 @@
 
 <!--****************************FIN GRAFICOS****************************-->
 
+<!--****************************TOTALES****************************-->
+
+	<div class="seccion1" id="div_totales" style="display: none; border: 3px solid black; border-radius: 1rem; padding: 5px 5px 5px 5px;">
+	    <div class="row">
+			<div class="form-group col-12">
+			    <p class="text-center" style="font-weight: bold; font-size: 20px;">Totales de Páginas</p>
+			</div>
+			<!--
+			<div class="form-group col-4 text-center">
+				<label for="totales_fecha_desde">Fecha Desde</label>
+				<input type="date" id="totales_fecha_desde" name="totales_fecha_desde" required class="form-control">
+			</div>
+			<div class="form-group col-4 text-center">
+				<label for="totales_fecha_hasta">Fecha Hasta</label>
+				<input type="date" id="totales_fecha_hasta" name="totales_fecha_hasta" required class="form-control">
+			</div>
+			-->
+			<div class="form-group col-8 text-center">
+				<label for="totales_corte">Corte</label>
+				<select class="form-control" name="totales_corte" id="totales_corte" required>
+				<?php
+				$sql3 = "SELECT * FROM presabana GROUP BY inicio";
+				$consulta3 = mysqli_query($conexion,$sql3);
+				while($row3 = mysqli_fetch_array($consulta3)) { ?>
+					<option value="">Seleccione</option>
+					<option value="<?php echo $row3['id']; ?>"><?php echo $row3['inicio']." | ".$row3['fin']; ?></option>
+				<?php } ?>
+				</select>
+			</div>
+			<div class="col-4 text-center" style="margin-top: 2rem;">
+				<button tipe="button" class="btn btn-success" onclick="totales_consultar1();">Consultar</button>
+			</div>
+			<div class="col-12">
+				<table class="table row-border hover table-bordered" style="font-size: 12px;">
+			        <thead>
+			            <tr>
+			                <th class="text-center"></th>
+			                <th class="text-center">Chaturbate</th>
+			                <th class="text-center">Bonga</th>
+			                <th class="text-center">Stripchat</th>
+			                <th class="text-center">Cam4</th>
+			                <th class="text-center">Streamate</th>
+			                <th class="text-center">Camsoda</th>
+			                <th class="text-center">Paxum</th>
+			                <th class="text-center">Epay</th>
+			            </tr>
+			        </thead>
+			        <tbody id="resultados">
+			        	<tr>
+			        		<th class="text-center">Total</th>
+			        		<td class="text-center" id="td_total_chaturbate">0</td>
+			        		<td class="text-center" id="td_total_bonga">0</td>
+			        		<td class="text-center" id="td_total_stripchat">0</td>
+			        		<td class="text-center" id="td_total_cam4">0</td>
+			        		<td class="text-center" id="td_total_streamate">0</td>
+			        		<td class="text-center" id="td_total_camsoda">0</td>
+			        		<td class="text-center" id="td_total_paxum">0</td>
+			        		<td class="text-center" id="td_total_epay">0</td>
+			        	</tr>
+			        	<tr>
+			        		<th class="text-center">VIP Occ</th>
+			        		<td class="text-center" id="td_vipocc_chaturbate">0</td>
+			        		<td class="text-center" id="td_vipocc_bonga">0</td>
+			        		<td class="text-center" id="td_vipocc_stripchat">0</td>
+			        		<td class="text-center" id="td_vipocc_cam4">0</td>
+			        		<td class="text-center" id="td_vipocc_streamate">0</td>
+			        		<td class="text-center" id="td_vipocc_camsoda">0</td>
+			        		<td class="text-center" id="td_vipocc_paxum">0</td>
+			        		<td class="text-center" id="td_vipocc_epay">0</td>
+			        	</tr>
+			        	<tr>
+			        		<th class="text-center">VIP Suba</th>
+			        		<td class="text-center" id="td_vipsuba_chaturbate">0</td>
+			        		<td class="text-center" id="td_vipsuba_bonga">0</td>
+			        		<td class="text-center" id="td_vipsuba_stripchat">0</td>
+			        		<td class="text-center" id="td_vipsuba_cam4">0</td>
+			        		<td class="text-center" id="td_vipsuba_streamate">0</td>
+			        		<td class="text-center" id="td_vipsuba_camsoda">0</td>
+			        		<td class="text-center" id="td_vipsuba_paxum">0</td>
+			        		<td class="text-center" id="td_vipsuba_epay">0</td>
+			        	</tr>
+			        	<tr>
+			        		<th class="text-center">Occ 1</th>
+			        		<td class="text-center" id="td_occ1_chaturbate">0</td>
+			        		<td class="text-center" id="td_occ1_bonga">0</td>
+			        		<td class="text-center" id="td_occ1_stripchat">0</td>
+			        		<td class="text-center" id="td_occ1_cam4">0</td>
+			        		<td class="text-center" id="td_occ1_streamate">0</td>
+			        		<td class="text-center" id="td_occ1_camsoda">0</td>
+			        		<td class="text-center" id="td_occ1_paxum">0</td>
+			        		<td class="text-center" id="td_occ1_epay">0</td>
+			        	</tr>
+			        	<tr>
+			        		<th class="text-center">Norte</th>
+			        		<td class="text-center" id="td_norte_chaturbate">0</td>
+			        		<td class="text-center" id="td_norte_bonga">0</td>
+			        		<td class="text-center" id="td_norte_stripchat">0</td>
+			        		<td class="text-center" id="td_norte_cam4">0</td>
+			        		<td class="text-center" id="td_norte_streamate">0</td>
+			        		<td class="text-center" id="td_norte_camsoda">0</td>
+			        		<td class="text-center" id="td_norte_paxum">0</td>
+			        		<td class="text-center" id="td_norte_epay">0</td>
+			        	</tr>
+			        	<tr>
+			        		<th class="text-center">Sin Nombre</th>
+			        		<td class="text-center" id="td_sinnombre_chaturbate">0</td>
+			        		<td class="text-center" id="td_sinnombre_bonga">0</td>
+			        		<td class="text-center" id="td_sinnombre_stripchat">0</td>
+			        		<td class="text-center" id="td_sinnombre_cam4">0</td>
+			        		<td class="text-center" id="td_sinnombre_streamate">0</td>
+			        		<td class="text-center" id="td_sinnombre_camsoda">0</td>
+			        		<td class="text-center" id="td_sinnombre_paxum">0</td>
+			        		<td class="text-center" id="td_sinnombre_epay">0</td>
+			        	</tr>
+			        </tbody>
+			    </table>
+			</div>
+		</div>
+	</div>
+
+<!--****************************FIN TOTALES****************************-->
+
 
 <!--****************************PENDIENTES****************************-->
 
@@ -947,6 +1070,7 @@
 				<table id="table2" class="table row-border hover table-bordered" style="font-size: 12px;">
 					<thead>
 						<tr>
+							<th class="text-center">Sede</th>
 							<th class="text-center">Tipo Documento</th>
 							<th class="text-center">Número Documento</th>
 							<th class="text-center">Modelo</th>
@@ -2401,7 +2525,7 @@
 			},
 
 			success: function(respuesta) {
-				//console.log(respuesta['html']);
+				//console.log(respuesta);
 
 				$('#table2').DataTable().destroy();
 				
@@ -2428,7 +2552,7 @@
 		        	},
 
 		        	"paging": true,
-		        	"order": [[ 5, "desc" ]],
+		        	"order": [[ 6, "desc" ]],
 
 	    			} );
 
@@ -2646,67 +2770,99 @@
 		}
 	}
 
+	function borrar_extra1(id_tipo,tipo){
+		var condicion = 'borrar';
+		$.ajax({
+			type: 'POST',
+			url: '../script/crud_extras1.php',
+            dataType: "JSON",
+			data: {
+				"id_tipo": id_tipo,
+				"tipo": tipo,
+				"condicion": condicion,
+			},
+
+			success: function(respuesta) {
+				console.log(respuesta);
+				if(condicion=='borrar'){
+					Swal.fire({
+						title: 'Estas seguro?',
+						text: "Esta acción no podra revertirse",
+						icon: 'warning',
+						showConfirmButton: true,
+						showCancelButton: true,
+						confirmButtonColor: '#3085d6',
+						cancelButtonColor: '#d33',
+						confirmButtonText: 'Si, Eliminar registro!',
+						cancelButtonText: 'Cancelar'
+					}).then((result) => {
+						if (result.value) {
+							$('#tr_'+id_tipo).hide('slow');
+						}
+					})
+				}
+			},
+
+			error: function(respuesta) {
+				console.log(respuesta['responseText']);
+			}
+		});
+	}
+
+	function totales_consultar1(){
+		var condicion = 'consultar';
+		//var fecha_desde = $('#totales_fecha_desde').val();
+		//var fecha_hasta = $('#totales_fecha_hasta').val();
+		var corte = $('#totales_corte').val();
+		/*
+		if(fecha_desde == '' || fecha_hasta == ''){
+			Swal.fire({
+				title: 'Error',
+				text: "Debe colocar rango de fechas",
+				icon: 'error',
+				position: 'center',
+				showConfirmButton: false,
+				timer: 2000
+			});
+		}*/
+		if(corte == ''){
+			Swal.fire({
+				title: 'Error',
+				text: "Debe colocar un corte valido",
+				icon: 'error',
+				position: 'center',
+				showConfirmButton: false,
+				timer: 2000
+			});
+			return false;
+		}
+		$.ajax({
+			type: 'POST',
+			url: '../script/crud_extras1.php',
+            dataType: "JSON",
+			data: {
+				"corte": corte,
+				"condicion": condicion,
+			},
+
+			success: function(respuesta) {
+				console.log(respuesta);
+
+				$('#td_total_chaturbate').html(respuesta['chaturbate_dolares']);
+				$('#td_total_bonga').html(respuesta['bonga_dolares']);
+				$('#td_total_stripchat').html(respuesta['stripchat_dolares']);
+				$('#td_total_cam4').html(respuesta['cam4_dolares']);
+				$('#td_total_streamate').html(respuesta['streamate_dolares']);
+				$('#td_total_camsoda').html(respuesta['camsoda_dolares']);
+				$('#td_total_paxum').html(respuesta['paxum_dolares']);
+				$('#td_total_epay').html(respuesta['epay_dolares']);
+				
+			},
+
+			error: function(respuesta) {
+				console.log(respuesta['responseText']);
+			}
+		});
+	}
+
 </script>
-
-
-
-
-    <script>
-        /*
-        $(document).ready(function () {
-            showGraph();
-        });
-        */
-        /*
-        function iniciar(){
-            showGraph();
-        
-            function showGraph(){
-            	{
-	                $.post("test9_1.php",
-	                function (data){
-	                    console.log(data);
-	                    var tokens = [];
-	                    var dolares = [];
-	                    var fecha_desde = [];
-	                    var fecha_hasta = [];
-	                    var fecha_inicio = [];
-	                    var moneda = "Dolares";
-	                    var pagina = "XLove";
-
-	                    for (var i in data) {
-	                        tokens.push(data[i].tokens);
-	                        dolares.push(data[i].dolares);
-	                        fecha_desde.push(data[i].fecha_desde);
-	                        fecha_hasta.push(data[i].fecha_hasta);
-	                        fecha_inicio.push(data[i].fecha_desde+" | "+data[i].fecha_hasta);
-	                    }
-
-	                    var chartdata = {
-	                        labels: fecha_inicio,
-	                        datasets: [
-	                            {
-	                                label: pagina,
-	                                backgroundColor: '#49e2ff',
-	                                borderColor: '#46d5f1',
-	                                hoverBackgroundColor: '#CCCCCC',
-	                                hoverBorderColor: '#666666',
-	                                data: dolares,
-	                            }
-	                        ]
-	                    };
-
-	                    var graphTarget = $("#graphCanvas");
-
-	                    var barGraph = new Chart(graphTarget, {
-	                        type: 'bar',
-	                        data: chartdata
-	                    });
-	                });
-            }
-        }
-
-        }
-        */
-
-        </script>

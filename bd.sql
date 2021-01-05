@@ -620,6 +620,7 @@ CREATE TABLE descuento (
 	fecha_desde DATE NOT NULL,
 	fecha_hasta DATE NOT NULL,
 	responsable INT NOT NULL,
+	estado VARCHAR(250) DEFAULT 'Activo',
 	fecha_inicio DATE NOT NULL,
    	PRIMARY KEY (id)
 ); ALTER TABLE descuento CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
@@ -633,6 +634,7 @@ CREATE TABLE tienda (
 	fecha_desde DATE NOT NULL,
 	fecha_hasta DATE NOT NULL,
 	responsable INT NOT NULL,
+	estado VARCHAR(250) DEFAULT 'Activo',
 	fecha_inicio DATE NOT NULL,
    	PRIMARY KEY (id)
 ); ALTER TABLE tienda CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
@@ -646,6 +648,7 @@ CREATE TABLE avances (
 	fecha_desde DATE NOT NULL,
 	fecha_hasta DATE NOT NULL,
 	responsable INT NOT NULL,
+	estado VARCHAR(250) DEFAULT 'Activo',
 	fecha_inicio DATE NOT NULL,
    	PRIMARY KEY (id)
 ); ALTER TABLE avances CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
@@ -659,6 +662,7 @@ CREATE TABLE multas (
 	fecha_desde DATE NOT NULL,
 	fecha_hasta DATE NOT NULL,
 	responsable INT NOT NULL,
+	estado VARCHAR(250) DEFAULT 'Activo',
 	fecha_inicio DATE NOT NULL,
    	PRIMARY KEY (id)
 ); ALTER TABLE multas CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
@@ -723,6 +727,7 @@ CREATE TABLE bonos_horas (
 	fecha_desde DATE NOT NULL,
 	fecha_hasta DATE NOT NULL,
 	responsable INT NOT NULL,
+	estado VARCHAR(250) DEFAULT 'Activo',
 	fecha_inicio DATE NOT NULL,
    	PRIMARY KEY (id)
 ); ALTER TABLE bonos_horas CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
@@ -737,6 +742,7 @@ CREATE TABLE bonos_streamate (
 	fecha_desde DATE NOT NULL,
 	fecha_hasta DATE NOT NULL,
 	responsable INT NOT NULL,
+	estado VARCHAR(250) DEFAULT 'Activo',
 	fecha_inicio DATE NOT NULL,
    	PRIMARY KEY (id)
 ); ALTER TABLE bonos_streamate CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
@@ -750,6 +756,7 @@ CREATE TABLE odontologia (
 	fecha_desde DATE NOT NULL,
 	fecha_hasta DATE NOT NULL,
 	responsable INT NOT NULL,
+	estado VARCHAR(250) DEFAULT 'Activo',
 	fecha_inicio DATE NOT NULL,
    	PRIMARY KEY (id)
 ); ALTER TABLE odontologia CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
@@ -763,6 +770,7 @@ CREATE TABLE seguridad_social (
 	fecha_desde DATE NOT NULL,
 	fecha_hasta DATE NOT NULL,
 	responsable INT NOT NULL,
+	estado VARCHAR(250) DEFAULT 'Activo',
 	fecha_inicio DATE NOT NULL,
    	PRIMARY KEY (id)
 ); ALTER TABLE seguridad_social CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
@@ -776,6 +784,7 @@ CREATE TABLE coopserpak (
 	fecha_desde DATE NOT NULL,
 	fecha_hasta DATE NOT NULL,
 	responsable INT NOT NULL,
+	estado VARCHAR(250) DEFAULT 'Activo',
 	fecha_inicio DATE NOT NULL,
    	PRIMARY KEY (id)
 ); ALTER TABLE coopserpak CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
@@ -789,6 +798,7 @@ CREATE TABLE sexshop (
 	fecha_desde DATE NOT NULL,
 	fecha_hasta DATE NOT NULL,
 	responsable INT NOT NULL,
+	estado VARCHAR(250) DEFAULT 'Activo',
 	fecha_inicio DATE NOT NULL,
    	PRIMARY KEY (id)
 ); ALTER TABLE sexshop CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
@@ -802,6 +812,7 @@ CREATE TABLE belleza (
 	fecha_desde DATE NOT NULL,
 	fecha_hasta DATE NOT NULL,
 	responsable INT NOT NULL,
+	estado VARCHAR(250) DEFAULT 'Activo',
 	fecha_inicio DATE NOT NULL,
    	PRIMARY KEY (id)
 ); ALTER TABLE belleza CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
@@ -815,6 +826,7 @@ CREATE TABLE sancionpagina (
 	fecha_desde DATE NOT NULL,
 	fecha_hasta DATE NOT NULL,
 	responsable INT NOT NULL,
+	estado VARCHAR(250) DEFAULT 'Activo',
 	fecha_inicio DATE NOT NULL,
    	PRIMARY KEY (id)
 ); ALTER TABLE sancionpagina CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
@@ -828,6 +840,7 @@ CREATE TABLE lenceria (
 	fecha_desde DATE NOT NULL,
 	fecha_hasta DATE NOT NULL,
 	responsable INT NOT NULL,
+	estado VARCHAR(250) DEFAULT 'Activo',
 	fecha_inicio DATE NOT NULL,
    	PRIMARY KEY (id)
 ); ALTER TABLE lenceria CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
