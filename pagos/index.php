@@ -90,7 +90,7 @@
 				<button type="button" class="btn btn-info" value="No" id="extras" onclick="mostrarSeccionExtras1(this.id,value);">Extras</button>
 			</div>
 		</div>
-	<?php }else{ ?>
+	<?php }else if($_SESSION['rol']==1){ ?>
 		<div class="row">
 			<div class="col-12 text-center mt-3">
 				<!--
@@ -105,6 +105,7 @@
 				<button type="button" class="btn btn-info" value="No" id="datos" onclick="mostrarSeccion1(this.id,value);">Datos</button>
 				<button type="button" class="btn btn-info" value="No" id="desprendibles" onclick="mostrarSeccionDesprendible1(this.id,value);">Desprendible de Pagos</button>
 				<button type="button" class="btn btn-info" value="No" id="modelos" onclick="mostrarSeccionModelos1(this.id,value);">Consultar Modelos</button>
+				<button type="button" class="btn btn-info ml-3" value="No" id="totales" onclick="mostrarSeccion2(this.id,value);">Totales</button>
 			</div>
 		</div>
 	<?php } ?>
@@ -783,13 +784,13 @@
 			<div class="form-group col-8 text-center">
 				<label for="totales_corte">Corte</label>
 				<select class="form-control" name="totales_corte" id="totales_corte" required>
-				<?php
-				$sql3 = "SELECT * FROM presabana GROUP BY inicio";
-				$consulta3 = mysqli_query($conexion,$sql3);
-				while($row3 = mysqli_fetch_array($consulta3)) { ?>
 					<option value="">Seleccione</option>
-					<option value="<?php echo $row3['id']; ?>"><?php echo $row3['inicio']." | ".$row3['fin']; ?></option>
-				<?php } ?>
+					<?php
+					$sql3 = "SELECT * FROM presabana GROUP BY inicio";
+					$consulta3 = mysqli_query($conexion,$sql3);
+					while($row3 = mysqli_fetch_array($consulta3)) { ?>
+						<option value="<?php echo $row3['id']; ?>"><?php echo $row3['inicio']." | ".$row3['fin']; ?></option>
+					<?php } ?>
 				</select>
 			</div>
 			<div class="col-4 text-center" style="margin-top: 2rem;">
@@ -798,6 +799,14 @@
 			<div class="col-12">
 				<table class="table row-border hover table-bordered" style="font-size: 12px;">
 			        <thead>
+			        	<tr>
+			        		<th class="text-center">Total:</th>
+			                <th class="text-center">(Total suma de todo)</th>
+			                <th class="text-center">Comisión 3% (Epay+Paxum):</th>
+			                <th class="text-center">3% Epay + Paxum</th>
+			                <th class="text-center">Comisión 2.5%:</th>
+			                <th class="text-center">2.5% Cha - Cam</th>
+			        	</tr>
 			            <tr>
 			                <th class="text-center"></th>
 			                <th class="text-center">Chaturbate</th>
@@ -2848,15 +2857,59 @@
 			success: function(respuesta) {
 				console.log(respuesta);
 
-				$('#td_total_chaturbate').html(respuesta['chaturbate_dolares']);
-				$('#td_total_bonga').html(respuesta['bonga_dolares']);
-				$('#td_total_stripchat').html(respuesta['stripchat_dolares']);
-				$('#td_total_cam4').html(respuesta['cam4_dolares']);
-				$('#td_total_streamate').html(respuesta['streamate_dolares']);
-				$('#td_total_camsoda').html(respuesta['camsoda_dolares']);
-				$('#td_total_paxum').html(respuesta['paxum_dolares']);
-				$('#td_total_epay').html(respuesta['epay_dolares']);
-				
+				$('#td_total_chaturbate').html("$"+respuesta['chaturbate_dolares']);
+				$('#td_total_bonga').html("$"+respuesta['bonga_dolares']);
+				$('#td_total_stripchat').html("$"+respuesta['stripchat_dolares']);
+				$('#td_total_cam4').html("$"+respuesta['cam4_dolares']);
+				$('#td_total_streamate').html("$"+respuesta['streamate_dolares']);
+				$('#td_total_camsoda').html("$"+respuesta['camsoda_dolares']);
+				$('#td_total_paxum').html("$"+respuesta['paxum_dolares']);
+				$('#td_total_epay').html("$"+respuesta['epay_dolares']);
+
+				$('#td_vipocc_chaturbate').html("$"+respuesta['sede1_chaturbate']);
+				$('#td_vipocc_bonga').html("$"+respuesta['sede1_bonga']);
+				$('#td_vipocc_stripchat').html("$"+respuesta['sede1_stripchat']);
+				$('#td_vipocc_cam4').html("$"+respuesta['sede1_cam4']);
+				$('#td_vipocc_streamate').html("$"+respuesta['sede1_streamate']);
+				$('#td_vipocc_camsoda').html("$"+respuesta['sede1_camsoda']);
+				$('#td_vipocc_paxum').html("$"+respuesta['sede1_paxum']);
+				$('#td_vipocc_epay').html("$"+respuesta['sede1_epay']);
+
+				$('#td_norte_chaturbate').html("$"+respuesta['sede2_chaturbate']);
+				$('#td_norte_bonga').html("$"+respuesta['sede2_bonga']);
+				$('#td_norte_stripchat').html("$"+respuesta['sede2_stripchat']);
+				$('#td_norte_cam4').html("$"+respuesta['sede2_cam4']);
+				$('#td_norte_streamate').html("$"+respuesta['sede2_streamate']);
+				$('#td_norte_camsoda').html("$"+respuesta['sede2_camsoda']);
+				$('#td_norte_paxum').html("$"+respuesta['sede2_paxum']);
+				$('#td_norte_epay').html("$"+respuesta['sede2_epay']);
+
+				$('#td_occ1_chaturbate').html("$"+respuesta['sede3_chaturbate']);
+				$('#td_occ1_bonga').html("$"+respuesta['sede3_bonga']);
+				$('#td_occ1_stripchat').html("$"+respuesta['sede3_stripchat']);
+				$('#td_occ1_cam4').html("$"+respuesta['sede3_cam4']);
+				$('#td_occ1_streamate').html("$"+respuesta['sede3_streamate']);
+				$('#td_occ1_camsoda').html("$"+respuesta['sede3_camsoda']);
+				$('#td_occ1_paxum').html("$"+respuesta['sede3_paxum']);
+				$('#td_occ1_epay').html("$"+respuesta['sede3_epay']);
+
+				$('#td_vipsuba_chaturbate').html("$"+respuesta['sede4_chaturbate']);
+				$('#td_vipsuba_bonga').html("$"+respuesta['sede4_bonga']);
+				$('#td_vipsuba_stripchat').html("$"+respuesta['sede4_stripchat']);
+				$('#td_vipsuba_cam4').html("$"+respuesta['sede4_cam4']);
+				$('#td_vipsuba_streamate').html("$"+respuesta['sede4_streamate']);
+				$('#td_vipsuba_camsoda').html("$"+respuesta['sede4_camsoda']);
+				$('#td_vipsuba_paxum').html("$"+respuesta['sede4_paxum']);
+				$('#td_vipsuba_epay').html("$"+respuesta['sede4_epay']);
+
+				$('#td_sinnombre_chaturbate').html("$"+respuesta['total_chaturbate_tokens']);
+				$('#td_sinnombre_bonga').html("$"+respuesta['total_bonga_tokens']);
+				$('#td_sinnombre_stripchat').html("$"+respuesta['total_stripchat_tokens']);
+				$('#td_sinnombre_cam4').html("$"+respuesta['total_cam4_tokens']);
+				$('#td_sinnombre_streamate').html("$"+respuesta['total_streamate_tokens']);
+				$('#td_sinnombre_camsoda').html("$"+respuesta['total_camsoda_tokens']);
+				$('#td_sinnombre_paxum').html("$"+respuesta['total_paxum_tokens']);
+				$('#td_sinnombre_epay').html("$"+respuesta['total_epay_tokens']);
 			},
 
 			error: function(respuesta) {

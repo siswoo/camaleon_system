@@ -1,3 +1,0 @@
-[04-Jan-2021 14:33:47 America/Bogota] PHP Deprecated:  filter_var(): explicit use of FILTER_FLAG_SCHEME_REQUIRED and FILTER_FLAG_HOST_REQUIRED is deprecated in /home/camaleon/public_html/resources/PHPMailer/PHPMailer/src/PHPMailer.php on line 3615
-[04-Jan-2021 14:33:47 America/Bogota] PHP Deprecated:  filter_var(): explicit use of FILTER_FLAG_SCHEME_REQUIRED and FILTER_FLAG_HOST_REQUIRED is deprecated in /home/camaleon/public_html/resources/PHPMailer/PHPMailer/src/PHPMailer.php on line 3615
-[04-Jan-2021 14:33:47 America/Bogota] PHP Deprecated:  filter_var(): explicit use of FILTER_FLAG_SCHEME_REQUIRED and FILTER_FLAG_HOST_REQUIRED is deprecated in /home/camaleon/public_html/resources/PHPMailer/PHPMailer/src/PHPMailer.php on line 3615

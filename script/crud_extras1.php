@@ -111,12 +111,19 @@ if($condicion=='consultar'){
 		}
 
 		/*******************************PAXUM***********************/
-		$sql8 = "SELECT SUM(imlive.tokens) as Itokens, SUM(imlive.dolares) as Idolares, SUM(xlove.tokens) as Xtokens, SUM(xlove.dolares) as Xdolares FROM imlive, xlove WHERE imlive.fecha_desde BETWEEN '2020-11-01' AND '2020-11-15' and imlive.fecha_hasta BETWEEN '2020-11-01' AND '2020-11-15'";
+		$sql8 = "SELECT SUM(tokens) as tokens, SUM(dolares) as dolares FROM imlive WHERE fecha_desde BETWEEN '".$inicio."' AND '".$fin."' and fecha_hasta BETWEEN '".$inicio."' AND '".$fin."'";
 		$consulta8 = mysqli_query($conexion,$sql8);
 		while($row8 = mysqli_fetch_array($consulta8)) {
-			$paxum_tokens = $row8['Itokens']+$row8['Xtokens'];
-			$paxum_dolares = $row8['Idolares']+$row8['Xdolares'];
+			$imlive_tokens = $row8['tokens'];
+			$imlive_dolares = $row8['dolares'];
 		}
+
+		$sql15 = "SELECT SUM(tokens) as tokens, SUM(dolares) as dolares FROM xlove WHERE fecha_desde BETWEEN '".$inicio."' AND '".$fin."' and fecha_hasta BETWEEN '".$inicio."' AND '".$fin."'";
+		$consulta15 = mysqli_query($conexion,$sql15);
+		while($row15 = mysqli_fetch_array($consulta15)) {
+			$xlove_tokens = $row15['tokens'];
+			$xlove_dolares = $row15['dolares'];
+		}		
 		/************************************************************/
 
 		/**********************EPAY******************************/
@@ -135,41 +142,231 @@ if($condicion=='consultar'){
 		$consulta10 = mysqli_query($conexion,$sql10);
 		while($row10 = mysqli_fetch_array($consulta10)) {
 			$sede = $row10['sede'];
-			$id_modelo = $row10['id_modelo'];
+			$id_modelo = $row10['id'];
 			if($sede==1){
-				$sql11 = "SELECT SUM(chaturbate) as chaturbate, SUM(chaturbate) as chaturbate, SUM(chaturbate) as chaturbate, SUM(chaturbate) as chaturbate, SUM(chaturbate) as chaturbate, SUM(chaturbate) as chaturbate, SUM(chaturbate) as chaturbate, SUM(chaturbate) as chaturbate, SUM(chaturbate) as chaturbate  FROM presabana WHERE id_modelo = ".$id_modelo." and inicio BETWEEN '".$inicio."' AND '".$fin."' and fin BETWEEN '".$inicio."' AND '".$fin."'";
+				$sql11 = "SELECT SUM(chaturbate) as chaturbate, SUM(bonga) as bonga, SUM(stripchat) as stripchat, SUM(cam4) as cam4, SUM(streamate) as streamate, SUM(camsoda) as camsoda, SUM(imlive) as imlive, SUM(xlove) as xlove, SUM(myfreecams) as myfreecams FROM presabana WHERE id_modelo = ".$id_modelo." and inicio BETWEEN '".$inicio."' AND '".$fin."' and fin BETWEEN '".$inicio."' AND '".$fin."'";
 				$consulta11 = mysqli_query($conexion,$sql11);
-				
+				while($row11 = mysqli_fetch_array($consulta11)) {
+					$sede1_chaturbate = $sede1_chaturbate+$row11['chaturbate'];
+					$sede1_bonga = $sede1_bonga+$row11['bonga'];
+					$sede1_stripchat = $sede1_stripchat+$row11['stripchat'];
+					$sede1_cam4 = $sede1_cam4+$row11['cam4'];
+					$sede1_streamate = $sede1_streamate+$row11['streamate'];
+					$sede1_camsoda = $sede1_camsoda+$row11['camsoda'];
+					$sede1_imlive = $sede1_imlive+$row11['imlive'];
+					$sede1_xlove = $sede1_xlove+$row11['xlove'];
+					$sede1_myfreecams = $sede1_myfreecams+$row11['myfreecams'];
+				}
+			}
+
+			if($sede==2){
+				$sql12 = "SELECT SUM(chaturbate) as chaturbate, SUM(bonga) as bonga, SUM(stripchat) as stripchat, SUM(cam4) as cam4, SUM(streamate) as streamate, SUM(camsoda) as camsoda, SUM(imlive) as imlive, SUM(xlove) as xlove, SUM(myfreecams) as myfreecams FROM presabana WHERE id_modelo = ".$id_modelo." and inicio BETWEEN '".$inicio."' AND '".$fin."' and fin BETWEEN '".$inicio."' AND '".$fin."'";
+				$consulta12 = mysqli_query($conexion,$sql12);
+				while($row12 = mysqli_fetch_array($consulta12)) {
+					$sede2_chaturbate = $sede2_chaturbate+$row12['chaturbate'];
+					$sede2_bonga = $sede2_bonga+$row12['bonga'];
+					$sede2_stripchat = $sede2_stripchat+$row12['stripchat'];
+					$sede2_cam4 = $sede2_cam4+$row12['cam4'];
+					$sede2_streamate = $sede2_streamate+$row12['streamate'];
+					$sede2_camsoda = $sede2_camsoda+$row12['camsoda'];
+					$sede2_imlive = $sede2_imlive+$row12['imlive'];
+					$sede2_xlove = $sede2_xlove+$row12['xlove'];
+					$sede2_myfreecams = $sede2_myfreecams+$row12['myfreecams'];
+				}
+			}
+
+			if($sede==3){
+				$sql13 = "SELECT SUM(chaturbate) as chaturbate, SUM(bonga) as bonga, SUM(stripchat) as stripchat, SUM(cam4) as cam4, SUM(streamate) as streamate, SUM(camsoda) as camsoda, SUM(imlive) as imlive, SUM(xlove) as xlove, SUM(myfreecams) as myfreecams FROM presabana WHERE id_modelo = ".$id_modelo." and inicio BETWEEN '".$inicio."' AND '".$fin."' and fin BETWEEN '".$inicio."' AND '".$fin."'";
+				$consulta13 = mysqli_query($conexion,$sql13);
+				while($row13 = mysqli_fetch_array($consulta13)) {
+					$sede3_chaturbate = $sede3_chaturbate+$row13['chaturbate'];
+					$sede3_bonga = $sede3_bonga+$row13['bonga'];
+					$sede3_stripchat = $sede3_stripchat+$row13['stripchat'];
+					$sede3_cam4 = $sede3_cam4+$row13['cam4'];
+					$sede3_streamate = $sede3_streamate+$row13['streamate'];
+					$sede3_camsoda = $sede3_camsoda+$row13['camsoda'];
+					$sede3_imlive = $sede3_imlive+$row13['imlive'];
+					$sede3_xlove = $sede3_xlove+$row13['xlove'];
+					$sede3_myfreecams = $sede3_myfreecams+$row13['myfreecams'];
+				}
+			}
+
+			if($sede==4){
+				$sql14 = "SELECT SUM(chaturbate) as chaturbate, SUM(bonga) as bonga, SUM(stripchat) as stripchat, SUM(cam4) as cam4, SUM(streamate) as streamate, SUM(camsoda) as camsoda, SUM(imlive) as imlive, SUM(xlove) as xlove, SUM(myfreecams) as myfreecams FROM presabana WHERE id_modelo = ".$id_modelo." and inicio BETWEEN '".$inicio."' AND '".$fin."' and fin BETWEEN '".$inicio."' AND '".$fin."'";
+				$consulta14 = mysqli_query($conexion,$sql14);
+				while($row14 = mysqli_fetch_array($consulta14)) {
+					$sede4_chaturbate = $sede4_chaturbate+$row14['chaturbate'];
+					$sede4_bonga = $sede4_bonga+$row14['bonga'];
+					$sede4_stripchat = $sede4_stripchat+$row14['stripchat'];
+					$sede4_cam4 = $sede4_cam4+$row14['cam4'];
+					$sede4_streamate = $sede4_streamate+$row14['streamate'];
+					$sede4_camsoda = $sede4_camsoda+$row14['camsoda'];
+					$sede4_imlive = $sede4_imlive+$row14['imlive'];
+					$sede4_xlove = $sede4_xlove+$row14['xlove'];
+					$sede4_myfreecams = $sede4_myfreecams+$row14['myfreecams'];
+				}
 			}
 		}
 		/*****************************************************************************************************************************/
 
 	}
 
+	$chaturbate_tokens = $chaturbate_tokens*1;
+	$chaturbate_dolares = $chaturbate_tokens*0.05;
+
+	$bonga_tokens = $bonga_tokens*1;
+	$bonga_dolares = $bonga_tokens*0.05;
+
+	$stripchat_tokens = $stripchat_tokens*1;
+	$stripchat_dolares = $stripchat_tokens*0.05;
+
+	$cam4_tokens = $cam4_tokens*1;
+	$cam4_dolares = $cam4_tokens*0.05;
+
+	$streamate_tokens = $streamate_tokens*1;
+	$streamate_dolares = $streamate_tokens*0.05;
+
+	$camsoda_tokens = $camsoda_tokens*1;
+	$camsoda_dolares = $camsoda_tokens*0.05;
+	/*
+	$paxum_tokens = $paxum_tokens*1;
+	$paxum_dolares = $paxum_dolares*1;
+	*/
+	$paxum_tokens = $imlive_tokens+$xlove_tokens;
+	$paxum_dolares = $imlive_dolares+$xlove_dolares;
+
+	$epay_tokens = $epay_tokens*1;
+	$epay_dolares = $epay_tokens*0.05;
+
+	$sede1_chaturbate = $sede1_chaturbate*0.05;
+	$sede1_bonga = $sede1_bonga*0.05;
+	$sede1_stripchat = $sede1_stripchat*0.05;
+	$sede1_cam4 = $sede1_cam4*0.05;
+	$sede1_streamate = $sede1_streamate*0.05;
+	$sede1_camsoda = $sede1_camsoda*0.05;
+	$sede1_paxum = ($sede1_imlive+$sede1_xlove)*0.05;
+	$sede1_epay = $sede1_myfreecams*0.05;
+	
+	$sede2_chaturbate = $sede2_chaturbate*0.05;
+	$sede2_bonga = $sede2_bonga*0.05;
+	$sede2_stripchat = $sede2_stripchat*0.05;
+	$sede2_cam4 = $sede2_cam4*0.05;
+	$sede2_streamate = $sede2_streamate*0.05;
+	$sede2_camsoda = $sede2_camsoda*0.05;
+	$sede2_paxum = ($sede2_imlive+$sede2_xlove)*0.05;
+	$sede2_epay = $sede2_myfreecams*0.05;
+
+
+	$sede3_chaturbate = $sede3_chaturbate*0.05;
+	$sede3_bonga = $sede3_bonga*0.05;
+	$sede3_stripchat = $sede3_stripchat*0.05;
+	$sede3_cam4 = $sede3_cam4*0.05;
+	$sede3_streamate = $sede3_streamate*0.05;
+	$sede3_camsoda = $sede3_camsoda*0.05;
+	$sede3_paxum = ($sede3_imlive+$sede3_xlove)*0.05;
+	$sede3_epay = $sede3_myfreecams*0.05;
+
+	$sede4_chaturbate = $sede4_chaturbate*0.05;
+	$sede4_bonga = $sede4_bonga*0.05;
+	$sede4_stripchat = $sede4_stripchat*0.05;
+	$sede4_cam4 = $sede4_cam4*0.05;
+	$sede4_streamate = $sede4_streamate*0.05;
+	$sede4_camsoda = $sede4_camsoda*0.05;
+	$sede4_paxum = ($sede4_imlive+$sede4_xlove)*0.05;
+	$sede4_epay = $sede4_myfreecams*0.05;
+
+	$total_chaturbate_tokens = $sede1_chaturbate+$sede2_chaturbate+$sede3_chaturbate+$sede4_chaturbate;
+	$total_bonga_tokens = $sede1_bonga+$sede2_bonga+$sede3_bonga+$sede4_bonga;
+	$total_stripchat_tokens = $sede1_stripchat+$sede2_stripchat+$sede3_stripchat+$sede4_stripchat;
+	$total_cam4_tokens = $sede1_cam4+$sede2_cam4+$sede3_cam4+$sede4_cam4;
+	$total_streamate_tokens = $sede1_streamate+$sede2_streamate+$sede3_streamate+$sede4_streamate;
+	$total_camsoda_tokens = $sede1_camsoda+$sede2_camsoda+$sede3_camsoda+$sede4_camsoda;
+	//$total_paxum_tokens = $sede1_imlive+$sede2_imlive+$sede3_imlive+$sede4_imlive+$sede1_xlove+$sede2_xlove+$sede3_xlove+$sede4_xlove;
+	//$total_epay_tokens = $sede1_myfreecams+$sede2_myfreecams+$sede3_myfreecams+$sede4_myfreecams;
+
+	$total_chaturbate_tokens = $chaturbate_dolares-$total_chaturbate_tokens;
+	$total_bonga_tokens = $bonga_dolares-$total_bonga_tokens;
+	$total_stripchat_tokens = $stripchat_dolares-$total_stripchat_tokens;
+	$total_cam4_tokens = $cam4_dolares-$total_cam4_tokens;
+	$total_streamate_tokens = $streamate_dolares-$total_streamate_tokens;
+	$total_camsoda_tokens = $camsoda_dolares-$total_camsoda_tokens;
+	//$total_paxum_tokens = $paxum_dolares-$total_paxum_tokens;
+	//$total_epay_tokens = $epay_dolares-$total_epay_tokens;
+	$total_paxum_dolares = $sede1_paxum+$sede2_paxum+$sede3_paxum+$sede4_paxum;
+	$total_epay_dolares = $sede1_epay+$sede2_epay+$sede3_epay+$sede4_epay;
+
+	$total_paxum_dolares = $paxum_dolares-$total_paxum_dolares;
+	$total_epay_dolares = $epay_dolares-$total_epay_dolares;
+
 	$datos = [
-		"chaturbate_tokens" => $chaturbate_tokens*1,
-		"chaturbate_dolares" => $chaturbate_dolares*1,
+		"chaturbate_tokens" => number_format(round($chaturbate_tokens,2),2,',','.'),
+		"chaturbate_dolares" => number_format(round($chaturbate_dolares,2),2,',','.'),
 
-		"bonga_tokens" => $bonga_tokens*1,
-		"bonga_dolares" => $bonga_dolares*1,
+		"bonga_tokens" => number_format(round($bonga_tokens,2),2,',','.'),
+		"bonga_dolares" => number_format(round($bonga_dolares,2),2,',','.'),
 
-		"stripchat_tokens" => $stripchat_tokens*1,
-		"stripchat_dolares" => $stripchat_dolares*1,
+		"stripchat_tokens" => number_format(round($stripchat_tokens,2),2,',','.'),
+		"stripchat_dolares" => number_format(round($stripchat_dolares,2),2,',','.'),
 
-		"cam4_tokens" => $cam4_tokens*1,
-		"cam4_dolares" => $cam4_dolares*1,
+		"cam4_tokens" => number_format(round($cam4_tokens,2),2,',','.'),
+		"cam4_dolares" => number_format(round($cam4_dolares,2),2,',','.'),
 
-		"streamate_tokens" => $streamate_tokens*1,
-		"streamate_dolares" => $streamate_dolares*1,
+		"streamate_tokens" => number_format(round($streamate_tokens,2),2,',','.'),
+		"streamate_dolares" => number_format(round($streamate_dolares,2),2,',','.'),
 
-		"camsoda_tokens" => $camsoda_tokens*1,
-		"camsoda_dolares" => $camsoda_dolares*1,
+		"camsoda_tokens" => number_format(round($camsoda_tokens,2),2,',','.'),
+		"camsoda_dolares" => number_format(round($camsoda_dolares,2),2,',','.'),
 
-		"paxum_tokens" => $paxum_tokens*1,
-		"paxum_dolares" => $paxum_dolares*1,
+		"paxum_tokens" => number_format(round($paxum_tokens,2),2,',','.'),
+		"paxum_dolares" => number_format(round($paxum_dolares,2),2,',','.'),
 		
-		"epay_tokens" => $epay_tokens*1,
-		"epay_dolares" => $epay_dolares*1,
+		"epay_tokens" => number_format(round($epay_tokens,2),2,',','.'),
+		"epay_dolares" => number_format(round($epay_dolares,2),2,',','.'),
+
+		"sede1_chaturbate" => number_format(round($sede1_chaturbate,2),2,',','.'),
+		"sede1_bonga" => number_format(round($sede1_bonga,2),2,',','.'),
+		"sede1_stripchat" => number_format(round($sede1_stripchat,2),2,',','.'),
+		"sede1_cam4" => number_format(round($sede1_cam4,2),2,',','.'),
+		"sede1_streamate" => number_format(round($sede1_streamate,2),2,',','.'),
+		"sede1_camsoda" => number_format(round($sede1_camsoda,2),2,',','.'),
+		"sede1_paxum" => number_format(round($sede1_paxum,2),2,',','.'),
+		"sede1_epay" => number_format(round($sede1_epay,2),2,',','.'),
+
+		"sede2_chaturbate" => number_format(round($sede2_chaturbate,2),2,',','.'),
+		"sede2_bonga" => number_format(round($sede2_bonga,2),2,',','.'),
+		"sede2_stripchat" => number_format(round($sede2_stripchat,2),2,',','.'),
+		"sede2_cam4" => number_format(round($sede2_cam4,2),2,',','.'),
+		"sede2_streamate" => number_format(round($sede2_streamate,2),2,',','.'),
+		"sede2_camsoda" => number_format(round($sede2_camsoda,2),2,',','.'),
+		"sede2_paxum" => number_format(round($sede2_paxum,2),2,',','.'),
+		"sede2_epay" => number_format(round($sede2_epay,2),2,',','.'),
+
+		"sede3_chaturbate" => number_format(round($sede3_chaturbate,2),2,',','.'),
+		"sede3_bonga" => number_format(round($sede3_bonga,2),2,',','.'),
+		"sede3_stripchat" => number_format(round($sede3_stripchat,2),2,',','.'),
+		"sede3_cam4" => number_format(round($sede3_cam4,2),2,',','.'),
+		"sede3_streamate" => number_format(round($sede3_streamate,2),2,',','.'),
+		"sede3_camsoda" => number_format(round($sede3_camsoda,2),2,',','.'),
+		"sede3_paxum" => number_format(round($sede3_paxum,2),2,',','.'),
+		"sede3_epay" => number_format(round($sede3_epay,2),2,',','.'),
+
+		"sede4_chaturbate" => number_format(round($sede4_chaturbate,2),2,',','.'),
+		"sede4_bonga" => number_format(round($sede4_bonga,2),2,',','.'),
+		"sede4_stripchat" => number_format(round($sede4_stripchat,2),2,',','.'),
+		"sede4_cam4" => number_format(round($sede4_cam4,2),2,',','.'),
+		"sede4_streamate" => number_format(round($sede4_streamate,2),2,',','.'),
+		"sede4_camsoda" => number_format(round($sede4_camsoda,2),2,',','.'),
+		"sede4_paxum" => number_format(round($sede4_paxum,2),2,',','.'),
+		"sede4_epay" => number_format(round($sede4_epay,2),2,',','.'),
+
+		"total_chaturbate_tokens" => number_format(round($total_chaturbate_tokens,2),2,',','.'),
+		"total_bonga_tokens" => number_format(round($total_bonga_tokens,2),2,',','.'),
+		"total_stripchat_tokens" => number_format(round($total_stripchat_tokens,2),2,',','.'),
+		"total_cam4_tokens" => number_format(round($total_cam4_tokens,2),2,',','.'),
+		"total_streamate_tokens" => number_format(round($total_streamate_tokens,2),2,',','.'),
+		"total_camsoda_tokens" => number_format(round($total_camsoda_tokens,2),2,',','.'),
+		"total_paxum_tokens" => number_format(round($total_paxum_dolares,2),2,',','.'),
+		"total_epay_tokens" => number_format(round($total_epay_dolares,2),2,',','.'),
 	];
 }
 
