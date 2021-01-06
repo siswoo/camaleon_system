@@ -284,16 +284,26 @@ if($condicion=='consultar'){
 	//$total_paxum_tokens = $sede1_imlive+$sede2_imlive+$sede3_imlive+$sede4_imlive+$sede1_xlove+$sede2_xlove+$sede3_xlove+$sede4_xlove;
 	//$total_epay_tokens = $sede1_myfreecams+$sede2_myfreecams+$sede3_myfreecams+$sede4_myfreecams;
 
+	$total_paxum_dolares = $sede1_paxum+$sede2_paxum+$sede3_paxum+$sede4_paxum;
+	$total_epay_dolares = $sede1_epay+$sede2_epay+$sede3_epay+$sede4_epay;
+
+	$subtotal = $chaturbate_dolares+$bonga_dolares+$stripchat_dolares+$cam4_dolares+$streamate_dolares+$camsoda_dolares+$paxum_dolares+$epay_dolares;
+
+	$subtotal2 = $chaturbate_dolares+$bonga_dolares+$stripchat_dolares+$cam4_dolares+$streamate_dolares+$camsoda_dolares;
+	$subtotal3 = $paxum_dolares+$epay_dolares;
+
+	$descuento1 = $subtotal2*0.025;
+	$descuento2 = $subtotal3*0.03;
+
+	$total = ($descuento1+$descuento2);
+	$total = $subtotal-$total;
+
 	$total_chaturbate_tokens = $chaturbate_dolares-$total_chaturbate_tokens;
 	$total_bonga_tokens = $bonga_dolares-$total_bonga_tokens;
 	$total_stripchat_tokens = $stripchat_dolares-$total_stripchat_tokens;
 	$total_cam4_tokens = $cam4_dolares-$total_cam4_tokens;
 	$total_streamate_tokens = $streamate_dolares-$total_streamate_tokens;
 	$total_camsoda_tokens = $camsoda_dolares-$total_camsoda_tokens;
-	//$total_paxum_tokens = $paxum_dolares-$total_paxum_tokens;
-	//$total_epay_tokens = $epay_dolares-$total_epay_tokens;
-	$total_paxum_dolares = $sede1_paxum+$sede2_paxum+$sede3_paxum+$sede4_paxum;
-	$total_epay_dolares = $sede1_epay+$sede2_epay+$sede3_epay+$sede4_epay;
 
 	$total_paxum_dolares = $paxum_dolares-$total_paxum_dolares;
 	$total_epay_dolares = $epay_dolares-$total_epay_dolares;
@@ -367,6 +377,11 @@ if($condicion=='consultar'){
 		"total_camsoda_tokens" => number_format(round($total_camsoda_tokens,2),2,',','.'),
 		"total_paxum_tokens" => number_format(round($total_paxum_dolares,2),2,',','.'),
 		"total_epay_tokens" => number_format(round($total_epay_dolares,2),2,',','.'),
+
+		"subtotal" => number_format(round($subtotal,2),2,',','.'),
+		"descuento1" => number_format(round($descuento1,2),2,',','.'),
+		"descuento2" => number_format(round($descuento2,2),2,',','.'),
+		"total" => number_format(round($total,2),2,',','.'),
 	];
 }
 

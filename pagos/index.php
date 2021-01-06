@@ -796,17 +796,41 @@
 			<div class="col-4 text-center" style="margin-top: 2rem;">
 				<button tipe="button" class="btn btn-success" onclick="totales_consultar1();">Consultar</button>
 			</div>
+
+			<div class="col-12">
+				<table class="table row-border table-bordered" style="font-size: 12px;">
+			        <!--
+			        <thead>
+			        	<tr>
+			                <th colspan="2" rowspan="2" class="text-right" style="width: 10%">SUBTOTAL</th>
+			                <th colspan="2" class="text-center" style="width: 20%">DESCUENTOS</th>
+			                <th colspan="2" rowspan="2" class="text-left" style="width: 35%">TOTAL</th>
+			            </tr>
+			        </thead>
+			    	-->
+			        <tbody>
+			        	<tr>
+			                <th colspan="2" rowspan="2" class="text-right" style="vertical-align : middle; font-size: 18px; width: 10%">SUBTOTAL</th>
+			                <th colspan="2" class="text-center" style="font-size: 18px; width: 20%">DESCUENTOS</th>
+			                <th colspan="2" rowspan="2" class="text-left" style="vertical-align : middle; font-size: 18px; width: 35%">TOTAL</th>
+			            </tr>
+			        	<tr>
+			        		<th class="text-center" style="font-size: 15px; width: 10%">2.5%</th>
+			        		<th class="text-center" style="font-size: 15px; width: 10%">3%</th>
+			        	</tr>
+			        	<tr>
+			        		<td colspan="2" class="text-right" id="td_subtotal" style="width: 35%;font-weight: bold; font-size: 15px; color: green; width: 35%">0</td>
+			        		<td class="text-center" id="td_descuento1" style="width: 35%;font-weight: bold; font-size: 15px; color: red; width: 10%;">0</td>
+			        		<td class="text-center" id="td_descuento2" style="width: 35%;font-weight: bold; font-size: 15px; color: red; width: 10%">0</td>
+			        		<td colspan="2" class="text-left" id="td_total" style="width: 35%;font-weight: bold; font-size: 15px; color: green; width: 35%">0</td>
+			        	</tr>
+			        </tbody>
+			    </table>
+			</div>
+
 			<div class="col-12">
 				<table class="table row-border hover table-bordered" style="font-size: 12px;">
 			        <thead>
-			        	<tr>
-			        		<th class="text-center">Total:</th>
-			                <th class="text-center">(Total suma de todo)</th>
-			                <th class="text-center">Comisión 3% (Epay+Paxum):</th>
-			                <th class="text-center">3% Epay + Paxum</th>
-			                <th class="text-center">Comisión 2.5%:</th>
-			                <th class="text-center">2.5% Cha - Cam</th>
-			        	</tr>
 			            <tr>
 			                <th class="text-center"></th>
 			                <th class="text-center">Chaturbate</th>
@@ -876,7 +900,7 @@
 			        		<td class="text-center" id="td_norte_epay">0</td>
 			        	</tr>
 			        	<tr>
-			        		<th class="text-center">Sin Nombre</th>
+			        		<th class="text-center">Residuales</th>
 			        		<td class="text-center" id="td_sinnombre_chaturbate">0</td>
 			        		<td class="text-center" id="td_sinnombre_bonga">0</td>
 			        		<td class="text-center" id="td_sinnombre_stripchat">0</td>
@@ -2910,6 +2934,12 @@
 				$('#td_sinnombre_camsoda').html("$"+respuesta['total_camsoda_tokens']);
 				$('#td_sinnombre_paxum').html("$"+respuesta['total_paxum_tokens']);
 				$('#td_sinnombre_epay').html("$"+respuesta['total_epay_tokens']);
+
+				$('#td_subtotal').html("$"+respuesta['subtotal']);
+				$('#td_descuento1').html("$"+respuesta['descuento1']);
+				$('#td_descuento2').html("$"+respuesta['descuento2']);
+				$('#td_total').html("$"+respuesta['total']);
+
 			},
 
 			error: function(respuesta) {
