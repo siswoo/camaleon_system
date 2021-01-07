@@ -819,7 +819,7 @@
 			        		<th class="text-center" style="font-size: 15px; width: 10%">3%</th>
 			        	</tr>
 			        	<tr>
-			        		<td colspan="2" class="text-right" id="td_subtotal" style="width: 35%;font-weight: bold; font-size: 15px; color: green; width: 35%">0</td>
+			        		<td colspan="2" class="text-right" id="td_subtotal" style="width: 35%;font-weight: bold; font-size: 15px; width: 35%">0</td>
 			        		<td class="text-center" id="td_descuento1" style="width: 35%;font-weight: bold; font-size: 15px; color: red; width: 10%;">0</td>
 			        		<td class="text-center" id="td_descuento2" style="width: 35%;font-weight: bold; font-size: 15px; color: red; width: 10%">0</td>
 			        		<td colspan="2" class="text-left" id="td_total" style="width: 35%;font-weight: bold; font-size: 15px; color: green; width: 35%">0</td>
@@ -962,6 +962,7 @@
 				<button class="btn btn-primary" type="button" value="No" id="crear_extras1" onclick="mostrarSeccionExtras2(this.id,value);">Crear Extras</button>
 				<button class="btn btn-primary ml-3" type="button" value="No" id="consultar_extras1" onclick="mostrarSeccionExtras3(this.id,value);">Consultar Extras</button>
 				<button class="btn btn-primary ml-3" type="button" value="No" id="consultar_extras2" onclick="mostrarSeccionExtras4(this.id,value);">Subir Extras</button>
+				<!--<button class="btn btn-primary ml-3" type="button" value="No" id="consultar_extras2" onclick="mostrarSeccionExtras5(this.id,value);">Subir Extras (ROCIO)</button>-->
 			</div>
 		</div>
 	</div>
@@ -1144,6 +1145,31 @@
 					<input type="submit" name="submit_subir_extras" id="submit_subir_extras" value="Generar API" class="btn btn-success">
 				</div>
 				<div class="form-group col-12" id="subir_extra_generado"></div>
+			</div>
+		</form>
+	</div>
+
+	<div class="seccion1" id="div_extras5" style="display: none; border: 3px solid black; border-radius: 1rem; padding: 5px 5px 5px 5px;">
+		<form id="formulario_subir_extras_rocio" method="POST" action="#">
+	    	<div class="row">
+				<div class="form-group col-12">
+				    <p class="text-center" style="font-weight: bold; font-size: 20px;">Subir Extras</p>
+				</div>
+				<div class="form-group col-4 text-center">
+					<label for="file_subir_extras_rocio">Archivo Excel</label>
+					<input type="file" id="file_subir_extras_rocio" name="file_subir_extras_rocio" required class="form-control">
+				</div>
+				<div class="form-group col-4 text-center">
+					<label for="fecha_desde_subir_extras_rocio">Fecha Desde</label>
+					<input type="date" id="fecha_desde_subir_extras_rocio" name="fecha_desde_subir_extras_rocio" required class="form-control">
+				</div>
+				<div class="form-group col-4 text-center">
+					<label for="fecha_hasta_subir_extras_rocio">Fecha Hasta</label>
+					<input type="date" id="fecha_hasta_subir_extras_rocio" name="fecha_hasta_subir_extras_rocio" required class="form-control">
+				</div>
+				<div class="form-group col-12 text-center">
+					<input type="submit" name="submit_subir_extras_rocio" id="submit_subir_extras_rocio" value="Generar API" class="btn btn-success">
+				</div>
 			</div>
 		</form>
 	</div>
@@ -2536,6 +2562,16 @@
 		}
 	}
 
+	function mostrarSeccionExtras5(button,value){
+		if(value=='Si'){
+			$('#div_extras5').hide('slow');
+			$('#'+button).val('No');
+		}else{
+			$('#div_extras5').show('slow');
+			$('#'+button).val('Si');
+		}
+	}
+
 	function generar_extra(){
 		var value = $('#pagina_consultar_extra1').val();
 		if(value==''){
@@ -2699,6 +2735,7 @@
             data: fd,
             contentType: false,
             processData: false,
+            dataType: "JSON",
 
             beforeSend: function (){
             	$('#submit_subir_extras').attr('disabled','true');
@@ -2707,6 +2744,61 @@
             success: function(response){
             	console.log(response);
             	$('#submit_subir_extras').removeAttr('disabled');
+            	if(response=='error'){
+            		Swal.fire({
+		 				title: 'Formato Invalido',
+			 			text: "Formato Validos -> xls xml xlam xlsx",
+			 			icon: 'error',
+			 			position: 'center',
+			 			showConfirmButton: false,
+			 			timer: 3000
+					});
+            		return false;
+            	}else{
+            		Swal.fire({
+		 				title: 'Subido exitosamente!',
+		 				text: "Limpiando Cache...",
+		 				icon: 'success',
+		 				position: 'center',
+		 				showConfirmButton: true,
+		 				timer: 2000
+					});
+	            	setTimeout(function() {
+				      	//window.location.href = "index.php";
+				    },2000);
+            	}
+            },
+
+            error: function(response){
+            	console.log(response['responseText']);
+            }
+        });
+    });
+
+    $("#formulario_subir_extras_rocio").on("submit", function(e){
+		e.preventDefault();
+        var fecha_desde_subir_extras = $('#fecha_desde_subir_extras_rocio').val();
+        var fecha_hasta_subir_extras = $('#fecha_hasta_subir_extras_rocio').val();
+        var fd = new FormData();
+        var files = $('#file_subir_extras_rocio')[0].files[0];
+        fd.append('file',files);
+        fd.append('fecha_desde_subir_extras',$('#fecha_desde_subir_extras_rocio').val());
+        fd.append('fecha_hasta_subir_extras',$('#fecha_hasta_subir_extras_rocio').val());
+        $.ajax({
+            url: '../script/subir_descuentos_rocio1.php',
+            type: 'POST',
+            data: fd,
+            contentType: false,
+            processData: false,
+            dataType: "JSON",
+
+            beforeSend: function (){
+            	//$('#submit_subir_extras_rocio').attr('disabled','true');
+            },
+
+            success: function(response){
+            	console.log(response);
+            	$('#submit_subir_extras_rocio').removeAttr('disabled');
             	if(response=='error'){
             		Swal.fire({
 		 				title: 'Formato Invalido',

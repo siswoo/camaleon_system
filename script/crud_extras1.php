@@ -6,7 +6,8 @@ $condicion = $_POST['condicion'];
 if($condicion=='borrar'){
 	$id = $_POST['id_tipo'];
 	$tipo = $_POST['tipo'];
-	$sql1 = "UPDATE ".$tipo." SET estado = 'Eliminado' WHERE id = ".$id;
+	//$sql1 = "UPDATE ".$tipo." SET estado = 'Eliminado' WHERE id = ".$id;
+	$sql1 = "DELETE FROM ".$tipo." WHERE id = ".$id;
 	$consulta1 = mysqli_query($conexion,$sql1);
 
 	$datos = [
