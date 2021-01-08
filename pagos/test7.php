@@ -233,10 +233,10 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 		$sheet->setCellValue('D'.$fila, '');
 
 		$originalDate_inicio = $inicio;
-		$newDate_inicio = date("n/j/Y", strtotime($originalDate_inicio));
+		$newDate_inicio = date("d/m/Y", strtotime($originalDate_inicio));
 
 		$originalDate_fin = $fin;
-		$newDate_fin = date("n/j/Y", strtotime($originalDate_fin));
+		$newDate_fin = date("d/m/Y", strtotime($originalDate_fin));
 
 		$sheet->setCellValue('E'.$fila, $newDate_fin);
 		$sheet->setCellValue('F'.$fila, '');
@@ -250,9 +250,11 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 		$sacar_inicio2 = $sacar_inicio[0];
 
 		if($sacar_inicio2==16){
-			$fecha_pago = $sacar_inicio[0]."/"."8"."/".$sacar_inicio[2];
+			//$fecha_pago = $sacar_inicio[0]."/"."8"."/".$sacar_inicio[2];
+			$fecha_pago = "8"."/".$sacar_inicio[1]."/".$sacar_inicio[2];
 		}else{
-			$fecha_pago = $sacar_inicio[0]."/"."23"."/".$sacar_inicio[2];
+			//$fecha_pago = $sacar_inicio[0]."/"."23"."/".$sacar_inicio[2];
+			$fecha_pago = "23"."/".$sacar_inicio[1]."/".$sacar_inicio[2];
 		}
 
 		$sheet->setCellValue('J'.$fila, $fecha_pago);

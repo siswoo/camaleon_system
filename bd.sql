@@ -281,6 +281,11 @@ DROP TABLE IF EXISTS modelos_temporal;
 CREATE TABLE modelos_temporal (
 	id INT AUTO_INCREMENT,
 	nombre VARCHAR(250) NOT NULL,
+	identificacion VARCHAR(250) NOT NULL,
+	auto_numerico VARCHAR(250) NOT NULL,
+	tipo_identificacion VARCHAR(250) NOT NULL,
+	responsable INT NOT NULL,
+	fecha_inicio DATE NOT NULL,
 	PRIMARY KEY (id)
 ); ALTER TABLE modelos_temporal CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
@@ -466,6 +471,7 @@ DROP TABLE IF EXISTS xlove;
 CREATE TABLE xlove (
 	id INT AUTO_INCREMENT,
 	nickname VARCHAR(250) NOT NULL,
+	nickname_pagina VARCHAR(250) NOT NULL,
 	amount FLOAT(11,3) NOT NULL,
 	dolares FLOAT(11,3) NOT NULL,
 	descuento FLOAT(11,3) NOT NULL,
@@ -848,9 +854,13 @@ CREATE TABLE lenceria (
 DROP TABLE IF EXISTS medellin_temporal1;
 CREATE TABLE medellin_temporal1 (
 	id INT AUTO_INCREMENT,
-	documento VARCHAR(250) NOT NULL,
+	nombre VARCHAR(250) NOT NULL,
+	identificacion VARCHAR(250) NOT NULL,
+	auto_numerico VARCHAR(250) NOT NULL,
+	tipo_identificacion VARCHAR(250) NOT NULL,
+	responsable INT NOT NULL,
 	fecha_inicio DATE NOT NULL,
-   	PRIMARY KEY (id)
+	PRIMARY KEY (id)
 ); ALTER TABLE medellin_temporal1 CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 DROP TABLE IF EXISTS pqr;

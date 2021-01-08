@@ -76,7 +76,7 @@ for($i=2;$i<=$limite;$i++){
             if($tienda!=''){
                 $sql4 = "DELETE FROM tienda WHERE id_modelo = $id_modelo and fecha_desde BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."' and fecha_hasta BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."'";
                 $consulta4 = mysqli_query($conexion,$sql4);
-                $sql2 = "INSERT INTO tienda (id_modelo,concepto,valor,responsable,fecha_desde,fecha_hasta,responsable,fecha_inicio) VALUES ('$id_modelo','Tienda','$tienda','$responsable','$fecha_desde','$fecha_hasta','$responsable','$fecha_inicio')";
+                $sql2 = "INSERT INTO tienda (id_modelo,concepto,valor,fecha_desde,fecha_hasta,responsable,fecha_inicio) VALUES ('$id_modelo','Tienda','$tienda','$fecha_desde','$fecha_hasta','$responsable','$fecha_inicio')";
                 $consulta2 = mysqli_query($conexion,$sql2);
             }
 
@@ -104,7 +104,7 @@ for($i=2;$i<=$limite;$i++){
             if($multas!=''){
                 $sql4 = "DELETE FROM multas WHERE id_modelo = $id_modelo and fecha_desde BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."' and fecha_hasta BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."'";
                 $consulta4 = mysqli_query($conexion,$sql4);
-                $sql2 = "INSERT INTO multas (id_modelo,concepto,valor,responsable,fecha_desde,fecha_hasta,responsable,fecha_inicio) VALUES ('$id_modelo','Multas','$multas','$responsable','$fecha_desde','$fecha_hasta','$responsable','$fecha_inicio')";
+                $sql2 = "INSERT INTO multas (id_modelo,concepto,valor,fecha_desde,fecha_hasta,responsable,fecha_inicio) VALUES ('$id_modelo','Multas','$multas','$fecha_desde','$fecha_hasta','$responsable','$fecha_inicio')";
                 $consulta2 = mysqli_query($conexion,$sql2);
             }
 
@@ -118,7 +118,7 @@ for($i=2;$i<=$limite;$i++){
             if($avances!=''){
                 $sql4 = "DELETE FROM avances WHERE id_modelo = $id_modelo and fecha_desde BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."' and fecha_hasta BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."'";
                 $consulta4 = mysqli_query($conexion,$sql4);
-                $sql2 = "INSERT INTO avances (id_modelo,concepto,valor,responsable,fecha_desde,fecha_hasta,responsable,fecha_inicio) VALUES ('$id_modelo','Avances','$avances','$responsable','$fecha_desde','$fecha_hasta','$responsable','$fecha_inicio')";
+                $sql2 = "INSERT INTO avances (id_modelo,concepto,valor,fecha_desde,fecha_hasta,responsable,fecha_inicio) VALUES ('$id_modelo','Avances','$avances','$fecha_desde','$fecha_hasta','$responsable','$fecha_inicio')";
                 $consulta2 = mysqli_query($conexion,$sql2);
             }
 

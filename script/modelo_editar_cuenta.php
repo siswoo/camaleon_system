@@ -4,6 +4,7 @@ $modelo_cuenta_id = $_POST['modelo_cuenta_id'];
 @$cuenta_clave = $_POST['cuenta_clave'];
 @$cuenta_correo = $_POST['cuenta_correo'];
 @$cuenta_link = $_POST['cuenta_link'];
+@$nickname_xlove = $_POST['nickname_xlove'];
 
 if($cuenta_clave=='' or $cuenta_clave==null){
 	$cuenta_clave = '';
@@ -17,9 +18,13 @@ if($cuenta_link=='' or $cuenta_link==null){
 	$cuenta_link = '';
 }
 
+if($nickname_xlove=='' or $nickname_xlove==null){
+	$nickname_xlove = '';
+}
+
 include('conexion.php');
 
-$sql1 = "UPDATE modelos_cuentas SET usuario = '$cuenta_modelo_usuario', clave = '$cuenta_clave', correo = '$cuenta_correo', link = '$cuenta_link' WHERE id = ".$modelo_cuenta_id;
+$sql1 = "UPDATE modelos_cuentas SET usuario = '$cuenta_modelo_usuario', clave = '$cuenta_clave', correo = '$cuenta_correo', link = '$cuenta_link', nickname_xlove = '$nickname_xlove' WHERE id = ".$modelo_cuenta_id;
 $registro1 = mysqli_query( $conexion, $sql1 );
 
 $datos = [

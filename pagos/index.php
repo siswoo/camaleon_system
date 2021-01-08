@@ -841,11 +841,12 @@
 			                <th class="text-center">Camsoda</th>
 			                <th class="text-center">Paxum</th>
 			                <th class="text-center">Epay</th>
+			                <th class="text-center">Total Sede</th>
 			            </tr>
 			        </thead>
 			        <tbody id="resultados">
 			        	<tr>
-			        		<th class="text-center">Total</th>
+			        		<th class="text-center">Total Página</th>
 			        		<td class="text-center" id="td_total_chaturbate">0</td>
 			        		<td class="text-center" id="td_total_bonga">0</td>
 			        		<td class="text-center" id="td_total_stripchat">0</td>
@@ -854,6 +855,7 @@
 			        		<td class="text-center" id="td_total_camsoda">0</td>
 			        		<td class="text-center" id="td_total_paxum">0</td>
 			        		<td class="text-center" id="td_total_epay">0</td>
+			        		<td class="text-center" style="font-weight: bold;" id="td_total_sede">0</td>
 			        	</tr>
 			        	<tr>
 			        		<th class="text-center">VIP Occ</th>
@@ -865,6 +867,7 @@
 			        		<td class="text-center" id="td_vipocc_camsoda">0</td>
 			        		<td class="text-center" id="td_vipocc_paxum">0</td>
 			        		<td class="text-center" id="td_vipocc_epay">0</td>
+			        		<td class="text-center" style="font-weight: bold;" id="td_vipocc_sede">0</td>
 			        	</tr>
 			        	<tr>
 			        		<th class="text-center">VIP Suba</th>
@@ -876,6 +879,7 @@
 			        		<td class="text-center" id="td_vipsuba_camsoda">0</td>
 			        		<td class="text-center" id="td_vipsuba_paxum">0</td>
 			        		<td class="text-center" id="td_vipsuba_epay">0</td>
+			        		<td class="text-center" style="font-weight: bold;" id="td_vipsuba_sede">0</td>
 			        	</tr>
 			        	<tr>
 			        		<th class="text-center">Occ 1</th>
@@ -887,6 +891,7 @@
 			        		<td class="text-center" id="td_occ1_camsoda">0</td>
 			        		<td class="text-center" id="td_occ1_paxum">0</td>
 			        		<td class="text-center" id="td_occ1_epay">0</td>
+			        		<td class="text-center" style="font-weight: bold;" id="td_occ1_sede">0</td>
 			        	</tr>
 			        	<tr>
 			        		<th class="text-center">Norte</th>
@@ -898,6 +903,7 @@
 			        		<td class="text-center" id="td_norte_camsoda">0</td>
 			        		<td class="text-center" id="td_norte_paxum">0</td>
 			        		<td class="text-center" id="td_norte_epay">0</td>
+			        		<td class="text-center" style="font-weight: bold;" id="td_norte_sede">0</td>
 			        	</tr>
 			        	<tr>
 			        		<th class="text-center">Residuales</th>
@@ -909,6 +915,7 @@
 			        		<td class="text-center" id="td_sinnombre_camsoda">0</td>
 			        		<td class="text-center" id="td_sinnombre_paxum">0</td>
 			        		<td class="text-center" id="td_sinnombre_epay">0</td>
+			        		<td class="text-center" style="font-weight: bold;" id="td_sinnombre_sede">0</td>
 			        	</tr>
 			        </tbody>
 			    </table>
@@ -1236,7 +1243,7 @@
 			        </thead>
 			        <tbody id="resultados">
 			        	<?php
-			        	$sql1 = "SELECT * FROM presabana GROUP BY fecha_inicio";
+			        	$sql1 = "SELECT * FROM presabana GROUP BY inicio";
 			        	$consulta1 = mysqli_query($conexion,$sql1);
 						while($row1 = mysqli_fetch_array($consulta1)) {
 							$id_presabana = $row1['id'];
@@ -2981,6 +2988,7 @@
 				$('#td_total_camsoda').html("$"+respuesta['camsoda_dolares']);
 				$('#td_total_paxum').html("$"+respuesta['paxum_dolares']);
 				$('#td_total_epay').html("$"+respuesta['epay_dolares']);
+				$('#td_total_sede').html("$"+respuesta['total_sede']);
 
 				$('#td_vipocc_chaturbate').html("$"+respuesta['sede1_chaturbate']);
 				$('#td_vipocc_bonga').html("$"+respuesta['sede1_bonga']);
@@ -2990,6 +2998,7 @@
 				$('#td_vipocc_camsoda').html("$"+respuesta['sede1_camsoda']);
 				$('#td_vipocc_paxum').html("$"+respuesta['sede1_paxum']);
 				$('#td_vipocc_epay').html("$"+respuesta['sede1_epay']);
+				$('#td_vipocc_sede').html("$"+respuesta['sede1_sede']);
 
 				$('#td_norte_chaturbate').html("$"+respuesta['sede2_chaturbate']);
 				$('#td_norte_bonga').html("$"+respuesta['sede2_bonga']);
@@ -2999,6 +3008,7 @@
 				$('#td_norte_camsoda').html("$"+respuesta['sede2_camsoda']);
 				$('#td_norte_paxum').html("$"+respuesta['sede2_paxum']);
 				$('#td_norte_epay').html("$"+respuesta['sede2_epay']);
+				$('#td_norte_sede').html("$"+respuesta['sede2_sede']);
 
 				$('#td_occ1_chaturbate').html("$"+respuesta['sede3_chaturbate']);
 				$('#td_occ1_bonga').html("$"+respuesta['sede3_bonga']);
@@ -3008,6 +3018,7 @@
 				$('#td_occ1_camsoda').html("$"+respuesta['sede3_camsoda']);
 				$('#td_occ1_paxum').html("$"+respuesta['sede3_paxum']);
 				$('#td_occ1_epay').html("$"+respuesta['sede3_epay']);
+				$('#td_occ1_sede').html("$"+respuesta['sede3_sede']);
 
 				$('#td_vipsuba_chaturbate').html("$"+respuesta['sede4_chaturbate']);
 				$('#td_vipsuba_bonga').html("$"+respuesta['sede4_bonga']);
@@ -3017,6 +3028,7 @@
 				$('#td_vipsuba_camsoda').html("$"+respuesta['sede4_camsoda']);
 				$('#td_vipsuba_paxum').html("$"+respuesta['sede4_paxum']);
 				$('#td_vipsuba_epay').html("$"+respuesta['sede4_epay']);
+				$('#td_vipsuba_sede').html("$"+respuesta['sede4_sede']);
 
 				$('#td_sinnombre_chaturbate').html("$"+respuesta['total_chaturbate_tokens']);
 				$('#td_sinnombre_bonga').html("$"+respuesta['total_bonga_tokens']);
@@ -3026,6 +3038,7 @@
 				$('#td_sinnombre_camsoda').html("$"+respuesta['total_camsoda_tokens']);
 				$('#td_sinnombre_paxum').html("$"+respuesta['total_paxum_tokens']);
 				$('#td_sinnombre_epay').html("$"+respuesta['total_epay_tokens']);
+				$('#td_sinnombre_sede').html("$"+respuesta['total_sinnombre_sede']);
 
 				$('#td_subtotal').html("$"+respuesta['subtotal']);
 				$('#td_descuento1').html("$"+respuesta['descuento1']);

@@ -32,7 +32,7 @@ $total1 = 0;
 
 $sql1 = "DELETE FROM stripchat WHERE fecha = '".$fecha_stripchat."'";
 $eliminar1 = mysqli_query($conexion,$sql1);
-for($i=2;$i<=$limite;$i++){
+for($i=1;$i<=$limite;$i++){
 
     /*
     if($i==1){
@@ -47,7 +47,7 @@ for($i=2;$i<=$limite;$i++){
     }
     */
 
-    if($i==2){
+    if($i==1){
         if($worksheet->getCell('A'.$i) != ""){
             $nickname = $worksheet->getCell('A'.$i);
             $j = 15;

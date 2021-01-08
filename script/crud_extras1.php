@@ -229,10 +229,7 @@ if($condicion=='consultar'){
 
 	$camsoda_tokens = $camsoda_tokens*1;
 	$camsoda_dolares = $camsoda_tokens*0.05;
-	/*
-	$paxum_tokens = $paxum_tokens*1;
-	$paxum_dolares = $paxum_dolares*1;
-	*/
+	
 	$paxum_tokens = $imlive_tokens+$xlove_tokens;
 	$paxum_dolares = $imlive_dolares+$xlove_dolares;
 
@@ -257,7 +254,6 @@ if($condicion=='consultar'){
 	$sede2_paxum = ($sede2_imlive+$sede2_xlove)*0.05;
 	$sede2_epay = $sede2_myfreecams*0.05;
 
-
 	$sede3_chaturbate = $sede3_chaturbate*0.05;
 	$sede3_bonga = $sede3_bonga*0.05;
 	$sede3_stripchat = $sede3_stripchat*0.05;
@@ -275,6 +271,12 @@ if($condicion=='consultar'){
 	$sede4_camsoda = $sede4_camsoda*0.05;
 	$sede4_paxum = ($sede4_imlive+$sede4_xlove)*0.05;
 	$sede4_epay = $sede4_myfreecams*0.05;
+
+	$td_total_sede = $chaturbate_dolares+$bonga_dolares+$stripchat_dolares+$cam4_dolares+$streamate_dolares+$camsoda_dolares+$paxum_dolares+$epay_dolares;
+	$td_vipocc_sede = $sede1_chaturbate+$sede1_bonga+$sede1_stripchat+$sede1_cam4+$sede1_streamate+$sede1_camsoda+$sede1_paxum+$sede1_epay;
+	$td_norte_sede = $sede2_chaturbate+$sede2_bonga+$sede2_stripchat+$sede2_cam4+$sede2_streamate+$sede2_camsoda+$sede2_paxum+$sede2_epay;
+	$td_occ1_sede = $sede3_chaturbate+$sede3_bonga+$sede3_stripchat+$sede3_cam4+$sede3_streamate+$sede3_camsoda+$sede3_paxum+$sede3_epay;
+	$td_vipsuba_sede = $sede4_chaturbate+$sede4_bonga+$sede4_stripchat+$sede4_cam4+$sede4_streamate+$sede4_camsoda+$sede4_paxum+$sede4_epay;
 
 	$total_chaturbate_tokens = $sede1_chaturbate+$sede2_chaturbate+$sede3_chaturbate+$sede4_chaturbate;
 	$total_bonga_tokens = $sede1_bonga+$sede2_bonga+$sede3_bonga+$sede4_bonga;
@@ -308,6 +310,43 @@ if($condicion=='consultar'){
 
 	$total_paxum_dolares = $paxum_dolares-$total_paxum_dolares;
 	$total_epay_dolares = $epay_dolares-$total_epay_dolares;
+
+	$total_sinnombre_sede = $total_chaturbate_tokens+$total_bonga_tokens+$total_stripchat_tokens+$total_cam4_tokens+$total_streamate_tokens+$total_camsoda_tokens+$total_paxum_dolares+$total_epay_dolares;
+
+
+	/********************************************COLORES***************************************************/
+	/*
+	$color_1_1 = 0;
+	$color_1_2 = 0;
+	$color_1_3 = 0;
+	$color_1_4 = 0;
+	$color_1_5 = 0;
+	$color_1_6 = 0;
+	$color_1_7 = 0;
+	$color_1_8 = 0;
+
+	$sql16 = "SELECT * FROM presabana WHERE inicio < '".$inicio."' and fin < '".$fin."'";
+	$consulta16 = mysqli_query($conexion,$sql16);
+	$contador1 = mysqli_num_rows($consulta16);
+	if($contador1>=1){
+		while($row16 = mysqli_fetch_array($consulta16)) {
+			$inicio = $row16['inicio'];
+			$fin = $row16['fin'];
+		}
+
+
+
+	}
+
+	$datos = [
+		"hola" => $sql16,
+	];
+
+	echo json_encode($datos);
+	exit;
+	*/
+	/******************************************************************************************************/
+
 
 	$datos = [
 		"chaturbate_tokens" => number_format(round($chaturbate_tokens,2),2,',','.'),
@@ -383,6 +422,15 @@ if($condicion=='consultar'){
 		"descuento1" => number_format(round($descuento1,2),2,',','.'),
 		"descuento2" => number_format(round($descuento2,2),2,',','.'),
 		"total" => number_format(round($total,2),2,',','.'),
+
+		"total_sede" => number_format(round($td_total_sede,2),2,',','.'),
+
+		"sede1_sede" => number_format(round($td_vipocc_sede,2),2,',','.'),
+		"sede2_sede" => number_format(round($td_norte_sede,2),2,',','.'),
+		"sede3_sede" => number_format(round($td_occ1_sede,2),2,',','.'),
+		"sede4_sede" => number_format(round($td_vipsuba_sede,2),2,',','.'),
+
+		"total_sinnombre_sede" => number_format(round($total_sinnombre_sede,2),2,',','.'),
 	];
 }
 

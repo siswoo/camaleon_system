@@ -115,7 +115,7 @@
 
 		    <div class="col-12 mt-3 text-center">
 		    	<?php
-		    		$sql_presabana1 = "SELECT * FROM presabana GROUP BY fecha_inicio";
+		    		$sql_presabana1 = "SELECT * FROM presabana GROUP BY inicio";
 		    		$consulta_presabana1 = mysqli_query($conexion,$sql_presabana1);
 					while($row1 = mysqli_fetch_array($consulta_presabana1)) {
 						echo '
@@ -218,7 +218,7 @@
 		   	</div>
 
 		   	<div class="col-6 mt-3 text-center">
-		    	<button type="submit" class="btn btn-info ml-3" id="submit_temporal1">Guardar Temporal</button>
+		    	<button type="submit" class="btn btn-info ml-3" id="submit_temporal1">Subir Temporal</button>
 		   	</div>
 
 		   	<div class="col-12 mt-3 text-center">

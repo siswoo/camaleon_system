@@ -163,7 +163,7 @@ while($row2 = mysqli_fetch_array($consulta2)) {
 
 			$numero_documento = $row3['documento_numero'];
 
-			$sql4 = "SELECT * FROM medellin_temporal1 WHERE documento = ".$numero_documento;
+			$sql4 = "SELECT * FROM medellin_temporal1 WHERE identificacion = ".$numero_documento;
 			$consulta4 = mysqli_query($conexion,$sql4);
 			$contador2 = mysqli_num_rows($consulta4);
 
@@ -278,7 +278,7 @@ while($row2 = mysqli_fetch_array($consulta2)) {
 				$sheet->setCellValue('AL'.$fila, '');
 				$sheet->setCellValue('AM'.$fila, '');
 				$sheet->setCellValue('AN'.$fila, '');
-				$sheet->setCellValue('AO'.$fila, '6.96%');
+				$sheet->setCellValue('AO'.$fila, '6,96%');
 				$sheet->setCellValue('AP'.$fila, '');
 				$sheet->setCellValue('AQ'.$fila, '');
 				$sheet->setCellValue('AR'.$fila, '');

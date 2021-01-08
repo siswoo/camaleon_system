@@ -1014,6 +1014,10 @@
 					    		<label>Link</label>
 					    		<input type="text" name="link1" id="link1" class="form-control">
 					    	</div>
+					    	<div class="col-12 mt-2">
+					    		<label>Nickname Xlove</label>
+					    		<input type="text" name="nickname_xlove" id="nickname_xlove" class="form-control">
+					    	</div>
 					    </div>
 					</div>
 					<div class="modal-footer">
@@ -2031,11 +2035,18 @@
         });
     }
 
-    function cuenta_editar(modelo_cuenta_id){
+    function cuenta_editar(modelo_cuenta_id,pagina_id){
     	var cuenta_usuario = $('#edit_cuenta_usuario_'+modelo_cuenta_id).val();
     	var cuenta_clave = $('#edit_cuenta_clave_'+modelo_cuenta_id).val();
     	var cuenta_correo = $('#edit_cuenta_correo_'+modelo_cuenta_id).val();
     	var cuenta_link = $('#edit_cuenta_link_'+modelo_cuenta_id).val();
+    	
+    	if(pagina_id==11){
+    		var nickname_xlove = $('#edit_cuenta_nickname_xlove_'+modelo_cuenta_id).val();
+    	}else{
+    		var nickname_xlove = "";
+    	}
+
     	$.ajax({
             url: '../script/modelo_editar_cuenta.php',
             type: 'POST',
@@ -2046,6 +2057,7 @@
            		"cuenta_clave": cuenta_clave,
            		"cuenta_correo": cuenta_correo,
            		"cuenta_link": cuenta_link,
+           		"nickname_xlove": nickname_xlove,
            	},
 
             beforeSend: function (){},
