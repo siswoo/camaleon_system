@@ -29,6 +29,7 @@ $fila = 2;
 
 /*
 $sql1 = "SELECT * FROM modelos WHERE estatus = 'Activa' and banco_cedula != '' ORDER BY sede";
+$sql1 = "SELECT * FROM presabana WHERE (id_modelo = 474 and inicio = '2020-12-16') or (id_modelo = 540 and inicio = '2020-12-16') or (id_modelo = 560 and inicio = '2020-12-16')";	
 */
 $sql1 = "SELECT * FROM presabana WHERE inicio BETWEEN '".$inicio."' AND '".$fin."' and fin BETWEEN '".$inicio."' AND '".$fin."' and total_dolares >=1";
 $consulta = mysqli_query($conexion,$sql1);

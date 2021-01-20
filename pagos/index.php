@@ -1117,7 +1117,9 @@
 							<th class="text-center">Modelo</th>
 							<th class="text-center">Concepto</th>
 							<th class="text-center">Valor</th>
-							<th class="text-center">Fecha</th>
+							<th class="text-center">Fecha Asignada</th>
+							<th class="text-center">Fecha Registrada</th>
+							<th class="text-center">Responsable</th>
 							<th class="text-center">Opción</th>
 						</tr>
 					</thead>
@@ -1127,8 +1129,6 @@
 		</div>
 		</form>
 	</div>
-	
-	<!--<div id="extra_generado1">holaaa</div>-->
 
 	<div class="seccion1" id="div_extras4" style="display: none; border: 3px solid black; border-radius: 1rem; padding: 5px 5px 5px 5px;">
 		<form id="formulario_subir_extras" method="POST" action="#">
@@ -1155,7 +1155,7 @@
 			</div>
 		</form>
 	</div>
-
+	<!--
 	<div class="seccion1" id="div_extras5" style="display: none; border: 3px solid black; border-radius: 1rem; padding: 5px 5px 5px 5px;">
 		<form id="formulario_subir_extras_rocio" method="POST" action="#">
 	    	<div class="row">
@@ -1180,6 +1180,7 @@
 			</div>
 		</form>
 	</div>
+	-->
 
 <!--****************************FIN EXTRAS****************************-->
 
@@ -1313,10 +1314,14 @@
 							$sede = $row1['sede'];
 							$fecha_inicio = $row1['fecha_inicio'];
 
-							$sql2 = "SELECT * FROM sedes WHERE id = ".$sede;
-							$consulta2 = mysqli_query($conexion,$sql2);
-							while($row2 = mysqli_fetch_array($consulta2)) {
-								$sede_nombre = $row2['nombre'];
+							if($sede!=''){
+								$sql2 = "SELECT * FROM sedes WHERE id = ".$sede;
+								$consulta2 = mysqli_query($conexion,$sql2);
+								while($row2 = mysqli_fetch_array($consulta2)) {
+									$sede_nombre = $row2['nombre'];
+								}
+							}else{
+								$sede_nombre = 'Desconocido';
 							}
 							echo '
 								<tr id="tr_'.$id_modelo.'">
@@ -2777,6 +2782,7 @@
             },
 
             error: function(response){
+            	$('#submit_subir_extras').removeAttr('disabled');
             	console.log(response['responseText']);
             }
         });

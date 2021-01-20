@@ -158,142 +158,146 @@ while($row2 = mysqli_fetch_array($consulta2)) {
 	$consulta3 = mysqli_query($conexion,$sql3);
 	$contador1 = mysqli_num_rows($consulta3);
 
-	if($contador1>=1 && $total_pesos>=1){
+	//if($contador1>=1 && $total_pesos>=1){
+	if($contador1>=1){
 		while($row3 = mysqli_fetch_array($consulta3)) {
 
 			$numero_documento = $row3['documento_numero'];
+			if($numero_documento=='1013647853' or $numero_documento=='27916033' or $numero_documento=='086421144'){
 
-			$sql4 = "SELECT * FROM medellin_temporal1 WHERE identificacion = ".$numero_documento;
-			$consulta4 = mysqli_query($conexion,$sql4);
-			$contador2 = mysqli_num_rows($consulta4);
+				$sql4 = "SELECT * FROM medellin_temporal1 WHERE identificacion = ".$numero_documento;
+				//$sql4 = "SELECT * FROM medellin_temporal1 WHERE identificacion = 1013647853 or identificacion = 27916033 or identificacion = 086421144";
+				$consulta4 = mysqli_query($conexion,$sql4);
+				$contador2 = mysqli_num_rows($consulta4);
 
-			if($contador2==0){
+				//if($contador2==0){
+				if($contador2>=1){
 
-				$tipo_documento = $row3['documento_tipo'];
+					$tipo_documento = $row3['documento_tipo'];
 
-				if($tipo_documento=='Cedula de Ciudadania'){
-					$tipo_documento = 'CC';
-				}else if($tipo_documento=='Cedula de Extranjeria' or $tipo_documento=='PEP'){
-					$tipo_documento = 'Documento de identificación extranjero';
-				}else if($tipo_documento=='Pasaporte'){
-					$tipo_documento = 'PASAPORTE';
-				}else if($tipo_documento=='PEP'){
-					$tipo_documento = 'PEP';
+					if($tipo_documento=='Cedula de Ciudadania'){
+						$tipo_documento = 'CC';
+					}else if($tipo_documento=='Cedula de Extranjeria' or $tipo_documento=='PEP'){
+						$tipo_documento = 'Documento de identificación extranjero';
+					}else if($tipo_documento=='Pasaporte'){
+						$tipo_documento = 'PASAPORTE';
+					}else if($tipo_documento=='PEP'){
+						$tipo_documento = 'PEP';
+					}
+
+					$nombre1 = $row3['nombre1'];
+					$nombre2 = $row3['nombre2'];
+					$apellido1 = $row3['apellido1'];
+					$apellido2 = $row3['apellido2'];
+					$genero = $row3['genero'];
+					if($genero=='Transexual'){
+						$genero = 'Hombre';
+					}
+
+					$sede = $row3['sede'];
+					$sql5 = "SELECT * FROM sedes WHERE id = ".$sede;
+					$consulta5 = mysqli_query($conexion,$sql5);
+					while($row5 = mysqli_fetch_array($consulta5)) {
+						$sede_nombre = $row5['nombre'];
+					}
+
+					if($sede_nombre=='VIP Occidente'){
+						$sede_nombre = 'VIP';
+					}
+
+					if($sede_nombre=='VIP Suba'){
+						$sede_nombre = 'Suba';
+					}
+
+					if($sede_nombre=='Occidente I'){
+						$sede_nombre = 'Occidente 1';
+					}
+
+					$direccion = $row3['direccion'];
+					$telefono1 = $row3['telefono1'];
+					$correo = $row3['correo'];
+
+					$nombre1 = eliminar_acentos($nombre1);
+					$nombre2 = eliminar_acentos($nombre2);
+					$apellido1 = eliminar_acentos($apellido1);
+					$apellido2 = eliminar_acentos($apellido2);
+
+					//NO USO EL strtoupper PORQUE NO COPEA CON LOS Ñ los lleva en minúsculas.
+
+					$nombre1 = mb_strtoupper($nombre1);
+					$nombre2 = mb_strtoupper($nombre2);
+					$apellido1 = mb_strtoupper($apellido1);
+					$apellido2 = mb_strtoupper($apellido2);
+
+					$sheet->setCellValue('A'.$fila, $tipo_documento);
+
+					$sheet->setCellValue('B'.$fila, $numero_documento);
+					$spreadsheet->getActiveSheet()->getStyle('B'.$fila)->getNumberFormat()->setFormatCode('00');
+					$sheet->getStyle('B'.$fila)->getAlignment()->setHorizontal('right');
+
+					$sheet->setCellValue('C'.$fila, 'Bogota D.C.');
+					$sheet->setCellValue('D'.$fila, $nombre1);
+					$sheet->setCellValue('E'.$fila, $nombre2);
+					$sheet->setCellValue('F'.$fila, $apellido1);
+					$sheet->setCellValue('G'.$fila, $apellido2);
+					$sheet->setCellValue('H'.$fila, 'Indefinido');
+					
+					//$fecha_generada1 = date('d-m-Y');
+					$inicio2 = date("d/m/Y", strtotime($inicio));
+					$sheet->setCellValue('I'.$fila, $inicio2);
+
+					$sheet->setCellValue('J'.$fila, 'Administrativa');
+					$sheet->setCellValue('K'.$fila, 'Normal');
+					$sheet->setCellValue('L'.$fila, 'BERNAL GROUP S.A.S');
+					$sheet->setCellValue('M'.$fila, 'MODELO NUEVO');
+					$sheet->setCellValue('N'.$fila, '1');
+					$sheet->setCellValue('O'.$fila, 'Quincenal');
+					$sheet->setCellValue('P'.$fila, $sede_nombre);
+					$sheet->setCellValue('Q'.$fila, 'Normal');
+					$sheet->setCellValue('R'.$fila, '0');
+					$sheet->setCellValue('S'.$fila, '0');
+					$sheet->setCellValue('T'.$fila, '0');
+					$sheet->setCellValue('U'.$fila, '0');
+					$sheet->setCellValue('V'.$fila, '0');
+					$sheet->setCellValue('W'.$fila, '');
+					$sheet->setCellValue('X'.$fila, 'Bogota D.C.');
+					$sheet->setCellValue('Y'.$fila, 'Casa');
+
+					$direccion = eliminar_acentos($direccion);
+					$direccion = mb_strtoupper($direccion);
+					$direccion = eliminar_especiales($direccion);
+					$sheet->setCellValue('Z'.$fila, $direccion);
+
+					$sheet->setCellValue('AA'.$fila, $telefono1);
+					$sheet->setCellValue('AB'.$fila, $correo);
+					$sheet->setCellValue('AC'.$fila, '');
+					$sheet->setCellValue('AD'.$fila, 'Soltero');
+					$sheet->setCellValue('AE'.$fila, '');
+					$sheet->setCellValue('AF'.$fila, '');
+					$sheet->setCellValue('AG'.$fila, '');
+					$sheet->setCellValue('AH'.$fila, '');
+					$sheet->setCellValue('AI'.$fila, '');
+					$sheet->setCellValue('AJ'.$fila, '');
+					$sheet->setCellValue('AK'.$fila, '');
+					$sheet->setCellValue('AL'.$fila, '');
+					$sheet->setCellValue('AM'.$fila, '');
+					$sheet->setCellValue('AN'.$fila, '');
+					$sheet->setCellValue('AO'.$fila, '6,96%');
+					$sheet->setCellValue('AP'.$fila, '');
+					$sheet->setCellValue('AQ'.$fila, '');
+					$sheet->setCellValue('AR'.$fila, '');
+					$sheet->setCellValue('AS'.$fila, '');
+					$sheet->setCellValue('AT'.$fila, '');
+					$sheet->setCellValue('AU'.$fila, '');
+					$sheet->setCellValue('AV'.$fila, '');
+					$sheet->setCellValue('AW'.$fila, '');
+					$sheet->setCellValue('AX'.$fila, '');
+					$sheet->setCellValue('AY'.$fila, '');
+					$sheet->setCellValue('AZ'.$fila, '');
+					$sheet->setCellValue('BA'.$fila, '');
+					$fila = $fila+1;
+
 				}
-
-				$nombre1 = $row3['nombre1'];
-				$nombre2 = $row3['nombre2'];
-				$apellido1 = $row3['apellido1'];
-				$apellido2 = $row3['apellido2'];
-				$genero = $row3['genero'];
-				if($genero=='Transexual'){
-					$genero = 'Hombre';
-				}
-
-				$sede = $row3['sede'];
-				$sql5 = "SELECT * FROM sedes WHERE id = ".$sede;
-				$consulta5 = mysqli_query($conexion,$sql5);
-				while($row5 = mysqli_fetch_array($consulta5)) {
-					$sede_nombre = $row5['nombre'];
-				}
-
-				if($sede_nombre=='VIP Occidente'){
-					$sede_nombre = 'VIP';
-				}
-
-				if($sede_nombre=='VIP Suba'){
-					$sede_nombre = 'Suba';
-				}
-
-				if($sede_nombre=='Occidente I'){
-					$sede_nombre = 'Occidente 1';
-				}
-
-				$direccion = $row3['direccion'];
-				$telefono1 = $row3['telefono1'];
-				$correo = $row3['correo'];
-
-				$nombre1 = eliminar_acentos($nombre1);
-				$nombre2 = eliminar_acentos($nombre2);
-				$apellido1 = eliminar_acentos($apellido1);
-				$apellido2 = eliminar_acentos($apellido2);
-
-				//NO USO EL strtoupper PORQUE NO COPEA CON LOS Ñ los lleva en minúsculas.
-
-				$nombre1 = mb_strtoupper($nombre1);
-				$nombre2 = mb_strtoupper($nombre2);
-				$apellido1 = mb_strtoupper($apellido1);
-				$apellido2 = mb_strtoupper($apellido2);
-
-				$sheet->setCellValue('A'.$fila, $tipo_documento);
-
-				$sheet->setCellValue('B'.$fila, $numero_documento);
-				$spreadsheet->getActiveSheet()->getStyle('B'.$fila)->getNumberFormat()->setFormatCode('00');
-				$sheet->getStyle('B'.$fila)->getAlignment()->setHorizontal('right');
-
-				$sheet->setCellValue('C'.$fila, 'Bogota D.C.');
-				$sheet->setCellValue('D'.$fila, $nombre1);
-				$sheet->setCellValue('E'.$fila, $nombre2);
-				$sheet->setCellValue('F'.$fila, $apellido1);
-				$sheet->setCellValue('G'.$fila, $apellido2);
-				$sheet->setCellValue('H'.$fila, 'Indefinido');
-				
-				//$fecha_generada1 = date('d-m-Y');
-				//$inicio2 = date("d/m/Y", strtotime($inicio));
-				$sheet->setCellValue('I'.$fila, $inicio);
-				$sheet->getStyle('I'.$fila)->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_DDMMYYYY);
-
-				$sheet->setCellValue('J'.$fila, 'Administrativa');
-				$sheet->setCellValue('K'.$fila, 'Normal');
-				$sheet->setCellValue('L'.$fila, 'BERNAL GROUP S.A.S');
-				$sheet->setCellValue('M'.$fila, 'MODELO NUEVO');
-				$sheet->setCellValue('N'.$fila, '1');
-				$sheet->setCellValue('O'.$fila, 'Quincenal');
-				$sheet->setCellValue('P'.$fila, $sede_nombre);
-				$sheet->setCellValue('Q'.$fila, 'Normal');
-				$sheet->setCellValue('R'.$fila, '0');
-				$sheet->setCellValue('S'.$fila, '0');
-				$sheet->setCellValue('T'.$fila, '0');
-				$sheet->setCellValue('U'.$fila, '0');
-				$sheet->setCellValue('V'.$fila, '0');
-				$sheet->setCellValue('W'.$fila, '');
-				$sheet->setCellValue('X'.$fila, 'Bogota D.C.');
-				$sheet->setCellValue('Y'.$fila, 'Casa');
-
-				$direccion = eliminar_acentos($direccion);
-				$direccion = mb_strtoupper($direccion);
-				$direccion = eliminar_especiales($direccion);
-				$sheet->setCellValue('Z'.$fila, $direccion);
-
-				$sheet->setCellValue('AA'.$fila, $telefono1);
-				$sheet->setCellValue('AB'.$fila, $correo);
-				$sheet->setCellValue('AC'.$fila, '');
-				$sheet->setCellValue('AD'.$fila, 'Soltero');
-				$sheet->setCellValue('AE'.$fila, '');
-				$sheet->setCellValue('AF'.$fila, '');
-				$sheet->setCellValue('AG'.$fila, '');
-				$sheet->setCellValue('AH'.$fila, '');
-				$sheet->setCellValue('AI'.$fila, '');
-				$sheet->setCellValue('AJ'.$fila, '');
-				$sheet->setCellValue('AK'.$fila, '');
-				$sheet->setCellValue('AL'.$fila, '');
-				$sheet->setCellValue('AM'.$fila, '');
-				$sheet->setCellValue('AN'.$fila, '');
-				$sheet->setCellValue('AO'.$fila, '6,96%');
-				$sheet->setCellValue('AP'.$fila, '');
-				$sheet->setCellValue('AQ'.$fila, '');
-				$sheet->setCellValue('AR'.$fila, '');
-				$sheet->setCellValue('AS'.$fila, '');
-				$sheet->setCellValue('AT'.$fila, '');
-				$sheet->setCellValue('AU'.$fila, '');
-				$sheet->setCellValue('AV'.$fila, '');
-				$sheet->setCellValue('AW'.$fila, '');
-				$sheet->setCellValue('AX'.$fila, '');
-				$sheet->setCellValue('AY'.$fila, '');
-				$sheet->setCellValue('AZ'.$fila, '');
-				$sheet->setCellValue('BA'.$fila, '');
-				$fila = $fila+1;
-
 			}
 		}
 	}

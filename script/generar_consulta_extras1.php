@@ -26,6 +26,13 @@ switch ($tipo) {
 			$valor = $row1['valor'];
 			$responsable = $row1['responsable'];
 			$fecha_inicio = $row1['fecha_inicio'];
+			$fecha_desde = $row1['fecha_desde'];
+
+			$sql5 = "SELECT * FROM usuarios WHERE id = ".$responsable;
+			$consulta5 = mysqli_query($conexion,$sql5);
+			while($row5 = mysqli_fetch_array($consulta5)) {
+				$nombre_responsable = $row5['nombre']." ".$row5['apellido'];
+			}
 
 			$sql3 = "SELECT * FROM modelos WHERE id = ".$id_modelo.$extra;
 			$consulta3 = mysqli_query($conexion,$sql3);
@@ -49,7 +56,9 @@ switch ($tipo) {
 							<td class="text-center">'.$nombre_modelo.'</td>
 							<td class="text-center">'.$concepto.'</td>
 							<td class="text-center">'.$valor.'</td>
+							<td class="text-center">'.$fecha_desde.'</td>
 							<td class="text-center">'.$fecha_inicio.'</td>
+							<td class="text-center">'.$nombre_responsable.'</td>
 							<td class="text-center">
 								<button class="btn btn-danger" type="button" value="'.$tipo.'" onclick="borrar_extra1('.$id_tipo.',value);">Eliminar</button>
 							</td>
@@ -71,6 +80,13 @@ switch ($tipo) {
 			$valor = $row1['valor'];
 			$responsable = $row1['responsable'];
 			$fecha_inicio = $row1['fecha_inicio'];
+			$fecha_desde = $row1['fecha_desde'];
+
+			$sql5 = "SELECT * FROM usuarios WHERE id = ".$responsable;
+			$consulta5 = mysqli_query($conexion,$sql5);
+			while($row5 = mysqli_fetch_array($consulta5)) {
+				$nombre_responsable = $row5['nombre']." ".$row5['apellido'];
+			}
 
 			$sql3 = "SELECT * FROM modelos WHERE id = ".$id_modelo.$extra;
 			$consulta3 = mysqli_query($conexion,$sql3);
@@ -94,7 +110,9 @@ switch ($tipo) {
 							<td class="text-center">'.$nombre_modelo.'</td>
 							<td class="text-center">'.$concepto.'</td>
 							<td class="text-center">'.$valor.'</td>
+							<td class="text-center">'.$fecha_desde.'</td>
 							<td class="text-center">'.$fecha_inicio.'</td>
+							<td class="text-center">'.$nombre_responsable.'</td>
 							<td class="text-center">
 								<button class="btn btn-danger" type="button" value="'.$tipo.'" onclick="borrar_extra1('.$id_tipo.',value);">Eliminar</button>
 							</td>
@@ -116,6 +134,13 @@ switch ($tipo) {
 			$valor = $row1['valor'];
 			$responsable = $row1['responsable'];
 			$fecha_inicio = $row1['fecha_inicio'];
+			$fecha_desde = $row1['fecha_desde'];
+
+			$sql5 = "SELECT * FROM usuarios WHERE id = ".$responsable;
+			$consulta5 = mysqli_query($conexion,$sql5);
+			while($row5 = mysqli_fetch_array($consulta5)) {
+				$nombre_responsable = $row5['nombre']." ".$row5['apellido'];
+			}
 
 			$sql3 = "SELECT * FROM modelos WHERE id = ".$id_modelo.$extra;
 			$consulta3 = mysqli_query($conexion,$sql3);
@@ -139,7 +164,9 @@ switch ($tipo) {
 							<td class="text-center">'.$nombre_modelo.'</td>
 							<td class="text-center">'.$concepto.'</td>
 							<td class="text-center">'.$valor.'</td>
+							<td class="text-center">'.$fecha_desde.'</td>
 							<td class="text-center">'.$fecha_inicio.'</td>
+							<td class="text-center">'.$nombre_responsable.'</td>
 							<td class="text-center">
 								<button class="btn btn-danger" type="button" value="'.$tipo.'" onclick="borrar_extra1('.$id_tipo.',value);">Eliminar</button>
 							</td>
@@ -161,6 +188,13 @@ switch ($tipo) {
 			$valor = $row1['valor'];
 			$responsable = $row1['responsable'];
 			$fecha_inicio = $row1['fecha_inicio'];
+			$fecha_desde = $row1['fecha_desde'];
+
+			$sql5 = "SELECT * FROM usuarios WHERE id = ".$responsable;
+			$consulta5 = mysqli_query($conexion,$sql5);
+			while($row5 = mysqli_fetch_array($consulta5)) {
+				$nombre_responsable = $row5['nombre']." ".$row5['apellido'];
+			}
 
 			$sql3 = "SELECT * FROM modelos WHERE id = ".$id_modelo.$extra;
 			$consulta3 = mysqli_query($conexion,$sql3);
@@ -184,7 +218,9 @@ switch ($tipo) {
 							<td class="text-center">'.$nombre_modelo.'</td>
 							<td class="text-center">'.$concepto.'</td>
 							<td class="text-center">'.$valor.'</td>
+							<td class="text-center">'.$fecha_desde.'</td>
 							<td class="text-center">'.$fecha_inicio.'</td>
+							<td class="text-center">'.$nombre_responsable.'</td>
 							<td class="text-center">
 								<button class="btn btn-danger" type="button" value="'.$tipo.'" onclick="borrar_extra1('.$id_tipo.',value);">Eliminar</button>
 							</td>
@@ -206,6 +242,13 @@ switch ($tipo) {
 			$valor = $row1['monto'];
 			$responsable = $row1['responsable'];
 			$fecha_inicio = $row1['fecha_inicio'];
+			$fecha_desde = $row1['fecha_desde'];
+
+			$sql5 = "SELECT * FROM usuarios WHERE id = ".$responsable;
+			$consulta5 = mysqli_query($conexion,$sql5);
+			while($row5 = mysqli_fetch_array($consulta5)) {
+				$nombre_responsable = $row5['nombre']." ".$row5['apellido'];
+			}
 
 			$sql3 = "SELECT * FROM modelos WHERE id = ".$id_modelo.$extra;
 			$consulta3 = mysqli_query($conexion,$sql3);
@@ -229,7 +272,9 @@ switch ($tipo) {
 							<td class="text-center">'.$nombre_modelo.'</td>
 							<td class="text-center">'.$concepto.'</td>
 							<td class="text-center">'.$valor.'</td>
+							<td class="text-center">'.$fecha_desde.'</td>
 							<td class="text-center">'.$fecha_inicio.'</td>
+							<td class="text-center">'.$nombre_responsable.'</td>
 							<td class="text-center">
 								<button class="btn btn-danger" type="button" value="'.$tipo.'" onclick="borrar_extra1('.$id_tipo.',value);">Eliminar</button>
 							</td>
@@ -251,6 +296,13 @@ switch ($tipo) {
 			$valor = $row1['monto'];
 			$responsable = $row1['responsable'];
 			$fecha_inicio = $row1['fecha_inicio'];
+			$fecha_desde = $row1['fecha_desde'];
+
+			$sql5 = "SELECT * FROM usuarios WHERE id = ".$responsable;
+			$consulta5 = mysqli_query($conexion,$sql5);
+			while($row5 = mysqli_fetch_array($consulta5)) {
+				$nombre_responsable = $row5['nombre']." ".$row5['apellido'];
+			}
 
 			$sql3 = "SELECT * FROM modelos WHERE id = ".$id_modelo.$extra;
 			$consulta3 = mysqli_query($conexion,$sql3);
@@ -274,7 +326,9 @@ switch ($tipo) {
 							<td class="text-center">'.$nombre_modelo.'</td>
 							<td class="text-center">'.$concepto.'</td>
 							<td class="text-center">'.$valor.'</td>
+							<td class="text-center">'.$fecha_desde.'</td>
 							<td class="text-center">'.$fecha_inicio.'</td>
+							<td class="text-center">'.$nombre_responsable.'</td>
 							<td class="text-center">
 								<button class="btn btn-danger" type="button" value="'.$tipo.'" onclick="borrar_extra1('.$id_tipo.',value);">Eliminar</button>
 							</td>
@@ -296,6 +350,13 @@ switch ($tipo) {
 			$valor = $row1['monto'];
 			$responsable = $row1['responsable'];
 			$fecha_inicio = $row1['fecha_inicio'];
+			$fecha_desde = $row1['fecha_desde'];
+
+			$sql5 = "SELECT * FROM usuarios WHERE id = ".$responsable;
+			$consulta5 = mysqli_query($conexion,$sql5);
+			while($row5 = mysqli_fetch_array($consulta5)) {
+				$nombre_responsable = $row5['nombre']." ".$row5['apellido'];
+			}
 
 			$sql3 = "SELECT * FROM modelos WHERE id = ".$id_modelo.$extra;
 			$consulta3 = mysqli_query($conexion,$sql3);
@@ -319,7 +380,9 @@ switch ($tipo) {
 							<td class="text-center">'.$nombre_modelo.'</td>
 							<td class="text-center">'.$concepto.'</td>
 							<td class="text-center">'.$valor.'</td>
+							<td class="text-center">'.$fecha_desde.'</td>
 							<td class="text-center">'.$fecha_inicio.'</td>
+							<td class="text-center">'.$nombre_responsable.'</td>
 							<td class="text-center">
 								<button class="btn btn-danger" type="button" value="'.$tipo.'" onclick="borrar_extra1('.$id_tipo.',value);">Eliminar</button>
 							</td>
@@ -341,6 +404,13 @@ switch ($tipo) {
 			$valor = $row1['monto'];
 			$responsable = $row1['responsable'];
 			$fecha_inicio = $row1['fecha_inicio'];
+			$fecha_desde = $row1['fecha_desde'];
+
+			$sql5 = "SELECT * FROM usuarios WHERE id = ".$responsable;
+			$consulta5 = mysqli_query($conexion,$sql5);
+			while($row5 = mysqli_fetch_array($consulta5)) {
+				$nombre_responsable = $row5['nombre']." ".$row5['apellido'];
+			}
 
 			$sql3 = "SELECT * FROM modelos WHERE id = ".$id_modelo.$extra;
 			$consulta3 = mysqli_query($conexion,$sql3);
@@ -364,7 +434,9 @@ switch ($tipo) {
 							<td class="text-center">'.$nombre_modelo.'</td>
 							<td class="text-center">'.$concepto.'</td>
 							<td class="text-center">'.$valor.'</td>
+							<td class="text-center">'.$fecha_desde.'</td>
 							<td class="text-center">'.$fecha_inicio.'</td>
+							<td class="text-center">'.$nombre_responsable.'</td>
 							<td class="text-center">
 								<button class="btn btn-danger" type="button" value="'.$tipo.'" onclick="borrar_extra1('.$id_tipo.',value);">Eliminar</button>
 							</td>
@@ -386,6 +458,13 @@ switch ($tipo) {
 			$valor = $row1['monto'];
 			$responsable = $row1['responsable'];
 			$fecha_inicio = $row1['fecha_inicio'];
+			$fecha_desde = $row1['fecha_desde'];
+
+			$sql5 = "SELECT * FROM usuarios WHERE id = ".$responsable;
+			$consulta5 = mysqli_query($conexion,$sql5);
+			while($row5 = mysqli_fetch_array($consulta5)) {
+				$nombre_responsable = $row5['nombre']." ".$row5['apellido'];
+			}
 
 			$sql3 = "SELECT * FROM modelos WHERE id = ".$id_modelo.$extra;
 			$consulta3 = mysqli_query($conexion,$sql3);
@@ -409,7 +488,9 @@ switch ($tipo) {
 							<td class="text-center">'.$nombre_modelo.'</td>
 							<td class="text-center">'.$concepto.'</td>
 							<td class="text-center">'.$valor.'</td>
+							<td class="text-center">'.$fecha_desde.'</td>
 							<td class="text-center">'.$fecha_inicio.'</td>
+							<td class="text-center">'.$nombre_responsable.'</td>
 							<td class="text-center">
 								<button class="btn btn-danger" type="button" value="'.$tipo.'" onclick="borrar_extra1('.$id_tipo.',value);">Eliminar</button>
 							</td>
@@ -431,6 +512,13 @@ switch ($tipo) {
 			$valor = $row1['monto'];
 			$responsable = $row1['responsable'];
 			$fecha_inicio = $row1['fecha_inicio'];
+			$fecha_desde = $row1['fecha_desde'];
+
+			$sql5 = "SELECT * FROM usuarios WHERE id = ".$responsable;
+			$consulta5 = mysqli_query($conexion,$sql5);
+			while($row5 = mysqli_fetch_array($consulta5)) {
+				$nombre_responsable = $row5['nombre']." ".$row5['apellido'];
+			}
 
 			$sql3 = "SELECT * FROM modelos WHERE id = ".$id_modelo.$extra;
 			$consulta3 = mysqli_query($conexion,$sql3);
@@ -454,7 +542,9 @@ switch ($tipo) {
 							<td class="text-center">'.$nombre_modelo.'</td>
 							<td class="text-center">'.$concepto.'</td>
 							<td class="text-center">'.$valor.'</td>
+							<td class="text-center">'.$fecha_desde.'</td>
 							<td class="text-center">'.$fecha_inicio.'</td>
+							<td class="text-center">'.$nombre_responsable.'</td>
 							<td class="text-center">
 								<button class="btn btn-danger" type="button" value="'.$tipo.'" onclick="borrar_extra1('.$id_tipo.',value);">Eliminar</button>
 							</td>
@@ -476,6 +566,13 @@ switch ($tipo) {
 			$valor = $row1['monto'];
 			$responsable = $row1['responsable'];
 			$fecha_inicio = $row1['fecha_inicio'];
+			$fecha_desde = $row1['fecha_desde'];
+
+			$sql5 = "SELECT * FROM usuarios WHERE id = ".$responsable;
+			$consulta5 = mysqli_query($conexion,$sql5);
+			while($row5 = mysqli_fetch_array($consulta5)) {
+				$nombre_responsable = $row5['nombre']." ".$row5['apellido'];
+			}
 
 			$sql3 = "SELECT * FROM modelos WHERE id = ".$id_modelo.$extra;
 			$consulta3 = mysqli_query($conexion,$sql3);
@@ -499,7 +596,9 @@ switch ($tipo) {
 							<td class="text-center">'.$nombre_modelo.'</td>
 							<td class="text-center">'.$concepto.'</td>
 							<td class="text-center">'.$valor.'</td>
+							<td class="text-center">'.$fecha_desde.'</td>
 							<td class="text-center">'.$fecha_inicio.'</td>
+							<td class="text-center">'.$nombre_responsable.'</td>
 							<td class="text-center">
 								<button class="btn btn-danger" type="button" value="'.$tipo.'" onclick="borrar_extra1('.$id_tipo.',value);">Eliminar</button>
 							</td>
@@ -521,6 +620,13 @@ switch ($tipo) {
 			$valor = $row1['monto'];
 			$responsable = $row1['responsable'];
 			$fecha_inicio = $row1['fecha_inicio'];
+			$fecha_desde = $row1['fecha_desde'];
+
+			$sql5 = "SELECT * FROM usuarios WHERE id = ".$responsable;
+			$consulta5 = mysqli_query($conexion,$sql5);
+			while($row5 = mysqli_fetch_array($consulta5)) {
+				$nombre_responsable = $row5['nombre']." ".$row5['apellido'];
+			}
 
 			$sql3 = "SELECT * FROM modelos WHERE id = ".$id_modelo.$extra;
 			$consulta3 = mysqli_query($conexion,$sql3);
@@ -544,7 +650,9 @@ switch ($tipo) {
 							<td class="text-center">'.$nombre_modelo.'</td>
 							<td class="text-center">'.$concepto.'</td>
 							<td class="text-center">'.$valor.'</td>
+							<td class="text-center">'.$fecha_desde.'</td>
 							<td class="text-center">'.$fecha_inicio.'</td>
+							<td class="text-center">'.$nombre_responsable.'</td>
 							<td class="text-center">
 								<button class="btn btn-danger" type="button" value="'.$tipo.'" onclick="borrar_extra1('.$id_tipo.',value);">Eliminar</button>
 							</td>
@@ -566,6 +674,13 @@ switch ($tipo) {
 			$valor = $row1['monto'];
 			$responsable = $row1['responsable'];
 			$fecha_inicio = $row1['fecha_inicio'];
+			$fecha_desde = $row1['fecha_desde'];
+
+			$sql5 = "SELECT * FROM usuarios WHERE id = ".$responsable;
+			$consulta5 = mysqli_query($conexion,$sql5);
+			while($row5 = mysqli_fetch_array($consulta5)) {
+				$nombre_responsable = $row5['nombre']." ".$row5['apellido'];
+			}
 
 			$sql3 = "SELECT * FROM modelos WHERE id = ".$id_modelo.$extra;
 			$consulta3 = mysqli_query($conexion,$sql3);
@@ -590,6 +705,7 @@ switch ($tipo) {
 							<td class="text-center">'.$concepto.'</td>
 							<td class="text-center">'.$valor.'</td>
 							<td class="text-center">'.$fecha_inicio.'</td>
+							<td class="text-center">'.$nombre_responsable.'</td>
 							<td class="text-center">
 								<button class="btn btn-danger" type="button" value="'.$tipo.'" onclick="borrar_extra1('.$id_tipo.',value);">Eliminar</button>
 							</td>

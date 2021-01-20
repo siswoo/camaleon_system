@@ -13,6 +13,7 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 	$modelo_nombre = $row1['nombre1']." ".$row1['nombre2']." ".$row1['apellido1']." ".$row1['apellido2'];
 	$modelo_tipo_documento = $row1['documento_tipo'];
 	$modelo_cedula = $row1['documento_numero'];
+	$turno = $row1['turno'];
 }
 
 $sql2 = "SELECT * FROM presabana WHERE id_modelo = ".$id_modelo." and id = ".$presabana;
@@ -323,34 +324,36 @@ while($row2 = mysqli_fetch_array($consulta2)) {
 		$pdf->Cell(30,5,"$".number_format($multas_valor,2,',','.'),0,1,'C');
 	}
 
-	$sql8 = "SELECT * FROM bonos_horas WHERE id_modelo = ".$id_modelo." and fecha_desde BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."' and fecha_hasta BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."'";
-	$consulta8 = mysqli_query($conexion,$sql8);
-	$total_devengado_bonos_horas = 0;
-	while($row8 = mysqli_fetch_array($consulta8)) {
-		$bonos_horas_valor = $row8['monto'];
-		$bonos_horas_concepto = $row8['concepto'];
-		$total_devengado_bonos_horas = $total_devengado_bonos_horas+$bonos_horas_valor;
-		$pdf->Ln(5);
-		$pdf->Cell(65,5,utf8_decode(strtoupper($bonos_horas_concepto)),0,0,'');
-		$pdf->Cell(30,5,utf8_decode("0"),0,0,'C');
-		$pdf->Cell(30,5,utf8_decode("0"),0,0,'C');
-		$pdf->Cell(30,5,"$".number_format($bonos_horas_valor,2,',','.'),0,0,'C');
-		$pdf->Cell(30,5,utf8_decode('0'),0,1,'C');
-	}
+	if($turno!='Satelite'){
+		$sql8 = "SELECT * FROM bonos_horas WHERE id_modelo = ".$id_modelo." and fecha_desde BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."' and fecha_hasta BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."'";
+		$consulta8 = mysqli_query($conexion,$sql8);
+		$total_devengado_bonos_horas = 0;
+		while($row8 = mysqli_fetch_array($consulta8)) {
+			$bonos_horas_valor = $row8['monto'];
+			$bonos_horas_concepto = $row8['concepto'];
+			$total_devengado_bonos_horas = $total_devengado_bonos_horas+$bonos_horas_valor;
+			$pdf->Ln(5);
+			$pdf->Cell(65,5,utf8_decode(strtoupper($bonos_horas_concepto)),0,0,'');
+			$pdf->Cell(30,5,utf8_decode("0"),0,0,'C');
+			$pdf->Cell(30,5,utf8_decode("0"),0,0,'C');
+			$pdf->Cell(30,5,"$".number_format($bonos_horas_valor,2,',','.'),0,0,'C');
+			$pdf->Cell(30,5,utf8_decode('0'),0,1,'C');
+		}
 
-	$sql9 = "SELECT * FROM bonos_streamate WHERE id_modelo = ".$id_modelo." and fecha_desde BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."' and fecha_hasta BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."'";
-	$consulta9 = mysqli_query($conexion,$sql9);
-	$total_devengado_bonos_streamate = 0;
-	while($row9 = mysqli_fetch_array($consulta9)) {
-		$bonos_streamate_valor = $row9['monto'];
-		$bonos_streamate_concepto = $row9['concepto'];
-		$total_devengado_bonos_streamate = $total_devengado_bonos_streamate+$bonos_streamate_valor;
-		$pdf->Ln(5);
-		$pdf->Cell(65,5,utf8_decode(strtoupper($bonos_streamate_concepto)),0,0,'');
-		$pdf->Cell(30,5,utf8_decode("0"),0,0,'C');
-		$pdf->Cell(30,5,utf8_decode("0"),0,0,'C');
-		$pdf->Cell(30,5,"$".number_format($bonos_streamate_valor*$trm,2,',','.'),0,0,'C');
-		$pdf->Cell(30,5,utf8_decode('0'),0,1,'C');
+		$sql9 = "SELECT * FROM bonos_streamate WHERE id_modelo = ".$id_modelo." and fecha_desde BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."' and fecha_hasta BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."'";
+		$consulta9 = mysqli_query($conexion,$sql9);
+		$total_devengado_bonos_streamate = 0;
+		while($row9 = mysqli_fetch_array($consulta9)) {
+			$bonos_streamate_valor = $row9['monto'];
+			$bonos_streamate_concepto = $row9['concepto'];
+			$total_devengado_bonos_streamate = $total_devengado_bonos_streamate+$bonos_streamate_valor;
+			$pdf->Ln(5);
+			$pdf->Cell(65,5,utf8_decode(strtoupper($bonos_streamate_concepto)),0,0,'');
+			$pdf->Cell(30,5,utf8_decode("0"),0,0,'C');
+			$pdf->Cell(30,5,utf8_decode("0"),0,0,'C');
+			$pdf->Cell(30,5,"$".number_format($bonos_streamate_valor*$trm,2,',','.'),0,0,'C');
+			$pdf->Cell(30,5,utf8_decode('0'),0,1,'C');
+		}
 	}
 
 	$sql10 = "SELECT * FROM odontologia WHERE id_modelo = ".$id_modelo." and fecha_desde BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."' and fecha_hasta BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."'";

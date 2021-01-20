@@ -50,7 +50,7 @@ for($i=1;$i<=$limite;$i++){
     if($i==1){
         if($worksheet->getCell('A'.$i) != ""){
             $nickname = $worksheet->getCell('A'.$i);
-            $j = 15;
+            $j = 14;
             $tokens = $worksheet->getCell('A'.$j);
             $fecha_inicio = $fecha_inicio;
             $limpiar = 0;

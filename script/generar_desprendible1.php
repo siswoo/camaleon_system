@@ -198,7 +198,7 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 		}
 
 		if($row2['id_paginas']==11){
-			$sql_paginas1 = "SELECT * FROM xlove WHERE nickname = '".$row2['usuario']."' and fecha_desde BETWEEN '".$desprendible_fecha_desde."' AND '".$desprendible_fecha_hasta."' and  fecha_hasta BETWEEN '".$desprendible_fecha_desde."' AND '".$desprendible_fecha_hasta."'";
+			$sql_paginas1 = "SELECT * FROM xlove WHERE nickname = '".$row2['nickname_xlove']."' and fecha_desde BETWEEN '".$desprendible_fecha_desde."' AND '".$desprendible_fecha_hasta."' and  fecha_hasta BETWEEN '".$desprendible_fecha_desde."' AND '".$desprendible_fecha_hasta."'";
 			$consulta_paginas1 = mysqli_query($conexion,$sql_paginas1);
 			while($row3 = mysqli_fetch_array($consulta_paginas1)) {
 				$contador_tokens_xlove1 = $contador_tokens_xlove1 + $row3['tokens'];
