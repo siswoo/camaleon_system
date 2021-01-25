@@ -30,7 +30,7 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 		}
 	}
 
-	if($id_modelo == 541 or $id_modelo == 481 or $id_modelo == 560 or $id_modelo == 350 or $id_modelo == 616 or $id_modelo == 528 or $id_modelo == 471 or $id_modelo == 554 /*or $id_modelo == 104*/ or $id_modelo == 564 /*or $id_modelo == 429*/ or $id_modelo == 140 or $id_modelo == 598 or $id_modelo == 482 or $id_modelo == 596 or $id_modelo == 562 or $id_modelo == 597 or $id_modelo == 311 or $id_modelo == 420 or $id_modelo == 554 or $id_modelo == 471 or $id_modelo == 528 or $id_modelo == 616 or $id_modelo == 350 or $id_modelo == 560 or $id_modelo == 481 or $id_modelo == 541){ 
+	if($id_modelo == 541 or $id_modelo == 481 or $id_modelo == 560 or $id_modelo == 350 or $id_modelo == 616 or $id_modelo == 528 or $id_modelo == 471 or $id_modelo == 554 /*or $id_modelo == 104*/ or $id_modelo == 564 /*or $id_modelo == 429*/ or $id_modelo == 140 or $id_modelo == 598 or $id_modelo == 482 or $id_modelo == 596 or $id_modelo == 562 or $id_modelo == 597 or $id_modelo == 311 or $id_modelo == 420 or $id_modelo == 554 or $id_modelo == 471 or $id_modelo == 528 or $id_modelo == 616 or $id_modelo == 350 or $id_modelo == 560 or $id_modelo == 481 or $id_modelo == 541 or $id_modelo == 139){ 
 		if($inicio=='2020-12-16'){
 			$apuro = 1;
 		}
@@ -355,6 +355,7 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 				$total_tokens = $chaturbate+$imlive+$xlove+$stripchat+$streamate+$myfreecams+$livejasmin+$bonga+$cam4+$camsoda+$flirt4free;
 
 				$bono1 = 0;
+				$pase_bono1 = 0;
 
 				if($total_tokens>=50000 and $total_tokens<=79999 and $turno != 'Satelite'){
 					$bono1 = 100000;
@@ -373,15 +374,22 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 				}
 
 				if($bono1>=1){
-					if($inicio!='2020-12-01' and $modelo_cedula!= 24551545 and $modelo_cedula!= 147577245 and $modelo_cedula!= 43547138){
+
+					if($modelo_cedula== 24551545 or $modelo_cedula== 147577245 or $modelo_cedula== 43547138){
+						if($inicio=='2020-12-01'){
+							$pase_bono1 = 1;
+						}
+					}
+					
+					if($pase_bono1==1){
+						$bono1 = 0;
+					}else{
 						$pdf->Ln(5);
 						$pdf->Cell(65,5,utf8_decode('BONO'),0,0,'');
 						$pdf->Cell(30,5,utf8_decode("0"),0,0,'C');
 						$pdf->Cell(30,5,utf8_decode("0"),0,0,'C');
 						$pdf->Cell(30,5,"$".number_format($bono1,2,',','.'),0,0,'C');
 						$pdf->Cell(30,5,utf8_decode('0'),0,1,'C');
-					}else{
-						$bono1 = 0;
 					}
 				}
 

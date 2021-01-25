@@ -82,7 +82,7 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 		}
 	}
 
-	if($id_modelo == 541 or $id_modelo == 481 or $id_modelo == 560 or $id_modelo == 350 or $id_modelo == 616 or $id_modelo == 528 or $id_modelo == 471 or $id_modelo == 554 /*or $id_modelo == 104*/ or $id_modelo == 564 /*or $id_modelo == 429*/ or $id_modelo == 140 or $id_modelo == 598 or $id_modelo == 482 or $id_modelo == 596 or $id_modelo == 562 or $id_modelo == 597 or $id_modelo == 311 or $id_modelo == 420 or $id_modelo == 554 or $id_modelo == 471 or $id_modelo == 528 or $id_modelo == 616 or $id_modelo == 350 or $id_modelo == 560 or $id_modelo == 481 or $id_modelo == 541){ 
+	if($id_modelo == 541 or $id_modelo == 481 or $id_modelo == 560 or $id_modelo == 350 or $id_modelo == 616 or $id_modelo == 528 or $id_modelo == 471 or $id_modelo == 554 /*or $id_modelo == 104*/ or $id_modelo == 564 /*or $id_modelo == 429*/ or $id_modelo == 140 or $id_modelo == 598 or $id_modelo == 482 or $id_modelo == 596 or $id_modelo == 562 or $id_modelo == 597 or $id_modelo == 311 or $id_modelo == 420 or $id_modelo == 554 or $id_modelo == 471 or $id_modelo == 528 or $id_modelo == 616 or $id_modelo == 350 or $id_modelo == 560 or $id_modelo == 481 or $id_modelo == 541 or $id_modelo == 139){ 
 		if($fecha_inicio_post=='2020-12-16'){
 			$apuro = 1;
 		}
@@ -738,7 +738,7 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 						$sheet->setCellValue('U'.$fila, $newDate_fin);
 						$giros_bonos_hora = 0;
 					}else if($giros_bonos_streamate==1){
-						$sheet->setCellValue('N'.$fila, 'Bono Paginas');
+						$sheet->setCellValue('N'.$fila, 'Bono Economico');
 						$spreadsheet->getActiveSheet()->getCell('O'.$fila)->setValue($cedula_modelo);
 						$spreadsheet->getActiveSheet()->getStyle('O'.$fila)->getNumberFormat()->setFormatCode('00');
 						$sheet->setCellValue('P'.$fila, '1');
