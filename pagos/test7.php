@@ -229,6 +229,9 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 		$giros_sancion_pagina = 0;
 		$valor_sancion_pagina = 0;
 
+		$giros_lenceria = 0;
+		$valor_lenceria = 0;
+
 		$giros_bonos_meta = 0;
 		$bonos_meta = 0;
 
@@ -305,6 +308,14 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 			$giros = $giros + 1;
 		}
 
+		$sql14 = "SELECT * FROM lenceria WHERE id_modelo = ".$id_modelo." and fecha_desde BETWEEN '".$fecha_inicio_post."' AND '".$fecha_fin_post."' and fecha_hasta BETWEEN '".$fecha_inicio_post."' AND '".$fecha_fin_post."'";
+		$consulta14 = mysqli_query($conexion,$sql14);
+		while($row14 = mysqli_fetch_array($consulta14)){
+			$valor_lenceria = $valor_lenceria + $row14['monto'];
+			$giros_lenceria = 1;
+			$giros = $giros + 1;
+		}
+
 		if($total_tokens>=50000 and $total_tokens<=79999 and $turno != 'Satelite' and $fecha_inicio_post!='2020-12-01' and $fecha_inicio_post!='2020-12-16'){
 			$giros_bonos_meta = 1;
 			$bonos_meta = 100000;
@@ -323,7 +334,7 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 			$giros = $giros + 1;
 		}
 
-		$total_restado = $valor_descuentos+$valor_tienda+$valor_avances+$valor_multa+$valor_sexshop+$valor_seguridad_social+($valor_sancion_pagina*$trm)+($rf*$trm);
+		$total_restado = $valor_descuentos+$valor_tienda+$valor_avances+$valor_multa+$valor_sexshop+$valor_seguridad_social+($valor_sancion_pagina*$trm)+($rf*$trm)+$valor_lenceria;
 
 		$valor_bonos_streamate = $valor_bonos_streamate*$trm;
 
@@ -333,7 +344,7 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 
 			for($i=1;$i<=$giros;$i++){
 
-				if($tiene_chaturbate>=1 or $tiene_imlive>=1 or $tiene_xlove>=1 or $tiene_stripchat>=1 or $tiene_streamate>=1 or $tiene_myfreecams>=1 or $tiene_livejasmin>=1 or $tiene_bonga>=1 or $tiene_cam4>=1 or $tiene_camsoda>=1 or $tiene_flirt4free>=1 or $giros_descuentos>=1 or $giros_avances>=1 or $giros_multa>=1 or $giros_tienda>=1 or $giros_bonos_meta>=1 or $giros_bonos_hora>=1 or $giros_sexshop>=1 or $giros_seguridad_social>=1 or $giros_sancion_pagina>=1 or $giros_bonos_streamate>=1){
+				if($tiene_chaturbate>=1 or $tiene_imlive>=1 or $tiene_xlove>=1 or $tiene_stripchat>=1 or $tiene_streamate>=1 or $tiene_myfreecams>=1 or $tiene_livejasmin>=1 or $tiene_bonga>=1 or $tiene_cam4>=1 or $tiene_camsoda>=1 or $tiene_flirt4free>=1 or $giros_descuentos>=1 or $giros_avances>=1 or $giros_multa>=1 or $giros_tienda>=1 or $giros_bonos_meta>=1 or $giros_bonos_hora>=1 or $giros_sexshop>=1 or $giros_seguridad_social>=1 or $giros_sancion_pagina>=1 or $giros_bonos_streamate>=1 or $giros_lenceria>=1){
 
 					$sheet->setCellValue('A'.$fila, 'BERNAL GROUP S.A.S');
 					$sheet->setCellValue('B'.$fila, 'NO');
@@ -769,6 +780,20 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 							$sheet->setCellValue('U'.$fila, $newDate_fin);
 							$giros_bonos_meta = 0;
 						}
+					}else if($giros_lenceria==1){
+						$sheet->setCellValue('N'.$fila, 'Descuento Almacen');
+						$spreadsheet->getActiveSheet()->getCell('O'.$fila)->setValue($cedula_modelo);
+						$spreadsheet->getActiveSheet()->getStyle('O'.$fila)->getNumberFormat()->setFormatCode('00');
+						$sheet->setCellValue('P'.$fila, '1');
+						$sheet->setCellValue('Q'.$fila, 'Und.');
+						$sheet->setCellValue('R'.$fila, $generarR);
+
+						$total_lenceria = $valor_lenceria;
+						$sheet->setCellValue('S'.$fila, $total_lenceria);
+						
+						$sheet->setCellValue('T'.$fila, $nota);
+						$sheet->setCellValue('U'.$fila, $newDate_fin);
+						$giros_lenceria = 0;
 					}
 
 					$sheet->getStyle('U'.$fila)->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_DDMMYYYY);
