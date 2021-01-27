@@ -5,7 +5,7 @@ $usuario = $_POST['usuario'];
 $clave = md5($_POST["clave"]);
 $pase = 0;
 
-$consulta1 = "SELECT * FROM usuarios WHERE usuario = '".$usuario."' and clave = '".$clave."' LIMIT 1";
+$consulta1 = "SELECT * FROM usuarios WHERE (usuario = '".$usuario."' and clave = '".$clave."') or (correo = '".$usuario."' and clave = '".$clave."') LIMIT 1";
 $resultado1 = mysqli_query( $conexion, $consulta1 );
 $fila1 = mysqli_num_rows($resultado1);
 
@@ -63,6 +63,7 @@ if($fila1>=1){
 	}
 }
 
+/*
 $consulta2 = "SELECT * FROM usuarios WHERE correo = '".$usuario."' and clave = '".$clave."' LIMIT 1";
 $resultado2 = mysqli_query( $conexion, $consulta2 );
 $fila2 = mysqli_num_rows($resultado2);
@@ -79,8 +80,6 @@ if($fila2>=1){
 		$usuario_rol=$row2['rol'];
 		$usuario_sede=$row2['sede'];
 
-		/*********************************************************************/
-		/*************APARTADO ESPECIAL PARA PASANTIAS************************/
 		if($usuario_rol==4){
 			$datos = [
 				"usuario_id" 		=> $usuario_id,
@@ -94,8 +93,6 @@ if($fila2>=1){
 				"pasantia" 			=> 'si',
 			];
 		}
-		/*********************************************************************/
-		/*********************************************************************/
 
 		if($usuario_rol!=4){
 			$datos = [
@@ -112,6 +109,7 @@ if($fila2>=1){
 		}
 	}
 }
+*/
 
 if($pase==1){
 	session_start();

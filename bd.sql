@@ -104,6 +104,7 @@ CREATE TABLE usuarios (
 INSERT INTO usuarios (nombre,apellido,documento_tipo,documento_numero,correo,usuario,clave,telefono1,telefono2,rol,sede,fecha_inicio) VALUES 
 ('Juan','Maldonado','PEP','955948708101993','juanmaldonado.co@gmail.com','admin','21232f297a57a5a743894a0e4a801fc3','3125318122','',1,1,'2020-08-18'),
 ('Leonardo','Matiz Prieto','Cedula de Ciudadania','1014231159','matizprietoleonardo@gmail.com','leomatiz','6e23d09664c2092e3c6f87e56e8efa1d','3197482852','',7,1,'2020-09-22'),
+('Juan','Arias','Cedula de Ciudadania','1081933064','juan_jose07@hotmail.es','juan_mt','d757719ed7c2b66dd17dcee2a3cb29f4','3507945712','',7,1,'2021-01-26'),
 ('Rocio','Delgado','Cedula de Ciudadania','1023886014','dptorrhhcamaleonmodels@gmail.com','recursoshumanos','77bedb3696d429d527deb55e83ccd8ed','3058126922','',15,1,'2020-09-23'),
 ('Andrea','Perez','Cedula de Ciudadania','1233894005','adminnorte@bernal-group.com','adminsuba','12c22c3f68d4c7bc77f1f40bd78f5e9b','3162972851','',13,4,'2020-09-23'),
 ('Pasantia','Test','PEP','11111111111','test@gmail.com','pasantia','21232f297a57a5a743894a0e4a801fc3','77777777','',4,1,'2020-08-27'),
@@ -887,3 +888,25 @@ CREATE TABLE recuperar_password (
 	fecha_inicio DATE NOT NULL,
    	PRIMARY KEY (id)
 ); ALTER TABLE recuperar_password CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+DROP TABLE IF EXISTS monitores;
+CREATE TABLE monitores (
+	id INT AUTO_INCREMENT,
+	nombre VARCHAR(250) NOT NULL,
+	apellido VARCHAR(250) NOT NULL,
+	tipo_documento VARCHAR(250) NOT NULL,
+	numero_documento VARCHAR(250) NOT NULL,
+	telefono VARCHAR(250) NOT NULL,
+	fecha_inicio DATE NOT NULL,
+   	PRIMARY KEY (id)
+); ALTER TABLE monitores CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+DROP TABLE IF EXISTS monitores_registro_diario;
+CREATE TABLE monitores_registro_diario (
+	id INT AUTO_INCREMENT,
+	monitor INT NOT NULL,
+	fecha DATE NOT NULL,
+	tokens INT NOT NULL,
+	fecha_inicio DATE NOT NULL,
+   	PRIMARY KEY (id)
+); ALTER TABLE monitores_registro_diario CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;

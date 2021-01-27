@@ -52,7 +52,8 @@ use PHPMailer\PHPMailer\Exception;
 		$id_modelo = mysqli_insert_id($conexion);
 		$usuario = $primer_nombre.$id_modelo;
 		$clave_generica = rand(999, 9999);
-		$clave = md5($clave_generica);
+		//$clave = md5($clave_generica);
+		$clave = md5($numero_documento);
 
 		$sql4 = "UPDATE modelos SET usuario = '$usuario', clave = '$clave' WHERE id = ".$id_modelo;
 		$registro3 = mysqli_query($conexion,$sql4);

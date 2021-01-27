@@ -98,14 +98,14 @@ if($ubicacion == 'welcome'){ ?>
 			*/
 	      	?>
 
-	      	<!--
+	      	
 	      	<?php
-			if($verificacion_monitores_view==1){ ?>
+			if($_SESSION['rol']==7){ ?>
 	      	<li class="nav-item" id="li-monitores">
-	        	<a class="nav-link navbar-active-a" href="../monitores/index.php" id="a-monitores">Monitores</a>
+	        	<a class="nav-link navbar-active-a botones_navbar1" href="../monitores/index.php" id="a-monitores">Monitores</a>
 	      	</li>
 	      	<?php } ?>
-	      	-->
+	      	
 
 	      	<?php
 	      	/*

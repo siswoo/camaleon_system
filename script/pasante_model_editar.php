@@ -16,6 +16,7 @@ while($row = mysqli_fetch_array($registro1)) {
 	$telefono1 			= $row['telefono1'];
 	$barrio 			= $row['barrio'];
 	$direccion 			= $row['direccion'];
+	$sede 				= $row['sede'];
 }
 
 $datos = [
@@ -31,6 +32,7 @@ $datos = [
 	"telefono1" 			=> $telefono1,
 	"barrio" 				=> $barrio,
 	"direccion" 			=> $direccion,
+	"sede" 					=> $sede,
 ];
 
 echo json_encode($datos);

@@ -91,28 +91,6 @@
 	<div class="seccion1">
 	    <div class="row">
 		    <div class="container_consulta1">
-		    	<!--
-		    	<div class="row mb-3">
-		    		<div class="col-md-6 text-right">
-		    			<input type="submit" class="btn btn-info" value="Importar Datos" data-toggle="modal" data-target="#exampleModal3">
-		    		</div>
-		    		<div class="col-md-6">
-		    			<form action="../script/pasante_excel_exportar1.php" method="POST">
-		    				<input type="submit" class="btn btn-danger" value="Exportar Datos">
-		    				<?php
-			    			if($_SESSION['rol']==1){
-				        		$consulta_hidden = "SELECT * FROM pasantes";	
-				        	}else{
-				        		$session_sede = $_SESSION['sede'];
-				        		$consulta_hidden = "SELECT * FROM pasantes WHERE sede = $session_sede";
-				        	}
-				        	?>
-		    				<input type="hidden" name="sql" id="sql" value="<?php echo $consulta_hidden; ?>">
-		    			</form>
-		    		</div>
-		    	</div>
-		    	-->
-
 		    	<div class="col-md-12 text-center mb-3">
 		    		<button class="btn btn-info" value="No" id="pasantes1" name="pasantes1" onclick="consultar1(this.id,value);">Consultar Pasantes</button>
 		    		<button class="btn btn-info ml-3" value="No" id="pasantes2" name="pasantes2" onclick="consultar1(this.id,value);">Asignar Sedes "Aceptadas"</button>
@@ -141,7 +119,7 @@
 				        	<?php
 				        	if($_SESSION['rol']==1){
 				        		$consulta2 = "SELECT * FROM pasantes";	
-				        	}else if($_SESSION['rol']==15){
+				        	}else if($_SESSION['rol']==15 or $_SESSION['rol']==8){
 				        		$sql3 = "SELECT * FROM usuarios WHERE id = ".$_SESSION['id'];
 				        		$resultado3 = mysqli_query($conexion,$sql3);
 								while($row5 = mysqli_fetch_array($resultado3)) {
@@ -151,6 +129,8 @@
 										$consulta2 = "SELECT * FROM pasantes WHERE sede = 1 or sede = 3";
 									}else if($usuario_documento=='24616438'){
 										$consulta2 = "SELECT * FROM pasantes WHERE sede = 2 or sede = 4";
+									}else if($usuario_documento=='1000850867'){
+										$consulta2 = "SELECT * FROM pasantes WHERE sede = 1 or sede = 3";
 									}else{
 										$consulta2 = "SELECT * FROM pasantes WHERE sede = 1";
 									}
@@ -288,6 +268,8 @@
 										$consulta2 = "SELECT * FROM modelos WHERE sede = 1 or sede = 3";
 									}else if($usuario_documento=='24616438'){
 										$consulta2 = "SELECT * FROM modelos WHERE sede = 2 or sede = 4";
+									}else if($usuario_documento=='1000850867'){
+										$consulta2 = "SELECT * FROM modelos WHERE sede = 1 or sede = 3";
 									}else{
 										$consulta2 = "SELECT * FROM modelos WHERE sede = $session_sede";
 									}
@@ -474,9 +456,22 @@
 								</select>
 						    </div>
 
-						    <div class="col-12 form-group form-check">
+						    <div class="col-6 form-group form-check">
 							    <label for="edit_direccion">Dirección (Opcional)</label>
 							    <textarea name="edit_direccion" id="edit_direccion" class="form-control" autocomplete="off" required></textarea>
+						    </div>
+
+						    <div class="col-6 form-group form-check">
+							    <label for="edit_sede">Sede</label>
+							    <select id="edit_sede" name="edit_sede" class="form-control" required>
+							    	<option value="">Seleccione</option>
+							    	<?php
+							    	$sql5 = "SELECT * FROM sedes";
+							    	$consulta5 = mysqli_query($conexion,$sql5);
+									while($row5 = mysqli_fetch_array($consulta5)) { ?>
+										<option value="<?php echo $row5['id']; ?>"><?php echo $row5['nombre']; ?></option>
+									<?php } ?>
+							    </select>
 						    </div>
 					    </div>
 					</div>
@@ -797,6 +792,7 @@
 				$('#edit_telefono1').val(respuesta['telefono1']);
 				$('#edit_barrio').val(respuesta['barrio']);
 				$('#edit_direccion').val(respuesta['direccion']);
+				$('#edit_sede').val(respuesta['sede']);
 			},
 
 			error: function(respuesta) {

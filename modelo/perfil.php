@@ -1233,8 +1233,14 @@
 		<div class="row">
 			
 			<div class="col-12 form-group form-check text-center mt-3">
-				<input type="button" class="btn btn-info" id="botonContratover1" name="botonContratover1" value="Ver Contrato" onclick="vercontrato1();">
+				<input type="button" class="btn btn-info" id="botonContratover1" name="botonContratover1" value="Ver Contrato (Primera Opción)" onclick="vercontrato1();">
 				<input type="hidden" name="hidden_vercontrato1" id="hidden_vercontrato1" value="No">
+			</div>
+
+			<div class="col-12 form-group form-check text-center mt-3">
+				<a href="../script/generador_modelo_contrato1.php#toolbar=0" target="_blank">
+					<button type="button" class="btn btn-info">Ver Contrato (Segunda Opción)</button>
+				</a>
 			</div>
 
 			<div class="col-12 form-group form-check text-center" id="seccion_contrato1" style="display: none;">
@@ -1406,24 +1412,28 @@
 	<form class="d-none" action="#" method="POST" id="formulario9">
 		<div class="row">
 				<?php
-				$sql7 = "SELECT * FROM presabana WHERE id_modelo = ".$id." and estatus = 'Activa'";
+				$sql7 = "SELECT * FROM presabana WHERE id_modelo = ".$id." and estatus = 'Activa' GROUP BY inicio";
 				$consulta7 = mysqli_query($conexion,$sql7);
 				$contador6 = mysqli_num_rows($consulta7);
 				$html_presabana = '';
 					$html_presabana = '
-						<div class="col-12 text-center mt-3" style="font-weight:bold; font-size: 20px;">Desprendibles de Pagos</div>
+						<!--<div class="col-12 text-center mt-3" style="font-weight:bold; font-size: 20px;">Desprendibles de Pagos</div>-->
 					';
 					while($row7 = mysqli_fetch_array($consulta7)) {
 						$documentos2_id = $row7['id'];
 						$dinero = $row7['total_dolares'];
+						$presabana_desde = $row7['inicio'];
+						$presabana_hasta = $row7['fin'];
 
 						if($dinero>=1){
 							$html_presabana.='
 								<div class="col-12 text-center form-group mt-3">
+									<span style="font-size: 20px; font-weight: bold;">Desprendible desde '.$presabana_desde.' hasta '.$presabana_hasta.'</span>
+									<br>
 									<a href="../script/generar_desprendible2.php?id='.$id.'&pre='.$documentos2_id.'" target="_blank" style="color: white; text-decoration: none;">
-									<button type="button" class="btn btn-success">
-										Descargar Reporte # '.$documentos2_id.' 
+										<button type="button" class="btn btn-success mt-3">Descargar</button>
 									</a>
+									<hr style="background-color: white;">
 								</div>
 							';
 						}else{
@@ -1992,11 +2002,11 @@
 		var hidden = $('#hidden_vercontrato1').val();
 		if(hidden == 'Si'){
 			$('#hidden_vercontrato1').val('No');
-			$('#botonContratover1').val('Ver Contrato');
+			$('#botonContratover1').val('Ver Contrato (Primera Opción)');
 			$('#seccion_contrato1').hide();
 		}else{
 			$('#hidden_vercontrato1').val('Si');
-			$('#botonContratover1').val('Ocultar Contrato');
+			$('#botonContratover1').val('Ocultar Contrato (Primera Opción)');
 			$('#seccion_contrato1').show();
 		}
 	}

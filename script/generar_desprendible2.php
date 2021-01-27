@@ -115,6 +115,11 @@ while($row2 = mysqli_fetch_array($consulta2)) {
 	$pdf->Cell(62,5,utf8_decode('NIT 901 257 204'),0,0,'');
 	$pdf->SetFont('Times','',10);
 	$pdf->Cell(70,5,utf8_decode('Desde '.$fecha_desde.' Hasta '.$fecha_hasta),0,1,'');
+
+	$pdf->Ln(15);
+	$pdf->SetFont('Times','B',10);
+	$pdf->Cell(120,5,date("F j, Y, g:i a"),0,0,'');
+
 	$pdf->Ln(15);
 	$pdf->SetFont('Times','B',10);
 	$pdf->Cell(120,5,utf8_decode(''.strtoupper($modelo_nombre)),0,0,'');
@@ -458,7 +463,7 @@ while($row2 = mysqli_fetch_array($consulta2)) {
 
 	$total_devengado_bonos_streamate = $total_devengado_bonos_streamate*$trm;
 
-	$total_final2 = $total_devengado_chaturbate+$total_devengado_imlive+$total_devengado_xlove+$total_devengado_stripchat+$total_devengado_streamate+$total_devengado_myfreecams+$total_devengado_livejasmin+$total_devengado_bonga+$total_devengado_cam4+$total_devengado_camsoda+$total_devengado_flirt4free+$total_devengado_bonos_horas+$total_devengado_bonos_streamate;
+	$total_final2 = $total_devengado_chaturbate+$total_devengado_imlive+$total_devengado_xlove+$total_devengado_stripchat+$total_devengado_streamate+$total_devengado_myfreecams+$total_devengado_livejasmin+$total_devengado_bonga+$total_devengado_cam4+$total_devengado_camsoda+$total_devengado_flirt4free+$total_devengado_bonos_horas+$total_devengado_bonos_streamate+$bono1;
 
 	$pdf->Ln(15);
 	$pdf->SetFont('Arial','B',10);
