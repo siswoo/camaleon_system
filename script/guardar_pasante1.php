@@ -38,7 +38,7 @@ include('conexion.php');
 	}
 /************************************************************/
 
-	$sql1 = "INSERT INTO pasantes (tipo_documento,numero_documento,primer_nombre,segundo_nombre,primer_apellido,segundo_apellido,genero,d,telefono1,barrio,direccion,fecha_inicio,sede,enterado) VALUES ('$tipo_documento','$numero_documento','$primer_nombre','$segundo_nombre','$primer_apellido','$segundo_apellido','$genero','$correo','$telefono1','$barrio','$direccion','$fecha_inicio','$sede','$enterado')";
+	$sql1 = "INSERT INTO pasantes (tipo_documento,numero_documento,primer_nombre,segundo_nombre,primer_apellido,segundo_apellido,genero,correo,telefono1,barrio,direccion,fecha_inicio,sede,enterado) VALUES ('$tipo_documento','$numero_documento','$primer_nombre','$segundo_nombre','$primer_apellido','$segundo_apellido','$genero','$correo','$telefono1','$barrio','$direccion','$fecha_inicio','$sede','$enterado')";
 	$registro1 = mysqli_query( $conexion, $sql1 );
 
 	$datos = [

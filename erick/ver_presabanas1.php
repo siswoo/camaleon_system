@@ -13,7 +13,7 @@ class PDF extends FPDF{}
 $pdf = new PDF();
 $pdf->AliasNbPages();
 
-$sql1 = "SELECT * FROM modelos WHERE estatus = 'Activa' ORDER BY documento_numero";
+$sql1 = "SELECT * FROM modelos ORDER BY documento_numero";
 $consulta1 = mysqli_query($conexion,$sql1);
 while($row1 = mysqli_fetch_array($consulta1)) {
 	$id_modelo = $row1['id'];

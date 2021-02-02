@@ -1412,37 +1412,49 @@
 	<form class="d-none" action="#" method="POST" id="formulario9">
 		<div class="row">
 				<?php
-				$sql7 = "SELECT * FROM presabana WHERE id_modelo = ".$id." and estatus = 'Activa' GROUP BY inicio";
-				$consulta7 = mysqli_query($conexion,$sql7);
-				$contador6 = mysqli_num_rows($consulta7);
-				$html_presabana = '';
-					$html_presabana = '
-						<!--<div class="col-12 text-center mt-3" style="font-weight:bold; font-size: 20px;">Desprendibles de Pagos</div>-->
-					';
-					while($row7 = mysqli_fetch_array($consulta7)) {
-						$documentos2_id = $row7['id'];
-						$dinero = $row7['total_dolares'];
-						$presabana_desde = $row7['inicio'];
-						$presabana_hasta = $row7['fin'];
+				$sql8 = "SELECT * FROM modelos WHERE id = ".$id;
+				$consulta8 = mysqli_query($conexion,$sql8);
+				while($row8 = mysqli_fetch_array($consulta8)) {
+					$modelo_estatus = $row8['estatus'];
+				}
 
-						if($dinero>=1){
-							$html_presabana.='
-								<div class="col-12 text-center form-group mt-3">
-									<span style="font-size: 20px; font-weight: bold;">Desprendible desde '.$presabana_desde.' hasta '.$presabana_hasta.'</span>
-									<br>
-									<a href="../script/generar_desprendible2.php?id='.$id.'&pre='.$documentos2_id.'" target="_blank" style="color: white; text-decoration: none;">
-										<button type="button" class="btn btn-success mt-3">Descargar</button>
-									</a>
-									<hr style="background-color: white;">
-								</div>
-							';
-						}else{
-							$html_presabana.='
-								<div class="col-12 form-group form-check text-center mt-3">No Tienes Pagos Efectuados</div>
-							';
+				if($modelo_estatus=='Activa'){
+					$sql7 = "SELECT * FROM presabana WHERE id_modelo = ".$id." and estatus = 'Activa' GROUP BY inicio";
+					$consulta7 = mysqli_query($conexion,$sql7);
+					$contador6 = mysqli_num_rows($consulta7);
+					$html_presabana = '';
+						$html_presabana = '
+							<!--<div class="col-12 text-center mt-3" style="font-weight:bold; font-size: 20px;">Desprendibles de Pagos</div>-->
+						';
+						while($row7 = mysqli_fetch_array($consulta7)) {
+							$documentos2_id = $row7['id'];
+							$dinero = $row7['total_dolares'];
+							$presabana_desde = $row7['inicio'];
+							$presabana_hasta = $row7['fin'];
+
+							if($dinero>=1){
+								$html_presabana.='
+									<div class="col-12 text-center form-group mt-3">
+										<span style="font-size: 20px; font-weight: bold;">Desprendible desde '.$presabana_desde.' hasta '.$presabana_hasta.'</span>
+										<br>
+										<a href="../script/generar_desprendible2.php?id='.$id.'&pre='.$documentos2_id.'" target="_blank" style="color: white; text-decoration: none;">
+											<button type="button" class="btn btn-success mt-3">Descargar</button>
+										</a>
+										<hr style="background-color: white;">
+									</div>
+								';
+							}else{
+								$html_presabana.='
+									<div class="col-12 form-group form-check text-center mt-3">No Tienes Pagos Efectuados</div>
+								';
+							}
 						}
-					}
-				echo $html_presabana;
+					echo $html_presabana;
+				}else{
+					echo '
+						<div class="col-12 form-group form-check text-center mt-3">No tienes desprendibles activos en el sistema</div>
+					';
+				}
 				?>
 		</div>
 	</form>

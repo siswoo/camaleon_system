@@ -907,6 +907,20 @@ CREATE TABLE monitores_registro_diario (
 	monitor INT NOT NULL,
 	fecha DATE NOT NULL,
 	tokens INT NOT NULL,
+	turno VARCHAR(250) NOT NULL,
 	fecha_inicio DATE NOT NULL,
    	PRIMARY KEY (id)
 ); ALTER TABLE monitores_registro_diario CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+
+DROP TABLE IF EXISTS auditoria;
+CREATE TABLE auditoria (
+	id INT AUTO_INCREMENT,
+	responsable INT NOT NULL,
+	accion TEXT NOT NULL,
+	descripcion VARCHAR(250) NOT NULL,
+	modulo VARCHAR(250) NOT NULL,
+	fecha_inicio DATE NOT NULL,
+   	PRIMARY KEY (id)
+); ALTER TABLE auditoria CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+

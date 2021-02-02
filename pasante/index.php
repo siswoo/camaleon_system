@@ -118,7 +118,7 @@
 				        <tbody id="resultados">
 				        	<?php
 				        	if($_SESSION['rol']==1){
-				        		$consulta2 = "SELECT * FROM pasantes";	
+				        		$consulta2 = "SELECT * FROM pasantes";
 				        	}else if($_SESSION['rol']==15 or $_SESSION['rol']==8){
 				        		$sql3 = "SELECT * FROM usuarios WHERE id = ".$_SESSION['id'];
 				        		$resultado3 = mysqli_query($conexion,$sql3);
@@ -131,6 +131,10 @@
 										$consulta2 = "SELECT * FROM pasantes WHERE sede = 2 or sede = 4";
 									}else if($usuario_documento=='1000850867'){
 										$consulta2 = "SELECT * FROM pasantes WHERE sede = 1 or sede = 3";
+									}else if($usuario_documento=='141888668'){
+										$consulta2 = "SELECT * FROM pasantes WHERE sede = ".$_SESSION['sede'];
+									}else if($usuario_documento=='1001184301'){
+										$consulta2 = "SELECT * FROM pasantes WHERE sede = 2";
 									}else{
 										$consulta2 = "SELECT * FROM pasantes WHERE sede = 1";
 									}
