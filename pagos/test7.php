@@ -88,6 +88,12 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 		}
 	}
 
+	if($id_modelo == 97 or $id_modelo == 322 or $id_modelo == 606 or $id_modelo == 610 or $id_modelo == 616 or $id_modelo == 632 or $id_modelo == 35 or $id_modelo == 193 or $id_modelo == 395 or $id_modelo == 399 or $id_modelo == 429 or $id_modelo == 617 or $id_modelo == 618 or $id_modelo == 633 or $id_modelo == 636 or $id_modelo == 637 or $id_modelo == 638 or $id_modelo == 642 or $id_modelo == 644 or $id_modelo == 651 or $id_modelo == 653 or $id_modelo == 682){ 
+		if($fecha_inicio_post=='2021-01-01'){
+			$apuro = 1;
+		}
+	}
+
 	if($apuro==0){
 
 		$sql2 = "SELECT * FROM sedes WHERE id =".$id_sede;
@@ -340,7 +346,8 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 
 		$positivos = $total_pesos+$bonos_meta+$valor_bonos_hora+$valor_bonos_streamate;
 
-		if($positivos>=$total_restado and $estatus=='Activa'){
+		//if($positivos>=$total_restado){
+		if($apuro==0){
 
 			for($i=1;$i<=$giros;$i++){
 

@@ -1042,47 +1042,6 @@
 				<div class="form-group col-12">
 				    <p class="text-center" style="font-weight: bold; font-size: 20px;">Consultar Extras</p>
 				</div>
-				<!--
-				<div class="form-group col-2 text-center">
-					<button class="btn btn-primary" type="button" value="descuento" onclick="generar_extra(value);">Descuentos</button>
-				</div>
-				<div class="form-group col-2 text-center">
-					<button class="btn btn-primary" type="button" value="tienda" onclick="generar_extra(value);">Tienda</button>
-				</div>
-				<div class="form-group col-2 text-center">	
-					<button class="btn btn-primary" type="button" value="avances" onclick="generar_extra(value);">Avances</button>
-				</div>
-				<div class="form-group col-2 text-center">	
-					<button class="btn btn-primary" type="button" value="multas" onclick="generar_extra(value);">Multas</button>
-				</div>
-				<div class="form-group col-2 text-center">	
-					<button class="btn btn-primary" type="button" value="bonos_horas" onclick="generar_extra(value);">Bonos Horas</button>
-				</div>
-				<div class="form-group col-2 text-center">	
-					<button class="btn btn-primary" type="button" value="bonos_streamate" onclick="generar_extra(value);">Bonos Streamate</button>
-				</div>
-				<div class="form-group col-2 text-center">	
-					<button class="btn btn-primary" type="button" value="odontologia" onclick="generar_extra(value);">Odontologia</button>
-				</div>
-				<div class="form-group col-2 text-center">	
-					<button class="btn btn-primary" type="button" value="seguridad_social" onclick="generar_extra(value);">Seguridad Social</button>
-				</div>
-				<div class="form-group col-2 text-center">	
-					<button class="btn btn-primary" type="button" value="coopserpak" onclick="generar_extra(value);">Coopserpak</button>
-				</div>
-				<div class="form-group col-2 text-center">	
-					<button class="btn btn-primary" type="button" value="sexshop" onclick="generar_extra(value);">Sexshop</button>
-				</div>
-				<div class="form-group col-2 text-center">	
-					<button class="btn btn-primary" type="button" value="belleza" onclick="generar_extra(value);">Belleza</button>
-				</div>
-				<div class="form-group col-2 text-center">	
-					<button class="btn btn-primary" type="button" value="sancionpagina" onclick="generar_extra(value);">Sanción Pagina</button>
-				</div>
-				<div class="form-group col-2 text-center">	
-					<button class="btn btn-primary" type="button" value="lenceria" onclick="generar_extra(value);">Lenceria</button>
-				</div>
-				-->
 				<div class="form-group col-10">
 					<select class="form-control" name="pagina_consultar_extra1" id="pagina_consultar_extra1" required>
 					    <option value="">Seleccione</option>
@@ -1099,6 +1058,7 @@
 					    <option value="belleza">Belleza</option>
 					    <option value="sancionpagina">Sanción Pagina</option>
 					    <option value="lenceria">Lenceria</option>
+					    <option value="Todos">Todos</option>
 					</select>
 				</div>
 
@@ -1556,9 +1516,8 @@
             },
 
             success: function(response){
-            	//console.log(response);
+            	$('#submit_XLove').removeAttr('disabled');
             	if(response=='error'){
-            		$('#submit_XLove').attr('disabled','false');
             		Swal.fire({
 		 				title: 'Formato Invalido',
 			 			text: "Formato Validos -> xls xml xlam xlsx",
@@ -1610,8 +1569,8 @@
 
             success: function(response){
             	console.log(response);
+            	$('#submit_chaturbate').removeAttr('disabled');
             	if(response=='error'){
-            		$('#submit_chaturbate').attr('disabled','false');
             		Swal.fire({
 		 				title: 'Formato Invalido',
 			 			text: "Formato Validos -> xls xml xlam xlsx",
@@ -1730,7 +1689,7 @@
 
             success: function(response){
             	console.log(response);
-            	$('#submit_streamate').attr('disabled','false');
+            	$('#submit_streamate').removeAttr('disabled');
             	if(response=='error'){
             		Swal.fire({
 		 				title: 'Formato Invalido',
@@ -1757,6 +1716,7 @@
             },
 
             error: function(response){
+            	$('#submit_streamate').removeAttr('disabled');
             	console.log(response['responseText']);
             }
         });
