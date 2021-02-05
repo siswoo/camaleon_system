@@ -38,11 +38,13 @@ $fecha_desde = $_POST['fecha_desde_guiaRut'];
 $fecha_hasta = $_POST['fecha_hasta_guiaRut'];
 $sedePost = $_POST['sede_guiaR'];
 
+/*
 if($sedePost==0){
 	$sql1 = "SELECT * FROM modelos";
 }else{
 	$sql1 = "SELECT * FROM modelos WHERE sede = ".$sedePost;
 }
+*/
 
 $sql5 = "SELECT * FROM usuarios WHERE id = ".$_SESSION['id'];
 $consulta5 = mysqli_query($conexion,$sql5);
@@ -52,6 +54,8 @@ while($row5 = mysqli_fetch_array($consulta5)) {
 
 if($usuario_documento==1001184301 or $usuario_documento==1000850867 or $usuario_documento==1023886014 or $usuario_documento==24616438){
 	$sql1 = "SELECT * FROM modelos WHERE sede = ".$_SESSION['sede'];
+}else{
+	$sql1 = "SELECT * FROM modelos";
 }
 
 //FALTA JORGE, KENLLY POR USUARIOS
@@ -232,6 +236,9 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 	$consulta4 = mysqli_query($conexion,$sql4);
 	$contador1 = mysqli_num_rows($consulta4);
 	while($row4 = mysqli_fetch_array($consulta4)) {
+
+		$documentos_id = $row4['id'];
+
 		if($row4['id_documentos']==1){
 			$contador_documentos1 = 1;
 			$tipo_documento1 = $row4['tipo'];
@@ -270,7 +277,10 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 
 	if($total_tokens>=1){
 		$html .= '
-			<tr>
+			<tr id="tr_porcentaje_'.$documentos_id.'">
+				<td>
+					<button id="porcentaje_eliminar_'.$documentos_id.'" name="porcentaje_eliminar_'.$documentos_id.'">
+				</td>
 				<td>'.$modelo_nombre_completo.'</td>
 				<td>'.$documento_tipo.'</td>
 				<td>'.$documento_numero.'</td>

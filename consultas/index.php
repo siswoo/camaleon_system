@@ -120,6 +120,7 @@
 		    <table id="example" class="table row-border hover table-bordered" style="font-size: 12px; width: 90%;">
 				<thead>
 				    <tr>
+				    	<th class="text-center">Opciones</th>
 				       	<th class="text-center">Nombre</th>
 				        <th class="text-center">Tipo</th>
 				        <th class="text-center">Documento</th>
@@ -142,6 +143,34 @@
 				</thead>
 				<tbody id="resultados"></tbody>
 			</table>
+		</div>
+	</div>
+
+	<div class="row mt-3">
+		<div class="col-12 mt-3 text-center" style="font-weight: bold; font-size: 30px; text-transform: uppercase;">
+			Consultar Desprendibles
+		</div>
+
+		<div class="col-12">
+			<form id="form_desprendibles1" action="../script/consultar_porcentajes2.php" method="POST" target="_blank">
+		</div>
+
+		<div class="col-9 ml-2">
+			<select name="desprendible_select1" id="desprendible_select1" class="form-control" required>
+				<option value="">Seleccione</option>
+				<?php
+				$sql1 = "SELECT * FROM presabana WHERE inicio >= '2021-01-01' GROUP BY inicio ORDER BY inicio";
+				$consulta1 = mysqli_query($conexion,$sql1);
+				while($row1 = mysqli_fetch_array($consulta1)) { ?>
+					<option value="<?php echo $row1['inicio']; ?>">Desde <?php echo $row1['inicio']; ?> Hasta <?php echo $row1['fin']; ?></option>
+				<?php } ?>
+			</select>
+		</div>
+		<div class="col-2">
+			<button type="submit" class="btn btn-info" id="desprendible_consultar1">Consultar</button>
+		</div>
+		<div class="col-12">
+			</form>
 		</div>
 	</div>
 
@@ -283,5 +312,44 @@
         });
 
     }
+
+    /*
+    function consulta2(){
+    	var select = $('#desprendible_select1').val();
+    	if(select==''){
+    		Swal.fire({
+			 	title: 'Error',
+				text: "Coloca una opción por favor",
+				icon: 'error',
+				position: 'center',
+				showConfirmButton: false,
+				timer: 3000
+			});
+			return false;
+    	}
+
+    	$.ajax({
+            url: '../script/consultar_porcentajes2.php',
+            type: 'POST',
+            data: {
+				"inicio": select,
+			},
+
+            beforeSend: function (){
+            	$('#desprendible_consultar1').attr('disabled','true');
+            },
+
+            success: function(response){
+            	console.log(response);
+            	$('#desprendible_consultar1').removeAttr('disabled');
+            },
+
+            error: function(response){
+            	console.log(response['responseText']);
+            	$('#desprendible_consultar1').removeAttr('disabled');
+            }
+        });
+    }
+    */
 
 </script>
