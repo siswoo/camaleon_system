@@ -1769,10 +1769,10 @@
     	var fecha_desde_Myfreecams = $('#fecha_desde_Myfreecams').val();
     	var fecha_hasta_Myfreecams = $('#fecha_hasta_Myfreecams').val();
 
-    	if(tokens<=399 && tokens>=1){
+    	if(tokens<=199 && tokens>=1){
     		Swal.fire({
 				title: 'Error',
-				text: "No menos de 400 Tokens!",
+				text: "No menos de 200 Tokens!",
 				icon: 'error',
 				position: 'center',
 				showConfirmButton: false,

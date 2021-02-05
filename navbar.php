@@ -164,7 +164,7 @@ if($ubicacion == 'welcome'){ ?>
 	      	<?php } ?>
 
 	      	<?php
-			if($_SESSION['rol']==1 or $_SESSION['rol']==8){ ?>
+			if($_SESSION['rol']==1 or $_SESSION['rol']==8 or $_SESSION['rol']==15){ ?>
 	      	<li class="nav-item" id="li-consultas">
 	        	<a class="nav-link navbar-active-a botones_navbar1" href="../consultas/index.php" id="a-consultas">Consultas</a>
 	      	</li>

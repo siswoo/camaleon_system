@@ -44,6 +44,18 @@ if($sedePost==0){
 	$sql1 = "SELECT * FROM modelos WHERE sede = ".$sedePost;
 }
 
+$sql5 = "SELECT * FROM usuarios WHERE id = ".$_SESSION['id'];
+$consulta5 = mysqli_query($conexion,$sql5);
+while($row5 = mysqli_fetch_array($consulta5)) {
+	$usuario_documento = $row5['documento_numero'];
+}
+
+if($usuario_documento==1001184301 or $usuario_documento==1000850867 or $usuario_documento==1023886014 or $usuario_documento==24616438){
+	$sql1 = "SELECT * FROM modelos WHERE sede = ".$_SESSION['sede'];
+}
+
+//FALTA JORGE, KENLLY POR USUARIOS
+
 $consulta1 = mysqli_query($conexion,$sql1);
 while($row1 = mysqli_fetch_array($consulta1)) {
 	$modelo_id = $row1['id'];
