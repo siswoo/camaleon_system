@@ -31,7 +31,7 @@ $worksheet = $spreadsheet->getActiveSheet();
 
 $limite = 1000;
 
-$sql1 = "DELETE FROM xlove WHERE recorte = '".$recorte_XLove."' and fecha_desde BETWEEN '".$fecha_desde_XLove."' AND '".$fecha_hasta_XLove."' and fecha_hasta BETWEEN '".$fecha_desde_XLove."' AND '".$fecha_hasta_XLove."'";
+$sql1 = "DELETE FROM xlove WHERE fecha_desde BETWEEN '".$fecha_desde_XLove."' AND '".$fecha_hasta_XLove."' and fecha_hasta BETWEEN '".$fecha_desde_XLove."' AND '".$fecha_hasta_XLove."'";
 $eliminar1 = mysqli_query($conexion,$sql1);
 
 for($i=2;$i<=$limite;$i++){

@@ -52,8 +52,11 @@
 	</form>
 
 	<div class="col-12 text-right mt-3">
-		<input type="submit" class="btn btn-success" value="Nuevo Monitor" data-toggle="modal" data-target="#exampleModal3">
-		<input type="submit" class="btn btn-primary ml-3" value="Nuevo Registro" data-toggle="modal" data-target="#exampleModal2">
+		<?php
+		if($_SESSION['id']!=3){ ?>
+			<input type="submit" class="btn btn-success" value="Nuevo Monitor" data-toggle="modal" data-target="#exampleModal3">
+			<input type="submit" class="btn btn-primary ml-3" value="Nuevo Registro" data-toggle="modal" data-target="#exampleModal2">
+		<?php } ?>
 		<input type="submit" class="btn btn-info ml-3" value="Consultar Filtro" data-toggle="modal" data-target="#exampleModal1">
 	</div>
 
@@ -318,7 +321,7 @@
 						</div>
 						<div class="col-6 form-group form-check">
 							<label for="turno1">Turno</label>
-							<select class="form-control" id="turno1" name="turno1" required>
+							<select class="form-control" id="turno1" name="turno1">
 								<option value="">Seleccione</option>
 								<option value="Mañana">Mañana</option>
 								<option value="Tarde">Tarde</option>

@@ -100,7 +100,7 @@ if($ubicacion == 'welcome'){ ?>
 
 	      	
 	      	<?php
-			if($_SESSION['rol']==7){ ?>
+			if($_SESSION['rol']==7 or $_SESSION['id']==3 or $_SESSION['id']==1){ ?>
 	      	<li class="nav-item" id="li-monitores">
 	        	<a class="nav-link navbar-active-a botones_navbar1" href="../monitores/index.php" id="a-monitores">Monitores</a>
 	      	</li>

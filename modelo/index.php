@@ -283,7 +283,11 @@
 			        </thead>
 			        <tbody id="resultados">
 			        	<?php
-			        	$consulta2 = "SELECT * FROM modelos";
+			        	if($_SESSION['rol']==8){
+			        		$consulta2 = "SELECT * FROM modelos WHERE sede = ".$_SESSION['sede'];
+			        	}else{
+			        		$consulta2 = "SELECT * FROM modelos";
+			        	}
 						$resultado2 = mysqli_query( $conexion, $consulta2 );
 						while($row2 = mysqli_fetch_array($resultado2)) {
 							$modelo_id 					= $row2['id'];
