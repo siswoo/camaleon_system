@@ -60,7 +60,6 @@ INSERT INTO roles (id,nombre,jefe) VALUES (14,'Jefe',1);
 INSERT INTO roles (id,nombre,administracion) VALUES (15,'Administración Sede',1);
 ALTER TABLE roles CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
-
 DROP TABLE IF EXISTS sedes;
 CREATE TABLE sedes (
 	id INT AUTO_INCREMENT,

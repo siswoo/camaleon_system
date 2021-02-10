@@ -53,8 +53,21 @@ $fecha_inicio = date('Y-m-d');
 	$sql1 = "UPDATE modelos SET documento_tipo = '".$tipo_documento."',documento_numero = '".$numero_documento."',nombre1 = '".$primer_nombre."',nombre2 = '".$segundo_nombre."',apellido1 = '".$primer_apellido."',apellido2 = '".$segundo_apellido."',correo = '".$correo."',telefono1 = '".$telefono1."',telefono2 = '".$telefono2."',direccion = '".$direccion."',genero = '".$genero."',estatus = '".$estatus."',barrio = '".$barrio."',perfil_de_transmision = '".$perfil_transmision."',altura = '".$altura."',peso = '".$peso."',tpene = '".$tpene."',tsosten = '".$tsosten."',tbusto = '".$tbusto."',tcintura = '".$tcintura."',tcaderas = '".$tcaderas."',tipo_cuerpo = '".$tipo_cuerpo."',Pvello = '".$Pvello."',color_cabello = '".$color_cabello."',color_ojos = '".$color_ojos."',Ptattu = '".$Ptattu."',Ppiercing = '".$Ppiercing."',turno = '".$turno."',sede = '".$sede."',Htransmision = '".$htransmision."',select_equipo = '".$equipo."',fecha_inicio = '".$fecha_inicio."', banco_cedula = '".$banco_cedula."', banco_nombre = '".$banco_nombre."',banco_tipo = '".$banco_tipo."',banco_numero = '".$banco_numero."',banco_banco = '".$banco_banco."',BCPP = '".$banco_cpp."' WHERE id =".$id;
 	$modificar1 = mysqli_query( $conexion, $sql1 );
 
+	$sql2 = "SELECT * FROM sedes WHERE id = ".$sede;
+	$consulta2 = mysqli_query($conexion,$sql2);
+	while($row2 = mysqli_fetch_array($consulta2)) {
+		$sede_nombre = $row2['nombre'];
+	}
+
 	$datos = [
-		"SQL1:"		=> $sql1,
+		//"SQL1:"		=> $sql1,
+		"id"		=> $id,
+		"nombre"	=> $primer_nombre." ".$segundo_nombre." ".$primer_apellido." ".$segundo_apellido,
+		"td"		=> $tipo_documento,
+		"nd"		=> $numero_documento,
+		"turno"		=> $turno,
+		"sede"		=> $sede_nombre,
+		"telefono"	=> $telefono1,
 	];
 
 	echo json_encode($datos);
