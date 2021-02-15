@@ -135,6 +135,8 @@
 										$consulta2 = "SELECT * FROM pasantes WHERE sede = ".$_SESSION['sede'];
 									}else if($usuario_documento=='1001184301'){
 										$consulta2 = "SELECT * FROM pasantes WHERE sede = 2";
+									}else if($usuario_documento=='1233894445'){
+										$consulta2 = "SELECT * FROM pasantes WHERE sede = 1 or sede = 3";
 									}else{
 										$consulta2 = "SELECT * FROM pasantes WHERE sede = 1";
 									}

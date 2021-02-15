@@ -75,11 +75,41 @@
 	include('../script/navbar_verificacion.php');
 	include('../navbar.php');
 ?>
-	<form id="formulario1" method="POST">
-		<input type="hidden" id="modelo_view" value="<?php echo $modelo_view; ?>">
-		<input type="hidden" id="modelo_edit" value="<?php echo $modelo_edit; ?>">
-		<input type="hidden" id="modelo_delete" value="<?php echo $modelo_delete; ?>">
-	</form>
+
+<?php
+	//$sr_filtre1 = $_GET['sr_filtre1'];
+	if(empty($_GET['sr_filtre1'])){
+		$sr_filtre1 = '';
+	}else{
+		$sr_filtre1 = $_GET['sr_filtre1'];
+	}
+?>
+
+	<div class="row mt-3 mb-3 ml-3">
+		<div class="col-4">
+			<label for="sr_select_filtre">Filtro de Responsables</label>
+			<select name="sr_select_filtre" id="sr_select_filtre" class="form-control" onchange="sr_change_filtre(value);">
+				<option value="">Seleccione</option>
+				<?php
+					if($sr_filtre1!=''){
+						$sql3 = "SELECT * FROM usuarios WHERE id = ".$sr_filtre1;
+						$consulta5 = mysqli_query($conexion,$sql3);
+						while($row6 = mysqli_fetch_array($consulta5)) {
+							echo '<option style="text-transform:capitalize;" selected="selected" value="'.$row6["id"].'">'.$row6["nombre"].' '.$row6["apellido"].'</option>';
+						}
+					}
+					$sql2 = "SELECT * FROM usuarios WHERE rol = 9";
+					$consulta4 = mysqli_query($conexion,$sql2);
+					while($row5 = mysqli_fetch_array($consulta4)) {
+						echo '<option style="text-transform:capitalize;" value="'.$row5["id"].'">'.$row5["nombre"].' '.$row5["apellido"].'</option>';
+					}
+				?>
+			</select>
+		</div>
+		<form id="form_sr_filtre" name="form_sr_filtre" action="index.php" method="GET">
+			<input type="hidden" name="sr_filtre1" id="sr_filtre1" value="">
+		</form>
+	</div>
 
 	<div class="seccion1">
 	    <div class="row">
@@ -104,7 +134,19 @@
 			        <tbody id="resultados">
 			        	<?php
 			        	if($_SESSION['rol']==1 or $_SESSION['rol']==2 or $_SESSION['rol']==8 or $_SESSION['rol']==14 or $_SESSION['rol']==15){
-			        		$consulta2 = "SELECT * FROM modelos LIMIT 50";
+			        		if($sr_filtre1!=''){
+			        			$consulta2_extra1 = '';
+			        			$consulta6 = "SELECT * FROM soporte_responsable_modelo WHERE id_soporte = ".$sr_filtre1;
+			        			$resultado6 = mysqli_query($conexion,$consulta6);
+			        			while($row2 = mysqli_fetch_array($resultado2)) {
+			        				//
+			        			}
+			        			$consulta2 = "SELECT * FROM modelos WHERE id = 99999 ".$consulta2_extra1;
+			        			$resultado2 = mysqli_query($conexion,$consulta2);
+			        		}else{
+			        			$consulta2 = "SELECT * FROM modelos LIMIT 50";
+			        			$resultado2 = mysqli_query($conexion,$consulta2);
+			        		}
 			        	}else if($_SESSION['rol']==9){
 			        		$consulta3 = "SELECT * FROM soporte_responsable_modelo WHERE id_soporte =".$_SESSION['id'];
 			        		$resultado4 = mysqli_query($conexion,$consulta3);
@@ -112,6 +154,7 @@
 			        			$modelo_de_junior = $row5['id_modelo'];
 			        		}
 			        		$consulta2 = "SELECT * FROM modelos WHERE id =".$modelo_de_junior;
+			        		$resultado2 = mysqli_query($conexion,$consulta2);
 			        	}
 
 			        	$html_sr1 = '';
@@ -124,7 +167,13 @@
 							$html_sr1 .= '<option value="'.$sr_id.'" style="text-transform:capitalize;">'.$sr_nombre.'</option>';
 						}
 
-						$resultado2 = mysqli_query($conexion,$consulta2);
+						/*
+						if($sr_filtre1!=''){
+							while($row2 = mysqli_fetch_array($resultado2)) {
+								$consulta2 = "SELECT * FROM modelos WHERE id = ".$row2['id_modelo'];
+			        			$resultado2 = mysqli_query($conexion,$consulta2);
+						}
+						*/
 						while($row2 = mysqli_fetch_array($resultado2)) {
 							$modelo_id 					= $row2['id'];
 							$modelo_nombre1 			= $row2['nombre1'];
@@ -173,11 +222,12 @@
 								echo '
 								<tr id="tr_'.$modelo_id.'">
 									<td class="text-center">
-										<select name="sr_select_'.$soporte_responsable_nombre.'" id="sr_select_'.$soporte_responsable_nombre.'" class="form-control" style="width: 160px;">
+										<select name="sr_select_'.$soporte_responsable_nombre.'" id="sr_select_'.$soporte_responsable_nombre.'" class="form-control" style="width: 160px;" onchange="colocar_responsable('.$modelo_id.',value)">
 								';
 										if($contador1>=1){
 											echo '
-												<option value="'.$soporte_responsable_id.'">'.$soporte_responsable_nombre.'</option>
+												<option value="">Seleccione</option>
+												<option value="'.$soporte_responsable_id.'" selected="selected">'.$soporte_responsable_nombre.'</option>
 												'.$html_sr1.'
 											';
 										}else{
@@ -1202,6 +1252,244 @@
 			$('#'+variable).val('0');
 		}
 	}
+
+	function alerta_cuenta1(variable,modelo_cuenta_id){
+		console.log('ok...');
+		$.ajax({
+			type: 'POST',
+			url: '../script/modelo_alerta1.php',
+			data: {
+				"variable": variable,
+				"modelo_cuenta_id": modelo_cuenta_id,
+			},
+			dataType: "JSON",
+			success: function(respuesta) {
+				//console.log(respuesta);
+				Swal.fire({
+	 				title: 'Alerta enviada!',
+	 				text: "Limpiando Cache de mensajes!",
+	 				icon: 'success',
+	 				position: 'center',
+	 				showConfirmButton: false,
+	 				timer: 2000
+				});
+				$("#Modal_cuentas1").modal('hide');
+				$('#Modal_cuentas1').removeClass('modal-open');
+				$('.modal-backdrop').remove();
+			},
+
+			error: function(respuesta) {
+				console.log(respuesta['responseText']);
+			}
+		});
+	}
+
+	function cuenta_estatus(estatus,pagina,id,pagina_id,modelo_cuenta_id){
+		$.ajax({
+			type: 'POST',
+			url: '../script/modelo_cuenta_estatus1.php',
+			data: {
+				"estatus": estatus,
+				"pagina": pagina,
+				"id": id,
+				"pagina_id": pagina_id,
+				"modelo_cuenta_id": modelo_cuenta_id,
+			},
+			dataType: "JSON",
+			success: function(respuesta) {
+				console.log(respuesta);
+				Swal.fire({
+	 				title: 'Estado Cambiado',
+	 				text: "Refrescando Cuenta...",
+	 				icon: 'success',
+	 				position: 'center',
+	 				showConfirmButton: false,
+	 				timer: 2000
+				});
+				$("#Modal_cuentas1").modal('hide');
+				$('#Modal_cuentas1').removeClass('modal-open');
+				$('.modal-backdrop').remove();
+			},
+
+			error: function(respuesta) {
+				console.log(respuesta['responseText']);
+			}
+		});
+	}
+
+	function cuenta_eliminar(pagina,condicion,modelo_id,pagina_id,modelo_cuenta_id){
+    	console.log(condicion);
+    	$.ajax({
+            url: '../script/modelo_borrar_cuenta.php',
+            type: 'POST',
+           	dataType: "JSON",
+           	data: {
+           		"modelo_cuenta_id": modelo_cuenta_id,
+           	},
+
+            beforeSend: function (){},
+
+            success: function(response){
+            	console.log(response);
+            	Swal.fire({
+	 				title: 'Se ha borrado la Cuenta!',
+	 				text: "Limpiando Cache...",
+	 				icon: 'success',
+	 				position: 'center',
+	 				showConfirmButton: false,
+	 				timer: 2000
+				});
+				$("#Modal_cuentas1").modal('hide');
+				$('#Modal_cuentas1').removeClass('modal-open');
+				$('.modal-backdrop').remove();
+            },
+
+            error: function(response){
+            	console.log(response['responseText']);
+            }
+        });
+    }
+
+    function cuenta_editar(modelo_cuenta_id,pagina_id){
+    	var cuenta_usuario = $('#edit_cuenta_usuario_'+modelo_cuenta_id).val();
+    	var cuenta_clave = $('#edit_cuenta_clave_'+modelo_cuenta_id).val();
+    	var cuenta_correo = $('#edit_cuenta_correo_'+modelo_cuenta_id).val();
+    	var cuenta_link = $('#edit_cuenta_link_'+modelo_cuenta_id).val();
+    	
+    	if(pagina_id==11){
+    		var nickname_xlove = $('#edit_cuenta_nickname_xlove_'+modelo_cuenta_id).val();
+    	}else{
+    		var nickname_xlove = "";
+    	}
+
+    	$.ajax({
+            url: '../script/modelo_editar_cuenta.php',
+            type: 'POST',
+           	dataType: "JSON",
+           	data: {
+           		"modelo_cuenta_id": modelo_cuenta_id,
+           		"cuenta_usuario": cuenta_usuario,
+           		"cuenta_clave": cuenta_clave,
+           		"cuenta_correo": cuenta_correo,
+           		"cuenta_link": cuenta_link,
+           		"nickname_xlove": nickname_xlove,
+           	},
+
+            beforeSend: function (){},
+
+            success: function(response){
+            	console.log(response);
+            	Swal.fire({
+	 				title: 'Se ha modificado la Cuenta!',
+	 				text: "Limpiando Cache...",
+	 				icon: 'success',
+	 				position: 'center',
+	 				showConfirmButton: false,
+	 				timer: 2000
+				});
+				$("#Modal_cuentas1").modal('hide');
+				$('#Modal_cuentas1').removeClass('modal-open');
+				$('.modal-backdrop').remove();
+            },
+
+            error: function(response){
+            	console.log(response['responseText']);
+            }
+        });
+    }
+
+    function cuentas2(variable){
+		$('#cuentas2_id').val(variable);
+	}
+
+	$("#form_modal_edit3").on("submit", function(e){
+		e.preventDefault();
+		var f = $(this);
+	    $.ajax({
+			type: 'POST',
+			url: '../script/modelo_cuenta1.php',
+			data: $('#form_modal_edit3').serialize(),
+			dataType: "JSON",
+			success: function(respuesta) {
+				//console.log(respuesta['duplicados_documentos']);
+				if(respuesta['resultado']=='duplicados'){
+					Swal.fire({
+						position: 'center',
+						icon: 'error',
+						title: 'Cuenta ya existentes! ',
+						text: respuesta['duplicados_documentos'][1]+' -> '+respuesta['duplicados_nombres'][1],
+						showConfirmButton: true,
+					});
+					return false;
+				}
+
+				if(respuesta['resultado']=='error'){
+					Swal.fire({
+						position: 'center',
+						icon: 'error',
+						title: 'Cuenta ya existente!',
+						text: 'Solo se permite una misma cuenta para esta pagina',
+						showConfirmButton: true,
+					});
+					return false;
+				}
+
+				Swal.fire({
+					position: 'center',
+					icon: 'success',
+					title: 'Se ha registrado la cuenta!',
+					showConfirmButton: true,
+				});
+				$("#Modal_cuentas2").modal('hide');
+				$('#Modal_cuentas2').removeClass('modal-open');
+				$('.modal-backdrop').remove();
+			},
+
+			error: function(respuesta) {
+				console.log(respuesta['responseText']);
+			}
+		});
+	});
 	/*****************************/
+
+	/********************RESPONSABLES**************************/
+	 function colocar_responsable(id_modelo,id_responsable){
+    	$.ajax({
+            url: '../script/modelo_guardar_responsable1.php',
+            type: 'POST',
+           	dataType: "JSON",
+           	data: {
+           		"id_modelo": id_modelo,
+           		"id_responsable": id_responsable,
+           	},
+
+            beforeSend: function (){},
+
+            success: function(response){
+            	console.log(response);
+            	Swal.fire({
+	 				title: 'Modificado!',
+	 				text: "Limpiando Cache...",
+	 				icon: 'success',
+	 				position: 'center',
+	 				showConfirmButton: false,
+	 				timer: 1000
+				});
+				$("#Modal_cuentas1").modal('hide');
+				$('#Modal_cuentas1').removeClass('modal-open');
+				$('.modal-backdrop').remove();
+            },
+
+            error: function(response){
+            	console.log(response['responseText']);
+            }
+        });
+    }
+	/**********************************************************/
+
+	function sr_change_filtre(value){
+		$('#sr_filtre1').val(value);
+		$('#form_sr_filtre').submit();
+	}
 
 </script>

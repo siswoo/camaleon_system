@@ -103,6 +103,8 @@
 										$consulta2 = "SELECT * FROM modelos WHERE sede = 1 or sede = 3";
 									}else if($usuario_documento=='24616438'){
 										$consulta2 = "SELECT * FROM modelos WHERE sede = 2 or sede = 4";
+									}else if($usuario_documento=='1233894445'){
+										$consulta2 = "SELECT * FROM modelos WHERE sede = 1 or sede = 3";
 									}else{
 										$consulta2 = "SELECT * FROM modelos WHERE sede = 1";
 									}

@@ -25,7 +25,7 @@ while($row_verificacion = mysqli_fetch_array($verificacion_rol)) {
 <?php
 /************EXCLUSION DE PERSONAS**************/
 if($_SESSION['id']==3 or $_SESSION['id']==649){
-	exit;
+	//exit;
 }
 /***********************************************/
 ?>

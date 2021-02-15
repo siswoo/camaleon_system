@@ -94,6 +94,12 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 		}
 	}
 
+	if($id_modelo == 302 or $id_modelo == 780 or $id_modelo == 923 or $id_modelo == 692 or $id_modelo == 818 or $id_modelo == 854 or $id_modelo == 981 or $id_modelo == 682 or $id_modelo == 193 or $id_modelo == 653 or $id_modelo == 687 or $id_modelo == 827 or $id_modelo == 826 or $id_modelo == 656 or $id_modelo == 586 or $id_modelo == 788 or $id_modelo == 909 or $id_modelo == 926 or $id_modelo == 3 or $id_modelo == 663 or $id_modelo == 482 or $id_modelo == 804 or $id_modelo == 840 or $id_modelo == 901 or $id_modelo == 781 or $id_modelo == 820 or $id_modelo == 867 or $id_modelo == 812 or $id_modelo == 480 or $id_modelo == 799 or $id_modelo == 615 or $id_modelo == 862 or $id_modelo == 904 or $id_modelo == 885 or $id_modelo == 685 or $id_modelo == 650 or $id_modelo == 897 or $id_modelo == 696 or $id_modelo == 939){ 
+		if($fecha_inicio_post=='2021-01-16'){
+			$apuro = 1;
+		}
+	}
+
 	if($apuro==0){
 
 		$sql2 = "SELECT * FROM sedes WHERE id =".$id_sede;
