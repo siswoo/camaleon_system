@@ -115,7 +115,8 @@ INSERT INTO usuarios (nombre,apellido,documento_tipo,documento_numero,correo,usu
 ('Variable','Variable','PEP','77777777','Variable@gmail.com','Variable','21232f297a57a5a743894a0e4a801fc3','77777777','',99,1,'2020-09-29'),
 ('Carlos','Vargas','Cedula de Ciudadania','1108456684','vargas1101@gmail.com','Soporte123','827ccb0eea8a706c4c34a16891f84e7b','','',2,1,'2020-10-06'),
 ('Denisse Giannyna','Gonzalez Cifuentes','Cedula de Ciudadania','1001184301','denisse.gonzalez1234@gmail.com','denisse.gonzales','723a1d81851c596931b050cae056197f','','',8,2,'2020-10-08'),
-('Andres Fernando','Bernal Correa','Cedula de Ciudadania','80.774.671','gerencia@bernal-group.com','gerencia','800e6e2dd493e8db8d867f021d1c25a7','','',14,1,'2020-12-30');
+('Andres Fernando','Bernal Correa','Cedula de Ciudadania','80.774.671','gerencia@bernal-group.com','gerencia','800e6e2dd493e8db8d867f021d1c25a7','','',14,1,'2020-12-30'),
+('Daniela','Buitrago','Cedula de Ciudadania','1031175837','lauradanielabuga@gmail.com','dani_8','c591db46628b4c9292ac9e0d3223026e','','',12,1,'2021-02-19');
 ALTER TABLE usuarios CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 DROP TABLE IF EXISTS modelos;
@@ -923,3 +924,71 @@ CREATE TABLE auditoria (
    	PRIMARY KEY (id)
 ); ALTER TABLE auditoria CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
+DROP TABLE IF EXISTS redes_sociales;
+CREATE TABLE redes_sociales (
+	id INT AUTO_INCREMENT,
+	id_modelo INT NOT NULL,
+	red TEXT NOT NULL,
+	link TEXT NOT NULL,
+	responsable INT NOT NULL,
+	fecha_inicio DATE NOT NULL,
+   	PRIMARY KEY (id)
+); ALTER TABLE redes_sociales CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+DROP TABLE IF EXISTS publicas;
+CREATE TABLE publicas (
+	id INT AUTO_INCREMENT,
+	id_modelo INT NOT NULL,
+	responsable INT NOT NULL,
+	fecha_inicio DATE NOT NULL,
+   	PRIMARY KEY (id)
+); ALTER TABLE publicas CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+DROP TABLE IF EXISTS categorias;
+CREATE TABLE categorias (
+	id INT AUTO_INCREMENT,
+	nombre VARCHAR(250) NOT NULL,
+	estatus VARCHAR(250) NOT NULL,
+	responsable INT NOT NULL,
+	fecha_inicio DATE NOT NULL,
+   	PRIMARY KEY (id)
+); ALTER TABLE categorias CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+
+DROP TABLE IF EXISTS t_usuarios;
+CREATE TABLE t_usuarios (
+	id INT AUTO_INCREMENT,
+	usuario VARCHAR(250) NOT NULL,
+	clave VARCHAR(250) NOT NULL,
+	correo VARCHAR(250) NOT NULL,
+	fecha_inicio DATE NOT NULL,
+   	PRIMARY KEY (id)
+); ALTER TABLE t_usuarios CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+INSERT INTO t_usuarios (usuario,clave,correo,fecha_inicio) VALUES 
+('admin','202cb962ac59075b964b07152d234b70','juanmaldonado.co@gmail.com','2021-02-19');
+
+DROP TABLE IF EXISTS t_categorias;
+CREATE TABLE t_categorias (
+	id INT AUTO_INCREMENT,
+	nombre VARCHAR(250) NOT NULL,
+	estatus VARCHAR(250) NOT NULL,
+	responsable INT NOT NULL,
+	fecha_inicio DATE NOT NULL,
+   	PRIMARY KEY (id)
+); ALTER TABLE t_categorias CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+INSERT INTO t_categorias (nombre,estatus,responsable,fecha_inicio) VALUES ('Bichota','Activo',1,'2021-02-20');
+
+DROP TABLE IF EXISTS t_productos;
+CREATE TABLE t_productos (
+	id INT AUTO_INCREMENT,
+	nombre VARCHAR(250) NOT NULL,
+	descripcion VARCHAR(250) NOT NULL,
+	precio INT NOT NULL,
+	categoria INT NOT NULL,
+	estatus VARCHAR(250) NOT NULL,
+	responsable INT NOT NULL,
+	fecha_inicio DATE NOT NULL,
+   	PRIMARY KEY (id)
+); ALTER TABLE t_productos CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;

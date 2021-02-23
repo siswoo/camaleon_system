@@ -115,7 +115,7 @@ $("#formulario1").on("submit", function(e){
 			if(respuesta['contador']>=1){
 				Swal.fire({
 	 				title: 'Perfecto!',
-	 				text: "Por favor revise su correo electrónico para verificar el link enviado",
+	 				text: "Su contraseña es su numero de documento actual!",
 	 				icon: 'success',
 	 				position: 'center',
 	 				showConfirmButton: true,
@@ -129,7 +129,7 @@ $("#formulario1").on("submit", function(e){
 			}else{
 				Swal.fire({
 	 				title: 'Error!',
-	 				text: "No se ha conseguido dichos datos en la Base de Datos.",
+	 				text: "Su usuario y/o correo Electrónico no existen en la base de datos.",
 	 				icon: 'error',
 	 				position: 'center',
 	 				showConfirmButton: false,

@@ -114,12 +114,14 @@
 	    	</div>
 
 		    <div class="col-12 mt-3 text-center">
+		    	<div class="row">
 		    	<?php
 		    		$sql_presabana1 = "SELECT * FROM presabana GROUP BY inicio";
 		    		$consulta_presabana1 = mysqli_query($conexion,$sql_presabana1);
 					while($row1 = mysqli_fetch_array($consulta_presabana1)) {
 						echo '
-						<div class="form-group col-4">
+						<div class="form-group col-4 mt-3">
+							<!--
 							<p style="font-size: 16px;">'.$row1["inicio"].' al '.$row1["fin"].'</p>
 						    <a href="ver_presabanas1.php?inicio='.$row1["inicio"].'&fin='.$row1["fin"].'" class="mr-2" style="text-decoration:none;" target="_blank">
 								<button class="btn btn-info">Positivos</button>
@@ -127,6 +129,25 @@
 							<a href="ver_presabanas2.php?inicio='.$row1["inicio"].'&fin='.$row1["fin"].'" class="mr-2" style="text-decoration:none;" target="_blank">
 								<button class="btn btn-info">Negativos</button>
 							</a>
+							-->
+							<form action="ver_presabanas3.php" target="_blank">
+								<p style="font-size: 16px;">'.$row1["inicio"].' al '.$row1["fin"].'</p>
+								<input type="hidden" value="'.$row1["inicio"].'" name="inicio">
+								<input type="hidden" value="'.$row1["fin"].'" name="fin">
+								<select name="condicion" id="condicion" class="form-control" required>
+									<option value="">Seleccione</option>
+									<option value="Positivos">Positivos</option>
+									<option value="Negativos">Negativos</option>
+								</select>
+								<select name="sedes" id="sedes" class="form-control">
+									<option value="">Todos</option>
+									<option value="1">VIP Occidente</option>
+									<option value="2">Norte</option>
+									<option value="3">Occidente I</option>
+									<option value="4">VIP Suba</option>
+								</select>
+								<button type="submit" class="btn btn-info mt-1">Inspeccionar</button>
+							</form>
 						</div>
 						';
 
@@ -139,6 +160,7 @@
 						*/
 					}
 		    	?>
+		    	</div>
 		   	</div>
 
 

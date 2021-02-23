@@ -92,7 +92,7 @@
 			        <tbody id="resultados">
 			        	<?php
 			        		if($_SESSION['rol']==14){
-				        		$consulta2 = "SELECT * FROM modelos";
+				        		$consulta2 = "SELECT * FROM modelos WHERE documento_numero != 1044429860";
 				        	}else{
 				        		$sql3 = "SELECT * FROM usuarios WHERE id = ".$_SESSION['id'];
 				        		$resultado3 = mysqli_query($conexion,$sql3);
@@ -100,13 +100,13 @@
 									$usuario_documento = $row3['documento_numero'];
 
 									if($usuario_documento=='1023886014'){
-										$consulta2 = "SELECT * FROM modelos WHERE sede = 1 or sede = 3";
+										$consulta2 = "SELECT * FROM modelos WHERE (sede = 1 or sede = 3) and documento_numero != 1044429860";
 									}else if($usuario_documento=='24616438'){
-										$consulta2 = "SELECT * FROM modelos WHERE sede = 2 or sede = 4";
+										$consulta2 = "SELECT * FROM modelos WHERE (sede = 2 or sede = 4) and documento_numero != 1044429860";
 									}else if($usuario_documento=='1233894445'){
-										$consulta2 = "SELECT * FROM modelos WHERE sede = 1 or sede = 3";
+										$consulta2 = "SELECT * FROM modelos WHERE (sede = 1 or sede = 3) and documento_numero != 1044429860";
 									}else{
-										$consulta2 = "SELECT * FROM modelos WHERE sede = 1";
+										$consulta2 = "SELECT * FROM modelos WHERE sede = 1 and documento_numero != 1044429860";
 									}
 								}
 				        	}

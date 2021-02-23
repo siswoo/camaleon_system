@@ -1516,6 +1516,7 @@
             },
 
             success: function(response){
+            	console.log(response);
             	$('#submit_XLove').removeAttr('disabled');
             	if(response=='error'){
             		Swal.fire({
