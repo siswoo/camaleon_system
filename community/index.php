@@ -86,11 +86,14 @@
 	}
 	include('../navbar.php');
 ?>
-	<!--
+	
 	<div class="seccion1">
 	    <div class="row">
-	    	<div class="col-12 text-center">
+	    	<div class="col-6 text-center">
 	    		<button class="btn btn-info" id="enterados" value="No" onclick="mostrarseccion1(this.id,value);">Estadisticas de Enterados</button>
+	    	</div>
+	    	<div class="col-6 text-center">
+	    		<button class="btn btn-info" id="consulta1" value="No" onclick="mostrarseccion1(this.id,value);">Consulta # 01</button>
 	    	</div>
 		</div>
 	</div>
@@ -133,9 +136,9 @@
 			</div>
 		</div>
 	</div>
-	-->
+	
 
-	<div class="seccion1">
+	<div class="seccion1" id="div_consulta1" style="display: none;">
 		<div class="row">
 			<table id="example" class="table row-border hover table-bordered" style="font-size: 12px; color:rgba(50,55,66,1);">
 			        <thead>

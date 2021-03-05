@@ -380,6 +380,10 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 						$bono1 = 0;
 					}
 
+					if($id_modelo == 377 and $fecha_desde == '2021-02-16'){
+						$bono1 = 300000;
+					}
+
 					if($bono1>=1){
 
 						if($modelo_cedula== 24551545 or $modelo_cedula== 147577245 or $modelo_cedula== 43547138){

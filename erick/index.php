@@ -91,6 +91,9 @@
 					<a href="exportar5.php" style="text-decoration: none;">
 				    	<button type="button" class="btn btn-info ml-3">Todas las Pasantes</button>
 					</a>
+					<a href="ejecucionbd1.php" style="text-decoration: none;" target="_blank">
+				    	<button type="button" class="btn btn-info ml-3">Quitar Espacios en Cedulas BD</button>
+					</a>
 					<!--
 					<a href="exportar6.php" style="text-decoration: none;">
 				    	<button type="button" class="btn btn-info ml-3">Registrados con Banco</button>
@@ -178,7 +181,7 @@
 		    <div class="col-12 mt-3 text-center">
 		    	<div class="row">
 		    	<?php
-		    		$sql_presabana1 = "SELECT * FROM presabana GROUP BY fecha_inicio";
+		    		$sql_presabana1 = "SELECT * FROM presabana GROUP BY inicio";
 		    		$consulta_presabana1 = mysqli_query($conexion,$sql_presabana1);
 					while($row1 = mysqli_fetch_array($consulta_presabana1)) {
 						echo '

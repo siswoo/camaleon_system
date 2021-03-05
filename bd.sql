@@ -958,6 +958,7 @@ CREATE TABLE categorias (
 DROP TABLE IF EXISTS t_usuarios;
 CREATE TABLE t_usuarios (
 	id INT AUTO_INCREMENT,
+	nombre VARCHAR(250) NOT NULL,
 	usuario VARCHAR(250) NOT NULL,
 	clave VARCHAR(250) NOT NULL,
 	correo VARCHAR(250) NOT NULL,
@@ -965,8 +966,8 @@ CREATE TABLE t_usuarios (
    	PRIMARY KEY (id)
 ); ALTER TABLE t_usuarios CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
-INSERT INTO t_usuarios (usuario,clave,correo,fecha_inicio) VALUES 
-('admin','202cb962ac59075b964b07152d234b70','juanmaldonado.co@gmail.com','2021-02-19');
+INSERT INTO t_usuarios (nombre,usuario,clave,correo,fecha_inicio) VALUES 
+('Juan Maldonado','admin','202cb962ac59075b964b07152d234b70','juanmaldonado.co@gmail.com','2021-02-19');
 
 DROP TABLE IF EXISTS t_categorias;
 CREATE TABLE t_categorias (
@@ -978,17 +979,105 @@ CREATE TABLE t_categorias (
    	PRIMARY KEY (id)
 ); ALTER TABLE t_categorias CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
-INSERT INTO t_categorias (nombre,estatus,responsable,fecha_inicio) VALUES ('Bichota','Activo',1,'2021-02-20');
+INSERT INTO t_categorias (nombre,estatus,responsable,fecha_inicio) VALUES ('Categoria1','Activo',1,'2021-02-20');
 
 DROP TABLE IF EXISTS t_productos;
 CREATE TABLE t_productos (
 	id INT AUTO_INCREMENT,
 	nombre VARCHAR(250) NOT NULL,
-	descripcion VARCHAR(250) NOT NULL,
+	marca VARCHAR(250) NOT NULL,
+	modelo VARCHAR(250) NOT NULL,
+	descripcion TEXT NOT NULL,
+	caracteristica1 TEXT NOT NULL,
+	caracteristica2 TEXT NOT NULL,
+	caracteristica3 TEXT NOT NULL,
+	caracteristica4 TEXT NOT NULL,
+	caracteristica5 TEXT NOT NULL,
 	precio INT NOT NULL,
 	categoria INT NOT NULL,
+	imagen VARCHAR(250) NOT NULL,
 	estatus VARCHAR(250) NOT NULL,
 	responsable INT NOT NULL,
 	fecha_inicio DATE NOT NULL,
    	PRIMARY KEY (id)
 ); ALTER TABLE t_productos CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+/*
+INSERT INTO t_productos (nombre,descripcion,precio,categoria,imagen,estatus,responsable,fecha_inicio) VALUES 
+('nombre','descripcion',50000,1,'default.png','Activa',1,'2021-02-23'),
+('manzana','descripcion2',10000,1,'default.png','Activa',1,'2021-02-23');
+*/
+
+DROP TABLE IF EXISTS t_sedes;
+CREATE TABLE t_sedes (
+	id INT AUTO_INCREMENT,
+	nombre VARCHAR(250) NOT NULL,
+	responsable INT NOT NULL,
+	fecha_inicio DATE NOT NULL,
+   	PRIMARY KEY (id)
+); ALTER TABLE t_sedes CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+INSERT INTO t_sedes (nombre,responsable,fecha_inicio) VALUES 
+('Vip Occidente',1,'2021-03-02'),
+('Occidente I',1,'2021-03-02'),
+('Norte',1,'2021-03-02'),
+('Vip Suba',1,'2021-03-02');
+
+DROP TABLE IF EXISTS t_inventario;
+CREATE TABLE t_inventario (
+	id INT AUTO_INCREMENT,
+	id_producto INT NOT NULL,
+	cantidad INT NOT NULL,
+	colores VARCHAR(250) NOT NULL,
+	tamanios VARCHAR(250) NOT NULL,
+	sabores VARCHAR(250) NOT NULL,
+	estatus VARCHAR(250) NOT NULL,
+	responsable INT NOT NULL,
+	sede INT NOT NULL,
+	fecha_inicio DATE NOT NULL,
+   	PRIMARY KEY (id)
+); ALTER TABLE t_inventario CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+DROP TABLE IF EXISTS t_carrito;
+CREATE TABLE t_carrito (
+	id INT AUTO_INCREMENT,
+	id_usuario INT NOT NULL,
+	id_producto INT NOT NULL,
+	cantidad INT NOT NULL,
+	fecha_inicio DATE NOT NULL,
+   	PRIMARY KEY (id)
+); ALTER TABLE t_carrito CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+/*
+INSERT INTO t_carrito (id_usuario,id_producto,cantidad,fecha_inicio) VALUES 
+(1,1,5,'2021-02-23'),
+(1,2,3,'2021-02-23');
+*/
+
+DROP TABLE IF EXISTS nomina;
+CREATE TABLE nomina (
+	id INT AUTO_INCREMENT,
+	nombre VARCHAR(250) NOT NULL,
+	apellido VARCHAR(250) NOT NULL,
+	documento_tipo VARCHAR(250) NOT NULL,
+	documento_numero VARCHAR(250) NOT NULL,
+	genero VARCHAR(250) NOT NULL,
+	correo VARCHAR(250) NOT NULL,
+	direccion VARCHAR(250) NOT NULL,
+	telefono VARCHAR(250) NOT NULL,
+	estatus VARCHAR(250) DEFAULT 'Activa',
+	fecha_inicio date NOT NULL,
+
+	banco_cedula VARCHAR(250) NOT NULL,
+	banco_nombre VARCHAR(250) NOT NULL,
+	banco_tipo VARCHAR(250) NOT NULL,
+	banco_numero VARCHAR(250) NOT NULL,
+	banco_banco VARCHAR(250) NOT NULL,
+	BCPP VARCHAR(250) NOT NULL,
+	
+	turno VARCHAR(250) NOT NULL,
+	sede VARCHAR(250) NOT NULL,
+	cargo VARCHAR(250) NOT NULL,
+
+	PRIMARY KEY (id)
+);ALTER TABLE nomina CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;

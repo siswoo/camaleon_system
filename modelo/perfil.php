@@ -1431,18 +1431,23 @@
 							$dinero = $row7['total_dolares'];
 							$presabana_desde = $row7['inicio'];
 							$presabana_hasta = $row7['fin'];
+							$id_modelo_especial = $row7['id_modelo'];
 
 							if($dinero>=1){
-								$html_presabana.='
-									<div class="col-12 text-center form-group mt-3">
-										<span style="font-size: 20px; font-weight: bold;">Desprendible desde '.$presabana_desde.' hasta '.$presabana_hasta.'</span>
-										<br>
-										<a href="../script/generar_desprendible2.php?id='.$id.'&pre='.$documentos2_id.'" target="_blank" style="color: white; text-decoration: none;">
-											<button type="button" class="btn btn-success mt-3">Descargar</button>
-										</a>
-										<hr style="background-color: white;">
-									</div>
-								';
+								if($id_modelo_especial==908 and $presabana_desde=='2021-02-01'){
+									$html_presabana .= '';
+								}else{
+									$html_presabana.='
+										<div class="col-12 text-center form-group mt-3">
+											<span style="font-size: 20px; font-weight: bold;">Desprendible desde '.$presabana_desde.' hasta '.$presabana_hasta.'</span>
+											<br>
+											<a href="../script/generar_desprendible2.php?id='.$id.'&pre='.$documentos2_id.'" target="_blank" style="color: white; text-decoration: none;">
+												<button type="button" class="btn btn-success mt-3">Descargar</button>
+											</a>
+											<hr style="background-color: white;">
+										</div>
+									';
+								}
 							}else{
 								$html_presabana.='
 									<div class="col-12 form-group form-check text-center mt-3">No Tienes Pagos Efectuados</div>

@@ -165,7 +165,7 @@ if($ubicacion == 'welcome'){ ?>
 	      	<?php } ?>
 
 	      	<?php
-			if($_SESSION['rol']==1 or $_SESSION['rol']==12){ ?>
+			if($_SESSION['rol']==1 or $_SESSION['rol']==12 or $_SESSION['rol']==14){ ?>
 	      	<li class="nav-item" id="li-community">
 	        	<a class="nav-link navbar-active-a botones_navbar1" href="../community/index.php" id="a-community">Community</a>
 	      	</li>
