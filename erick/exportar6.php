@@ -175,7 +175,8 @@ while($row1 = mysqli_fetch_array($consulta)) {
 	/**************************************************************/
 	/**************************************************************/
 
-	if($total_pesos_separacion <= $row1['total_pesos'] and $banco_cedula!=''){
+	//if($total_pesos_separacion <= $row1['total_pesos'] and $banco_cedula!=''){
+	if($total_pesos_separacion <= $row1['total_pesos']){
 
 		$sheet->setCellValue('A'.$fila, "OK");
 		$sheet->setCellValue('B'.$fila, "");
@@ -282,7 +283,7 @@ while($row1 = mysqli_fetch_array($consulta)) {
 
 		$sheet->setCellValue('F'.$fila, $banco_nombre2);
 
-		$sheet->setCellValue('G'.$fila, $nombre_modelo);
+		$sheet->setCellValue('G'.$fila, $banco_nombre);
 
 		$sheet->setCellValue('H'.$fila, 'Bogota');	
 
@@ -308,6 +309,8 @@ while($row1 = mysqli_fetch_array($consulta)) {
 
 		$spreadsheet->getActiveSheet()->getCell('N'.$fila)->setValue($numero_documento);
 		$spreadsheet->getActiveSheet()->getStyle('N'.$fila)->getNumberFormat()->setFormatCode('00');
+
+		$sheet->setCellValue('O'.$fila, $nombre_modelo);
 
 		$fila = $fila+1;
 	}

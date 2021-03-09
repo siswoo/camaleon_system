@@ -1012,6 +1012,7 @@ DROP TABLE IF EXISTS t_sedes;
 CREATE TABLE t_sedes (
 	id INT AUTO_INCREMENT,
 	nombre VARCHAR(250) NOT NULL,
+	direccion VARCHAR(250) NOT NULL,
 	responsable INT NOT NULL,
 	fecha_inicio DATE NOT NULL,
    	PRIMARY KEY (id)
@@ -1032,6 +1033,8 @@ CREATE TABLE t_inventario (
 	tamanios VARCHAR(250) NOT NULL,
 	sabores VARCHAR(250) NOT NULL,
 	estatus VARCHAR(250) NOT NULL,
+	tamanios_precios INT NOT NULL,
+	imagen VARCHAR(250) NOT NULL,
 	responsable INT NOT NULL,
 	sede INT NOT NULL,
 	fecha_inicio DATE NOT NULL,
