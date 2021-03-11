@@ -191,6 +191,13 @@ if($ubicacion == 'welcome'){ ?>
 	        	<a class="nav-link navbar-active-a botones_navbar1" href="../pqr/index.php" id="a-pqr">PQR</a>
 	      	</li>
 	      	<?php } ?>
+
+	      	<?php
+			if($_SESSION['rol']==1 or $_SESSION['id']==1056 or $_SESSION['id']==3){ ?>
+	      	<li class="nav-item" id="li-personal">
+	        	<a class="nav-link navbar-active-a botones_navbar1" href="../personal/index.php" id="a-personal">Personal</a>
+	      	</li>
+	      	<?php } ?>
 	      	
 
 	    </ul>

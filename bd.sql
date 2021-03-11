@@ -1084,3 +1084,17 @@ CREATE TABLE nomina (
 
 	PRIMARY KEY (id)
 );ALTER TABLE nomina CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+DROP TABLE IF EXISTS personal1;
+CREATE TABLE personal1 (
+	id INT AUTO_INCREMENT,
+	id_modelo INT NOT NULL,
+	turno INT NOT NULL,
+	observacion VARCHAR(250) NOT NULL,
+	fotos VARCHAR(250) NOT NULL,
+	nickname VARCHAR(250) NOT NULL,
+	responsable INT NOT NULL,
+	fecha_asignada date NOT NULL,
+	fecha_inicio date NOT NULL,
+	PRIMARY KEY (id)
+);ALTER TABLE personal1 CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;

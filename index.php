@@ -250,7 +250,7 @@ $("#formulario1").on("submit", function(e){
 				return false;
 			}
 
-			if(respuesta['redireccion']=='modelo'){
+			if(respuesta['redireccion']=='modelo' && respuesta['estatus']!='Inactiva'){
 				Swal.fire({
 	 				title: 'Preparando Perfil de Modelo!',
 	 				text: "Redirigiendo...!",
@@ -271,30 +271,32 @@ $("#formulario1").on("submit", function(e){
 				return false;
 			}
 
-			$('#usuario_nombre').val(respuesta['usuario_nombre']);
-			$('#usuario_apellido').val(respuesta['usuario_apellido']);
-			$('#usuario_correo').val(respuesta['usuario_correo']);
-			$('#usuario_rol').val(respuesta['usuario_rol']);
-			$('#usuario_telefono1').val(respuesta['usuario_telefono1']);
-			$('#usuario_usuario').val(respuesta['usuario_usuario']);
+			if(respuesta['estatus']!='Inactiva'){
+				$('#usuario_nombre').val(respuesta['usuario_nombre']);
+				$('#usuario_apellido').val(respuesta['usuario_apellido']);
+				$('#usuario_correo').val(respuesta['usuario_correo']);
+				$('#usuario_rol').val(respuesta['usuario_rol']);
+				$('#usuario_telefono1').val(respuesta['usuario_telefono1']);
+				$('#usuario_usuario').val(respuesta['usuario_usuario']);
 
-			Swal.fire({
- 				title: 'Bienvenido usuario '+respuesta['usuario_usuario'],
- 				text: "Redirigiendo...!",
- 				icon: 'success',
- 				position: 'center',
- 				showConfirmButton: true,
- 				confirmButtonColor: '#3085d6',
- 				confirmButtonText: 'No esperar!',
- 				timer: 3000
-			}).then((result) => {
- 				if (result.value) {
-   					$('#formulario2').submit();
- 				}
-			})
-			setTimeout(function() {
-		    	$('#formulario2').submit();
-			},3500);
+				Swal.fire({
+	 				title: 'Bienvenido usuario '+respuesta['usuario_usuario'],
+	 				text: "Redirigiendo...!",
+	 				icon: 'success',
+	 				position: 'center',
+	 				showConfirmButton: true,
+	 				confirmButtonColor: '#3085d6',
+	 				confirmButtonText: 'No esperar!',
+	 				timer: 3000
+				}).then((result) => {
+	 				if (result.value) {
+	   					$('#formulario2').submit();
+	 				}
+				})
+				setTimeout(function() {
+			    	$('#formulario2').submit();
+				},3500);
+			}
 		},
 
 		error: function(respuesta) {
