@@ -137,6 +137,8 @@
 										$consulta2 = "SELECT * FROM pasantes WHERE sede = 2 and numero_documento != 1044429860";
 									}else if($usuario_documento=='1233894445'){
 										$consulta2 = "SELECT * FROM pasantes WHERE (sede = 1 or sede = 3) and numero_documento != 1044429860";
+									}else if($usuario_documento=='1032467238'){
+										$consulta2 = "SELECT * FROM pasantes WHERE sede = 4 and numero_documento != 1044429860";
 									}else{
 										$consulta2 = "SELECT * FROM pasantes WHERE sede = 1 and numero_documento != 1044429860";
 									}

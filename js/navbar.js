@@ -64,6 +64,7 @@ $(document).ready(function(){
         $('#a-pqr').attr('href','pqr/index.php');
         $('#a-admin').attr('href','admin/index.php');
         $('#a-personal').attr('href','personal/index.php');
+        $('#a-nomina').attr('href','nomina/index.php');
         $('#navbar-cerrarSesion').attr('href','script/cerrar_sesion.php');
     }else{
         $('#li-'+hidden_ubicacion).addClass('navbar-active');

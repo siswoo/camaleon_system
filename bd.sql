@@ -39,6 +39,8 @@ CREATE TABLE roles (
 
 	administracion INT DEFAULT 0,
 
+	nomina INT DEFAULT 0,
+
 	test INT DEFAULT 0,
 
 	PRIMARY KEY (id)
@@ -58,6 +60,7 @@ INSERT INTO roles (id,nombre,community) VALUES (12,'Community Manager',1);
 INSERT INTO roles (id,nombre,financiera) VALUES (13,'Financiera',1);
 INSERT INTO roles (id,nombre,jefe) VALUES (14,'Jefe',1);
 INSERT INTO roles (id,nombre,administracion) VALUES (15,'Administración Sede',1);
+INSERT INTO roles (id,nombre,nomina) VALUES (16,'Gestion Nomina',1);
 ALTER TABLE roles CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 DROP TABLE IF EXISTS sedes;
@@ -77,7 +80,8 @@ INSERT INTO sedes (nombre,direccion,ciudad,responsable,cedula,rut) VALUES
 ('Norte','Direccion','Bogotá D.C', 'Andres Fernando Bernal Correa', '80.774.671', '901.257.204-8'),
 ('Occidente I','Direccion','Bogotá D.C', 'Andres Fernando Bernal Correa', '80.774.671', '901.257.204-8'),
 ('VIP Suba','Direccion','Bogotá D.C', 'Andres Fernando Bernal Correa', '80.774.671', '901.257.204-8'),
-('Medellin','Direccion','Medellin', 'Andres Fernando Bernal Correa', '80.774.671', '901.257.204-8');
+('Medellin','Direccion','Medellin', 'Andres Fernando Bernal Correa', '80.774.671', '901.257.204-8'),
+('Soacha','Direccion','Bogotá D.C', 'Andres Fernando Bernal Correa', '80.774.671', '901.257.204-8');
 
 
 DROP TABLE IF EXISTS usuarios;
@@ -1082,6 +1086,10 @@ CREATE TABLE nomina (
 	sede VARCHAR(250) NOT NULL,
 	cargo VARCHAR(250) NOT NULL,
 
+	salario INT NOT NULL,
+	fecha_nacimiento date NOT NULL,
+	fecha_ingreso date NOT NULL,
+
 	PRIMARY KEY (id)
 );ALTER TABLE nomina CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
@@ -1098,3 +1106,65 @@ CREATE TABLE personal1 (
 	fecha_inicio date NOT NULL,
 	PRIMARY KEY (id)
 );ALTER TABLE personal1 CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+DROP TABLE IF EXISTS cargos;
+CREATE TABLE cargos (
+	id INT AUTO_INCREMENT,
+	nombre VARCHAR(250) NOT NULL,
+	responsable INT NOT NULL,
+	fecha_inicio date NOT NULL,
+	PRIMARY KEY (id)
+);ALTER TABLE cargos CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+INSERT INTO cargos (nombre,responsable,fecha_inicio) VALUES 
+('Directivo',1,'2021-03-11'),
+('Administrador',1,'2021-03-11'),
+('Aseo',1,'2021-03-11'),
+('Asesor de Imagen',1,'2021-03-11'),
+('Asistente',1,'2021-03-11'),
+('Capacitadora y Pagos',1,'2021-03-11'),
+('Diseñador',1,'2021-03-11'),
+('Fotografo',1,'2021-03-11'),
+('Gerente de Operaciones',1,'2021-03-11'),
+('Jefe Soporte',1,'2021-03-11'),
+('Mantenimiento',1,'2021-03-11'),
+('Monitor',1,'2021-03-11'),
+('Programador',1,'2021-03-11'),
+('Recursos Humanos',1,'2021-03-11'),
+('Reparaciones',1,'2021-03-11'),
+('Soporte',1,'2021-03-11'),
+('Soporte Técnico',1,'2021-03-11'),
+('Tráfico',1,'2021-03-11'),
+('Vigilante',1,'2021-03-11'),
+('Financiera',1,'2021-03-15'),
+('Jefe de Monitores',1,'2021-03-16'),
+('Community Manager',1,'2021-03-16'),
+('Sexshop',1,'2021-03-16'),
+('Seguridad Social',1,'2021-03-17');
+
+DROP TABLE IF EXISTS n_documentos;
+CREATE TABLE n_documentos (
+	id INT AUTO_INCREMENT,
+	nombre VARCHAR(250) NOT NULL,
+	responsable INT NOT NULL,
+	fecha_inicio date NOT NULL,
+	PRIMARY KEY (id)
+);ALTER TABLE n_documentos CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+INSERT INTO n_documentos (nombre,responsable,fecha_inicio) VALUES 
+("Seguridad Social",1,"2021-03-17"),
+("EPS",1,"2021-03-17"),
+("Fondo de Pension",1,"2021-03-17"),
+("ARL",1,"2021-03-17"),
+("Antecedentes Penales",1,"2021-03-17"),
+("Hoja de Vida",1,"2021-03-17");
+
+DROP TABLE IF EXISTS n_archivos;
+CREATE TABLE n_archivos (
+	id INT AUTO_INCREMENT,
+	id_nomina INT NOT NULL,
+	id_documento INT NOT NULL,
+	responsable INT NOT NULL,
+	fecha_inicio date NOT NULL,
+	PRIMARY KEY (id)
+);ALTER TABLE n_archivos CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;

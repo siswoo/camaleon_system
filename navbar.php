@@ -198,8 +198,14 @@ if($ubicacion == 'welcome'){ ?>
 	        	<a class="nav-link navbar-active-a botones_navbar1" href="../personal/index.php" id="a-personal">Personal</a>
 	      	</li>
 	      	<?php } ?>
-	      	
 
+	      	<?php
+			if($_SESSION['rol']==1 or $_SESSION['rol']==16){ ?>
+	      	<li class="nav-item" id="li-nomina">
+	        	<a class="nav-link navbar-active-a botones_navbar1" href="../nomina/index.php" id="a-nomina">Nómina</a>
+	      	</li>
+	      	<?php } ?>
+	      	
 	    </ul>
 
 	    <ul class="nav navbar-nav flex-row justify-content-between ml-auto">

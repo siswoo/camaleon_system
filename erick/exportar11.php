@@ -149,13 +149,16 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 }
 
 $fila = 2;
-
-$sql2 = "SELECT * FROM modelos WHERE fecha_inicio BETWEEN '".$inicio."' AND '".$fin."'";
+if($inicio = '2021-02-16'){
+	$sql2 = "SELECT * FROM modelos WHERE documento_numero = 52051345 or documento_numero = 1020810208 or documento_numero = 52901295 or documento_numero = 948513028021994 or documento_numero = 1030582351 or documento_numero = 27295561 or documento_numero = 1233505303 or documento_numero = 1012459217 or documento_numero= 1000337597 or documento_numero = 1000987798";	
+}else{
+	$sql2 = "SELECT * FROM modelos WHERE fecha_inicio BETWEEN '".$inicio."' AND '".$fin."'";
+}
 $consulta2 = mysqli_query($conexion,$sql2);
-while($row2 = mysqli_fetch_array($consulta2)) {
+while($row3 = mysqli_fetch_array($consulta2)) {
 
-	$tipo_documento = $row2['documento_tipo'];
-	$tipo_documento = $row2['documento_tipo'];
+	$tipo_documento = $row3['documento_tipo'];
+	$numero_documento = $row3['documento_numero'];
 
 	if($tipo_documento=='Cedula de Ciudadania'){
 		$tipo_documento = 'CC';
@@ -184,7 +187,8 @@ while($row2 = mysqli_fetch_array($consulta2)) {
 			$sede_nombre = $row5['nombre'];
 		}
 	}else{
-		$sede_nombre = 'Indefinido';
+		//$sede_nombre = 'Indefinido';
+		$sede_nombre = 'VIP';
 	}
 
 	if($sede_nombre=='VIP Occidente'){
@@ -202,7 +206,6 @@ while($row2 = mysqli_fetch_array($consulta2)) {
 	$direccion = $row3['direccion'];
 	$telefono1 = $row3['telefono1'];
 	$correo = $row3['correo'];
-	$numero_documento = $row3['documento_numero'];
 
 	$nombre1 = eliminar_acentos($nombre1);
 	$nombre2 = eliminar_acentos($nombre2);

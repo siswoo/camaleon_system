@@ -269,65 +269,81 @@
 	}
 
 	function guardar1(id_modelo){
+		var nombre = $('#nombre_'+id_modelo).val();
+		var turno = $('#turno_'+id_modelo).val();
+		var fecha_inicio = $('#fecha_inicio_'+id_modelo).val();
 		var observacion = $('#observacion_'+id_modelo).val();
 		var fotos = $('#fotos_'+id_modelo).val();
+		var nickname = $('#nickname_'+id_modelo).val();
+		var estatus = $('#estatus_'+id_modelo).val();
+		var fecha = $('#fecha1').val();
+
+		if(observacion=='' || fotos=='' || estatus==''){
+			Swal.fire({
+			  title: 'Cuidado!',
+			  text: "Completar los campos de esta fila",
+			  icon: 'warning',
+			  showConfirmButton: false,
+			  showCancelButton: false,
+			});
+			return false;
+		}
 
 		$.ajax({
 			type: 'POST',
 			url: '../script/crud_personal.php',
 			dataType: "JSON",
 			data: {
+				"id_modelo": id_modelo,
+				"nombre": nombre,
+				"turno": turno,
+				"fecha_inicio": fecha_inicio,
 				"observacion": observacion,
 				"fotos": fotos,
+				"nickname": nickname,
+				"estatus": estatus,
+				"fecha": fecha,
 				"condicion": 'guardar1',
 			},
 
 			success: function(respuesta) {
 				console.log(respuesta);
-				$('#example').DataTable().destroy();
-				$('#resultados').html(respuesta['html']);
-				var table = $('#example').DataTable( {
-		        	"lengthMenu": [[10, 25, 50, 100], [10, 25, 50, 100]],
-
-		        	"language": {
-			            "lengthMenu": "Mostrar _MENU_ Registros por página",
-			            "zeroRecords": "No se ha encontrado resultados",
-			            "info": "Ubicado en la página <strong>_PAGE_</strong> de <strong>_PAGES_</strong>",
-			            "infoEmpty": "Sin registros actualmente",
-			            "infoFiltered": "(Filtrado de <strong>_MAX_</strong> total registros)",
-			            "paginate": {
-					        "first":      "Primero",
-					        "last":       "Última",
-					        "next":       "Siguiente",
-					        "previous":   "Anterior"
-					    },
-					    "search": "Buscar",
-		        	},
-
-		        	"paging": true
-
-	    		} );
-	    		/***************POPOVERS*******************/
-				$(function () {
-					$('[data-toggle="popover"]').popover()
+				Swal.fire({
+					position: 'center',
+					icon: 'success',
+					title: 'Modificado Correctamente',
+					showConfirmButton: true,
+					timer: 3000
 				})
+			},
 
-				// popovers initialization - on hover
-				$('[data-toggle="popover-hover"]').popover({
-				  html: true,
-				  trigger: 'hover',
-				  placement: 'bottom',
-				  /*content: function () { return '<img src="' + $(this).data('img') + '" />'; }*/
-				});
+			error: function(respuesta) {
+				console.log(respuesta['responseText']);
+			}
+		});
+	}
 
-				// popovers initialization - on click
-				$('[data-toggle="popover-click"]').popover({
-				  html: true,
-				  trigger: 'click',
-				  placement: 'bottom',
-				  content: function () { return '<img src="' + $(this).data('img') + '" />'; }
-				});
-		    	/******************************************/
+	function cambiar_estatus1(id_modelo){
+		var fecha = $('#fecha1').val();
+		$.ajax({
+			type: 'POST',
+			url: '../script/crud_personal.php',
+			dataType: "JSON",
+			data: {
+				"id_modelo": id_modelo,
+				"fecha": fecha,
+				"condicion": 'estatus1',
+			},
+
+			success: function(respuesta) {
+				console.log(respuesta);
+				Swal.fire({
+					position: 'center',
+					icon: 'success',
+					title: 'Modificado Correctamente',
+					showConfirmButton: true,
+					timer: 3000
+				})
 			},
 
 			error: function(respuesta) {
