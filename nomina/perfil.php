@@ -126,6 +126,9 @@
 			<li class="nav-item">
 				<a class="nav-link" href="#" id="Dpagos" onclick="pestañas(this.id);" style="color:white; text-transform: uppercase;">Pagos</a>
 			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#" id="Dcontrato" onclick="pestañas(this.id);" style="color:white; text-transform: uppercase;">Contrato</a>
+			</li>
 		</ul>
 
 	<!--***********************************************************-->

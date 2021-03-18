@@ -839,6 +839,7 @@
 			                <th class="text-center">Cam4</th>
 			                <th class="text-center">Streamate</th>
 			                <th class="text-center">Camsoda</th>
+			                <th class="text-center">Xlove</th>
 			                <th class="text-center">Flirt4free</th>
 			                <th class="text-center">Paxum</th>
 			                <th class="text-center">Epay</th>
@@ -854,6 +855,7 @@
 			        		<td class="text-center" id="td_total_cam4">0</td>
 			        		<td class="text-center" id="td_total_streamate">0</td>
 			        		<td class="text-center" id="td_total_camsoda">0</td>
+			        		<td class="text-center" id="td_total_xlove">0</td>
 			        		<td class="text-center" id="td_total_flirt4free">0</td>
 			        		<td class="text-center" id="td_total_paxum">0</td>
 			        		<td class="text-center" id="td_total_epay">0</td>
@@ -867,6 +869,7 @@
 			        		<td class="text-center" id="td_vipocc_cam4">0</td>
 			        		<td class="text-center" id="td_vipocc_streamate">0</td>
 			        		<td class="text-center" id="td_vipocc_camsoda">0</td>
+			        		<td class="text-center" id="td_vipocc_xlove">0</td>
 			        		<td class="text-center" id="td_vipocc_flirt4free">0</td>
 			        		<td class="text-center" id="td_vipocc_paxum">0</td>
 			        		<td class="text-center" id="td_vipocc_epay">0</td>
@@ -880,6 +883,7 @@
 			        		<td class="text-center" id="td_vipsuba_cam4">0</td>
 			        		<td class="text-center" id="td_vipsuba_streamate">0</td>
 			        		<td class="text-center" id="td_vipsuba_camsoda">0</td>
+			        		<td class="text-center" id="td_vipsuba_xlove">0</td>
 			        		<td class="text-center" id="td_vipsuba_flirt4free">0</td>
 			        		<td class="text-center" id="td_vipsuba_paxum">0</td>
 			        		<td class="text-center" id="td_vipsuba_epay">0</td>
@@ -893,6 +897,7 @@
 			        		<td class="text-center" id="td_occ1_cam4">0</td>
 			        		<td class="text-center" id="td_occ1_streamate">0</td>
 			        		<td class="text-center" id="td_occ1_camsoda">0</td>
+			        		<td class="text-center" id="td_occ1_xlove">0</td>
 			        		<td class="text-center" id="td_occ1_flirt4free">0</td>
 			        		<td class="text-center" id="td_occ1_paxum">0</td>
 			        		<td class="text-center" id="td_occ1_epay">0</td>
@@ -906,6 +911,7 @@
 			        		<td class="text-center" id="td_norte_cam4">0</td>
 			        		<td class="text-center" id="td_norte_streamate">0</td>
 			        		<td class="text-center" id="td_norte_camsoda">0</td>
+			        		<td class="text-center" id="td_norte_xlove">0</td>
 			        		<td class="text-center" id="td_norte_flirt4free">0</td>
 			        		<td class="text-center" id="td_norte_paxum">0</td>
 			        		<td class="text-center" id="td_norte_epay">0</td>
@@ -919,6 +925,7 @@
 			        		<td class="text-center" id="td_sinnombre_cam4">0</td>
 			        		<td class="text-center" id="td_sinnombre_streamate">0</td>
 			        		<td class="text-center" id="td_sinnombre_camsoda">0</td>
+			        		<td class="text-center" id="td_sinnombre_xlove">0</td>
 			        		<td class="text-center" id="td_sinnombre_flirt4free">0</td>
 			        		<td class="text-center" id="td_sinnombre_paxum">0</td>
 			        		<td class="text-center" id="td_sinnombre_epay">0</td>
@@ -2959,6 +2966,7 @@
 				$('#td_total_stripchat').html("$"+respuesta['stripchat_dolares']);
 				$('#td_total_cam4').html("$"+respuesta['cam4_dolares']);
 				$('#td_total_streamate').html("$"+respuesta['streamate_dolares']);
+				$('#td_total_xlove').html("$"+respuesta['xlove_dolares']);
 				$('#td_total_camsoda').html("$"+respuesta['camsoda_dolares']);
 				$('#td_total_paxum').html("$"+respuesta['paxum_dolares']);
 				$('#td_total_epay').html("$"+respuesta['epay_dolares']);
@@ -2970,6 +2978,7 @@
 				$('#td_vipocc_stripchat').html("$"+respuesta['sede1_stripchat']);
 				$('#td_vipocc_cam4').html("$"+respuesta['sede1_cam4']);
 				$('#td_vipocc_streamate').html("$"+respuesta['sede1_streamate']);
+				$('#td_vipocc_xlove').html("$"+respuesta['sede1_xlove']);
 				$('#td_vipocc_camsoda').html("$"+respuesta['sede1_camsoda']);
 				$('#td_vipocc_flirt4free').html("$"+respuesta['sede1_flirt4free']);
 				$('#td_vipocc_paxum').html("$"+respuesta['sede1_paxum']);
@@ -2981,6 +2990,7 @@
 				$('#td_norte_stripchat').html("$"+respuesta['sede2_stripchat']);
 				$('#td_norte_cam4').html("$"+respuesta['sede2_cam4']);
 				$('#td_norte_streamate').html("$"+respuesta['sede2_streamate']);
+				$('#td_norte_xlove').html("$"+respuesta['sede2_xlove']);
 				$('#td_norte_camsoda').html("$"+respuesta['sede2_camsoda']);
 				$('#td_norte_flirt4free').html("$"+respuesta['sede2_flirt4free']);
 				$('#td_norte_paxum').html("$"+respuesta['sede2_paxum']);
@@ -2992,6 +3002,7 @@
 				$('#td_occ1_stripchat').html("$"+respuesta['sede3_stripchat']);
 				$('#td_occ1_cam4').html("$"+respuesta['sede3_cam4']);
 				$('#td_occ1_streamate').html("$"+respuesta['sede3_streamate']);
+				$('#td_occ1_xlove').html("$"+respuesta['sede3_xlove']);
 				$('#td_occ1_camsoda').html("$"+respuesta['sede3_camsoda']);
 				$('#td_occ1_flirt4free').html("$"+respuesta['sede3_flirt4free']);
 				$('#td_occ1_paxum').html("$"+respuesta['sede3_paxum']);
@@ -3003,6 +3014,7 @@
 				$('#td_vipsuba_stripchat').html("$"+respuesta['sede4_stripchat']);
 				$('#td_vipsuba_cam4').html("$"+respuesta['sede4_cam4']);
 				$('#td_vipsuba_streamate').html("$"+respuesta['sede4_streamate']);
+				$('#td_vipsuba_xlove').html("$"+respuesta['sede4_xlove']);
 				$('#td_vipsuba_camsoda').html("$"+respuesta['sede4_camsoda']);
 				$('#td_vipsuba_flirt4free').html("$"+respuesta['sede4_flirt4free']);
 				$('#td_vipsuba_paxum').html("$"+respuesta['sede4_paxum']);
@@ -3014,6 +3026,7 @@
 				$('#td_sinnombre_stripchat').html("$"+respuesta['total_stripchat_tokens']);
 				$('#td_sinnombre_cam4').html("$"+respuesta['total_cam4_tokens']);
 				$('#td_sinnombre_streamate').html("$"+respuesta['total_streamate_tokens']);
+				$('#td_sinnombre_xlove').html("$"+respuesta['total_xlove_tokens']);
 				$('#td_sinnombre_camsoda').html("$"+respuesta['total_camsoda_tokens']);
 				$('#td_sinnombre_flirt4free').html("$"+respuesta['total_flirt4free_tokens']);
 				$('#td_sinnombre_paxum').html("$"+respuesta['total_paxum_tokens']);

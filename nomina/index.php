@@ -756,6 +756,8 @@
 			$('#correo').val("communitymanager@camaleonmg.com");
 		}else if(value==23){
 			$('#correo').val("sexshop@camaleonmg.com");
+		}else if(value==24){
+			$('#correo').val("seguridad_social@camaleonmg.com");
 		}
 	}
 
@@ -806,6 +808,8 @@
 			$('#edit_correo').val("communitymanager@camaleonmg.com");
 		}else if(value==23){
 			$('#edit_correo').val("sexshop@camaleonmg.com");
+		}else if(value==24){
+			$('#edit_correo').val("seguridad_social@camaleonmg.com");
 		}
 	}
 
