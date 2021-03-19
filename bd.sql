@@ -1157,7 +1157,9 @@ INSERT INTO n_documentos (nombre,responsable,fecha_inicio) VALUES
 ("Fondo de Pension",1,"2021-03-17"),
 ("ARL",1,"2021-03-17"),
 ("Antecedentes Penales",1,"2021-03-17"),
-("Hoja de Vida",1,"2021-03-17");
+("Hoja de Vida",1,"2021-03-17"),
+("Identificacion",1,"2021-03-19"),
+("Firma",1,"2021-03-19");
 
 DROP TABLE IF EXISTS n_archivos;
 CREATE TABLE n_archivos (
@@ -1168,3 +1170,17 @@ CREATE TABLE n_archivos (
 	fecha_inicio date NOT NULL,
 	PRIMARY KEY (id)
 );ALTER TABLE n_archivos CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+DROP TABLE IF EXISTS n_pagos;
+CREATE TABLE n_pagos (
+	id INT AUTO_INCREMENT,
+	id_nomina INT NOT NULL,
+	salario INT NOT NULL,
+	bonos INT NOT NULL,
+	multas INT NOT NULL,
+	responsable INT NOT NULL,
+	desde date NOT NULL,
+	hasta date NOT NULL,
+	fecha_inicio date NOT NULL,
+	PRIMARY KEY (id)
+);ALTER TABLE n_pagos CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;

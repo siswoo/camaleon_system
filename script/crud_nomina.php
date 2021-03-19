@@ -164,53 +164,8 @@ if($condicion=='eliminar1'){
 
 if($condicion=='subir_archivo1'){
 	$id = $_POST['id'];
-
-	if(file_exists('../resources/documentos/nominas/archivos/'.$id)){}else{
-    	mkdir('../resources/documentos/nominas/archivos/'.$id, 0777);
-	}
-
-	/***************FUNCIONES****************/
-	function redimensionar_imagen($nombreimg, $rutaimg, $xmax, $ymax){
-	    $ext = explode(".", $nombreimg);
-	    $ext = $ext[count($ext)-1];
-
-	    if($ext!="pdf"){
-
-	        $datos = [
-				"estatus" => 'error',
-			];
-
-			echo json_encode($datos);
-	        exit;
-	    }
-	      
-	    if($extension == 'pdf'){
-		    unlink($location.'foto_cedula_con_cara.jpg');
-		    unlink($location.'foto_cedula_con_cara.pdf');
-		    move_uploaded_file ($_FILES['file']['tmp_name'],$location.'foto_cedula_con_cara.pdf');
-		}
-
-	    $x = imagesx($imagen);
-	    $y = imagesy($imagen);
-	          
-	    if($x <= $xmax && $y <= $ymax){
-	        return $imagen;
-	    }
-	      
-	    if($x >= $y) {  
-	        $nuevax = $xmax;  
-	        $nuevay = $nuevax * $y / $x;  
-	    }  
-	    else {  
-	        $nuevay = $ymax;  
-	        $nuevax = $x / $y * $nuevay;  
-	    }  
-
-	    $img2 = imagecreatetruecolor($nuevax, $nuevay);
-	    imagecopyresized($img2, $imagen, 0, 0, 0, 0, floor($nuevax), floor($nuevay), $x, $y);
-	    return $img2;
-	}
-	/*******************************************/
+	$condicion2 = $_POST['condicion2'];
+	$condicion3 = $_POST['condicion3'];
 
 	$imagen_temporal = $_FILES['file']['tmp_name'];
 	$location = "../resources/documentos/nominas/archivos/".$id."/";
@@ -221,24 +176,24 @@ if($condicion=='subir_archivo1'){
 	$extension = explode(".", $imagen_nombre);
 	$extension = $extension[count($extension)-1];
 
-	if($ancho>$alto){
-	    $imagen_optimizada = redimensionar_imagen($imagen_nombre,$imagen_temporal,1920,1080);
-	    imagejpeg($imagen_optimizada, $location.'firma_digital'.'.jpg');
-	}else if($ancho<$alto){
-	    $imagen_optimizada = redimensionar_imagen($imagen_nombre,$imagen_temporal,1080,1920);
-	    imagejpeg($imagen_optimizada, $location.'firma_digital'.'.jpg');
-	}else{
-	    $imagen_optimizada = redimensionar_imagen($imagen_nombre,$imagen_temporal,1080,1080);
-	    imagejpeg($imagen_optimizada, $location.'firma_digital'.'.jpg');
+	if(file_exists('../resources/documentos/nominas/archivos/'.$id)){}else{
+    	mkdir('../resources/documentos/nominas/archivos/'.$id, 0777);
 	}
 
-	if($extension=='jpg'){}else{
-	    $extension='jpg';
+	if($extension == 'pdf'){
+		@unlink($location.$condicion3.'.pdf');
+		move_uploaded_file ($_FILES['file']['tmp_name'],$location.$condicion3.'.pdf');
 	}
 
-	$documento = $_POST["condicion2"];
+	if($extension!="pdf"){
+        $datos = [
+			"estatus" => 'error',
+		];
+		echo json_encode($datos);
+		exit;
+    }
 
-	$sql4 = "SELECT * FROM n_documentos WHERE nombre = '".$documento."'";
+	$sql4 = "SELECT * FROM n_documentos WHERE nombre = '".$condicion2."'";
 	$proceso4 = mysqli_query($conexion,$sql4);
 	while($row4 = mysqli_fetch_array($proceso4)) {
 		$documento_id = $row4['id'];
@@ -257,3 +212,22 @@ if($condicion=='subir_archivo1'){
 	echo json_encode($datos);
 }
 
+if($condicion=='guardar_bancarios'){
+	$id = $_POST['id'];
+	$BCPP = $_POST['BCPP'];
+	$banco_cedula = $_POST['banco_cedula'];
+	$banco_nombre = $_POST['banco_nombre'];
+	$banco_tipo = $_POST['banco_tipo'];
+	$banco_numero = $_POST['banco_numero'];
+	$banco_banco = $_POST['banco_banco'];
+
+	$sql1 = "UPDATE nomina SET banco_cedula = '".$banco_cedula."', banco_nombre = '".$banco_nombre."', banco_tipo = '".$banco_tipo."', banco_numero = '".$banco_numero."', banco_banco = '".$banco_banco."', BCPP = '".$BCPP."' WHERE id = ".$id;
+	$proceso1 = mysqli_query($conexion,$sql1);
+
+	$datos = [
+		"estatus" => 'ok',
+		"sql" => $sql1,
+	];
+
+	echo json_encode($datos);
+}

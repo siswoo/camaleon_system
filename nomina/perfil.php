@@ -134,7 +134,7 @@
 	<!--***********************************************************-->
 	<!--**********************DATOS PERSONALES*********************-->
 	<!--***********************************************************-->
-	<form class="" action="#" method="POST" id="formulario1">
+	<div id="formulario1">
 		<input type="hidden" id="asunto" name="asunto" value="personales">
 		<input type="hidden" id="id" name="id" value="<?php echo $id; ?>">
 		<input type="hidden" id="f1_genero" name="f1_genero" value="<?php echo $genero; ?>">
@@ -187,7 +187,7 @@
 				<input type="text" name="direccion" id="direccion" class="form-control" value="<?php echo $direccion; ?>" disabled>
 			</div>
 		</div>
-	</form>
+	</div>
 
 	<!--***********************************************************-->
 	<!--***********************************************************-->
@@ -196,12 +196,12 @@
 	<!--**********************DATOS BANCARIOS*********************-->
 	<!--***********************************************************-->
 	<form class="d-none" action="#" method="POST" id="formulario2">
-		<input type="hidden" id="asunto" name="asunto" value="bancarios">
+		<input type="hidden" id="condicion" name="condicion" value="guardar_bancarios">
 		<input type="hidden" id="id" name="id" value="<?php echo $id; ?>">
 		
 		<div class="row">
 			<div class="col-6 form-group form-check">
-				<label for="enlazar">Cuenta Propia o Prestada?</label>
+				<label for="BCPP">Cuenta Propia o Prestada?</label>
 				<select name="BCPP" class="form-control" id="BCPP" required>
 					<?php
 					if($bcpp==''){ ?>
@@ -327,11 +327,12 @@
 		$html_arl='';
 		$html_antecedentes_penales='';
 		$html_hoja_de_vida='';
+		$html_identificacion='';
 
 		if($contador3>=1){
 			while($row3 = mysqli_fetch_array($consulta3)) {
 				$id_documento = $row3['id'];
-				$sql4 = "SELECT * FROM n_documentos WHERE id_documento =".$id_documento;
+				$sql4 = "SELECT * FROM n_documentos WHERE id =".$id_documento;
 				$consulta4 = mysqli_query($conexion,$sql4);
 				while($row4 = mysqli_fetch_array($consulta4)) {
 					$nombre_documento = $row4['nombre'];
@@ -339,84 +340,84 @@
 					switch ($nombre_documento) {
 						case 'Seguridad Social':
 							$html_seguridad_social = '
-								<form id="form_pasaporte" enctype="multipart/form-data" method="POST">
-									<div class="row">
-										<div class="col-12 form-group form-check text-center">
-											<label for="turno">Pasaporte (Subida Actualmente)</label>
-											<p>	<embed src="../resources/documentos/nomina/archivos/'.$id.'/seguridad_social.pdf#toolbar=0" type="application/pdf" width="100%" height="400px" /></p>
-										</div>
+								<div class="row">
+									<div class="col-12 form-group form-check text-center">
+										<label for="turno">Seguridad Social (Subida Actualmente)</label>
+										<p>	<embed src="../resources/documentos/nominas/archivos/'.$id.'/seguridad_social.pdf#toolbar=0" type="application/pdf" width="100%" height="400px" /></p>
 									</div>
-								</form>
+								</div>
 								<hr style="background-color: white;">
 							';
 						break;
 
 						case 'EPS':
 							$html_eps = '
-								<form id="form_rut" enctype="multipart/form-data" method="POST">
-									<div class="row">
-										<div class="col-12 form-group form-check text-center">
-											<label for="turno">RUT (Subida Actualmente)</label>
-											<p><embed src="../resources/documentos/nomina/archivos/'.$id.'/eps.pdf#toolbar=0" type="application/pdf" width="100%" height="400px" /></p>
-										</div>
+								<div class="row">
+									<div class="col-12 form-group form-check text-center">
+										<label for="turno">EPS (Subida Actualmente)</label>
+										<p><embed src="../resources/documentos/nominas/archivos/'.$id.'/eps.pdf#toolbar=0" type="application/pdf" width="100%" height="400px" /></p>
 									</div>
-								</form>
+								</div>
 								<hr style="background-color: white;">
 							';
 						break;
 
-						case 'EPS':
+						case 'Fondo de Pension':
 							$html_fondo_de_pension = '
-								<form id="form_rut" enctype="multipart/form-data" method="POST">
-									<div class="row">
-										<div class="col-12 form-group form-check text-center">
-											<label for="turno">RUT (Subida Actualmente)</label>
-											<p><embed src="../resources/documentos/nomina/archivos/'.$id.'/fondo_de_pension.pdf#toolbar=0" type="application/pdf" width="100%" height="400px" /></p>
-										</div>
+								<div class="row">
+									<div class="col-12 form-group form-check text-center">
+										<label for="turno">Fondo de Pensión (Subida Actualmente)</label>
+										<p><embed src="../resources/documentos/nominas/archivos/'.$id.'/fondo_de_pension.pdf#toolbar=0" type="application/pdf" width="100%" height="400px" /></p>
 									</div>
-								</form>
+								</div>
 								<hr style="background-color: white;">
 							';
 						break;
 
-						case 'EPS':
+						case 'ARL':
 							$html_arl = '
-								<form id="form_rut" enctype="multipart/form-data" method="POST">
-									<div class="row">
-										<div class="col-12 form-group form-check text-center">
-											<label for="turno">RUT (Subida Actualmente)</label>
-											<p><embed src="../resources/documentos/nomina/archivos/'.$id.'/arl.pdf#toolbar=0" type="application/pdf" width="100%" height="400px" /></p>
-										</div>
+								<div class="row">
+									<div class="col-12 form-group form-check text-center">
+										<label for="turno">ARL (Subida Actualmente)</label>
+										<p><embed src="../resources/documentos/nominas/archivos/'.$id.'/arl.pdf#toolbar=0" type="application/pdf" width="100%" height="400px" /></p>
 									</div>
-								</form>
+								</div>
 								<hr style="background-color: white;">
 							';
 						break;
 
-						case 'EPS':
+						case 'Antecedentes Penales':
 							$html_antecedentes_penales = '
-								<form id="form_rut" enctype="multipart/form-data" method="POST">
-									<div class="row">
-										<div class="col-12 form-group form-check text-center">
-											<label for="turno">RUT (Subida Actualmente)</label>
-											<p><embed src="../resources/documentos/nomina/archivos/'.$id.'/antecedentes_penales.pdf#toolbar=0" type="application/pdf" width="100%" height="400px" /></p>
-										</div>
+								<div class="row">
+									<div class="col-12 form-group form-check text-center">
+										<label for="turno">Antecedentes Penales (Subida Actualmente)</label>
+										<p><embed src="../resources/documentos/nominas/archivos/'.$id.'/antecedentes_penales.pdf#toolbar=0" type="application/pdf" width="100%" height="400px" /></p>
 									</div>
-								</form>
+								</div>
 								<hr style="background-color: white;">
 							';
 						break;
 
-						case 'EPS':
+						case 'Hoja de Vida':
 							$html_hoja_de_vida = '
-								<form id="form_rut" enctype="multipart/form-data" method="POST">
-									<div class="row">
-										<div class="col-12 form-group form-check text-center">
-											<label for="turno">RUT (Subida Actualmente)</label>
-											<p><embed src="../resources/documentos/nomina/archivos/'.$id.'/hoja_de_vida.pdf#toolbar=0" type="application/pdf" width="100%" height="400px" /></p>
-										</div>
+								<div class="row">
+									<div class="col-12 form-group form-check text-center">
+										<label for="turno">Hoja de Vida (Subida Actualmente)</label>
+										<p><embed src="../resources/documentos/nominas/archivos/'.$id.'/hoja_de_vida.pdf#toolbar=0" type="application/pdf" width="100%" height="400px" /></p>
 									</div>
-								</form>
+								</div>
+								<hr style="background-color: white;">
+							';
+						break;
+
+						case 'Identificacion':
+							$html_identificacion = '
+								<div class="row">
+									<div class="col-12 form-group form-check text-center">
+										<label for="turno">Identificación (Subida Actualmente)</label>
+										<p><embed src="../resources/documentos/nominas/archivos/'.$id.'/identificacion.pdf#toolbar=0" type="application/pdf" width="100%" height="400px" /></p>
+									</div>
+								</div>
 								<hr style="background-color: white;">
 							';
 						break;
@@ -478,10 +479,10 @@
 		}
 		if($html_arl==''){
 			echo '
-			<form id="form_eps" enctype="multipart/form-data" method="POST">
+			<form id="form_arl" enctype="multipart/form-data" method="POST">
 				<div class="row mt-3 mb-3">
 					<div class="col-12 form-group form-check">
-						<button type="submit" class="btn btn-success" id="submit_eps" style="height: 35px; margin-top: 6px; margin-bottom: 11px;margin-right: 20px;">Subir</button>
+						<button type="submit" class="btn btn-success" id="submit_arl" style="height: 35px; margin-top: 6px; margin-bottom: 11px;margin-right: 20px;">Subir</button>
 						<label for="turno">ARL</label>
 						<input type="file" style="height:43px;" class="form-control" name="arl" id="arl" required>
 					</div>
@@ -523,6 +524,22 @@
 		}else{
 			echo $html_hoja_de_vida;
 		}
+
+		if($html_identificacion==''){
+			echo '
+			<form id="form_identificacion" enctype="multipart/form-data" method="POST">
+				<div class="row mt-3 mb-3">
+					<div class="col-12 form-group form-check">
+						<button type="submit" class="btn btn-success" id="submit_identificacion" style="height: 35px; margin-top: 6px; margin-bottom: 11px;margin-right: 20px;">Subir</button>
+						<label for="turno">Identificación</label>
+						<input type="file" style="height:43px;" class="form-control" name="identificacion" id="identificacion" required>
+					</div>
+				</div>
+			</form>
+			';
+		}else{
+			echo $html_identificacion;
+		}
 		?>
 	</form>
 	</div>
@@ -531,7 +548,7 @@
 
 
 	<!--***********************************************************-->
-	<!--**********************DOCUMENTOS*********************-->
+	<!--**********************CONTRATO*********************-->
 	<!--***********************************************************-->
 	<form class="d-none" action="#" method="POST" id="formulario6">
 		<input type="hidden" id="asunto" name="asunto" value="contrato">
@@ -543,15 +560,21 @@
 				<input type="hidden" name="hidden_vercontrato1" id="hidden_vercontrato1" value="No">
 			</div>
 
+			<?php
+			if($cargo==1){
+				$nombre_contrato = "contrato1";
+			}
+			?>
+
 			<div class="col-12 form-group form-check text-center mt-3">
-				<a href="../script/generador_modelo_contrato1.php#toolbar=0" target="_blank">
+				<a href="../script/generador_nomina_contrato1.php#toolbar=0" target="_blank">
 					<button type="button" class="btn btn-info">Ver Contrato (Segunda Opción)</button>
 				</a>
 			</div>
 
 			<div class="col-12 form-group form-check text-center" id="seccion_contrato1" style="display: none;">
 				<label>Contrato Actualizado</label>
-				<embed src="../script/generador_modelo_contrato1.php#toolbar=0" type="application/pdf" width="100%" height="600px" />
+				<embed src="../script/generador_nomina_contrato1.php#toolbar=0" type="application/pdf" width="100%" height="600px" />
 			</div>
 				
 			<div class="col-12 form-group form-check text-center mt-3">
@@ -595,230 +618,51 @@
 	<!--***********************************************************-->
 	<!--***********************************************************-->
 
-
-	<!--***********************************************************-->
-	<!--**********************CUENTAS*********************-->
-	<!--***********************************************************-->
-	<form class="d-none" action="#" method="POST" id="formulario7">
-		<input type="hidden" id="asunto" name="asunto" value="contrato">
-		<input type="hidden" id="id" name="id" value="<?php echo $id; ?>">
-		<div class="row">
-				<?php
-				$sql5 = "SELECT * FROM modelos_cuentas WHERE id_modelos = ".$id;
-				$consulta5 = mysqli_query($conexion,$sql5);
-				$contador4 = mysqli_num_rows($consulta5);
-				if($contador4>=1){
-					while($row5 = mysqli_fetch_array($consulta5)) {
-						$id_modelos_cuentas_id = $row5['id'];
-						$id_modelos_cuentas_id_paginas = $row5['id_paginas'];
-						$id_modelos_cuentas_usuario = $row5['usuario'];
-						$id_modelos_cuentas_clave = $row5['clave'];
-						$id_modelos_cuentas_correo = $row5['correo'];
-						$id_modelos_cuentas_link = $row5['link'];
-						$id_modelos_cuentas_estatus = $row5['estatus'];
-						$id_modelos_cuentas_fecha_inicio = $row5['fecha_inicio'];
-
-						$sql6 = "SELECT * FROM paginas WHERE id = ".$id_modelos_cuentas_id_paginas;
-						$consulta6 = mysqli_query($conexion,$sql6);
-						while($row6 = mysqli_fetch_array($consulta6)) {
-							$paginas_nombre = $row6['nombre'];
-						}
-
-						if($id_modelos_cuentas_estatus=='Aprobada'){
-							echo '
-								<div class="col-3 form-group form-check text-center mt-3">
-									<button type="button" class="btn btn-success" id="'.$id_modelos_cuentas_id.'" onclick="mostrar1(this.id);">'.$id_modelos_cuentas_estatus.' ('.$paginas_nombre.')</button>
-								</div>
-							';
-						}else{
-							echo '
-								<div class="col-3 form-group form-check text-center mt-3">
-									<button type="button" class="btn btn-info" id="'.$id_modelos_cuentas_id.'" onclick="mostrar1(this.id);">'.$id_modelos_cuentas_estatus.' ('.$paginas_nombre.')</button>
-								</div>
-							';
-						}
-
-					}
-
-					echo '<div class="col-12 text-center" id="div_hidden1" style="display:none;">&nbsp;</div>';
-
-				}else{
-					echo '
-							<div class="col-12 form-group form-check text-center mt-3">No Tiene Cuentas Activas</div>
-						';
-				}
-				?>
-		</div>
-	</form>
-	<!--***********************************************************-->
-	<!--***********************************************************-->
-
-
-	<!--***********************************************************-->
-	<!--**********************FOTOS*********************-->
-	<!--***********************************************************-->
-	<form class="d-none" action="#" method="POST" id="formulario8">
-		<div class="row">
-				<?php
-				$sql7 = "SELECT * FROM modelos_documentos WHERE id_documentos = 13 and id_modelos = ".$id;
-				$consulta7 = mysqli_query($conexion,$sql7);
-				$contador5 = mysqli_num_rows($consulta7);
-				$html_fotos_sensuales = '';
-				if($contador5>=1){
-					$html_fotos_sensuales = '
-						<div class="col-12 text-center mt-3" style="font-weight:bold; font-size: 20px;">Fotos Sensuales</div>
-					';
-					while($row7 = mysqli_fetch_array($consulta7)) {
-						$documentos2_id = $row7['id'];
-						$documentos2_id_modelos = $row7['id_modelos'];
-						$documentos2_tipo = $row7['tipo'];
-						$documentos2_fecha_inicio = $row7['fecha_inicio'];
-
-						$html_fotos_sensuales.='
-							<div class="col-12 form-group text-center mt-3">
-								<img src="../resources/documentos/nomina/archivos/'.$id.'/sensuales_'.$documentos2_id.'.jpg" style="width:400px; border-radius:1rem;">
-							</div>
-						';
-					}
-				}else{
-					$html_fotos_sensuales.='
-							<div class="col-12 form-group form-check text-center mt-3">No Tiene Fotos Sensuales Actualmente</div>
-							<div class="col-12 form-group form-check text-center mt-3">
-								<button type="button" class="btn btn-info" id="'.$id.'" data-toggle="modal" data-target="#Modal_fotos_sensuales1">Subir Fotos</button>
-							</div>
-						';
-				}
-				echo $html_fotos_sensuales;
-				?>
-		</div>
-	</form>
-	<!--***********************************************************-->
-	<!--***********************************************************-->
-
 	<!--***********************************************************-->
 	<!--**********************PAGOS*********************-->
 	<!--***********************************************************-->
 	<form class="d-none" action="#" method="POST" id="formulario9">
 		<div class="row">
-				<?php
-				$sql8 = "SELECT * FROM modelos WHERE id = ".$id;
-				$consulta8 = mysqli_query($conexion,$sql8);
-				while($row8 = mysqli_fetch_array($consulta8)) {
-					$modelo_estatus = $row8['estatus'];
-				}
+			<?php
+			$sql8 = "SELECT * FROM nomina WHERE id = ".$id;
+			$consulta8 = mysqli_query($conexion,$sql8);
 
-				if($modelo_estatus=='Activa'){
-					$sql7 = "SELECT * FROM presabana WHERE id_modelo = ".$id." and estatus = 'Activa' GROUP BY inicio";
-					$consulta7 = mysqli_query($conexion,$sql7);
-					$contador6 = mysqli_num_rows($consulta7);
-					$html_presabana = '';
-						$html_presabana = '
-							<!--<div class="col-12 text-center mt-3" style="font-weight:bold; font-size: 20px;">Desprendibles de Pagos</div>-->
-						';
-						while($row7 = mysqli_fetch_array($consulta7)) {
-							$documentos2_id = $row7['id'];
-							$dinero = $row7['total_dolares'];
-							$presabana_desde = $row7['inicio'];
-							$presabana_hasta = $row7['fin'];
-							$id_modelo_especial = $row7['id_modelo'];
-
-							if($dinero>=1){
-								if($id_modelo_especial==908 and $presabana_desde=='2021-02-01'){
-									$html_presabana .= '';
-								}else{
-									$html_presabana.='
-										<div class="col-12 text-center form-group mt-3">
-											<span style="font-size: 20px; font-weight: bold;">Desprendible desde '.$presabana_desde.' hasta '.$presabana_hasta.'</span>
-											<br>
-											<a href="../script/generar_desprendible2.php?id='.$id.'&pre='.$documentos2_id.'" target="_blank" style="color: white; text-decoration: none;">
-												<button type="button" class="btn btn-success mt-3">Descargar</button>
-											</a>
-											<hr style="background-color: white;">
-										</div>
-									';
-								}
-							}else{
-								$html_presabana.='
-									<div class="col-12 form-group form-check text-center mt-3">No Tienes Pagos Efectuados</div>
-								';
-							}
-						}
-					echo $html_presabana;
-				}else{
-					echo '
-						<div class="col-12 form-group form-check text-center mt-3">No tienes desprendibles activos en el sistema</div>
+			$sql7 = "SELECT * FROM n_pagos WHERE id_nomina = ".$id;
+			$consulta7 = mysqli_query($conexion,$sql7);
+			$contador6 = mysqli_num_rows($consulta7);
+			$html_presabana = '';
+			if($contador6>=1){
+				while($row7 = mysqli_fetch_array($consulta7)) {
+					$pago_id = $row7['id'];
+					$salario = $row7['salario'];
+					$bonos = $row7['bonos'];
+					$multas = $row7['multas'];
+					$desde = $row7['desde'];
+					$hasta = $row7['hasta'];
+						
+					$html_presabana.='
+						<div class="col-12 text-center form-group mt-3">
+							<span style="font-size: 20px; font-weight: bold;">Desprendible desde '.$presabana_desde.' hasta '.$presabana_hasta.'</span>
+							<br>
+							<a href="../script/generar_desprendible2.php?id='.$id.'&pre='.$documentos2_id.'" target="_blank" style="color: white; text-decoration: none;">
+								<button type="button" class="btn btn-success mt-3">Descargar</button>
+							</a>
+							<hr style="background-color: white;">
+						</div>
 					';
 				}
-				?>
+			}else{
+				$html_presabana.='
+					<div class="col-12 form-group form-check text-center mt-3">No Tienes Pagos Efectuados</div>
+				';
+			}
+			echo $html_presabana;
+			?>
 		</div>
 	</form>
 	<!--***********************************************************-->
 	<!--***********************************************************-->
 
-
-
-	<!-- Modal Fotos Sensuales 1 -->
-	<div class="modal fade" id="Modal_fotos_sensuales1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="color:black;">
-		<div class="modal-dialog" role="document">
-			<form action="#" method="POST" id="form_modal_fotos_sensuales1" style="">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Agregar Fotos Sensuales</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body">
-						<div class="row">
-							<input type="hidden" name="hidden_id_modelo" id="hidden_id_modelo" value="<?php echo $id; ?>">
-
-							<div class="col-12 form-group">
-						     	<hr style="background-color: red;">
-						     	<p style="font-weight: bold; font-size: 20px; text-transform: capitalize; text-align: center;">Reglamento para cada foto</p>
-						     	<p><span style="font-weight: bold;">1._</span> No se permiten fotos explicitas</p>
-						     	<p><span style="font-weight: bold;">2._</span> Mostrar la cara</p>
-						     	<p><span style="font-weight: bold;">3._</span> No se permiten fotos frente al espejo</p>
-						     	<p><span style="font-weight: bold;">4._</span> Al menos una foto Horizontal</p>
-						     	<p><span style="font-weight: bold;">5._</span> Al menos una foto Vertical</p>
-						     	<p><span style="font-weight: bold;">6._</span> Subir como mínimo 3 fotos y máximo 5</p>
-							    <hr style="background-color: red;">
-							</div>
-
-						    <div class="col-12 form-group form-check">
-						     	<label for="foto_sensual_1">Foto #1</label>
-							    <input type="file" style="height:43px;" class="form-control" name="foto_sensual_1" id="foto_sensual_1" required>
-							</div>
-
-							<div class="col-12 form-group form-check">
-						     	<label for="foto_sensual_2">Foto #2</label>
-							    <input type="file" style="height:43px;" class="form-control" name="foto_sensual_2" id="foto_sensual_2" required>
-							</div>
-
-							<div class="col-12 form-group form-check">
-						     	<label for="foto_sensual_3">Foto #3</label>
-							    <input type="file" style="height:43px;" class="form-control" name="foto_sensual_3" id="foto_sensual_3" required>
-							</div>
-
-							<div class="col-12 form-group form-check">
-						     	<label for="foto_sensual_4">Foto #4</label>
-							    <input type="file" style="height:43px;" class="form-control" name="foto_sensual_4" id="foto_sensual_4">
-							</div>
-
-							<div class="col-12 form-group form-check">
-						     	<label for="foto_sensual_5">Foto #5</label>
-							    <input type="file" style="height:43px;" class="form-control" name="foto_sensual_5" id="foto_sensual_5">
-							</div>
-						</div>
-					</div>
-					<div class="modal-footer">
-				        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="submit_Modal_fotos2">Cerrar</button>
-				        <button type="submit" id="submit_fotos_sensuales1" class="btn btn-success">Subir Fotos</button>
-			      	</div>
-		      	</form>
-	    	</div>
-	  	</div>
-	</div>
-<!-- FIN Modal Fotos 2 -->
 </div>
 
 <script src="../js/jquery-3.5.1.min.js"></script>
@@ -1065,7 +909,6 @@
 				console.log(respuesta['responseText']);
 			}
 		});
-		refrescar();
 	});
 
 	$("#formulario2").on("submit", function(e){
@@ -1073,11 +916,11 @@
 		var f = $(this);
 	    $.ajax({
 			type: 'POST',
-			url: '../script/guardar_modelo2.php',
+			url: '../script/crud_nomina.php',
 			data: $('#formulario2').serialize(),
 			dataType: "JSON",
 			success: function(respuesta) {
-				//console.log(respuesta);
+				console.log(respuesta);
 				Swal.fire({
 	 				title: 'Correcto',
 	 				text: "Datos actualizados",
@@ -1091,7 +934,6 @@
 				console.log(respuesta['responseText']);
 			}
 		});
-		refrescar();
 	});
 
 	$("#formulario3").on("submit", function(e){
@@ -1117,7 +959,6 @@
 				console.log(respuesta['responseText']);
 			}
 		});
-		refrescar();
 	});
 
 	$("#formulario4").on("submit", function(e){
@@ -1143,7 +984,6 @@
 				console.log(respuesta['responseText']);
 			}
 		});
-		refrescar();
 	});
 
 	function checkbox1(){
@@ -1184,6 +1024,7 @@
         fd.append('file',files);
         fd.append('condicion',"subir_archivo1");
         fd.append('condicion2',"Seguridad Social");
+        fd.append('condicion3',"seguridad_social");
         fd.append('id',$('#id').val());
 
         $.ajax({
@@ -1199,8 +1040,9 @@
             },
 
             success: function(response){
+            	console.log(response);
+            	$('#submit_seguridad_social').removeAttr('disabled');
             	if(response['estatus']=='error'){
-            		$('#submit_seguridad_social').attr('disabled','false');
             		Swal.fire({
 		 				title: 'Formato Invalido',
 			 			text: "Formato Validos -> pdf",
@@ -1209,7 +1051,6 @@
 			 			showConfirmButton: false,
 			 			timer: 3000
 					});
-					$('#submit_seguridad_social').removeAttr('disabled');
             		return false;
             	}
 
@@ -1231,181 +1072,29 @@
 			    	window.location.href = "perfil.php";
 				},3500);
             },
+
+            error: function(response){
+            	console.log(response['responseText']);
+            	$('#submit_seguridad_social').removeAttr('disabled');
+            }
         });
     });
 
-
-
-	$("#form_pasaporte").on("submit", function(e){
-		e.preventDefault();
-        var fd = new FormData();
-        var files = $('#pasaporte')[0].files[0];
-        fd.append('file',files);
-
-        $.ajax({
-            url: '../script/modelo_subir_documento2.php',
-            type: 'POST',
-            data: fd,
-            contentType: false,
-            processData: false,
-
-            beforeSend: function (){
-            	$('#submit_pasaporte').attr('disabled','true');
-            },
-
-            success: function(response){
-            	if(response=='error'){
-            		$('#submit_pasaporte').attr('disabled','false');
-            		Swal.fire({
-		 				title: 'Formato Invalido',
-			 			text: "Formato Validos -> jpg jpeg png",
-			 			icon: 'error',
-			 			position: 'center',
-			 			showConfirmButton: false,
-			 			timer: 3000
-					});
-            		return false;
-            	}
-            	Swal.fire({
-	 				title: 'Documento Subido',
-	 				text: "Redirigiendo...!",
-	 				icon: 'success',
-	 				position: 'center',
-	 				showConfirmButton: true,
-	 				confirmButtonColor: '#3085d6',
-	 				confirmButtonText: 'No esperar!',
-	 				timer: 3000
-				}).then((result) => {
-	 				if (result.value) {
-	   					window.location.href = "perfil.php";
-	 				}
-				})
-				setTimeout(function() {
-			    	window.location.href = "perfil.php";
-				},3500);
-            },
-        });
-    });
-
-
-
-
-    $("#form_rut").on("submit", function(e){
-		e.preventDefault();
-        var fd = new FormData();
-        var files = $('#rut')[0].files[0];
-        fd.append('file',files);
-
-        $.ajax({
-            url: '../script/modelo_subir_documento3.php',
-            type: 'POST',
-            data: fd,
-            contentType: false,
-            processData: false,
-
-            beforeSend: function (){
-            	$('#submit_rut').attr('disabled','true');
-            },
-
-            success: function(response){
-            	if(response=='error'){
-            		$('#submit_rut').attr('disabled','false');
-            		Swal.fire({
-		 				title: 'Formato Invalido',
-			 			text: "Formato Validos -> jpg jpeg png",
-			 			icon: 'error',
-			 			position: 'center',
-			 			showConfirmButton: false,
-			 			timer: 3000
-					});
-            		return false;
-            	}
-            	Swal.fire({
-	 				title: 'Documento Subido',
-	 				text: "Redirigiendo...!",
-	 				icon: 'success',
-	 				position: 'center',
-	 				showConfirmButton: true,
-	 				confirmButtonColor: '#3085d6',
-	 				confirmButtonText: 'No esperar!',
-	 				timer: 3000
-				}).then((result) => {
-	 				if (result.value) {
-	   					window.location.href = "perfil.php";
-	 				}
-				})
-				setTimeout(function() {
-			    	window.location.href = "perfil.php";
-				},3500);
-            },
-        });
-    });
-
-
-
-    $("#form_certificacion_bancaria").on("submit", function(e){
-		e.preventDefault();
-        var fd = new FormData();
-        var files = $('#certificacion_bancaria')[0].files[0];
-        fd.append('file',files);
-
-        $.ajax({
-            url: '../script/modelo_subir_documento4.php',
-            type: 'POST',
-            data: fd,
-            contentType: false,
-            processData: false,
-
-            beforeSend: function (){
-            	$('#submit_certificacion_bancaria').attr('disabled','true');
-            },
-
-            success: function(response){
-            	if(response=='error'){
-            		$('#submit_certificacion_bancaria').attr('disabled','false');
-            		Swal.fire({
-		 				title: 'Formato Invalido',
-			 			text: "Formato Validos -> jpg jpeg png",
-			 			icon: 'error',
-			 			position: 'center',
-			 			showConfirmButton: false,
-			 			timer: 3000
-					});
-            		return false;
-            	}
-            	Swal.fire({
-	 				title: 'Documento Subido',
-	 				text: "Redirigiendo...!",
-	 				icon: 'success',
-	 				position: 'center',
-	 				showConfirmButton: true,
-	 				confirmButtonColor: '#3085d6',
-	 				confirmButtonText: 'No esperar!',
-	 				timer: 3000
-				}).then((result) => {
-	 				if (result.value) {
-	   					window.location.href = "perfil.php";
-	 				}
-				})
-				setTimeout(function() {
-			    	window.location.href = "perfil.php";
-				},3500);
-            },
-        });
-    });
-
-
-
-    $("#form_eps").on("submit", function(e){
+	$("#form_eps").on("submit", function(e){
 		e.preventDefault();
         var fd = new FormData();
         var files = $('#eps')[0].files[0];
         fd.append('file',files);
+        fd.append('condicion',"subir_archivo1");
+        fd.append('condicion2',"EPS");
+        fd.append('condicion3',"eps");
+        fd.append('id',$('#id').val());
 
         $.ajax({
-            url: '../script/modelo_subir_documento5.php',
+            url: '../script/crud_nomina.php',
             type: 'POST',
             data: fd,
+            dataType: "JSON",
             contentType: false,
             processData: false,
 
@@ -1414,11 +1103,12 @@
             },
 
             success: function(response){
-            	if(response=='error'){
-            		$('#submit_eps').attr('disabled','false');
+            	console.log(response);
+            	$('#submit_eps').removeAttr('disabled');
+            	if(response['estatus']=='error'){
             		Swal.fire({
 		 				title: 'Formato Invalido',
-			 			text: "Formato Validos -> jpg jpeg png",
+			 			text: "Formato Validos -> pdf",
 			 			icon: 'error',
 			 			position: 'center',
 			 			showConfirmButton: false,
@@ -1426,6 +1116,7 @@
 					});
             		return false;
             	}
+
             	Swal.fire({
 	 				title: 'Documento Subido',
 	 				text: "Redirigiendo...!",
@@ -1444,33 +1135,43 @@
 			    	window.location.href = "perfil.php";
 				},3500);
             },
+
+            error: function(response){
+            	console.log(response['responseText']);
+            	$('#submit_eps').removeAttr('disabled');
+            }
         });
     });
 
-
-    $("#form_antecedentes_disciplinarios").on("submit", function(e){
+    $("#form_fondo_de_pension").on("submit", function(e){
 		e.preventDefault();
         var fd = new FormData();
-        var files = $('#antecedentes_disciplinarios')[0].files[0];
+        var files = $('#fondo_de_pension')[0].files[0];
         fd.append('file',files);
+        fd.append('condicion',"subir_archivo1");
+        fd.append('condicion2',"Fondo de Pension");
+        fd.append('condicion3',"fondo_de_pension");
+        fd.append('id',$('#id').val());
 
         $.ajax({
-            url: '../script/modelo_subir_documento6.php',
+            url: '../script/crud_nomina.php',
             type: 'POST',
             data: fd,
+            dataType: "JSON",
             contentType: false,
             processData: false,
 
             beforeSend: function (){
-            	$('#submit_antecedentes_disciplinarios').attr('disabled','true');
+            	$('#submit_fondo_de_pension').attr('disabled','true');
             },
 
             success: function(response){
-            	if(response=='error'){
-            		$('#submit_antecedentes_disciplinarios').attr('disabled','false');
+            	console.log(response);
+            	$('#submit_fondo_de_pension').removeAttr('disabled');
+            	if(response['estatus']=='error'){
             		Swal.fire({
 		 				title: 'Formato Invalido',
-			 			text: "Formato Validos -> jpg jpeg png",
+			 			text: "Formato Validos -> pdf",
 			 			icon: 'error',
 			 			position: 'center',
 			 			showConfirmButton: false,
@@ -1478,6 +1179,7 @@
 					});
             		return false;
             	}
+
             	Swal.fire({
 	 				title: 'Documento Subido',
 	 				text: "Redirigiendo...!",
@@ -1496,34 +1198,43 @@
 			    	window.location.href = "perfil.php";
 				},3500);
             },
+
+            error: function(response){
+            	console.log(response['responseText']);
+            	$('#submit_fondo_de_pension').removeAttr('disabled');
+            }
         });
     });
 
-
-
-    $("#form_foto_cedula_con_cara").on("submit", function(e){
+    $("#form_arl").on("submit", function(e){
 		e.preventDefault();
         var fd = new FormData();
-        var files = $('#foto_cedula_con_cara')[0].files[0];
+        var files = $('#arl')[0].files[0];
         fd.append('file',files);
+        fd.append('condicion',"subir_archivo1");
+        fd.append('condicion2',"ARL");
+        fd.append('condicion3',"arl");
+        fd.append('id',$('#id').val());
 
         $.ajax({
-            url: '../script/modelo_subir_documento7.php',
+            url: '../script/crud_nomina.php',
             type: 'POST',
             data: fd,
+            dataType: "JSON",
             contentType: false,
             processData: false,
 
             beforeSend: function (){
-            	$('#submit_foto_cedula_con_cara').attr('disabled','true');
+            	$('#submit_arl').attr('disabled','true');
             },
 
             success: function(response){
-            	if(response=='error'){
-            		$('#submit_foto_cedula_con_cara').attr('disabled','false');
+            	console.log(response);
+            	$('#submit_arl').removeAttr('disabled');
+            	if(response['estatus']=='error'){
             		Swal.fire({
 		 				title: 'Formato Invalido',
-			 			text: "Formato Validos -> jpg jpeg png",
+			 			text: "Formato Validos -> pdf",
 			 			icon: 'error',
 			 			position: 'center',
 			 			showConfirmButton: false,
@@ -1531,6 +1242,7 @@
 					});
             		return false;
             	}
+
             	Swal.fire({
 	 				title: 'Documento Subido',
 	 				text: "Redirigiendo...!",
@@ -1549,128 +1261,29 @@
 			    	window.location.href = "perfil.php";
 				},3500);
             },
+
+            error: function(response){
+            	console.log(response['responseText']);
+            	$('#submit_arl').removeAttr('disabled');
+            }
         });
     });
-
-
-
-
-    $("#form_foto_cedula_parte_frontal_cara").on("submit", function(e){
-		e.preventDefault();
-        var fd = new FormData();
-        var files = $('#foto_cedula_parte_frontal_cara')[0].files[0];
-        fd.append('file',files);
-
-        $.ajax({
-            url: '../script/modelo_subir_documento8.php',
-            type: 'POST',
-            data: fd,
-            contentType: false,
-            processData: false,
-
-            beforeSend: function (){
-            	$('#submit_foto_cedula_parte_frontal_cara').attr('disabled','true');
-            },
-
-            success: function(response){
-            	if(response=='error'){
-            		$('#submit_foto_cedula_parte_frontal_cara').attr('disabled','false');
-            		Swal.fire({
-		 				title: 'Formato Invalido',
-			 			text: "Formato Validos -> jpg jpeg png",
-			 			icon: 'error',
-			 			position: 'center',
-			 			showConfirmButton: false,
-			 			timer: 3000
-					});
-            		return false;
-            	}
-            	Swal.fire({
-	 				title: 'Documento Subido',
-	 				text: "Redirigiendo...!",
-	 				icon: 'success',
-	 				position: 'center',
-	 				showConfirmButton: true,
-	 				confirmButtonColor: '#3085d6',
-	 				confirmButtonText: 'No esperar!',
-	 				timer: 3000
-				}).then((result) => {
-	 				if (result.value) {
-	   					window.location.href = "perfil.php";
-	 				}
-				})
-				setTimeout(function() {
-			    	window.location.href = "perfil.php";
-				},3500);
-            },
-        });
-    });
-
-
-
-    $("#form_foto_cedula_parte_respaldo").on("submit", function(e){
-		e.preventDefault();
-        var fd = new FormData();
-        var files = $('#foto_cedula_parte_respaldo')[0].files[0];
-        fd.append('file',files);
-
-        $.ajax({
-            url: '../script/modelo_subir_documento9.php',
-            type: 'POST',
-            data: fd,
-            contentType: false,
-            processData: false,
-
-            beforeSend: function (){
-            	$('#submit_foto_cedula_parte_respaldo').attr('disabled','true');
-            },
-
-            success: function(response){
-            	if(response=='error'){
-            		$('#submit_foto_cedula_parte_respaldo').attr('disabled','false');
-            		Swal.fire({
-		 				title: 'Formato Invalido',
-			 			text: "Formato Validos -> jpg jpeg png",
-			 			icon: 'error',
-			 			position: 'center',
-			 			showConfirmButton: false,
-			 			timer: 3000
-					});
-            		return false;
-            	}
-            	Swal.fire({
-	 				title: 'Documento Subido',
-	 				text: "Redirigiendo...!",
-	 				icon: 'success',
-	 				position: 'center',
-	 				showConfirmButton: true,
-	 				confirmButtonColor: '#3085d6',
-	 				confirmButtonText: 'No esperar!',
-	 				timer: 3000
-				}).then((result) => {
-	 				if (result.value) {
-	   					window.location.href = "perfil.php";
-	 				}
-				})
-				setTimeout(function() {
-			    	window.location.href = "perfil.php";
-				},3500);
-            },
-        });
-    });
-
-
 
     $("#form_antecedentes_penales").on("submit", function(e){
 		e.preventDefault();
         var fd = new FormData();
         var files = $('#antecedentes_penales')[0].files[0];
         fd.append('file',files);
+        fd.append('condicion',"subir_archivo1");
+        fd.append('condicion2',"Antecedentes Penales");
+        fd.append('condicion3',"antecedentes_penales");
+        fd.append('id',$('#id').val());
 
         $.ajax({
-            url: '../script/modelo_subir_documento10.php',
+            url: '../script/crud_nomina.php',
             type: 'POST',
             data: fd,
+            dataType: "JSON",
             contentType: false,
             processData: false,
 
@@ -1679,11 +1292,12 @@
             },
 
             success: function(response){
-            	if(response=='error'){
-            		$('#submit_antecedentes_penales').attr('disabled','false');
+            	console.log(response);
+            	$('#submit_antecedentes_penales').removeAttr('disabled');
+            	if(response['estatus']=='error'){
             		Swal.fire({
 		 				title: 'Formato Invalido',
-			 			text: "Formato Validos -> jpg jpeg png",
+			 			text: "Formato Validos -> pdf",
 			 			icon: 'error',
 			 			position: 'center',
 			 			showConfirmButton: false,
@@ -1691,6 +1305,7 @@
 					});
             		return false;
             	}
+
             	Swal.fire({
 	 				title: 'Documento Subido',
 	 				text: "Redirigiendo...!",
@@ -1709,9 +1324,139 @@
 			    	window.location.href = "perfil.php";
 				},3500);
             },
+
+            error: function(response){
+            	console.log(response['responseText']);
+            	$('#submit_antecedentes_penales').removeAttr('disabled');
+            }
         });
     });
 
+    $("#form_hoja_de_vida").on("submit", function(e){
+		e.preventDefault();
+        var fd = new FormData();
+        var files = $('#hoja_de_vida')[0].files[0];
+        fd.append('file',files);
+        fd.append('condicion',"subir_archivo1");
+        fd.append('condicion2',"Hoja de Vida");
+        fd.append('condicion3',"hoja_de_vida");
+        fd.append('id',$('#id').val());
+
+        $.ajax({
+            url: '../script/crud_nomina.php',
+            type: 'POST',
+            data: fd,
+            dataType: "JSON",
+            contentType: false,
+            processData: false,
+
+            beforeSend: function (){
+            	$('#submit_hoja_de_vida').attr('disabled','true');
+            },
+
+            success: function(response){
+            	console.log(response);
+            	$('#submit_hoja_de_vida').removeAttr('disabled');
+            	if(response['estatus']=='error'){
+            		Swal.fire({
+		 				title: 'Formato Invalido',
+			 			text: "Formato Validos -> pdf",
+			 			icon: 'error',
+			 			position: 'center',
+			 			showConfirmButton: false,
+			 			timer: 3000
+					});
+            		return false;
+            	}
+
+            	Swal.fire({
+	 				title: 'Documento Subido',
+	 				text: "Redirigiendo...!",
+	 				icon: 'success',
+	 				position: 'center',
+	 				showConfirmButton: true,
+	 				confirmButtonColor: '#3085d6',
+	 				confirmButtonText: 'No esperar!',
+	 				timer: 3000
+				}).then((result) => {
+	 				if (result.value) {
+	   					window.location.href = "perfil.php";
+	 				}
+				})
+				setTimeout(function() {
+			    	window.location.href = "perfil.php";
+				},3500);
+            },
+
+            error: function(response){
+            	console.log(response['responseText']);
+            	$('#submit_hoja_de_vida').removeAttr('disabled');
+            }
+        });
+    });
+
+    $("#form_identificacion").on("submit", function(e){
+		e.preventDefault();
+        var fd = new FormData();
+        var files = $('#identificacion')[0].files[0];
+        fd.append('file',files);
+        fd.append('condicion',"subir_archivo1");
+        fd.append('condicion2',"Identificacion");
+        fd.append('condicion3',"identificacion");
+        fd.append('id',$('#id').val());
+
+        $.ajax({
+            url: '../script/crud_nomina.php',
+            type: 'POST',
+            data: fd,
+            dataType: "JSON",
+            contentType: false,
+            processData: false,
+
+            beforeSend: function (){
+            	$('#submit_identificacion').attr('disabled','true');
+            },
+
+            success: function(response){
+            	console.log(response);
+            	$('#submit_identificacion').removeAttr('disabled');
+            	if(response['estatus']=='error'){
+            		Swal.fire({
+		 				title: 'Formato Invalido',
+			 			text: "Formato Validos -> pdf",
+			 			icon: 'error',
+			 			position: 'center',
+			 			showConfirmButton: false,
+			 			timer: 3000
+					});
+            		return false;
+            	}
+
+            	Swal.fire({
+	 				title: 'Documento Subido',
+	 				text: "Redirigiendo...!",
+	 				icon: 'success',
+	 				position: 'center',
+	 				showConfirmButton: true,
+	 				confirmButtonColor: '#3085d6',
+	 				confirmButtonText: 'No esperar!',
+	 				timer: 3000
+				}).then((result) => {
+	 				if (result.value) {
+	   					window.location.href = "perfil.php";
+	 				}
+				})
+				setTimeout(function() {
+			    	window.location.href = "perfil.php";
+				},3500);
+            },
+
+            error: function(response){
+            	console.log(response['responseText']);
+            	$('#submit_identificacion').removeAttr('disabled');
+            }
+        });
+    });
 
     $("#formulario6").on("submit", function(e){
 		e.preventDefault();
