@@ -106,6 +106,12 @@
 			$fecha_nacimiento=$row['fecha_nacimiento'];
 			$fecha_ingreso=$row['fecha_ingreso'];
 			/*****************************/
+
+			/********EMERGENCIA**************/
+			$emergencia_nombre=$row['emergencia_nombre'];
+			$emergencia_telefono=$row['emergencia_telefono'];
+			$emergencia_parentesco=$row['emergencia_parentesco'];
+			/*****************************/
 		}
 	}
 	?>
@@ -128,6 +134,9 @@
 			</li>
 			<li class="nav-item">
 				<a class="nav-link" href="#" id="Dcontrato" onclick="pestañas(this.id);" style="color:white; text-transform: uppercase;">Contrato</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#" id="Demergencia" onclick="pestañas(this.id);" style="color:white; text-transform: uppercase;">Emergencia</a>
 			</li>
 		</ul>
 
@@ -247,8 +256,8 @@
 				<label for="banco_banco">Banco</label>
 				<select name="banco_banco" class="form-control" id="banco_banco" required>
 					<?php
-					if($banco_tipo!=''){ ?>
-						<option value="<?php echo $banco_tipo;?>" selected><?php echo $banco_tipo;?></option>
+					if($banco_banco!=''){ ?>
+						<option value="<?php echo $banco_banco;?>" selected><?php echo $banco_banco;?></option>
 					<?php } ?>
 					<option value="">Seleccione</option>
 					<option value="Banco Agrario de Colombia">Banco Agrario de Colombia</option>
@@ -338,18 +347,6 @@
 					$nombre_documento = $row4['nombre'];
 
 					switch ($nombre_documento) {
-						case 'Seguridad Social':
-							$html_seguridad_social = '
-								<div class="row">
-									<div class="col-12 form-group form-check text-center">
-										<label for="turno">Seguridad Social (Subida Actualmente)</label>
-										<p>	<embed src="../resources/documentos/nominas/archivos/'.$id.'/seguridad_social.pdf#toolbar=0" type="application/pdf" width="100%" height="400px" /></p>
-									</div>
-								</div>
-								<hr style="background-color: white;">
-							';
-						break;
-
 						case 'EPS':
 							$html_eps = '
 								<div class="row">
@@ -428,22 +425,6 @@
 					}
 				}
 			}
-		}
-		if($html_seguridad_social==''){
-			echo '
-			<form id="form_seguridad_social" enctype="multipart/form-data" method="POST">
-				<div class="row mt-3 mb-3">
-					<div class="col-12 form-group form-check">
-						<button type="submit" class="btn btn-success" id="submit_seguridad_social" style="height: 35px; margin-top: 6px; margin-bottom: 11px;margin-right: 20px;">Subir</button>
-						<label for="seguridad_social">Seguridad Social</label>
-						<input type="file" style="height:43px;" class="form-control" name="seguridad_social" id="seguridad_social" required>
-					</div>
-				</div>
-			</form>
-			<hr style="background-color: white;">
-			';
-		}else{
-			echo $html_seguridad_social;
 		}
 		if($html_eps==''){
 			echo '
@@ -663,6 +644,35 @@
 	<!--***********************************************************-->
 	<!--***********************************************************-->
 
+	<!--***********************************************************-->
+	<!--**********************Emergencia*********************-->
+	<!--***********************************************************-->
+	<form class="d-none" action="#" method="POST" id="formulario7">
+		<input type="hidden" id="condicion" name="condicion" value="guardar_emergencia">
+		<input type="hidden" id="id" name="id" value="<?php echo $id; ?>">
+		<div class="row">
+			<div class="col-12 form-group form-check">
+				<label for="emergencia_nombre">Nombre</label>
+				<input type="text" name="emergencia_nombre" id="emergencia_nombre" <?php if($emergencia_nombre!=''){?> value="<?php echo $emergencia_nombre; ?>" <?php } ?> class="form-control" autocomplete="off" required>
+			</div>
+			<div class="col-6 form-group form-check">
+				<label for="emergencia_telefono">Teléfono</label>
+				<input type="text" name="emergencia_telefono" id="emergencia_telefono" <?php if($emergencia_telefono!=''){?> value="<?php echo $emergencia_telefono; ?>" <?php } ?> class="form-control" autocomplete="off" required>
+			</div>
+			<div class="col-6 form-group form-check">
+				<label for="emergencia_parentesco">Parentesco</label>
+				<input type="text" name="emergencia_parentesco" id="emergencia_parentesco" <?php if($emergencia_parentesco!=''){?> value="<?php echo $emergencia_parentesco; ?>" <?php } ?> class="form-control" autocomplete="off" required>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12 form-group form-check text-center">
+				<button type="submit" id="submit" class="btn btn-success" style="width: 20%; font-weight: bold;">Actualizar</button>
+			</div>
+		</div>
+	</form>
+	<!--***********************************************************-->
+	<!--***********************************************************-->
+
 </div>
 
 <script src="../js/jquery-3.5.1.min.js"></script>
@@ -682,7 +692,7 @@
 				$('#Dempresa').removeClass('active1');
 				$('#Ddocumentos').removeClass('active1');
 				$('#Dcontrato').removeClass('active1');
-				$('#Dcuentas').removeClass('active1');
+				$('#Demergencia').removeClass('active1');
 				$('#Dfotos').removeClass('active1');
 				$('#Dpagos').removeClass('active1');
 				
@@ -705,7 +715,7 @@
 				$('#Dempresa').removeClass('active1');
 				$('#Ddocumentos').removeClass('active1');
 				$('#Dcontrato').removeClass('active1');
-				$('#Dcuentas').removeClass('active1');
+				$('#Demergencia').removeClass('active1');
 				$('#Dfotos').removeClass('active1');
 				$('#Dpagos').removeClass('active1');
 				
@@ -728,7 +738,7 @@
 				$('#Dempresa').removeClass('active1');
 				$('#Ddocumentos').removeClass('active1');
 				$('#Dcontrato').removeClass('active1');
-				$('#Dcuentas').removeClass('active1');
+				$('#Demergencia').removeClass('active1');
 				$('#Dfotos').removeClass('active1');
 				$('#Dpagos').removeClass('active1');
 				
@@ -751,7 +761,7 @@
 				$('#Dpersonales').removeClass('active1');
 				$('#Ddocumentos').removeClass('active1');
 				$('#Dcontrato').removeClass('active1');
-				$('#Dcuentas').removeClass('active1');
+				$('#Demergencia').removeClass('active1');
 				$('#Dfotos').removeClass('active1');
 				$('#Dpagos').removeClass('active1');
 				
@@ -774,7 +784,7 @@
 				$('#Dcorporales').removeClass('active1');
 				$('#Dpersonales').removeClass('active1');
 				$('#Dcontrato').removeClass('active1');
-				$('#Dcuentas').removeClass('active1');
+				$('#Demergencia').removeClass('active1');
 				$('#Dfotos').removeClass('active1');
 				$('#Dpagos').removeClass('active1');
 				
@@ -797,7 +807,7 @@
 				$('#Dcorporales').removeClass('active1');
 				$('#Dpersonales').removeClass('active1');
 				$('#Ddocumentos').removeClass('active1');
-				$('#Dcuentas').removeClass('active1');
+				$('#Demergencia').removeClass('active1');
 				$('#Dfotos').removeClass('active1');
 				$('#Dpagos').removeClass('active1');
 				
@@ -812,8 +822,8 @@
 				$('#formulario9').addClass('d-none');
 			break;
 
-			case 'Dcuentas':
-				$('#Dcuentas').addClass('active1');
+			case 'Demergencia':
+				$('#Demergencia').addClass('active1');
 				$('#Dcontrato').removeClass('active1');
 				$('#Dcontrato').removeClass('d-none');
 				$('#Dempresa').removeClass('active1');
@@ -837,7 +847,7 @@
 
 			case 'Dfotos':
 				$('#Dfotos').addClass('active1');
-				$('#Dcuentas').removeClass('active1');
+				$('#Demergencia').removeClass('active1');
 				$('#Dcontrato').removeClass('active1');
 				$('#Dcontrato').removeClass('d-none');
 				$('#Dempresa').removeClass('active1');
@@ -860,7 +870,7 @@
 
 			case 'Dpagos':
 				$('#Dfotos').removeClass('active1');
-				$('#Dcuentas').removeClass('active1');
+				$('#Demergencia').removeClass('active1');
 				$('#Dcontrato').removeClass('active1');
 				$('#Dcontrato').removeClass('d-none');
 				$('#Dempresa').removeClass('active1');
@@ -1593,6 +1603,46 @@
 				$('#Modal_fotos_sensuales1').removeClass('modal-open');
 				$('.modal-backdrop').remove();
             },
+        });
+    });
+
+    $("#formulario7").on("submit", function(e){
+		e.preventDefault();
+		var id = $('#id').val();
+		var emergencia_nombre = $('#emergencia_nombre').val();
+		var emergencia_telefono = $('#emergencia_telefono').val();
+		var emergencia_parentesco = $('#emergencia_parentesco').val();
+        $.ajax({
+            url: '../script/crud_nomina.php',
+            type: 'POST',
+            dataType: "JSON",
+            data: {
+            	"id":id,
+            	"emergencia_nombre":emergencia_nombre,
+            	"emergencia_telefono":emergencia_telefono,
+            	"emergencia_parentesco":emergencia_parentesco,
+            	"condicion":"guardar_emergencia",
+            },
+
+            beforeSend: function (){},
+
+            success: function(response){
+            	console.log(response);
+            	Swal.fire({
+	 				title: 'Correcto',
+	 				text: "Datos Guardados",
+	 				icon: 'success',
+	 				position: 'center',
+	 				showConfirmButton: true,
+	 				confirmButtonColor: '#3085d6',
+	 				confirmButtonText: 'Aceptar',
+	 				timer: 3000
+				});
+            },
+
+            error: function(response){
+            	console.log(response['responseText']);
+            }
         });
     });
 

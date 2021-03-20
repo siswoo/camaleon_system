@@ -18,6 +18,9 @@ if($condicion=="consultar1"){
 				$id = $row1['id'];
 				$nombre = $row1['nombre1']." ".$row1['nombre2']." ".$row1['apellido1']." ".$row1['apellido2'];
 				$nickname = $row1['sugerenciaNickname'];
+				$tipo_documento = $row1['documento_tipo'];
+				$numero_documento = $row1['documento_numero'];
+				$telefono = $row1['telefono1'];
 				$fecha_inicio = $row1['fecha_inicio'];
 				$estatus = $row1['estatus'];
 
@@ -27,7 +30,9 @@ if($condicion=="consultar1"){
 					$html .= '
 						<tr id="tr_'.$id.'">
 							<td>'.$nombre.'</td>
-							<td class="text-center">'.$turno.'</td>
+							<td class="text-center">'.$tipo_documento.'</td>
+							<td class="text-center">'.$numero_documento.'</td>
+							<td class="text-center">'.$telefono.'</td>
 							<td class="text-center">'.$fecha_inicio.'</td>
 							<td>
 								<input type="text" class="form-control" id="observacion_'.$id.'" name="observacion_'.$id.'">
@@ -68,7 +73,7 @@ if($condicion=="consultar1"){
 			}
 		}
 	}else if($condicion1=='Agregar'){
-		$sql1 = "SELECT * FROM modelos WHERE estatus = 'Activa' and turno = '$turno'";
+		$sql1 = "SELECT * FROM modelos WHERE estatus = 'Activa' and turno = '$turno' and sede = 1";
 		$consulta1 = mysqli_query($conexion,$sql1);
 		$contador1 = mysqli_num_rows($consulta1);
 		
@@ -77,27 +82,23 @@ if($condicion=="consultar1"){
 				$id = $row1['id'];
 				$nombre = $row1['nombre1']." ".$row1['nombre2']." ".$row1['apellido1']." ".$row1['apellido2'];
 				$nickname = $row1['sugerenciaNickname'];
+				$tipo_documento = $row1['documento_tipo'];
+				$numero_documento = $row1['documento_numero'];
+				$telefono = $row1['telefono1'];
 				$fecha_inicio = $row1['fecha_inicio'];
 
 				$html .= '
 					<tr id="tr_'.$id.'">
-						<td>
-							<input type="hidden" name="nombre_'.$id.'" id="nombre_'.$id.'" value="'.$nombre.'">
-							'.$nombre.'
-						</td>
-						<td class="text-center">
-							<input type="hidden" name="turno_'.$id.'" id="turno_'.$id.'" value="'.$turno.'">
-							'.$turno.'
-						</td>
-						<td class="text-center">
-							<input type="hidden" name="fecha_inicio_'.$id.'" id="fecha_inicio_'.$id.'" value="'.$fecha_inicio.'">
-							'.$fecha_inicio.'
-						</td>
+						<td>'.$nombre.'</td>
+						<td class="text-center">'.$tipo_documento.'</td>
+						<td class="text-center">'.$numero_documento.'</td>
+						<td class="text-center">'.$telefono.'</td>
+						<td class="text-center">'.$fecha_inicio.'</td>
 						<td>
 							<input type="text" class="form-control" id="observacion_'.$id.'" name="observacion_'.$id.'">
 						</td>
 						<td>
-							<select class="form-control" id="fotos_'.$id.'" name="fotos_'.$id.'">
+							<select class="form-control" id="fotos_'.$id.'" name="fotos_'.$id.'" style="width:150px;">
 								<option value="">Seleccione</option>
 								<option value="Si">Si</option>
 								<option value="Pasaporte">Pasaporte</option>
@@ -106,11 +107,10 @@ if($condicion=="consultar1"){
 							</select>
 						</td>
 						<td class="text-center">
-							<input type="hidden" name="nickname_'.$id.'" id="nickname_'.$id.'" value="'.$nickname.'">
-							'.$nickname.'
+							<input type="text" class="form-control" name="nickname_'.$id.'" id="nickname_'.$id.'" value="'.$nickname.'" style="width:200px;">
 						</td>
 						<td class="text-center">
-							<select class="form-control" id="estatus_'.$id.'" name="estatus_'.$id.'" onchange="cambiar_estatus1('.$id.')">
+							<select class="form-control" id="estatus_'.$id.'" name="estatus_'.$id.'" onchange="cambiar_estatus1('.$id.',value)">
 								<option value="Activa">Activa</option>
 								<option value="Inactiva">Inactiva</option>
 							</select>
@@ -172,27 +172,21 @@ if($condicion=="guardar1"){
 }
 
 if($condicion=="estatus1"){
-	$id = $_POST['id_modelo'];
-	$fecha = $_POST['fecha'];
+	$id = $_POST['id'];
 
-	$sql1 = "SELECT * FROM personal1 WHERE id_modelo = ".$id." and fecha = '".$fecha."'";
+	$sql1 = "SELECT * FROM modelos WHERE id = ".$id;
 	$consulta1 = mysqli_query($conexion,$sql1);
 	$contador1 = mysqli_num_rows($consulta1);
 
 	if($contador1>=1){
 		while($row1 = mysqli_fetch_array($consulta1)) {
-			$sql2 = "UPDATE personal1 SET observacion = '".$observacion."', fotos = '".$fotos."', estatus = '".$estatus."' WHERE id_modelo = ".$id." and fecha = '".$fecha."'";
+			$sql2 = "UPDATE modelos SET estatus = 'Inactiva' WHERE id = ".$id;
 			$consulta2 = mysqli_query($conexion,$sql2);
 		}
-	}else{
-		$sql2 = "INSERT INTO personal1 (id_modelo, turno, observacion, fotos, nickname, responsable, fecha_asignada, fecha_inicio) VALUES ('$id','$turno','$as','$as','$as','$as','$as')";
-		$consulta2 = mysqli_query($conexion,$sql2);
 	}
 
 	$datos = [
 		"estatus" => 'ok',
-		"sql1" => $sql1,
-		"sql2" => $sql12,
 	];
 
 	echo json_encode($datos);

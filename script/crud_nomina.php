@@ -231,3 +231,19 @@ if($condicion=='guardar_bancarios'){
 
 	echo json_encode($datos);
 }
+
+if($condicion=='guardar_emergencia'){
+	$id = $_POST['id'];
+	$emergencia_nombre = $_POST['emergencia_nombre'];
+	$emergencia_telefono = $_POST['emergencia_telefono'];
+	$emergencia_parentesco = $_POST['emergencia_parentesco'];
+
+	$sql1 = "UPDATE nomina SET emergencia_nombre = '".$emergencia_nombre."', emergencia_telefono = '".$emergencia_telefono."', emergencia_parentesco = '".$emergencia_parentesco."' WHERE id = ".$id;
+	$proceso1 = mysqli_query($conexion,$sql1);
+
+	$datos = [
+		"estatus" => 'ok',
+	];
+
+	echo json_encode($datos);
+}

@@ -112,7 +112,9 @@
 			        <thead>
 			            <tr>
 			                <th class="text-center">Nombre</th>
-			                <th class="text-center">Turno</th>
+			                <th class="text-center">T Documento</th>
+			                <th class="text-center">N Documento</th>
+			                <th class="text-center">Teléfono</th>
 			                <th class="text-center">Fecha</th>
 			                <th class="text-center">Observación</th>
 			                <th class="text-center">Fotos</th>
@@ -159,7 +161,8 @@
 			    "search": "Buscar",
         	},
 
-        	"paging": true
+        	"paging": true,
+        	"order": [[ 4, "desc" ]],
 
     	} );
 
@@ -236,7 +239,8 @@
 					    "search": "Buscar",
 		        	},
 
-		        	"paging": true
+		        	"paging": true,
+		        	"order": [[ 4, "desc" ]],
 
 	    		} );
 	    		/***************POPOVERS*******************/
@@ -323,33 +327,45 @@
 		});
 	}
 
-	function cambiar_estatus1(id_modelo){
-		var fecha = $('#fecha1').val();
-		$.ajax({
-			type: 'POST',
-			url: '../script/crud_personal.php',
-			dataType: "JSON",
-			data: {
-				"id_modelo": id_modelo,
-				"fecha": fecha,
-				"condicion": 'estatus1',
-			},
+	function cambiar_estatus1(id_modelo,value){
+		
+		if(value=="Activa"){
+			return false;
+		}
 
-			success: function(respuesta) {
-				console.log(respuesta);
-				Swal.fire({
-					position: 'center',
-					icon: 'success',
-					title: 'Modificado Correctamente',
-					showConfirmButton: true,
-					timer: 3000
-				})
-			},
+		Swal.fire({
+			title: 'Estas seguro?',
+			text: "Por favor tener cuidado",
+			icon: 'warning',
+			showConfirmButton: true,
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Si, Cambiar Estatus!',
+			cancelButtonText: 'Cancelar'
+		}).then((result) => {
+			if (result.value) {
+				$.ajax({
+					type: 'POST',
+					url: '../script/crud_personal.php',
+					dataType: "JSON",
+					data: {
+						"id": id_modelo,
+						"condicion": "estatus1",
+					},
+					success: function(respuesta) {
+						console.log(respuesta);
+						$('#tr_'+id_modelo).hide('slow');
+					},
 
-			error: function(respuesta) {
-				console.log(respuesta['responseText']);
+					error: function(respuesta) {
+						console.log(respuesta["responseText"]);
+					}
+				});
+			}else{
+				$('#estatus_'+id_modelo).val("Activa");
 			}
-		});
+		})
 	}
 
 </script>

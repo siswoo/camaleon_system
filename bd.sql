@@ -1086,6 +1086,10 @@ CREATE TABLE nomina (
 	sede VARCHAR(250) NOT NULL,
 	cargo VARCHAR(250) NOT NULL,
 
+	emergencia_nombre VARCHAR(250) NOT NULL,
+	emergencia_telefono VARCHAR(250) NOT NULL,
+	emergencia_parentesco VARCHAR(250) NOT NULL,
+
 	salario INT NOT NULL,
 	fecha_nacimiento date NOT NULL,
 	fecha_ingreso date NOT NULL,
@@ -1140,7 +1144,11 @@ INSERT INTO cargos (nombre,responsable,fecha_inicio) VALUES
 ('Jefe de Monitores',1,'2021-03-16'),
 ('Community Manager',1,'2021-03-16'),
 ('Sexshop',1,'2021-03-16'),
-('Seguridad Social',1,'2021-03-17');
+('Seguridad Social',1,'2021-03-17'),
+('Hoster',1,'2021-03-20'),
+('APP',1,'2021-03-20'),
+('Administrador Restaurante',1,'2021-03-20'),
+('Chef',1,'2021-03-20');
 
 DROP TABLE IF EXISTS n_documentos;
 CREATE TABLE n_documentos (

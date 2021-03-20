@@ -114,7 +114,7 @@ if($fila1>=1){
 	}
 }
 
-if($usuario_rol!=5 and $contador3==0){
+if($usuario_rol!=5 and @$contador3==0){
 	$estatus = 'Activo';
 }
 
