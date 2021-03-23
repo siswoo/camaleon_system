@@ -340,7 +340,7 @@
 
 		if($contador3>=1){
 			while($row3 = mysqli_fetch_array($consulta3)) {
-				$id_documento = $row3['id'];
+				$id_documento = $row3['id_documento'];
 				$sql4 = "SELECT * FROM n_documentos WHERE id =".$id_documento;
 				$consulta4 = mysqli_query($conexion,$sql4);
 				while($row4 = mysqli_fetch_array($consulta4)) {
@@ -611,7 +611,7 @@
 			$sql7 = "SELECT * FROM n_pagos WHERE id_nomina = ".$id;
 			$consulta7 = mysqli_query($conexion,$sql7);
 			$contador6 = mysqli_num_rows($consulta7);
-			$html_presabana = '';
+			$html_pagos = '';
 			if($contador6>=1){
 				while($row7 = mysqli_fetch_array($consulta7)) {
 					$pago_id = $row7['id'];
@@ -621,7 +621,7 @@
 					$desde = $row7['desde'];
 					$hasta = $row7['hasta'];
 						
-					$html_presabana.='
+					$html_pagos.='
 						<div class="col-12 text-center form-group mt-3">
 							<span style="font-size: 20px; font-weight: bold;">Desprendible desde '.$presabana_desde.' hasta '.$presabana_hasta.'</span>
 							<br>
@@ -633,11 +633,11 @@
 					';
 				}
 			}else{
-				$html_presabana.='
+				$html_pagos.='
 					<div class="col-12 form-group form-check text-center mt-3">No Tienes Pagos Efectuados</div>
 				';
 			}
-			echo $html_presabana;
+			echo $html_pagos;
 			?>
 		</div>
 	</form>

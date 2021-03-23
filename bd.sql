@@ -120,7 +120,11 @@ INSERT INTO usuarios (nombre,apellido,documento_tipo,documento_numero,correo,usu
 ('Carlos','Vargas','Cedula de Ciudadania','1108456684','vargas1101@gmail.com','Soporte123','827ccb0eea8a706c4c34a16891f84e7b','','',2,1,'2020-10-06'),
 ('Denisse Giannyna','Gonzalez Cifuentes','Cedula de Ciudadania','1001184301','denisse.gonzalez1234@gmail.com','denisse.gonzales','723a1d81851c596931b050cae056197f','','',8,2,'2020-10-08'),
 ('Andres Fernando','Bernal Correa','Cedula de Ciudadania','80.774.671','gerencia@bernal-group.com','gerencia','800e6e2dd493e8db8d867f021d1c25a7','','',14,1,'2020-12-30'),
-('Daniela','Buitrago','Cedula de Ciudadania','1031175837','lauradanielabuga@gmail.com','dani_8','c591db46628b4c9292ac9e0d3223026e','','',12,1,'2021-02-19');
+('Daniela','Buitrago','Cedula de Ciudadania','1031175837','lauradanielabuga@gmail.com','dani_8','c591db46628b4c9292ac9e0d3223026e','','',12,1,'2021-02-19'),
+('Karen Stefanny','Parra Sanchez','Cedula de Ciudadania','1018492284','stefanny1parra@gmail.com','karenparra','ed53feba2a0a4df03d19ef836b701ea0','3058754431','',8,6,'2021-03-22'),
+('Jorse Luis','Casique Useche','Cedula de Ciudadania','1130245934','jorgecasique220@gmail.com','jorgeuseche','5311b986f20a6f348fad8fb41f898995','3504633380','',15,6,'2021-03-22'),
+('Soacha','Test6','PEP','66666666666','test6@gmail.com','soacha','a5604eb6a51af9e9719bb9fda7bf0686','77777777','',4,6,'2021-03-22'),
+('Kenlly','Test6','PEP','66666666666','test6@gmail.com','soacha','a5604eb6a51af9e9719bb9fda7bf0686','77777777','',4,6,'2021-03-22');
 ALTER TABLE usuarios CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 DROP TABLE IF EXISTS modelos;
@@ -1093,6 +1097,9 @@ CREATE TABLE nomina (
 	salario INT NOT NULL,
 	fecha_nacimiento date NOT NULL,
 	fecha_ingreso date NOT NULL,
+	fecha_retiro date NOT NULL,
+
+	funcion INT NOT NULL,
 
 	PRIMARY KEY (id)
 );ALTER TABLE nomina CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
@@ -1192,3 +1199,16 @@ CREATE TABLE n_pagos (
 	fecha_inicio date NOT NULL,
 	PRIMARY KEY (id)
 );ALTER TABLE n_pagos CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+DROP TABLE IF EXISTS funciones;
+CREATE TABLE funciones (
+	id INT AUTO_INCREMENT,
+	id_cargo INT NOT NULL,
+	nombre VARCHAR(250) NOT NULL,
+	descripcion VARCHAR(250) NOT NULL,
+	fecha_inicio date NOT NULL,
+	PRIMARY KEY (id)
+);ALTER TABLE funciones CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+
+

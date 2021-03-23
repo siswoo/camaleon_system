@@ -66,6 +66,7 @@ if($condicion=='consultar1'){
 		$estatus = $row1['estatus'];
 		$fecha_nacimiento = $row1['fecha_nacimiento'];
 		$fecha_ingreso = $row1['fecha_ingreso'];
+		$fecha_retiro = $row1['fecha_retiro'];
 	}
 
 	$datos = [
@@ -86,6 +87,7 @@ if($condicion=='consultar1'){
 		"estatus2" => $estatus,
 		"fecha_nacimiento" => $fecha_nacimiento,
 		"fecha_ingreso" => $fecha_ingreso,
+		"fecha_retiro" => $fecha_retiro,
 	];
 
 	echo json_encode($datos);
@@ -108,8 +110,13 @@ if($condicion=='editar1'){
 	$estatus = $_POST['estatus'];
 	$fecha_nacimiento = $_POST['fecha_nacimiento'];
 	$fecha_ingreso = $_POST['fecha_ingreso'];
+	$fecha_retiro = $_POST['fecha_retiro'];
 
-	$sql1 = "UPDATE nomina SET documento_tipo = '$tipo_documento', documento_numero = '$numero_documento', nombre = '$nombre', apellido = '$apellido', genero = '$genero', correo = '$correo', direccion = '$direccion', salario = '$salario', turno = '$turno', telefono = '$telefono', cargo = '$cargo', sede = '$sedes', estatus = '$estatus', fecha_nacimiento = '$fecha_nacimiento', fecha_ingreso = '$fecha_ingreso' WHERE id = ".$id;
+	if($estatus=='Aceptado'){
+		$fecha_retiro = '';
+	}
+
+	$sql1 = "UPDATE nomina SET documento_tipo = '$tipo_documento', documento_numero = '$numero_documento', nombre = '$nombre', apellido = '$apellido', genero = '$genero', correo = '$correo', direccion = '$direccion', salario = '$salario', turno = '$turno', telefono = '$telefono', cargo = '$cargo', sede = '$sedes', estatus = '$estatus', fecha_nacimiento = '$fecha_nacimiento', fecha_ingreso = '$fecha_ingreso', fecha_retiro = '$fecha_retiro' WHERE id = ".$id;
 	$consulta1 = mysqli_query($conexion,$sql1);
 
 	$sql2 = "SELECT * FROM sedes WHERE id = ".$sedes;
@@ -143,6 +150,7 @@ if($condicion=='editar1'){
 		"estatus2" => $estatus,
 		"fecha_nacimiento" => $fecha_nacimiento,
 		"fecha_ingreso" => $fecha_ingreso,
+		"fecha_retiro" => $fecha_retiro,
 	];
 
 	echo json_encode($datos);
@@ -247,3 +255,52 @@ if($condicion=='guardar_emergencia'){
 
 	echo json_encode($datos);
 }
+
+if($condicion=='consultar_bancarios1'){
+	$id = $_POST['id'];
+
+	$sql1 = "SELECT * FROM nomina WHERE id = ".$id;
+	$proceso1 = mysqli_query($conexion,$sql1);
+	while($row1 = mysqli_fetch_array($proceso1)) {
+		$banco_cedula = $row1['banco_cedula'];
+		$banco_nombre = $row1['banco_nombre'];
+		$banco_tipo = $row1['banco_tipo'];
+		$banco_numero = $row1['banco_numero'];
+		$banco_banco = $row1['banco_banco'];
+		$bcpp = $row1['BCPP'];
+	}
+
+	$datos = [
+		"estatus" => 'ok',
+		"banco_cedula" => $banco_cedula,
+		"banco_nombre" => $banco_nombre,
+		"banco_tipo" => $banco_tipo,
+		"banco_numero" => $banco_numero,
+		"banco_banco" => $banco_banco,
+		"bcpp" => $bcpp,
+	];
+
+	echo json_encode($datos);
+}
+
+
+if($condicion=='modificar_bancarios1'){
+	$id = $_POST['id'];
+	$bcpp = $_POST['bcpp'];
+	$banco_cedula = $_POST['banco_cedula'];
+	$banco_nombre = $_POST['banco_nombre'];
+	$banco_tipo = $_POST['banco_tipo'];
+	$banco_numero = $_POST['banco_numero'];
+	$banco_banco = $_POST['banco_banco'];
+
+	$sql1 = "UPDATE nomina SET banco_cedula = '$banco_cedula', banco_nombre = '$banco_nombre', banco_tipo = '$banco_tipo', banco_numero = '$banco_numero', banco_banco = '$banco_banco', BCPP = '$bcpp' WHERE id = ".$id;
+	$proceso1 = mysqli_query($conexion,$sql1);
+
+	$datos = [
+		"estatus" => 'ok',
+		"sql1" => $sql1,
+	];
+
+	echo json_encode($datos);
+}
+

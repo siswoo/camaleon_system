@@ -149,7 +149,7 @@
 			        					<td class="text-center" nowrap="nowrap">
 			        						<button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal2" onclick="personal1('.$id.');">Personal</button>
 			        						<button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal3" onclick="bancario1('.$id.');">Bancario</button>
-			        						<button class="btn btn-primary" onclick="eliminar1('.$id.');">Eliminar</button>
+			        						<!--<button class="btn btn-primary" onclick="eliminar1('.$id.');">Eliminar</button>-->
 			        					</td>
 			        				</tr>
 			        			';
@@ -398,6 +398,10 @@
 							    <label for="edit_fecha_ingreso">Fecha de Ingreso </label>
 							    <input type="date" id="edit_fecha_ingreso" name="edit_fecha_ingreso" class="form-control" required>
 						    </div>
+						    <div class="col-12 form-group form-check">
+							    <label for="edit_fecha_retiro">Fecha de Retiro</label>
+							    <input type="date" id="edit_fecha_retiro" name="edit_fecha_retiro" class="form-control">
+						    </div>
 					    </div>
 					</div>
 					<div class="modal-footer">
@@ -409,6 +413,109 @@
 	  	</div>
 	</div>
 <!-- FIN Modal Editar Registro -->
+
+
+<!-- Modal Editar Bancarios -->
+	<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<form action="#" method="POST" id="form_modal_bancario" style="">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Editar Datos Bancarios</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+					    <div class="row">
+					    	<input type="hidden" name="edit_bancario_id" id="edit_bancario_id">
+						    <div class="col-6 form-group form-check">
+							    <label for="edit_bancario_bcpp">Cuenta Propia o Prestada?</label>
+							    <select name="edit_bancario_bcpp" id="edit_bancario_bcpp" class="form-control" required>
+							    	<option value="">Seleccione</option>
+							    	<option value="Propia">Propia</option>
+							    	<option value="Prestada">Prestada</option>
+							    </select>
+						    </div>
+						    <div class="col-6 form-group form-check">
+							    <label for="edit_bancario_cedula">Cédula del titular</label>
+							    <input type="text" name="edit_bancario_cedula" id="edit_bancario_cedula" class="form-control" minlength="6" autocomplete="off" required>
+						    </div>
+						    <div class="col-6 form-group form-check">
+							    <label for="edit_bancario_nombre">Nombre Titular</label>
+							    <input type="text" name="edit_bancario_nombre" id="edit_bancario_nombre" class="form-control" autocomplete="off" required>
+						    </div>
+						    <div class="col-6 form-group form-check">
+							    <label for="edit_bancario_tipo_cuenta">Tipo de Cuenta</label>
+							    <select name="edit_bancario_tipo_cuenta" id="edit_bancario_tipo_cuenta" class="form-control" required>
+							    	<option value="">Seleccione</option>
+							    	<option value="Ahorro">Ahorro</option>
+							    	<option value="Corriente">Corriente</option>
+							    </select>
+						    </div>
+						    <div class="col-6 form-group form-check">
+							    <label for="edit_bancario_numero_cuenta">Número de Cuenta</label>
+							    <input type="text" name="edit_bancario_numero_cuenta" id="edit_bancario_numero_cuenta" class="form-control" autocomplete="off" required>
+						    </div>
+						    <div class="col-6 form-group form-check">
+							    <label for="edit_bancario_banco">Banco</label>
+							    <select name="edit_bancario_banco" id="edit_bancario_banco" class="form-control" required="">
+									<option value="">Seleccione</option>
+									<option value="Banco Agrario de Colombia">Banco Agrario de Colombia</option>
+									<option value="Banco AV Villas">Banco AV Villas</option>
+									<option value="Banco Caja Social">Banco Caja Social</option>
+									<option value="Banco de Occidente (Colombia)">Banco de Occidente (Colombia)</option>
+									<option value="Banco Popular (Colombia)">Banco Popular (Colombia)</option>
+									<option value="Bancolombia">Bancolombia</option>
+									<option value="BBVA Colombia">BBVA Colombia</option>
+									<option value="BBVA Movil">BBVA Movil</option>
+									<option value="Banco de Bogotá">Banco de Bogotá</option>
+									<option value="Colpatria">Colpatria</option>
+									<option value="Davivienda">Davivienda</option>
+									<option value="ITAU CorpBanca">ITAU CorpBanca</option>
+									<option value="Citibank">Citibank</option>
+									<option value="GNB Sudameris">GNB Sudameris</option>
+									<option value="ITAU">ITAU</option>
+									<option value="Scotiabank">Scotiabank</option>
+									<option value="Bancoldex">Bancoldex</option>
+									<option value="JPMorgan">JPMorgan</option>
+									<option value="BNP Paribas">BNP Paribas</option>
+									<option value="Banco ProCredit">Banco ProCredit</option>
+									<option value="Banco Pichincha">Banco Pichincha</option>
+									<option value="Bancoomeva">Bancoomeva</option>
+									<option value="Banco Finandina">Banco Finandina</option>
+									<option value="Banco CoopCentral">Banco CoopCentral</option>
+									<option value="Compensar">Compensar</option>
+									<option value="Aportes en linea">Aportes en linea</option>
+									<option value="Asopagos">Asopagos</option>
+									<option value="Fedecajas">Fedecajas</option>
+									<option value="Simple">Simple</option>
+									<option value="Enlace Operativo">Enlace Operativo</option>
+									<option value="CorfiColombiana">CorfiColombiana</option>
+									<option value="Old Mutual">Old Mutual</option>
+									<option value="Cotrafa">Cotrafa</option>
+									<option value="Confiar">Confiar</option>
+									<option value="JurisCoop">JurisCoop</option>
+									<option value="Deceval">Deceval</option>
+									<option value="Bancamia">Bancamia</option>
+									<option value="Nequi">Nequi</option>
+									<option value="Falabella">Falabella</option>
+									<option value="DGCPTN">DGCPTN</option>
+									<option value="BANCO WWB">BANCO WWB</option>
+									<option value="Cooperativa Financiera de Antioquia">Cooperativa Financiera de Antioquia</option>
+								</select>
+						    </div>
+						</div>
+					</div>
+					<div class="modal-footer">
+				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+				        <button type="submit" class="btn btn-success" id="submit_edit_bancario1">Guardar</button>
+			      	</div>
+			    </div>
+		      </form>
+	    </div>
+	</div>
+<!-- FIN Modal Editar Bancarios -->
 
 <script src="../js/jquery-3.5.1.min.js"></script>
 <script type="text/javascript" src="../js/popper.js"></script>
@@ -574,6 +681,7 @@
 				$("#edit_estatus").val(respuesta["estatus2"]);
 				$("#edit_fecha_nacimiento").val(respuesta["fecha_nacimiento"]);
 				$("#edit_fecha_ingreso").val(respuesta["fecha_ingreso"]);
+				$("#edit_fecha_retiro").val(respuesta["fecha_retiro"]);
 			},
 
 			error: function(respuesta) {
@@ -601,6 +709,7 @@
 		var estatus 			= $('#edit_estatus').val();
 		var fecha_nacimiento 	= $('#edit_fecha_nacimiento').val();
 		var fecha_ingreso 		= $('#edit_fecha_ingreso').val();
+		var fecha_retiro 		= $('#edit_fecha_retiro').val();
 
 	    $.ajax({
 			type: 'POST',
@@ -622,6 +731,7 @@
 				"estatus": estatus,
 				"fecha_nacimiento": fecha_nacimiento,
 				"fecha_ingreso": fecha_ingreso,
+				"fecha_retiro": fecha_retiro,
 				"condicion": "editar1",
 			},
 			dataType: "JSON",
@@ -758,6 +868,14 @@
 			$('#correo').val("sexshop@camaleonmg.com");
 		}else if(value==24){
 			$('#correo').val("seguridad_social@camaleonmg.com");
+		}else if(value==25){
+			$('#correo').val("hoster@camaleonmg.com");
+		}else if(value==26){
+			$('#correo').val("app@camaleonmg.com");
+		}else if(value==27){
+			$('#correo').val("administradorrestaurante@camaleonmg.com");
+		}else if(value==28){
+			$('#correo').val("chef@camaleonmg.com");
 		}
 	}
 
@@ -810,7 +928,90 @@
 			$('#edit_correo').val("sexshop@camaleonmg.com");
 		}else if(value==24){
 			$('#edit_correo').val("seguridad_social@camaleonmg.com");
+		}else if(value==25){
+			$('#edit_correo').val("hoster@camaleonmg.com");
+		}else if(value==26){
+			$('#edit_correo').val("app@camaleonmg.com");
+		}else if(value==27){
+			$('#edit_correo').val("administradorrestaurante@camaleonmg.com");
+		}else if(value==28){
+			$('#edit_correo').val("chef@camaleonmg.com");
 		}
 	}
+
+	function bancario1(id){
+		$.ajax({
+			type: 'POST',
+			url: '../script/crud_nomina.php',
+			data: {
+				"id": id,
+				"condicion": "consultar_bancarios1",
+			},
+			dataType: "JSON",
+			success: function(respuesta) {
+				console.log(respuesta);
+				$("#edit_bancario_id").val(id);
+				$("#edit_bancario_bcpp").val(respuesta["bcpp"]);
+				$("#edit_bancario_cedula").val(respuesta["banco_cedula"]);
+				$("#edit_bancario_nombre").val(respuesta["banco_nombre"]);
+				$("#edit_bancario_tipo_cuenta").val(respuesta["banco_tipo"]);
+				$("#edit_bancario_numero_cuenta").val(respuesta["banco_numero"]);
+				$("#edit_bancario_banco").val(respuesta["banco_banco"]);
+			},
+
+			error: function(respuesta) {
+				console.log(respuesta['responseText']);
+			}
+		});
+	}
+
+	$("#form_modal_bancario").on("submit", function(e){
+		e.preventDefault();
+		var f = $(this);
+		var id 				= $('#edit_bancario_id').val();
+		var bcpp 			= $('#edit_bancario_bcpp').val();
+		var banco_cedula 	= $('#edit_bancario_cedula').val();
+		var banco_nombre 	= $('#edit_bancario_nombre').val();
+		var banco_tipo 		= $('#edit_bancario_tipo_cuenta').val();
+		var banco_numero 	= $('#edit_bancario_numero_cuenta').val();
+		var banco_banco 	= $('#edit_bancario_banco').val();
+
+	    $.ajax({
+			type: 'POST',
+			url: '../script/crud_nomina.php',
+			data: {
+				"id": id,
+				"bcpp": bcpp,
+				"banco_cedula": banco_cedula,
+				"banco_nombre": banco_nombre,
+				"banco_tipo": banco_tipo,
+				"banco_numero": banco_numero,
+				"banco_banco": banco_banco,
+				"condicion": "modificar_bancarios1",
+			},
+			dataType: "JSON",
+			success: function(respuesta) {
+				console.log(respuesta);
+					Swal.fire({
+	 					title: 'Registro Correcto!',
+	 					text: "Redirigiendo...",
+	 					icon: 'success',
+	 					position: 'center',
+	 					showConfirmButton: false,
+	 					confirmButtonColor: '#3085d6',
+	 					confirmButtonText: 'No esperar!',
+	 					timer: 3000
+					});
+
+					$("#exampleModal3").modal('hide');
+					$('#exampleModal3').removeClass('modal-open');
+					$('.modal-backdrop').remove();
+			},
+
+			error: function(respuesta) {
+				console.log(respuesta['responseText']);
+			}
+		});
+	});
 
 </script>
