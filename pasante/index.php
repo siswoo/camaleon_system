@@ -92,11 +92,11 @@
 	    <div class="row">
 		    <div class="container_consulta1">
 		    	<div class="col-md-12 text-center mb-3">
-		    		<button class="btn btn-info" value="No" id="pasantes1" name="pasantes1" onclick="consultar1(this.id,value);">Consultar Pasantes</button>
-		    		<button class="btn btn-info ml-3" value="No" id="pasantes2" name="pasantes2" onclick="consultar1(this.id,value);">Asignar Sedes "Aceptadas"</button>
+		    		<!--<button class="btn btn-info" value="No" id="pasantes1" name="pasantes1" onclick="consultar1(this.id,value);">Consultar Pasantes</button>-->
+		    		<!--<button class="btn btn-info ml-3" value="No" id="pasantes2" name="pasantes2" onclick="consultar1(this.id,value);">Asignar Sedes "Aceptadas"</button>-->
 		    	</div>
 
-		    	<div class="col-12" id="div_pasantes1" style="display: none;">
+		    	<div class="col-12" id="div_pasantes1" style="/*display: none;*/">
 			    	<table id="example" class="table row-border hover table-bordered" style="font-size: 12px;">
 				        <thead>
 				            <tr>
@@ -140,7 +140,7 @@
 									}else if($usuario_documento=='1032467238'){
 										$consulta2 = "SELECT * FROM pasantes WHERE sede = 4 and numero_documento != 1044429860";
 									}else{
-										$consulta2 = "SELECT * FROM pasantes WHERE sede = 1 and numero_documento != 1044429860";
+										$consulta2 = "SELECT * FROM pasantes WHERE sede = ".$_SESSION['sede']." and numero_documento != 1044429860";
 									}
 								}
 				        	}else{
