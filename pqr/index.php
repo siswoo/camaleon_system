@@ -95,13 +95,8 @@
 					        <th class="text-center">Area</th>
 					        <th class="text-center">Estatus</th>
 					        <th class="text-center">Fecha</th>
-					        <?php
-					        if($_SESSION['rol']==1 or $_SESSION['rol']==13){
-					        echo '
-					        	<th class="text-center">Responsable</th>
-					        	<th class="text-center">Opciones</th>
-					        ';
-					    	} ?>
+					        <th class="text-center">Responsable</th>
+					        <th class="text-center">Opciones</th>
 					    </tr>
 					</thead>
 					<tbody>
@@ -122,11 +117,25 @@
 							$fecha_inicio_pqr = $row1['fecha_inicio'];
 							$rol_responsable = $row1['rol_responsable'];
 
-							$sql2 = "SELECT * FROM modelos WHERE id = ".$responsable_pqr;
+							$separar_modelos1 = "";
+							if($_SESSION['rol']!=1 and $_SESSION['rol']!=13){
+								if($_SESSION["sede"]==1 or $_SESSION["sede"]==2 or $_SESSION["sede"]==3 or $_SESSION["sede"]==4){
+									$separar_modelos1 .= " and (sede = 1 or sede = 2 or sede = 3 or sede = 4)";
+								}
+								if($_SESSION["sede"]==6){
+									$separar_modelos1 .= " and (sede = 6)";	
+								}
+								if($_SESSION["sede"]==7 or $_SESSION["sede"]==8 or $_SESSION["sede"]==9){
+									$separar_modelos1 .= " and (sede = 7 or sede = 8 or sede = 9)";	
+								}
+							}
+
+							$sql2 = "SELECT * FROM modelos WHERE id = ".$responsable_pqr." ".$separar_modelos1;
 							$consulta2 = mysqli_query($conexion,$sql2);
 							while($row2 = mysqli_fetch_array($consulta2)) {
 								$nombre_responsable = $row2['nombre1']." ".$row2['nombre2']." ".$row2['apellido1']." ".$row2['apellido2'];
 								$documento_responsable = $row2['documento_numero'];
+								$sede = $row2['sede'];
 							}
 
 							echo '
@@ -202,7 +211,7 @@
 			    <p class="text-center" style="font-weight: bold; font-size: 20px;">CONSULTA DE PQR'S LISTOS</p>
 			</div>
 			<div class="col-12 text-center">
-			    <table id="example2" class="table row-border hover table-bordered" style="font-size: 12px; width: 100%;">
+			    <table id="example3" class="table row-border hover table-bordered" style="font-size: 12px; width: 100%;">
 					<thead>
 					    <tr>
 					        <th class="text-center">ID</th>
@@ -240,7 +249,20 @@
 							$fecha_inicio_pqr = $row1['fecha_inicio'];
 							$rol_responsable = $row1['rol_responsable'];
 
-							$sql2 = "SELECT * FROM modelos WHERE id = ".$responsable_pqr;
+							$separar_modelos2 = "";
+							if($_SESSION['rol']!=1 and $_SESSION['rol']!=13){
+								if($_SESSION["sede"]==1 or $_SESSION["sede"]==2 or $_SESSION["sede"]==3 or $_SESSION["sede"]==4){
+									$separar_modelos2 .= " and (sede = 1 or sede = 2 or sede = 3 or sede = 4)";
+								}
+								if($_SESSION["sede"]==6){
+									$separar_modelos2 .= " and (sede = 6)";	
+								}
+								if($_SESSION["sede"]==7 or $_SESSION["sede"]==8 or $_SESSION["sede"]==9){
+									$separar_modelos2 .= " and (sede = 7 or sede = 8 or sede = 9)";	
+								}
+							}
+
+							$sql2 = "SELECT * FROM modelos WHERE id = ".$responsable_pqr." ".$separar_modelos2;
 							$consulta2 = mysqli_query($conexion,$sql2);
 							while($row2 = mysqli_fetch_array($consulta2)) {
 								$nombre_responsable = $row2['nombre1']." ".$row2['nombre2']." ".$row2['apellido1']." ".$row2['apellido2'];
@@ -331,6 +353,30 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		var table = $('#example2').DataTable( {
+	        	//"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+	        	"lengthMenu": [[10, 25, 50, 100], [10, 25, 50, 100]],
+
+	        	"language": {
+		            "lengthMenu": "Mostrar _MENU_ Registros por página",
+		            "zeroRecords": "No se ha encontrado resultados",
+		            "info": "Ubicado en la página <strong>_PAGE_</strong> de <strong>_PAGES_</strong>",
+		            "infoEmpty": "Sin registros actualmente",
+		            "infoFiltered": "(Filtrado de <strong>_MAX_</strong> total registros)",
+		            "paginate": {
+				        "first":      "Primero",
+				        "last":       "Última",
+				        "next":       "Siguiente",
+				        "previous":   "Anterior"
+				    },
+				    "search": "Buscar",
+	        	},
+
+	        	"paging": true,
+	        	"order": [[ 7, "desc" ]],
+
+	    	} );
+
+		var table2 = $('#example3').DataTable( {
 	        	//"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
 	        	"lengthMenu": [[10, 25, 50, 100], [10, 25, 50, 100]],
 

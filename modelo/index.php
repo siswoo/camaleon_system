@@ -86,26 +86,39 @@
 ?>
 
 	<div class="row mt-3 mb-3 ml-3">
-		<div class="col-4">
-			<label for="sr_select_filtre">Filtro de Responsables</label>
-			<select name="sr_select_filtre" id="sr_select_filtre" class="form-control" onchange="sr_change_filtre(value);">
-				<option value="">Seleccione</option>
-				<?php
-					if($sr_filtre1!=''){
-						$sql3 = "SELECT * FROM usuarios WHERE id = ".$sr_filtre1;
-						$consulta5 = mysqli_query($conexion,$sql3);
-						while($row6 = mysqli_fetch_array($consulta5)) {
-							echo '<option style="text-transform:capitalize;" selected="selected" value="'.$row6["id"].'">'.$row6["nombre"].' '.$row6["apellido"].'</option>';
+		<?php
+		if($_SESSION["rol"]!=9){ ?>
+			<div class="col-4">
+				<label for="sr_select_filtre">Filtro de Responsables</label>
+				<select name="sr_select_filtre" id="sr_select_filtre" class="form-control" onchange="sr_change_filtre(value);">
+					<option value="">Seleccione</option>
+					<?php
+						if($sr_filtre1!=''){
+							$sql3 = "SELECT * FROM usuarios WHERE id = ".$sr_filtre1;
+							$consulta5 = mysqli_query($conexion,$sql3);
+							while($row6 = mysqli_fetch_array($consulta5)) {
+								echo '<option style="text-transform:capitalize;" selected="selected" value="'.$row6["id"].'">'.$row6["nombre"].' '.$row6["apellido"].'</option>';
+							}
 						}
-					}
-					$sql2 = "SELECT * FROM usuarios WHERE rol = 9";
-					$consulta4 = mysqli_query($conexion,$sql2);
-					while($row5 = mysqli_fetch_array($consulta4)) {
-						echo '<option style="text-transform:capitalize;" value="'.$row5["id"].'">'.$row5["nombre"].' '.$row5["apellido"].'</option>';
-					}
-				?>
-			</select>
-		</div>
+
+						$condicionsql1 = "";
+						if($_SESSION["sede"]==1 or $_SESSION["sede"]==2 or $_SESSION["sede"]==3 or $_SESSION["sede"]==4){
+				       		$condicionsql1 .= ' and (sede = 1 or sede = 2 or sede = 3 or sede = 4)';
+				       	}else if($_SESSION["sede"]==6){
+				       		$condicionsql1 .= ' and (sede = 6)';
+				       	}else if($_SESSION["sede"]==7 or $_SESSION["sede"]==8 or $_SESSION["sede"]==9){
+				       		$condicionsql1 .= ' and (sede = 7 or sede = 8 or sede = 9)';
+			        	}
+
+						$sql2 = "SELECT * FROM usuarios WHERE rol = 9 ".$condicionsql1;
+						$consulta4 = mysqli_query($conexion,$sql2);
+						while($row5 = mysqli_fetch_array($consulta4)) {
+							echo '<option style="text-transform:capitalize;" value="'.$row5["id"].'">'.$row5["nombre"].' '.$row5["apellido"].'</option>';
+						}
+					?>
+				</select>
+			</div>
+		<?php } ?>
 		<form id="form_sr_filtre" name="form_sr_filtre" action="index.php" method="GET">
 			<input type="hidden" name="sr_filtre1" id="sr_filtre1" value="">
 		</form>
@@ -133,33 +146,57 @@
 			        </thead>
 			        <tbody id="resultados">
 			        	<?php
+			        	$modelos_extras1 = '';
+			        	if($_SESSION["sede"]==1 or $_SESSION["sede"]==2 or $_SESSION["sede"]==3 or $_SESSION["sede"]==4){
+			        		$separar_modelos1 = ' or (sede = 1 or sede = 2 or sede = 3 or sede = 4)';
+			        	}else if($_SESSION["sede"]==6){
+			        		$separar_modelos1 = ' or (sede = 6)';
+			        	}else if($_SESSION["sede"]==7 or $_SESSION["sede"]==8 or $_SESSION["sede"]==9){
+			        		$separar_modelos1 = ' or (sede = 7 or sede = 8 or sede = 9)';
+			        	}
 			        	if($_SESSION['rol']==1 or $_SESSION['rol']==2 or $_SESSION['rol']==8 or $_SESSION['rol']==14 or $_SESSION['rol']==15){
 			        		if($sr_filtre1!=''){
 			        			$consulta2_extra1 = '';
 			        			$consulta6 = "SELECT * FROM soporte_responsable_modelo WHERE id_soporte = ".$sr_filtre1;
 			        			$resultado6 = mysqli_query($conexion,$consulta6);
-			        			while($row2 = mysqli_fetch_array($resultado2)) {
-			        				//
+			        			$contador6 = mysqli_num_rows($resultado6);
+			        			while($row6 = mysqli_fetch_array($resultado6)) {
+			        				$id_modelo = $row6["id_modelo"];
+			        				$consulta2_extra1 .= ' or id = '.$id_modelo;
 			        			}
-			        			$consulta2 = "SELECT * FROM modelos WHERE id = 99999 ".$consulta2_extra1;
+			        			$consulta2 = "SELECT * FROM modelos WHERE id = 999999 ".$consulta2_extra1." ".$separar_modelos1;
 			        			$resultado2 = mysqli_query($conexion,$consulta2);
 			        		}else{
-			        			$consulta2 = "SELECT * FROM modelos LIMIT 50";
+			        			$consulta2 = "SELECT * FROM modelos WHERE id = 9999999"." ".$separar_modelos1;
 			        			$resultado2 = mysqli_query($conexion,$consulta2);
 			        		}
 			        	}else if($_SESSION['rol']==9){
 			        		$consulta3 = "SELECT * FROM soporte_responsable_modelo WHERE id_soporte =".$_SESSION['id'];
 			        		$resultado4 = mysqli_query($conexion,$consulta3);
-			        		while($row5 = mysqli_fetch_array($resultado4)) {
+			        		$contador2 = mysqli_num_rows($resultado4);
+			        		if($contador2>=1){
+			        			while($row5 = mysqli_fetch_array($resultado4)) {
 			        			$modelo_de_junior = $row5['id_modelo'];
+			        			$modelos_extras1 .= ' or id = '.$modelo_de_junior;
 			        		}
-			        		$consulta2 = "SELECT * FROM modelos WHERE id =".$modelo_de_junior;
+			        			$consulta2 = "SELECT * FROM modelos WHERE id = 99999 ".$modelos_extras1;
+			        		}else{
+			        			$consulta2 = "SELECT * FROM modelos WHERE id = 999999";
+			        		}
 			        		$resultado2 = mysqli_query($conexion,$consulta2);
 			        	}
 
 			        	$html_sr1 = '';
 
-			        	$sql2 = "SELECT * FROM usuarios WHERE rol = 9";
+			        	if($_SESSION["sede"]==1 or $_SESSION["sede"]==2 or $_SESSION["sede"]==3 or $_SESSION["sede"]==4){
+				        	$separar_usuarios2 = ' and (sede = 1 or sede = 2 or sede = 3 or sede = 4)';
+				        }else if($_SESSION["sede"]==6){
+				        	$separar_usuarios2 = ' and (sede = 6)';
+				        }else if($_SESSION["sede"]==7 or $_SESSION["sede"]==8 or $_SESSION["sede"]==9){
+				       		$separar_usuarios2 = ' and (sede = 7 or sede = 8 or sede = 9)';
+				       	}
+
+			        	$sql2 = "SELECT * FROM usuarios WHERE rol = 9"." ".$separar_usuarios2;
 						$consulta4 = mysqli_query($conexion,$sql2);
 			        	while($row11 = mysqli_fetch_array($consulta4)) {
 							$sr_id = $row11['id'];
@@ -167,13 +204,6 @@
 							$html_sr1 .= '<option value="'.$sr_id.'" style="text-transform:capitalize;">'.$sr_nombre.'</option>';
 						}
 
-						/*
-						if($sr_filtre1!=''){
-							while($row2 = mysqli_fetch_array($resultado2)) {
-								$consulta2 = "SELECT * FROM modelos WHERE id = ".$row2['id_modelo'];
-			        			$resultado2 = mysqli_query($conexion,$consulta2);
-						}
-						*/
 						while($row2 = mysqli_fetch_array($resultado2)) {
 							$modelo_id 					= $row2['id'];
 							$modelo_nombre1 			= $row2['nombre1'];
@@ -192,13 +222,25 @@
 							$modelo_nickname 			= $row2['sugerenciaNickname'];
 							$modelo_fecha_inicio 		= $row2['fecha_inicio'];
 
-							$sql_responsable1 = "SELECT * FROM soporte_responsable_modelo WHERE id_modelo = ".$modelo_id;
+							if($_SESSION["sede"]==1 or $_SESSION["sede"]==2 or $_SESSION["sede"]==3 or $_SESSION["sede"]==4){
+				        		$separar_usuarios1 = ' and (sede = 1 or sede = 2 or sede = 3 or sede = 4)';
+				        	}else if($_SESSION["sede"]==6){
+				        		$separar_usuarios1 = ' and (sede = 6)';
+				        	}else if($_SESSION["sede"]==7 or $_SESSION["sede"]==8 or $_SESSION["sede"]==9){
+				        		$separar_usuarios1 = ' and (sede = 7 or sede = 8 or sede = 9)';
+				        	}
+
+							$sql_responsable1 = "SELECT * FROM soporte_responsable_modelo WHERE id_modelo = ".$modelo_id." ".$separar_usuarios1;
 							$resultado3 = mysqli_query($conexion,$sql_responsable1);
 							$contador1 = mysqli_num_rows($resultado3);
-							while($row8 = mysqli_fetch_array($resultado3)) {
-								$soporte_responsable_fecha_inicio = $row8['fecha_inicio'];
-								$soporte_responsable_id = $row8['id'];
-								$soporte_responsable_id_soporte = $row8['id_soporte'];
+							if($contador1>=1){
+								while($row8 = mysqli_fetch_array($resultado3)) {
+									$soporte_responsable_fecha_inicio = $row8['fecha_inicio'];
+									$soporte_responsable_id = $row8['id'];
+									$soporte_responsable_id_soporte = $row8['id_soporte'];
+								}
+							}else{
+								$soporte_responsable_id_soporte = 999999;
 							}
 
 							$sql_responsable2 = "SELECT * FROM usuarios WHERE id = ".$soporte_responsable_id_soporte;
@@ -437,6 +479,7 @@
 					    </div>
 
 					    <?php
+					    
 					    if($_SESSION['rol'] == 8 or $_SESSION['rol'] == 1){ ?>
 						    <div class="col-12 text-center mb-3 mt-3" style="background-color: black; color:white; font-weight: bold;">
 						    	DATOS BANCARIOS
@@ -445,17 +488,22 @@
 						    <div class="row">
 								<div class="col-6 form-group form-check">
 									<label for="banco_cedula2">N° Cédula Titular </label>
-									<input type="text" name="banco_cedula2" id="banco_cedula2" class="form-control" autocomplete="off">
+									<input type="text" name="banco_cedula2" id="banco_cedula2" class="form-control" autocomplete="off" disabled>
+								</div>
+
+								<div class="col-6 form-group form-check">
+									<label for="banco_tipo_documento">Tipo de documento Titular </label>
+									<input type="text" name="banco_tipo_documento" id="banco_tipo_documento" class="form-control" autocomplete="off" disabled>
 								</div>
 
 								<div class="col-6 form-group form-check">
 									<label for="banco_nombre2">Nombre Titular </label>
-									<input type="text" name="banco_nombre2" id="banco_nombre2" class="form-control" autocomplete="off">
+									<input type="text" name="banco_nombre2" id="banco_nombre2" class="form-control" autocomplete="off" disabled>
 								</div>
 
 								<div class="col-6 form-group form-check">
 									<label for="banco_tipo2">Tipo de Cuenta </label>
-									<select name="banco_tipo2" class="form-control" id="banco_tipo2">
+									<select name="banco_tipo2" class="form-control" id="banco_tipo2" disabled>
 										<option value="">Seleccione</option>
 										<option value="Ahorro">Ahorro</option>
 										<option value="Corriente">Corriente</option>
@@ -464,12 +512,12 @@
 
 								<div class="col-6 form-group form-check">
 									<label for="banco_numero2">N° de Cuenta </label>
-									<input type="text" name="banco_numero2" id="banco_numero2" class="form-control" autocomplete="off">
+									<input type="text" name="banco_numero2" id="banco_numero2" class="form-control" autocomplete="off" disabled>
 								</div>
 
-								<div class="col-12 form-group form-check">
+								<div class="col-6 form-group form-check">
 									<label for="banco_banco2">Banco </label>
-									<select name="banco_banco2" class="form-control" id="banco_banco2">
+									<select name="banco_banco2" class="form-control" id="banco_banco2" disabled>
 										<option value="">Seleccione</option>
 										<option value="Banco Agrario de Colombia">Banco Agrario de Colombia</option>
 										<option value="Banco AV Villas">Banco AV Villas</option>
@@ -518,14 +566,16 @@
 
 								<div class="col-12 form-group form-check">
 									<label for="enlazar">Cuenta Propia o de Prestada? </label>
-									<select name="BCPP2" class="form-control" id="BCPP2">
+									<select name="BCPP2" class="form-control" id="BCPP2" disabled>
 										<option value="">Seleccione</option>
 										<option value="Propia">Propia</option>
 										<option value="Prestada">Prestada</option>
 									</select>
 								</div>
 							</div>
-					    <?php } ?>
+					    <?php } 
+					    
+					    ?>
 
 						<div class="col-12 text-center mb-3 mt-3" style="background-color: black; color:white; font-weight: bold;">
 					    	DATOS CORPORALES
@@ -659,10 +709,15 @@
 							    <label for="edit_sede">Sede </label>
 							    <select name="edit_sede2" id="edit_sede2" class="form-control" required>
 							    	<option value="">Seleccione</option>
-							    	<option value="1">VIP Occidente</option>
-							    	<option value="2">Norte</option>
-							    	<option value="3">Occidente 1</option>
-							    	<option value="4">VIP Suba</option>
+							    	<?php
+							    	$sql4 = "SELECT * FROM sedes";
+							    	$consulta4 = mysqli_query($conexion,$sql4);
+									while($row4 = mysqli_fetch_array($consulta4)) {
+										echo '
+											<option value="'.$row4["id"].'">'.$row4["nombre"].'</option>
+										';
+									}
+							    	?>
 							    </select>
 						    </div>
 
@@ -776,8 +831,8 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-				        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="submit_Modal_fotos2">Cerrar</button>
-				        <button type="submit" class="btn btn-success">Guardar</button>
+				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+				        <button type="submit" class="btn btn-success" id="submit_Modal_fotos2">Guardar</button>
 			      	</div>
 		      	</form>
 	    	</div>
@@ -994,6 +1049,7 @@
 				$('#banco_numero2').val(respuesta['banco_numero']);
 				$('#banco_banco2').val(respuesta['banco_banco']);
 				$('#BCPP2').val(respuesta['BCPP']);
+				$('#banco_tipo_documento').val(respuesta['banco_tipo_documento']);
 				/*************************************/
 				/**********CORPORALES*****************/
 				$('#altura2').val(respuesta['altura']);
@@ -1185,8 +1241,8 @@
 
             success: function(response){
             	console.log(response);
+            	$('#submit_Modal_fotos2').removeAttr('disabled');
             	if(response=='error'){
-            		$('#submit_Modal_fotos2').attr('disabled','false');
             		Swal.fire({
 		 				title: 'Formato Invalido',
 			 			text: "Formato Validos -> jpg jpeg png",
@@ -1206,17 +1262,11 @@
 	 				confirmButtonColor: '#3085d6',
 	 				confirmButtonText: 'No esperar!',
 	 				timer: 3000
-				}).then((result) => {
-	 				if (result.value) {
-	   					//window.location.href = "index.php";
-	 				}
-				})
-				setTimeout(function() {
-			    	//window.location.href = "index.php";
-				},3500);
+				});
             },
 
             error: function(response){
+            	$('#submit_Modal_fotos2').removeAttr('disabled');
             	console.log(response['responseText']);
             }
         });

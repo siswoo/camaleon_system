@@ -17,12 +17,14 @@ $barrio = $_POST['barrio2'];
 $perfil_transmision = $_POST['perfil_transmision2'];
 /*************************************/
 /**********BANCARIOS*****************/
+/*
 $banco_cedula = $_POST['banco_cedula2'];
 $banco_nombre = $_POST['banco_nombre2'];
 $banco_tipo = $_POST['banco_tipo2'];
 $banco_numero = $_POST['banco_numero2'];
 $banco_banco = $_POST['banco_banco2'];
 $banco_cpp = $_POST['BCPP2'];
+*/
 /*************************************/
 /**********CORPORALES*****************/
 $altura = $_POST['altura2'];
@@ -49,8 +51,11 @@ $equipo = $_POST['equipo2'];
 $fecha_inicio = date('Y-m-d');
 
 	include('conexion.php');
-
+	/*
 	$sql1 = "UPDATE modelos SET documento_tipo = '".$tipo_documento."',documento_numero = '".$numero_documento."',nombre1 = '".$primer_nombre."',nombre2 = '".$segundo_nombre."',apellido1 = '".$primer_apellido."',apellido2 = '".$segundo_apellido."',correo = '".$correo."',telefono1 = '".$telefono1."',telefono2 = '".$telefono2."',direccion = '".$direccion."',genero = '".$genero."',estatus = '".$estatus."',barrio = '".$barrio."',perfil_de_transmision = '".$perfil_transmision."',altura = '".$altura."',peso = '".$peso."',tpene = '".$tpene."',tsosten = '".$tsosten."',tbusto = '".$tbusto."',tcintura = '".$tcintura."',tcaderas = '".$tcaderas."',tipo_cuerpo = '".$tipo_cuerpo."',Pvello = '".$Pvello."',color_cabello = '".$color_cabello."',color_ojos = '".$color_ojos."',Ptattu = '".$Ptattu."',Ppiercing = '".$Ppiercing."',turno = '".$turno."',sede = '".$sede."',Htransmision = '".$htransmision."',select_equipo = '".$equipo."',fecha_inicio = '".$fecha_inicio."', banco_cedula = '".$banco_cedula."', banco_nombre = '".$banco_nombre."',banco_tipo = '".$banco_tipo."',banco_numero = '".$banco_numero."',banco_banco = '".$banco_banco."',BCPP = '".$banco_cpp."' WHERE id =".$id;
+	*/
+
+	$sql1 = "UPDATE modelos SET documento_tipo = '".$tipo_documento."',documento_numero = '".$numero_documento."',nombre1 = '".$primer_nombre."',nombre2 = '".$segundo_nombre."',apellido1 = '".$primer_apellido."',apellido2 = '".$segundo_apellido."',correo = '".$correo."',telefono1 = '".$telefono1."',telefono2 = '".$telefono2."',direccion = '".$direccion."',genero = '".$genero."',estatus = '".$estatus."',barrio = '".$barrio."',perfil_de_transmision = '".$perfil_transmision."',altura = '".$altura."',peso = '".$peso."',tpene = '".$tpene."',tsosten = '".$tsosten."',tbusto = '".$tbusto."',tcintura = '".$tcintura."',tcaderas = '".$tcaderas."',tipo_cuerpo = '".$tipo_cuerpo."',Pvello = '".$Pvello."',color_cabello = '".$color_cabello."',color_ojos = '".$color_ojos."',Ptattu = '".$Ptattu."',Ppiercing = '".$Ppiercing."',turno = '".$turno."',sede = '".$sede."',Htransmision = '".$htransmision."',select_equipo = '".$equipo."',fecha_inicio = '".$fecha_inicio."' WHERE id =".$id;
 	$modificar1 = mysqli_query( $conexion, $sql1 );
 
 	$sql2 = "SELECT * FROM sedes WHERE id = ".$sede;

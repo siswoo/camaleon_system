@@ -149,6 +149,7 @@
 			        					<td class="text-center" nowrap="nowrap">
 			        						<button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal2" onclick="personal1('.$id.');">Personal</button>
 			        						<button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal3" onclick="bancario1('.$id.');">Bancario</button>
+			        						<button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal4" onclick="documentos1('.$id.');">Documentos</button>
 			        						<!--<button class="btn btn-primary" onclick="eliminar1('.$id.');">Eliminar</button>-->
 			        					</td>
 			        				</tr>
@@ -516,6 +517,27 @@
 	    </div>
 	</div>
 <!-- FIN Modal Editar Bancarios -->
+
+<!-- Modal Editar Documentos -->
+	<div class="modal fade" id="exampleModal4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<form action="#" method="POST" id="form_modal_documentos" style="">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Visualizar Documentos</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body" id="respuesta_documentos1"></div>
+					<div class="modal-footer">
+				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+			      	</div>
+			    </div>
+		      </form>
+	    </div>
+	</div>
+<!-- FIN Modal Editar Documentos -->
 
 <script src="../js/jquery-3.5.1.min.js"></script>
 <script type="text/javascript" src="../js/popper.js"></script>
@@ -1014,4 +1036,31 @@
 		});
 	});
 
+	function documentos1(id){
+		$.ajax({
+			type: 'POST',
+			url: '../script/crud_nomina.php',
+			data: {
+				"id": id,
+				"condicion": "documentos1",
+			},
+			dataType: "JSON",
+			success: function(respuesta) {
+				//console.log(respuesta);
+				$("#respuesta_documentos1").html(respuesta["html"]);
+			},
+
+			error: function(respuesta) {
+				console.log(respuesta['responseText']);
+			}
+		});
+	}
+
 </script>
+
+
+
+
+
+
+

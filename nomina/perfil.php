@@ -66,6 +66,10 @@
 	<?php
 	include('../script/conexion.php');
 	$usuario = $_SESSION["usuario"];
+	$id_nomina_hidden = $_SESSION["id"];
+	echo '
+		<input type="hidden" name="id_nomina_hidden" id="id_nomina_hidden" value="'.$id_nomina_hidden.'">
+	';
 	$ubicacion = "perfil";
 	$consulta1 = "SELECT * FROM cargos WHERE id = ".$_SESSION['rol']." LIMIT 1";
 	$resultado1 = mysqli_query( $conexion, $consulta1 );
@@ -132,11 +136,16 @@
 			<li class="nav-item">
 				<a class="nav-link" href="#" id="Dpagos" onclick="pestañas(this.id);" style="color:white; text-transform: uppercase;">Pagos</a>
 			</li>
+			<!--
 			<li class="nav-item">
 				<a class="nav-link" href="#" id="Dcontrato" onclick="pestañas(this.id);" style="color:white; text-transform: uppercase;">Contrato</a>
 			</li>
+			-->
 			<li class="nav-item">
 				<a class="nav-link" href="#" id="Demergencia" onclick="pestañas(this.id);" style="color:white; text-transform: uppercase;">Emergencia</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#" id="Dclave" onclick="pestañas(this.id);" style="color:white; text-transform: uppercase;">Clave</a>
 			</li>
 		</ul>
 
@@ -337,6 +346,7 @@
 		$html_antecedentes_penales='';
 		$html_hoja_de_vida='';
 		$html_identificacion='';
+		$html_rut='';
 
 		if($contador3>=1){
 			while($row3 = mysqli_fetch_array($consulta3)) {
@@ -413,6 +423,18 @@
 									<div class="col-12 form-group form-check text-center">
 										<label for="turno">Identificación (Subida Actualmente)</label>
 										<p><embed src="../resources/documentos/nominas/archivos/'.$id.'/identificacion.pdf#toolbar=0" type="application/pdf" width="100%" height="400px" /></p>
+									</div>
+								</div>
+								<hr style="background-color: white;">
+							';
+						break;
+
+						case 'Rut':
+							$html_rut = '
+								<div class="row">
+									<div class="col-12 form-group form-check text-center">
+										<label for="turno">RUT (Subida Actualmente)</label>
+										<p><embed src="../resources/documentos/nominas/archivos/'.$id.'/rut.pdf#toolbar=0" type="application/pdf" width="100%" height="400px" /></p>
 									</div>
 								</div>
 								<hr style="background-color: white;">
@@ -520,6 +542,22 @@
 			';
 		}else{
 			echo $html_identificacion;
+		}
+
+		if($html_rut==''){
+			echo '
+			<form id="form_rut" enctype="multipart/form-data" method="POST">
+				<div class="row mt-3 mb-3">
+					<div class="col-12 form-group form-check">
+						<button type="submit" class="btn btn-success" id="submit_rut" style="height: 35px; margin-top: 6px; margin-bottom: 11px;margin-right: 20px;">Subir</button>
+						<label for="turno">RUT</label>
+						<input type="file" style="height:43px;" class="form-control" name="rut" id="rut" required>
+					</div>
+				</div>
+			</form>
+			';
+		}else{
+			echo $html_rut;
 		}
 		?>
 	</form>
@@ -673,6 +711,30 @@
 	<!--***********************************************************-->
 	<!--***********************************************************-->
 
+	<!--***********************************************************-->
+	<!--**********************CONTRATO*********************-->
+	<!--***********************************************************-->
+	<form class="d-none" action="#" method="POST" id="formulario10">
+		<div class="row">
+			<div class="col-12 text-center" style="font-size: 20px; font-weight: bold;">
+				Cambiar Clave de Usuario
+			</div>
+			<div class="col-12 form-group form-check">
+				<label for="clave_password1">Nueva Contraseña</label>
+				<input type="password" id="clave_password1" name="clave_password1" class="form-control">
+			</div>
+			<div class="col-12 form-group form-check">
+				<label for="clave_password2">Repetir Contraseña</label>
+				<input type="password" id="clave_password2" name="clave_password2" class="form-control">
+			</div>
+			<div class="col-md-12 text-center">
+				<button type="submit" id="submit_clave1" class="btn btn-success" style="width: 25%; font-weight: bold;">Actualizar</button>
+			</div>
+		</div>
+	</form>
+	<!--***********************************************************-->
+	<!--***********************************************************-->
+
 </div>
 
 <script src="../js/jquery-3.5.1.min.js"></script>
@@ -695,6 +757,7 @@
 				$('#Demergencia').removeClass('active1');
 				$('#Dfotos').removeClass('active1');
 				$('#Dpagos').removeClass('active1');
+				$('#Dclave').removeClass('active1');
 				
 				$('#formulario1').removeClass('d-none');
 				$('#formulario2').addClass('d-none');
@@ -705,6 +768,7 @@
 				$('#formulario7').addClass('d-none');
 				$('#formulario8').addClass('d-none');
 				$('#formulario9').addClass('d-none');
+				$('#formulario10').addClass('d-none');
 			break;
 
 			case 'Dbancarios':
@@ -718,6 +782,7 @@
 				$('#Demergencia').removeClass('active1');
 				$('#Dfotos').removeClass('active1');
 				$('#Dpagos').removeClass('active1');
+				$('#Dclave').removeClass('active1');
 				
 				$('#formulario1').addClass('d-none');
 				$('#formulario2').removeClass('d-none');
@@ -728,6 +793,7 @@
 				$('#formulario7').addClass('d-none');
 				$('#formulario8').addClass('d-none');
 				$('#formulario9').addClass('d-none');
+				$('#formulario10').addClass('d-none');
 			break;
 
 			case 'Dcorporales':
@@ -741,6 +807,7 @@
 				$('#Demergencia').removeClass('active1');
 				$('#Dfotos').removeClass('active1');
 				$('#Dpagos').removeClass('active1');
+				$('#Dclave').removeClass('active1');
 				
 				$('#formulario1').addClass('d-none');
 				$('#formulario2').addClass('d-none');
@@ -751,6 +818,7 @@
 				$('#formulario7').addClass('d-none');
 				$('#formulario8').addClass('d-none');
 				$('#formulario9').addClass('d-none');
+				$('#formulario10').addClass('d-none');
 			break;
 
 			case 'Dempresa':
@@ -764,6 +832,7 @@
 				$('#Demergencia').removeClass('active1');
 				$('#Dfotos').removeClass('active1');
 				$('#Dpagos').removeClass('active1');
+				$('#Dclave').removeClass('active1');
 				
 				$('#formulario1').addClass('d-none');
 				$('#formulario2').addClass('d-none');
@@ -774,6 +843,7 @@
 				$('#formulario7').addClass('d-none');
 				$('#formulario8').addClass('d-none');
 				$('#formulario9').addClass('d-none');
+				$('#formulario10').addClass('d-none');
 			break;
 
 			case 'Ddocumentos':
@@ -787,6 +857,7 @@
 				$('#Demergencia').removeClass('active1');
 				$('#Dfotos').removeClass('active1');
 				$('#Dpagos').removeClass('active1');
+				$('#Dclave').removeClass('active1');
 				
 				$('#formulario1').addClass('d-none');
 				$('#formulario2').addClass('d-none');
@@ -797,6 +868,7 @@
 				$('#formulario7').addClass('d-none');
 				$('#formulario8').addClass('d-none');
 				$('#formulario9').addClass('d-none');
+				$('#formulario10').addClass('d-none');
 			break;
 
 			case 'Dcontrato':
@@ -810,6 +882,7 @@
 				$('#Demergencia').removeClass('active1');
 				$('#Dfotos').removeClass('active1');
 				$('#Dpagos').removeClass('active1');
+				$('#Dclave').removeClass('active1');
 				
 				$('#formulario1').addClass('d-none');
 				$('#formulario2').addClass('d-none');
@@ -820,6 +893,7 @@
 				$('#formulario7').addClass('d-none');
 				$('#formulario8').addClass('d-none');
 				$('#formulario9').addClass('d-none');
+				$('#formulario10').addClass('d-none');
 			break;
 
 			case 'Demergencia':
@@ -833,6 +907,7 @@
 				$('#Ddocumentos').removeClass('active1');
 				$('#Dfotos').removeClass('active1');
 				$('#Dpagos').removeClass('active1');
+				$('#Dclave').removeClass('active1');
 				
 				$('#formulario1').addClass('d-none');
 				$('#formulario2').addClass('d-none');
@@ -843,6 +918,7 @@
 				$('#formulario7').removeClass('d-none');
 				$('#formulario8').addClass('d-none');
 				$('#formulario9').addClass('d-none');
+				$('#formulario10').addClass('d-none');
 			break;
 
 			case 'Dfotos':
@@ -856,6 +932,7 @@
 				$('#Dpersonales').removeClass('active1');
 				$('#Ddocumentos').removeClass('active1');
 				$('#Dpagos').removeClass('active1');
+				$('#Dclave').removeClass('active1');
 				
 				$('#formulario1').addClass('d-none');
 				$('#formulario2').addClass('d-none');
@@ -866,6 +943,7 @@
 				$('#formulario7').addClass('d-none');
 				$('#formulario8').removeClass('d-none');
 				$('#formulario9').addClass('d-none');
+				$('#formulario10').addClass('d-none');
 			break;
 
 			case 'Dpagos':
@@ -879,6 +957,7 @@
 				$('#Dpersonales').removeClass('active1');
 				$('#Ddocumentos').removeClass('active1');
 				$('#Dpagos').addClass('active1');
+				$('#Dclave').removeClass('active1');
 				
 				$('#formulario1').addClass('d-none');
 				$('#formulario2').addClass('d-none');
@@ -889,6 +968,32 @@
 				$('#formulario7').addClass('d-none');
 				$('#formulario8').addClass('d-none');
 				$('#formulario9').removeClass('d-none');
+				$('#formulario10').addClass('d-none');
+			break;
+
+			case 'Dclave':
+				$('#Dfotos').removeClass('active1');
+				$('#Demergencia').removeClass('active1');
+				$('#Dcontrato').removeClass('active1');
+				$('#Dcontrato').removeClass('d-none');
+				$('#Dempresa').removeClass('active1');
+				$('#Dbancarios').removeClass('active1');
+				$('#Dcorporales').removeClass('active1');
+				$('#Dpersonales').removeClass('active1');
+				$('#Ddocumentos').removeClass('active1');
+				$('#Dpagos').removeClass('active1');
+				$('#Dclave').addClass('active1');
+				
+				$('#formulario1').addClass('d-none');
+				$('#formulario2').addClass('d-none');
+				$('#formulario3').addClass('d-none');
+				$('#formulario4').addClass('d-none');
+				$('#formulario5').addClass('d-none');
+				$('#formulario6').addClass('d-none');
+				$('#formulario7').addClass('d-none');
+				$('#formulario8').addClass('d-none');
+				$('#formulario9').addClass('d-none');
+				$('#formulario10').removeClass('d-none');
 			break;
 			
 		default:
@@ -1636,6 +1741,118 @@
 	 				showConfirmButton: true,
 	 				confirmButtonColor: '#3085d6',
 	 				confirmButtonText: 'Aceptar',
+	 				timer: 3000
+				});
+            },
+
+            error: function(response){
+            	console.log(response['responseText']);
+            }
+        });
+    });
+
+    $("#form_rut").on("submit", function(e){
+		e.preventDefault();
+        var fd = new FormData();
+        var files = $('#rut')[0].files[0];
+        fd.append('file',files);
+        fd.append('condicion',"subir_archivo1");
+        fd.append('condicion2',"Rut");
+        fd.append('condicion3',"rut");
+        fd.append('id',$('#id').val());
+
+        $.ajax({
+            url: '../script/crud_nomina.php',
+            type: 'POST',
+            data: fd,
+            dataType: "JSON",
+            contentType: false,
+            processData: false,
+
+            beforeSend: function (){
+            	$('#submit_rut').attr('disabled','true');
+            },
+
+            success: function(response){
+            	console.log(response);
+            	$('#submit_identificacion').removeAttr('disabled');
+            	if(response['estatus']=='error'){
+            		Swal.fire({
+		 				title: 'Formato Invalido',
+			 			text: "Formato Validos -> pdf",
+			 			icon: 'error',
+			 			position: 'center',
+			 			showConfirmButton: false,
+			 			timer: 3000
+					});
+            		return false;
+            	}
+
+            	Swal.fire({
+	 				title: 'Documento Subido',
+	 				text: "Redirigiendo...!",
+	 				icon: 'success',
+	 				position: 'center',
+	 				showConfirmButton: true,
+	 				confirmButtonColor: '#3085d6',
+	 				confirmButtonText: 'No esperar!',
+	 				timer: 3000
+				}).then((result) => {
+	 				if (result.value) {
+	   					window.location.href = "perfil.php";
+	 				}
+				})
+				setTimeout(function() {
+			    	window.location.href = "perfil.php";
+				},3500);
+            },
+
+            error: function(response){
+            	console.log(response['responseText']);
+            	$('#submit_identificacion').removeAttr('disabled');
+            }
+        });
+    });
+
+    $("#formulario10").on("submit", function(e){
+		e.preventDefault();
+		var id_nomina_hidden = $('#id_nomina_hidden').val();
+		var clave_password1 = $('#clave_password1').val();
+		var clave_password2 = $('#clave_password2').val();
+
+		if(clave_password1!=clave_password2){
+			Swal.fire({
+	 			title: 'Error',
+	 			text: "Claves no coinciden",
+	 			icon: 'error',
+	 			position: 'center',
+	 			showConfirmButton: false,
+	 			timer: 3000
+			});
+			return false;
+		}
+
+        $.ajax({
+            url: '../script/crud_nomina.php',
+            type: 'POST',
+            dataType: "JSON",
+            data: {
+            	"id":id_nomina_hidden,
+            	"clave_password1":clave_password1,
+            	"clave_password2":clave_password2,
+            	"condicion":"cambiar_clave1",
+            },
+
+            beforeSend: function (){},
+
+            success: function(response){
+            	console.log(response);
+            	Swal.fire({
+	 				title: 'Correcto',
+	 				text: "Contraseña Actualizada",
+	 				icon: 'success',
+	 				position: 'center',
+	 				showConfirmButton: false,
 	 				timer: 3000
 				});
             },

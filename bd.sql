@@ -81,7 +81,10 @@ INSERT INTO sedes (nombre,direccion,ciudad,responsable,cedula,rut) VALUES
 ('Occidente I','Direccion','Bogotá D.C', 'Andres Fernando Bernal Correa', '80.774.671', '901.257.204-8'),
 ('VIP Suba','Direccion','Bogotá D.C', 'Andres Fernando Bernal Correa', '80.774.671', '901.257.204-8'),
 ('Medellin','Direccion','Medellin', 'Andres Fernando Bernal Correa', '80.774.671', '901.257.204-8'),
-('Soacha','Direccion','Bogotá D.C', 'Andres Fernando Bernal Correa', '80.774.671', '901.257.204-8');
+('Soacha','Direccion','Bogotá D.C', 'Andres Fernando Bernal Correa', '80.774.671', '901.257.204-8'),
+('Belen','Carrera 81 #30A 67','Medellin', 'Andres Fernando Bernal Correa', '80.774.671', '901322261-6'),
+('Sur Americana','Calle 48 #66 70','Medellin', 'Andres Fernando Bernal Correa', '80.774.671', '901322261-6'),
+('Manrique','Carrera 36 #70 41','Medellin', 'Andres Fernando Bernal Correa', '80.774.671', '901322261-6');
 
 
 DROP TABLE IF EXISTS usuarios;
@@ -124,7 +127,16 @@ INSERT INTO usuarios (nombre,apellido,documento_tipo,documento_numero,correo,usu
 ('Karen Stefanny','Parra Sanchez','Cedula de Ciudadania','1018492284','stefanny1parra@gmail.com','karenparra','ed53feba2a0a4df03d19ef836b701ea0','3058754431','',8,6,'2021-03-22'),
 ('Jorse Luis','Casique Useche','Cedula de Ciudadania','1130245934','jorgecasique220@gmail.com','jorgeuseche','5311b986f20a6f348fad8fb41f898995','3504633380','',15,6,'2021-03-22'),
 ('Soacha','Test6','PEP','66666666666','test6@gmail.com','soacha','a5604eb6a51af9e9719bb9fda7bf0686','77777777','',4,6,'2021-03-22'),
-('Kenlly','Test6','PEP','66666666666','test6@gmail.com','soacha','a5604eb6a51af9e9719bb9fda7bf0686','77777777','',4,6,'2021-03-22');
+('Kenlly','Test6','PEP','66666666666','test6@gmail.com','soacha','a5604eb6a51af9e9719bb9fda7bf0686','77777777','',4,1,'2021-03-22'),
+('Anderson','Prieto','Cedula de Ciudadania','1001046590','prietovargas4@gmail.com','soportesoacha','bf4dee03a08c7c0536760c11e3041ab3','3123790146','',2,6,'2021-03-29'),
+
+('Thayana','Rios Vasquez','Cedula de Ciudadania','1017230042','thayana503@gmail.com','thayana503','959b551e0a7fe3f0ec403884dfac2769','3023769858','',15,7,'2021-03-30'),
+('Yoryenis','Cabrejo Ortega','Cedula de Ciudadania','1000871360','Yoryenisortega@gmail.com','Yoryenis123','356bc2382667819f405b4dd88b5b6ac4','3004758167','',2,7,'2021-03-30'),
+('Isabel','Arango','Cedula de Ciudadania','43252386','cris4325@gmail.com','cris4325','ebb9800d3b2856e85f7d2eee4d76dfa7','3154655878','',15,8,'2021-03-30'),
+
+('pasantebelen','pasantebelen','Cedula de Ciudadania','77777777777','pasantebelen@gmail.com','pasantebelen','a5604eb6a51af9e9719bb9fda7bf0686','777777777777','',4,7,'2021-03-30'),
+('pasantesa','pasantesa','Cedula de Ciudadania','77777777777','pasantesa@gmail.com','pasantesa','a5604eb6a51af9e9719bb9fda7bf0686','777777777777','',4,8,'2021-03-30'),
+('pasantemanrique','pasantemanrique','Cedula de Ciudadania','77777777777','pasantemanrique@gmail.com','pasantemanrique','a5604eb6a51af9e9719bb9fda7bf0686','777777777777','',4,9,'2021-03-30');
 ALTER TABLE usuarios CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 DROP TABLE IF EXISTS modelos;
@@ -1101,6 +1113,8 @@ CREATE TABLE nomina (
 
 	funcion INT NOT NULL,
 
+	clave VARCHAR(250) NOT NULL,
+
 	PRIMARY KEY (id)
 );ALTER TABLE nomina CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
@@ -1174,7 +1188,8 @@ INSERT INTO n_documentos (nombre,responsable,fecha_inicio) VALUES
 ("Antecedentes Penales",1,"2021-03-17"),
 ("Hoja de Vida",1,"2021-03-17"),
 ("Identificacion",1,"2021-03-19"),
-("Firma",1,"2021-03-19");
+("Firma",1,"2021-03-19"),
+("Rut",1,"2021-03-29");
 
 DROP TABLE IF EXISTS n_archivos;
 CREATE TABLE n_archivos (

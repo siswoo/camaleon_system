@@ -304,3 +304,164 @@ if($condicion=='modificar_bancarios1'){
 	echo json_encode($datos);
 }
 
+if($condicion=='documentos1'){
+	$id = $_POST['id'];
+
+	$sql1 = "SELECT * FROM n_archivos WHERE id_nomina = ".$id;
+	$proceso1 = mysqli_query($conexion,$sql1);
+	$html = '
+		<div class="row">
+			<input type="hidden" name="edit_documento_id" id="edit_documento_id" value="'.$id.'">
+	';
+	$contador1 = mysqli_num_rows($proceso1);
+	while($row1 = mysqli_fetch_array($proceso1)) {
+		$id_documento = $row1["id_documento"];
+		$sql2 = "SELECT * FROM n_documentos WHERE id = ".$id_documento;
+		$proceso2 = mysqli_query($conexion,$sql2);
+		while($row2 = mysqli_fetch_array($proceso2)) {
+			switch ($row2["id"]) {
+				case '1':
+					$html .= '
+						<div class="col-12 text-center">
+							<label style="text-transform: capitalize;">'.$row2["nombre"].'</label>
+							<br>
+							<embed src="../resources/documentos/nominas/archivos/'.$id.'/seguridad_social.pdf#toolbar=0" type="application/pdf" width="100%" height="300px" style="">
+							<hr style="background-color:black;">
+						</div>
+					';
+				break;
+
+				case '2':
+					$html .= '
+						<div class="col-12 text-center">
+							<label style="text-transform: capitalize;">'.$row2["nombre"].'</label>
+							<br>
+							<embed src="../resources/documentos/nominas/archivos/'.$id.'/eps.pdf#toolbar=0" type="application/pdf" width="100%" height="300px" style="">
+							<hr style="background-color:black;">
+						</div>
+					';
+				break;
+
+				case '3':
+					$html .= '
+						<div class="col-12 text-center">
+							<label style="text-transform: capitalize;">'.$row2["nombre"].'</label>
+							<br>
+							<embed src="../resources/documentos/nominas/archivos/'.$id.'/fondo_de_pension.pdf#toolbar=0" type="application/pdf" width="100%" height="300px" style="">
+							<hr style="background-color:black;">
+						</div>
+					';
+				break;
+
+				case '4':
+					$html .= '
+						<div class="col-12 text-center">
+							<label style="text-transform: capitalize;">'.$row2["nombre"].'</label>
+							<br>
+							<embed src="../resources/documentos/nominas/archivos/'.$id.'/arl.pdf#toolbar=0" type="application/pdf" width="100%" height="300px" style="">
+							<hr style="background-color:black;">
+						</div>
+					';
+				break;
+
+				case '5':
+					$html .= '
+						<div class="col-12 text-center">
+							<label style="text-transform: capitalize;">'.$row2["nombre"].'</label>
+							<br>
+							<embed src="../resources/documentos/nominas/archivos/'.$id.'/antecedentes_penales.pdf#toolbar=0" type="application/pdf" width="100%" height="300px" style="">
+							<hr style="background-color:black;">
+						</div>
+					';
+				break;
+
+				case '6':
+					$html .= '
+						<div class="col-12 text-center">
+							<label style="text-transform: capitalize;">'.$row2["nombre"].'</label>
+							<br>
+							<embed src="../resources/documentos/nominas/archivos/'.$id.'/hoja_de_vida.pdf#toolbar=0" type="application/pdf" width="100%" height="300px" style="">
+							<hr style="background-color:black;">
+						</div>
+					';
+				break;
+
+				case '7':
+					$html .= '
+						<div class="col-12 text-center">
+							<label style="text-transform: capitalize;">'.$row2["nombre"].'</label>
+							<br>
+							<embed src="../resources/documentos/nominas/archivos/'.$id.'/identificacion.pdf#toolbar=0" type="application/pdf" width="100%" height="300px" style="">
+							<hr style="background-color:black;">
+						</div>
+					';
+				break;
+
+				case '8':
+					$html .= '
+						<div class="col-12 text-center">
+							<label style="text-transform: capitalize;">'.$row2["nombre"].'</label>
+							<br>
+							<embed src="../resources/documentos/nominas/archivos/'.$id.'/firma.pdf#toolbar=0" type="application/pdf" width="100%" height="300px" style="">
+							<hr style="background-color:black;">
+						</div>
+					';
+				break;
+
+				case '9':
+					$html .= '
+						<div class="col-12 text-center">
+							<label style="text-transform: capitalize;">'.$row2["nombre"].'</label>
+							<br>
+							<embed src="../resources/documentos/nominas/archivos/'.$id.'/rut.pdf#toolbar=0" type="application/pdf" width="100%" height="300px" style="">
+							<hr style="background-color:black;">
+						</div>
+					';
+				break;
+				
+				default:
+					# code...
+					break;
+			}
+		}
+	}
+	$html .= '
+		</div>
+	';
+
+	if($contador1==0){
+		$html = '
+			<div class="col-12 text-center" style="font-weight:bold; font-size: 20px;">
+				Sin Documentos Subidos Actualmente
+			</div>
+		';
+	}
+
+	$datos = [
+		"estatus" => 'ok',
+		"html" => $html,
+	];
+
+	echo json_encode($datos);
+}
+
+
+
+if($condicion=='cambiar_clave1'){
+	$id = $_POST['id'];
+	$clave_password1 = md5($_POST['clave_password1']);
+	$clave_password2 = $_POST['clave_password2'];
+
+	$sql1 = "UPDATE nomina SET clave = '".$clave_password1."' WHERE id = ".$id;
+	$proceso1 = mysqli_query($conexion,$sql1);
+
+	$datos = [
+		"estatus" => 'ok',
+		"sql" => $sql1,
+	];
+
+	echo json_encode($datos);
+}
+
+
+

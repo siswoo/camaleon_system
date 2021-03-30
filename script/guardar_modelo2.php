@@ -30,8 +30,9 @@ $id = $_POST['id'];
 	$banco_numero = $_POST['banco_numero'];
 	$banco_banco = $_POST['banco_banco'];
 	$banco_cpp = $_POST['BCPP'];
+	$banco_tipo_documento = $_POST['banco_tipo_documento'];
 	/*************************************/
-	$sql1 = "UPDATE modelos SET banco_cedula = '$banco_cedula',banco_nombre = '$banco_nombre',banco_tipo = '$banco_tipo',banco_numero = '$banco_numero',banco_banco = '$banco_banco',BCPP = '$banco_cpp' WHERE id = ".$id;
+	$sql1 = "UPDATE modelos SET banco_cedula = '$banco_cedula',banco_nombre = '$banco_nombre',banco_tipo = '$banco_tipo',banco_numero = '$banco_numero',banco_banco = '$banco_banco',BCPP = '$banco_cpp', banco_tipo_documento = '$banco_tipo_documento' WHERE id = ".$id;
 }else if($asunto=='corporales'){
 
 	$genero = $_POST['f3_genero'];

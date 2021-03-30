@@ -71,7 +71,7 @@ if($fila1>=1){
 		/*********************************************************************/
 	}
 }else{
-	$consulta3 = "SELECT * FROM nomina WHERE correo = '".$usuario."' and documento_numero = '".$documento_numero."' LIMIT 1";
+	$consulta3 = "SELECT * FROM nomina WHERE correo = '".$usuario."' and clave = '".md5($documento_numero)."' and estatus = 'Aceptado' LIMIT 1";
 	$resultado3 = mysqli_query($conexion,$consulta3);
 	$contador3 = mysqli_num_rows($resultado3);
 	if($contador3>=1){
@@ -114,7 +114,7 @@ if($fila1>=1){
 	}
 }
 
-if($usuario_rol!=5 and @$contador3==0){
+if(@$usuario_rol!=5 and @$contador3==0){
 	$estatus = 'Activo';
 }
 

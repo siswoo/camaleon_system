@@ -140,7 +140,11 @@
 									}else if($usuario_documento=='1032467238'){
 										$consulta2 = "SELECT * FROM pasantes WHERE sede = 4 and numero_documento != 1044429860";
 									}else{
-										$consulta2 = "SELECT * FROM pasantes WHERE sede = ".$_SESSION['sede']." and numero_documento != 1044429860";
+										if($_SESSION["sede"]==7 or $_SESSION["sede"]==8 or $_SESSION["sede"]==9){
+											$consulta2 = "SELECT * FROM pasantes WHERE numero_documento != 1044429860 and (sede = 7 or sede = 8 or sede = 9)";	
+										}else{
+											$consulta2 = "SELECT * FROM pasantes WHERE sede = ".$_SESSION['sede']." and numero_documento != 1044429860";
+										}
 									}
 								}
 				        	}else{

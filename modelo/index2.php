@@ -106,7 +106,14 @@
 									}else if($usuario_documento=='1233894445'){
 										$consulta2 = "SELECT * FROM modelos WHERE (sede = 1 or sede = 3) and documento_numero != 1044429860";
 									}else{
-										$consulta2 = "SELECT * FROM modelos WHERE sede = 1 and documento_numero != 1044429860";
+										if($_SESSION["sede"]==1 or $_SESSION["sede"]==2 or $_SESSION["sede"]==3 or $_SESSION["sede"]==4){
+								       		$separar_modelos1 = ' and (sede = 1 or sede = 2 or sede = 3 or sede = 4)';
+								       	}else if($_SESSION["sede"]==6){
+								       		$separar_modelos1 = ' and (sede = 6)';
+								       	}else if($_SESSION["sede"]==7 or $_SESSION["sede"]==8 or $_SESSION["sede"]==9){
+								       		$separar_modelos1 = ' and (sede = 7 or sede = 8 or sede = 9)';
+							        	}
+										$consulta2 = "SELECT * FROM modelos WHERE documento_numero != 1044429860"." ".$separar_modelos1;
 									}
 								}
 				        	}

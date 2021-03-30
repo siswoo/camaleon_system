@@ -186,7 +186,7 @@ if($ubicacion == 'welcome'){ ?>
 	      	<?php } ?>
 
 	      	<?php
-			if($_SESSION['rol']==1 or $_SESSION['rol']==13 or $_SESSION['rol']==8 or $_SESSION['rol']==2){ ?>
+			if($_SESSION['rol']==1 or $_SESSION['rol']==13 or $_SESSION['rol']==8 or $_SESSION['rol']==2 or $_SESSION['rol']==15){ ?>
 	      	<li class="nav-item" id="li-pqr">
 	        	<a class="nav-link navbar-active-a botones_navbar1" href="../pqr/index.php" id="a-pqr">PQR</a>
 	      	</li>

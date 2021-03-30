@@ -16,7 +16,7 @@ $inicio = $_GET['inicio'];
 $fin = $_GET['fin'];
 
 $sheet->setCellValue('A1', '');
-$sheet->setCellValue('B1', '');
+$sheet->setCellValue('B1', 'Tipo de Documento Titular');
 $sheet->setCellValue('C1', 'C Titular');
 $sheet->setCellValue('D1', '');
 $sheet->setCellValue('E1', 'Numero de Cuenta');
@@ -39,7 +39,7 @@ $sql1 = "SELECT * FROM presabana WHERE inicio BETWEEN '".$inicio."' AND '".$fin.
 $consulta = mysqli_query($conexion,$sql1);
 while($row1 = mysqli_fetch_array($consulta)) {
 	$spreadsheet->getActiveSheet()->getColumnDimension('A')->setWidth(40);
-	$spreadsheet->getActiveSheet()->getColumnDimension('B')->setWidth(20);
+	$spreadsheet->getActiveSheet()->getColumnDimension('B')->setWidth(30);
 	$spreadsheet->getActiveSheet()->getColumnDimension('C')->setWidth(20);
 	$spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(20);
 	$spreadsheet->getActiveSheet()->getColumnDimension('E')->setWidth(20);
@@ -70,6 +70,7 @@ while($row1 = mysqli_fetch_array($consulta)) {
 		$banco_banco = $row3['banco_banco'];
 		$bcpp = $row3['BCPP'];
 		$turno = $row3['turno'];
+		$banco_tipo_documento = $row3['banco_tipo_documento'];
 	}
 
 	$sql2 = "SELECT * FROM sedes WHERE id = ".$id_sede;
@@ -179,7 +180,7 @@ while($row1 = mysqli_fetch_array($consulta)) {
 	if($total_pesos_separacion <= $row1['total_pesos']){
 
 		$sheet->setCellValue('A'.$fila, "OK");
-		$sheet->setCellValue('B'.$fila, "");
+		$sheet->setCellValue('B'.$fila, $banco_tipo_documento);
 
 		$banco_cedula = str_replace(' ', '', $banco_cedula);
 		$spreadsheet->getActiveSheet()->getCell('C'.$fila)->setValue($banco_cedula);

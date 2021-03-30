@@ -175,7 +175,7 @@
 			if($_SESSION['rol']!=14){?>
 
 	    	<div class="col-12 mt-3 text-center" style="font-weight: bold; font-size: 30px; text-transform: uppercase;">
-	    		Zona de Desprendibles Bancarios para Andrea y | <3 Camila *-* |
+	    		Zona de Desprendibles Bancarios
 	    	</div>
 
 		    <div class="col-12 mt-3 text-center">
