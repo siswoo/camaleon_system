@@ -84,6 +84,9 @@
 	    <div class="row">
 	    	<div class="col-12 mb-3 text-right">
 				<button type="button" class="btn btn-primary" style="margin-right: 2rem;" data-toggle="modal" data-target="#exampleModal1">Registro Nuevo</button>
+				<a href="exportar1.php" target="_blank">
+					<button type="button" class="btn btn-info" style="margin-right: 2rem;">Exportar Datos</button>
+				</a>
 			</div>
 
 		    <div class="container_consulta1">
@@ -105,7 +108,11 @@
 			        </thead>
 			        <tbody id="resultados">
 			        	<?php
-			        		$sql1 = "SELECT * FROM nomina";
+			        		if($_SESSION["usuario"]=="reyes19"){
+			        			$sql1 = "SELECT * FROM nomina WHERE sede = 6";
+			        		}else{
+			        			$sql1 = "SELECT * FROM nomina";
+			        		}
 			        		$consulta1 = mysqli_query($conexion,$sql1);
 			        		while($row1 = mysqli_fetch_array($consulta1)) {
 			        			$id = $row1['id'];
@@ -271,6 +278,10 @@
 							    <label for="fecha_ingreso">Fecha de Ingreso </label>
 							    <input type="date" name="fecha_ingreso" id="fecha_ingreso" class="form-control">
 						    </div>
+						    <div class="col-12 form-group form-check">
+							    <label for="fecha_expedicion">Fecha de expedición del documento </label>
+							    <input type="date" name="fecha_expedicion" id="fecha_expedicion" class="form-control">
+						    </div>
 					    </div>
 					</div>
 					<div class="modal-footer">
@@ -399,9 +410,13 @@
 							    <label for="edit_fecha_ingreso">Fecha de Ingreso </label>
 							    <input type="date" id="edit_fecha_ingreso" name="edit_fecha_ingreso" class="form-control" required>
 						    </div>
-						    <div class="col-12 form-group form-check">
+						    <div class="col-6 form-group form-check">
 							    <label for="edit_fecha_retiro">Fecha de Retiro</label>
 							    <input type="date" id="edit_fecha_retiro" name="edit_fecha_retiro" class="form-control">
+						    </div>
+						    <div class="col-6 form-group form-check">
+							    <label for="edit_fecha_expedicion">Fecha de Expedición</label>
+							    <input type="date" id="edit_fecha_expedicion" name="edit_fecha_expedicion" class="form-control">
 						    </div>
 					    </div>
 					</div>
@@ -614,6 +629,7 @@
 		var sedes 				= $('#sedes').val();
 		var fecha_nacimiento 	= $('#fecha_nacimiento').val();
 		var fecha_ingreso 		= $('#fecha_ingreso').val();
+		var fecha_expedicion 	= $('#fecha_expedicion').val();
 
 	    $.ajax({
 			type: 'POST',
@@ -633,6 +649,7 @@
 				"sedes": sedes,
 				"fecha_nacimiento": fecha_nacimiento,
 				"fecha_ingreso": fecha_ingreso,
+				"fecha_expedicion": fecha_expedicion,
 				"condicion": "guardar1",
 			},
 			dataType: "JSON",
@@ -704,6 +721,7 @@
 				$("#edit_fecha_nacimiento").val(respuesta["fecha_nacimiento"]);
 				$("#edit_fecha_ingreso").val(respuesta["fecha_ingreso"]);
 				$("#edit_fecha_retiro").val(respuesta["fecha_retiro"]);
+				$("#edit_fecha_expedicion").val(respuesta["fecha_expedicion"]);
 			},
 
 			error: function(respuesta) {
@@ -732,6 +750,7 @@
 		var fecha_nacimiento 	= $('#edit_fecha_nacimiento').val();
 		var fecha_ingreso 		= $('#edit_fecha_ingreso').val();
 		var fecha_retiro 		= $('#edit_fecha_retiro').val();
+		var fecha_expedicion 	= $('#edit_fecha_expedicion').val();
 
 	    $.ajax({
 			type: 'POST',
@@ -754,6 +773,7 @@
 				"fecha_nacimiento": fecha_nacimiento,
 				"fecha_ingreso": fecha_ingreso,
 				"fecha_retiro": fecha_retiro,
+				"fecha_expedicion": fecha_expedicion,
 				"condicion": "editar1",
 			},
 			dataType: "JSON",
@@ -1054,6 +1074,41 @@
 				console.log(respuesta['responseText']);
 			}
 		});
+	}
+
+	function eliminar2(id,id_documento){
+		Swal.fire({
+			title: 'Estas seguro?',
+			text: "Luego no podrás revertir esta acción",
+			icon: 'warning',
+			showConfirmButton: true,
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Si, Eliminar Documento!',
+			cancelButtonText: 'Cancelar'
+		}).then((result) => {
+			if (result.value) {
+				$.ajax({
+					type: 'POST',
+					url: '../script/crud_nomina.php',
+					dataType: "JSON",
+					data: {
+						"id": id,
+						"id_documento": id_documento,
+						"condicion": "eliminar2",
+					},
+					success: function(respuesta) {
+						console.log(respuesta);
+						$('#div_documento1_'+id_documento).hide('slow');
+					},
+
+					error: function(respuesta) {
+						console.log("error..."+respuesta);
+					}
+				});
+			}
+		})
 	}
 
 </script>

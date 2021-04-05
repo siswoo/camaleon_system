@@ -148,7 +148,11 @@
 			        	<?php
 			        	$modelos_extras1 = '';
 			        	if($_SESSION["sede"]==1 or $_SESSION["sede"]==2 or $_SESSION["sede"]==3 or $_SESSION["sede"]==4){
-			        		$separar_modelos1 = ' or (sede = 1 or sede = 2 or sede = 3 or sede = 4)';
+			        		if($_SESSION["sede"]==1 and $_SESSION["rol"]==8){
+			        			$separar_modelos1 = ' or (sede = 1 or sede = 2 or sede = 3 or sede = 4 or sede = 6)';	
+			        		}else{
+			        			$separar_modelos1 = ' or (sede = 1 or sede = 2 or sede = 3 or sede = 4)';
+			        		}
 			        	}else if($_SESSION["sede"]==6){
 			        		$separar_modelos1 = ' or (sede = 6)';
 			        	}else if($_SESSION["sede"]==7 or $_SESSION["sede"]==8 or $_SESSION["sede"]==9){

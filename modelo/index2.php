@@ -514,6 +514,99 @@
 						</div>
 
 						<div class="col-12 text-center mb-3 mt-3" style="background-color: black; color:white; font-weight: bold;">
+						   	DATOS BANCARIOS
+						</div>
+
+						    <div class="row">
+								<div class="col-6 form-group form-check">
+									<label for="banco_cedula2">N° Cédula Titular </label>
+									<input type="text" name="banco_cedula2" id="banco_cedula2" class="form-control" autocomplete="off" disabled>
+								</div>
+
+								<div class="col-6 form-group form-check">
+									<label for="banco_tipo_documento">Tipo de documento Titular </label>
+									<input type="text" name="banco_tipo_documento" id="banco_tipo_documento" class="form-control" autocomplete="off" disabled>
+								</div>
+
+								<div class="col-6 form-group form-check">
+									<label for="banco_nombre2">Nombre Titular </label>
+									<input type="text" name="banco_nombre2" id="banco_nombre2" class="form-control" autocomplete="off" disabled>
+								</div>
+
+								<div class="col-6 form-group form-check">
+									<label for="banco_tipo2">Tipo de Cuenta </label>
+									<select name="banco_tipo2" class="form-control" id="banco_tipo2" disabled>
+										<option value="">Seleccione</option>
+										<option value="Ahorro">Ahorro</option>
+										<option value="Corriente">Corriente</option>
+									</select>
+								</div>
+
+								<div class="col-6 form-group form-check">
+									<label for="banco_numero2">N° de Cuenta </label>
+									<input type="text" name="banco_numero2" id="banco_numero2" class="form-control" autocomplete="off" disabled>
+								</div>
+
+								<div class="col-6 form-group form-check">
+									<label for="banco_banco2">Banco </label>
+									<select name="banco_banco2" class="form-control" id="banco_banco2" disabled>
+										<option value="">Seleccione</option>
+										<option value="Banco Agrario de Colombia">Banco Agrario de Colombia</option>
+										<option value="Banco AV Villas">Banco AV Villas</option>
+										<option value="Banco Caja Social">Banco Caja Social</option>
+										<option value="Banco de Occidente (Colombia)">Banco de Occidente (Colombia)</option>
+										<option value="Banco Popular (Colombia)">Banco Popular (Colombia)</option>
+										<option value="Bancolombia">Bancolombia</option>
+										<option value="BBVA Colombia">BBVA Colombia</option>
+										<option value="BBVA Movil">BBVA Movil</option>
+										<option value="Banco de Bogotá">Banco de Bogotá</option>
+										<option value="Colpatria">Colpatria</option>
+										<option value="Davivienda">Davivienda</option>
+										<option value="ITAU CorpBanca">ITAU CorpBanca</option>
+										<option value="Citibank">Citibank</option>
+										<option value="GNB Sudameris">GNB Sudameris</option>
+										<option value="ITAU">ITAU</option>
+										<option value="Scotiabank">Scotiabank</option>
+										<option value="Bancoldex">Bancoldex</option>
+										<option value="JPMorgan">JPMorgan</option>
+										<option value="BNP Paribas">BNP Paribas</option>
+										<option value="Banco ProCredit">Banco ProCredit</option>
+										<option value="Banco Pichincha">Banco Pichincha</option>
+										<option value="Bancoomeva">Bancoomeva</option>
+										<option value="Banco Finandina">Banco Finandina</option>
+										<option value="Banco CoopCentral">Banco CoopCentral</option>
+										<option value="Compensar">Compensar</option>
+										<option value="Aportes en linea">Aportes en linea</option>
+										<option value="Asopagos">Asopagos</option>
+										<option value="Fedecajas">Fedecajas</option>
+										<option value="Simple">Simple</option>
+										<option value="Enlace Operativo">Enlace Operativo</option>
+										<option value="CorfiColombiana">CorfiColombiana</option>
+										<option value="Old Mutual">Old Mutual</option>
+										<option value="Cotrafa">Cotrafa</option>
+										<option value="Confiar">Confiar</option>
+										<option value="JurisCoop">JurisCoop</option>
+										<option value="Deceval">Deceval</option>
+										<option value="Bancamia">Bancamia</option>
+										<option value="Nequi">Nequi</option>
+										<option value="Falabella">Falabella</option>
+										<option value="DGCPTN">DGCPTN</option>
+										<option value="BANCO WWB">BANCO WWB</option>
+										<option value="Cooperativa Financiera de Antioquia">Cooperativa Financiera de Antioquia</option>
+									</select>
+								</div>
+
+								<div class="col-12 form-group form-check">
+									<label for="enlazar">Cuenta Propia o de Prestada? </label>
+									<select name="BCPP2" class="form-control" id="BCPP2" disabled>
+										<option value="">Seleccione</option>
+										<option value="Propia">Propia</option>
+										<option value="Prestada">Prestada</option>
+									</select>
+								</div>
+							</div>
+
+						<div class="col-12 text-center mb-3 mt-3" style="background-color: black; color:white; font-weight: bold;">
 					    	DATOS EMPRESA
 					    </div>
 
@@ -533,10 +626,12 @@
 							    <label for="edit_sede">Sede </label>
 							    <select name="edit_sede2" id="edit_sede2" class="form-control" required>
 							    	<option value="">Seleccione</option>
-							    	<option value="1">VIP Occidente</option>
-							    	<option value="2">Norte</option>
-							    	<option value="3">Occidente 1</option>
-							    	<option value="4">VIP Suba</option>
+							    	<?php
+							    	$sql4 = "SELECT * FROM sedes";
+							    	$consulta4 = mysqli_query($conexion,$sql4);
+									while($row4 = mysqli_fetch_array($consulta4)) { ?>
+										<option value="<?php echo $row4['id']; ?>"><?php echo $row4['nombre']; ?></option>
+							    	<?php } ?>
 							    </select>
 						    </div>
 

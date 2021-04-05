@@ -136,7 +136,10 @@ INSERT INTO usuarios (nombre,apellido,documento_tipo,documento_numero,correo,usu
 
 ('pasantebelen','pasantebelen','Cedula de Ciudadania','77777777777','pasantebelen@gmail.com','pasantebelen','a5604eb6a51af9e9719bb9fda7bf0686','777777777777','',4,7,'2021-03-30'),
 ('pasantesa','pasantesa','Cedula de Ciudadania','77777777777','pasantesa@gmail.com','pasantesa','a5604eb6a51af9e9719bb9fda7bf0686','777777777777','',4,8,'2021-03-30'),
-('pasantemanrique','pasantemanrique','Cedula de Ciudadania','77777777777','pasantemanrique@gmail.com','pasantemanrique','a5604eb6a51af9e9719bb9fda7bf0686','777777777777','',4,9,'2021-03-30');
+('pasantemanrique','pasantemanrique','Cedula de Ciudadania','77777777777','pasantemanrique@gmail.com','pasantemanrique','a5604eb6a51af9e9719bb9fda7bf0686','777777777777','',4,9,'2021-03-30'),
+
+('Valentina','Linares','Cedula de Ciudadania','1026594002','givalimu0321@gmail.com','valentina0321','cd2acea595e93463bc8ea3b6d1583fc9','3222791497','',8,6,'2021-03-31'),
+('Lizeth','Reyes','Cedula de Ciudadania','1073699719','santiagoreyes1201@gmail.com','reyes19','30d708ec57e485cd54a78968d278959f','3123109781','',15,6,'2021-04-01');
 ALTER TABLE usuarios CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 DROP TABLE IF EXISTS modelos;
@@ -1114,6 +1117,7 @@ CREATE TABLE nomina (
 	funcion INT NOT NULL,
 
 	clave VARCHAR(250) NOT NULL,
+	fecha_expedicion date NOT NULL,
 
 	PRIMARY KEY (id)
 );ALTER TABLE nomina CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;

@@ -21,6 +21,8 @@ if($condicion=='guardar1'){
 	$turno 				= $_POST['turno'];
 	$fecha_nacimiento 	= $_POST['fecha_nacimiento'];
 	$fecha_ingreso 		= $_POST['fecha_ingreso'];
+	$fecha_expedicion 	= $_POST['fecha_expedicion'];
+	$clave = md5($numero_documento);
 
 	$sql2 = "SELECT * FROM nomina WHERE documento_numero = '".$numero_documento."'";
 	$consulta2 = mysqli_query($conexion,$sql2);
@@ -30,9 +32,9 @@ if($condicion=='guardar1'){
 		$datos = [
 			"estatus" => 'repetido',
 		];
-		echo json_encode($datos);		
+		echo json_encode($datos);
 	}else{
-		$sql1 = "INSERT INTO nomina (nombre,apellido,documento_tipo,documento_numero,genero,correo,direccion,salario,telefono,estatus,fecha_inicio,turno,sede,cargo,fecha_nacimiento,fecha_ingreso) VALUES ('$nombre','$apellido','$tipo_documento','$numero_documento','$genero','$correo','$direccion','$salario','$telefono','Aceptado','$fecha_inicio','$turno','$sedes','$cargo','$fecha_nacimiento','$fecha_ingreso')";
+		$sql1 = "INSERT INTO nomina (nombre,apellido,documento_tipo,documento_numero,genero,correo,direccion,salario,telefono,estatus,fecha_inicio,turno,sede,cargo,fecha_nacimiento,fecha_ingreso,clave) VALUES ('$nombre','$apellido','$tipo_documento','$numero_documento','$genero','$correo','$direccion','$salario','$telefono','Aceptado','$fecha_inicio','$turno','$sedes','$cargo','$fecha_nacimiento','$fecha_ingreso','$clave','$fecha_expedicion')";
 		$consulta1 = mysqli_query($conexion,$sql1);
 
 		$datos = [
@@ -67,6 +69,7 @@ if($condicion=='consultar1'){
 		$fecha_nacimiento = $row1['fecha_nacimiento'];
 		$fecha_ingreso = $row1['fecha_ingreso'];
 		$fecha_retiro = $row1['fecha_retiro'];
+		$fecha_expedicion = $row1['fecha_expedicion'];
 	}
 
 	$datos = [
@@ -88,6 +91,7 @@ if($condicion=='consultar1'){
 		"fecha_nacimiento" => $fecha_nacimiento,
 		"fecha_ingreso" => $fecha_ingreso,
 		"fecha_retiro" => $fecha_retiro,
+		"fecha_expedicion" => $fecha_expedicion,
 	];
 
 	echo json_encode($datos);
@@ -111,12 +115,13 @@ if($condicion=='editar1'){
 	$fecha_nacimiento = $_POST['fecha_nacimiento'];
 	$fecha_ingreso = $_POST['fecha_ingreso'];
 	$fecha_retiro = $_POST['fecha_retiro'];
+	$fecha_expedicion = $_POST['fecha_expedicion'];
 
 	if($estatus=='Aceptado'){
 		$fecha_retiro = '';
 	}
 
-	$sql1 = "UPDATE nomina SET documento_tipo = '$tipo_documento', documento_numero = '$numero_documento', nombre = '$nombre', apellido = '$apellido', genero = '$genero', correo = '$correo', direccion = '$direccion', salario = '$salario', turno = '$turno', telefono = '$telefono', cargo = '$cargo', sede = '$sedes', estatus = '$estatus', fecha_nacimiento = '$fecha_nacimiento', fecha_ingreso = '$fecha_ingreso', fecha_retiro = '$fecha_retiro' WHERE id = ".$id;
+	$sql1 = "UPDATE nomina SET documento_tipo = '$tipo_documento', documento_numero = '$numero_documento', nombre = '$nombre', apellido = '$apellido', genero = '$genero', correo = '$correo', direccion = '$direccion', salario = '$salario', turno = '$turno', telefono = '$telefono', cargo = '$cargo', sede = '$sedes', estatus = '$estatus', fecha_nacimiento = '$fecha_nacimiento', fecha_ingreso = '$fecha_ingreso', fecha_retiro = '$fecha_retiro', fecha_expedicion = '$fecha_expedicion' WHERE id = ".$id;
 	$consulta1 = mysqli_query($conexion,$sql1);
 
 	$sql2 = "SELECT * FROM sedes WHERE id = ".$sedes;
@@ -322,10 +327,11 @@ if($condicion=='documentos1'){
 			switch ($row2["id"]) {
 				case '1':
 					$html .= '
-						<div class="col-12 text-center">
+						<div class="col-12 text-center" id="div_documento1_'.$row2["id"].'">
 							<label style="text-transform: capitalize;">'.$row2["nombre"].'</label>
 							<br>
 							<embed src="../resources/documentos/nominas/archivos/'.$id.'/seguridad_social.pdf#toolbar=0" type="application/pdf" width="100%" height="300px" style="">
+							<button type="button" class="btn btn-danger" onclick="eliminar2('.$id.','.$row2["id"].');">Eliminar</button>
 							<hr style="background-color:black;">
 						</div>
 					';
@@ -333,10 +339,11 @@ if($condicion=='documentos1'){
 
 				case '2':
 					$html .= '
-						<div class="col-12 text-center">
+						<div class="col-12 text-center" id="div_documento1_'.$row2["id"].'">
 							<label style="text-transform: capitalize;">'.$row2["nombre"].'</label>
 							<br>
 							<embed src="../resources/documentos/nominas/archivos/'.$id.'/eps.pdf#toolbar=0" type="application/pdf" width="100%" height="300px" style="">
+							<button type="button" class="btn btn-danger" onclick="eliminar2('.$id.','.$row2["id"].');">Eliminar</button>
 							<hr style="background-color:black;">
 						</div>
 					';
@@ -344,10 +351,11 @@ if($condicion=='documentos1'){
 
 				case '3':
 					$html .= '
-						<div class="col-12 text-center">
+						<div class="col-12 text-center" id="div_documento1_'.$row2["id"].'">
 							<label style="text-transform: capitalize;">'.$row2["nombre"].'</label>
 							<br>
 							<embed src="../resources/documentos/nominas/archivos/'.$id.'/fondo_de_pension.pdf#toolbar=0" type="application/pdf" width="100%" height="300px" style="">
+							<button type="button" class="btn btn-danger" onclick="eliminar2('.$id.','.$row2["id"].');">Eliminar</button>
 							<hr style="background-color:black;">
 						</div>
 					';
@@ -355,10 +363,11 @@ if($condicion=='documentos1'){
 
 				case '4':
 					$html .= '
-						<div class="col-12 text-center">
+						<div class="col-12 text-center" id="div_documento1_'.$row2["id"].'">
 							<label style="text-transform: capitalize;">'.$row2["nombre"].'</label>
 							<br>
 							<embed src="../resources/documentos/nominas/archivos/'.$id.'/arl.pdf#toolbar=0" type="application/pdf" width="100%" height="300px" style="">
+							<button type="button" class="btn btn-danger" onclick="eliminar2('.$id.','.$row2["id"].');">Eliminar</button>
 							<hr style="background-color:black;">
 						</div>
 					';
@@ -366,10 +375,11 @@ if($condicion=='documentos1'){
 
 				case '5':
 					$html .= '
-						<div class="col-12 text-center">
+						<div class="col-12 text-center" id="div_documento1_'.$row2["id"].'">
 							<label style="text-transform: capitalize;">'.$row2["nombre"].'</label>
 							<br>
 							<embed src="../resources/documentos/nominas/archivos/'.$id.'/antecedentes_penales.pdf#toolbar=0" type="application/pdf" width="100%" height="300px" style="">
+							<button type="button" class="btn btn-danger" onclick="eliminar2('.$id.','.$row2["id"].');">Eliminar</button>
 							<hr style="background-color:black;">
 						</div>
 					';
@@ -377,10 +387,11 @@ if($condicion=='documentos1'){
 
 				case '6':
 					$html .= '
-						<div class="col-12 text-center">
+						<div class="col-12 text-center" id="div_documento1_'.$row2["id"].'">
 							<label style="text-transform: capitalize;">'.$row2["nombre"].'</label>
 							<br>
 							<embed src="../resources/documentos/nominas/archivos/'.$id.'/hoja_de_vida.pdf#toolbar=0" type="application/pdf" width="100%" height="300px" style="">
+							<button type="button" class="btn btn-danger" onclick="eliminar2('.$id.','.$row2["id"].');">Eliminar</button>
 							<hr style="background-color:black;">
 						</div>
 					';
@@ -388,10 +399,11 @@ if($condicion=='documentos1'){
 
 				case '7':
 					$html .= '
-						<div class="col-12 text-center">
+						<div class="col-12 text-center" id="div_documento1_'.$row2["id"].'">
 							<label style="text-transform: capitalize;">'.$row2["nombre"].'</label>
 							<br>
-							<embed src="../resources/documentos/nominas/archivos/'.$id.'/identificacion.pdf#toolbar=0" type="application/pdf" width="100%" height="300px" style="">
+							<embed src="../resources/documentos/nominas/archivos/'.$id.'/identificacion.pdf" type="application/pdf" width="100%" height="300px" style="">
+							<button type="button" class="btn btn-danger" onclick="eliminar2('.$id.','.$row2["id"].');">Eliminar</button>
 							<hr style="background-color:black;">
 						</div>
 					';
@@ -399,10 +411,11 @@ if($condicion=='documentos1'){
 
 				case '8':
 					$html .= '
-						<div class="col-12 text-center">
+						<div class="col-12 text-center" id="div_documento1_'.$row2["id"].'">
 							<label style="text-transform: capitalize;">'.$row2["nombre"].'</label>
 							<br>
 							<embed src="../resources/documentos/nominas/archivos/'.$id.'/firma.pdf#toolbar=0" type="application/pdf" width="100%" height="300px" style="">
+							<button type="button" class="btn btn-danger" onclick="eliminar2('.$id.','.$row2["id"].');">Eliminar</button>
 							<hr style="background-color:black;">
 						</div>
 					';
@@ -410,10 +423,11 @@ if($condicion=='documentos1'){
 
 				case '9':
 					$html .= '
-						<div class="col-12 text-center">
+						<div class="col-12 text-center" id="div_documento1_'.$row2["id"].'">
 							<label style="text-transform: capitalize;">'.$row2["nombre"].'</label>
 							<br>
 							<embed src="../resources/documentos/nominas/archivos/'.$id.'/rut.pdf#toolbar=0" type="application/pdf" width="100%" height="300px" style="">
+							<button type="button" class="btn btn-danger" onclick="eliminar2('.$id.','.$row2["id"].');">Eliminar</button>
 							<hr style="background-color:black;">
 						</div>
 					';
@@ -463,5 +477,19 @@ if($condicion=='cambiar_clave1'){
 	echo json_encode($datos);
 }
 
+if($condicion=='eliminar2'){
+	$id = $_POST['id'];
+	$id_documento = $_POST['id_documento'];
+
+	$sql1 = "DELETE FROM n_archivos WHERE id_nomina = $id and id_documento = $id_documento";
+	$proceso1 = mysqli_query($conexion,$sql1);
+
+	$datos = [
+		"estatus" => 'ok',
+		"sql" => $sql1,
+	];
+
+	echo json_encode($datos);
+}
 
 

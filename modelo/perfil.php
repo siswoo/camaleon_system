@@ -1902,6 +1902,8 @@
 				showConfirmButton: true,
 				//timer: 3000
 			})
+
+			//$('#bancario_oculto1').val(); PENDIENTE
 		}
 	}
 
