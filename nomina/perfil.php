@@ -116,6 +116,10 @@
 			$emergencia_telefono=$row['emergencia_telefono'];
 			$emergencia_parentesco=$row['emergencia_parentesco'];
 			/*****************************/
+
+			/********EMPRESARIAL**************/
+			$funcion=$row['funcion'];
+			/*****************************/
 		}
 	}
 	?>
@@ -136,11 +140,9 @@
 			<li class="nav-item">
 				<a class="nav-link" href="#" id="Dpagos" onclick="pestañas(this.id);" style="color:white; text-transform: uppercase;">Pagos</a>
 			</li>
-			<!--
 			<li class="nav-item">
 				<a class="nav-link" href="#" id="Dcontrato" onclick="pestañas(this.id);" style="color:white; text-transform: uppercase;">Contrato</a>
 			</li>
-			-->
 			<li class="nav-item">
 				<a class="nav-link" href="#" id="Demergencia" onclick="pestañas(this.id);" style="color:white; text-transform: uppercase;">Emergencia</a>
 			</li>
@@ -570,69 +572,69 @@
 	<!--**********************CONTRATO*********************-->
 	<!--***********************************************************-->
 	<form class="d-none" action="#" method="POST" id="formulario6">
-		<input type="hidden" id="asunto" name="asunto" value="contrato">
-		<input type="hidden" id="id" name="id" value="<?php echo $id; ?>">
-		<div class="row">
-			
-			<div class="col-12 form-group form-check text-center mt-3">
-				<input type="button" class="btn btn-info" id="botonContratover1" name="botonContratover1" value="Ver Contrato (Primera Opción)" onclick="vercontrato1();">
-				<input type="hidden" name="hidden_vercontrato1" id="hidden_vercontrato1" value="No">
-			</div>
+		<input type="hidden" id="contrato_id" name="contrato_id" value="<?php echo $id; ?>">
+		<?php
+		if($funcion=='' or $funcion==0){
+			echo '<p for="turno" style="font-size: 22px; text-transform: capitalize;" class="text-center mt-3">Aun no tienes una funcion asignada</p>';
+		}else{ ?>
+			<div class="row">
+				<div class="col-12 form-group form-check text-center mt-3">
+					<input type="button" class="btn btn-info" id="botonContratover1" name="botonContratover1" value="Ver Contrato (Primera Opción)" onclick="vercontrato1();">
+					<input type="hidden" name="hidden_vercontrato1" id="hidden_vercontrato1" value="No">
+				</div>
 
-			<?php
-			if($cargo==1){
-				$nombre_contrato = "contrato1";
-			}
-			?>
-
-			<div class="col-12 form-group form-check text-center mt-3">
-				<a href="../script/generador_nomina_contrato1.php#toolbar=0" target="_blank">
-					<button type="button" class="btn btn-info">Ver Contrato (Segunda Opción)</button>
-				</a>
-			</div>
-
-			<div class="col-12 form-group form-check text-center" id="seccion_contrato1" style="display: none;">
-				<label>Contrato Actualizado</label>
-				<embed src="../script/generador_nomina_contrato1.php#toolbar=0" type="application/pdf" width="100%" height="600px" />
-			</div>
-				
-			<div class="col-12 form-group form-check text-center mt-3">
 				<?php
-				$sql2 = "SELECT * FROM modelos_documentos WHERE id_documentos = 1 and id_modelos = ".$id;
-				$consulta2 = mysqli_query($conexion,$sql2);
-				$contador2 = mysqli_num_rows($consulta2);
-				if($contador2==0){ ?>
-				<hr style="background-color: white;">
-				<form id="form_certificacion_bancaria" enctype="multipart/form-data" method="POST">
-					<div class="row mt-3">
-						<div class="col-12 form-group form-check">
-							<p for="turno" style="font-size: 22px; text-transform: capitalize;">No cuenta aún con una firma en el contrato</p>
-							<p>
-								<a href="../script/generador_firmas1.php" target="_blank">
-									<button type="button" class="btn btn-danger">Generar Firma Digital</button>
-								</a>
-							</p>
-							<hr style="background-color: white;">
-							<button type="submit" class="btn btn-success" id="submit_firma_digital" style="height: 35px; margin-top: 6px; margin-bottom: 11px;margin-right: 20px;">Subir</button>
-							<label for="turno">Firma Contrato de Prestación</label>
-							<input type="file" style="height:43px;" class="form-control" name="firma_digital" id="firma_digital" required>
-						</div>
-					</div>
-				</form>
-				<hr style="background-color: white;">
-				<?php
-				}else{
-					while($row2 = mysqli_fetch_array($consulta2)) {
-						$sql_documentos_id = $row2['id'];
-						$sql_documentos_id_documentos = $row2['id_documentos'];
-						$sql_documentos_id_modelos = $row2['id_modelos'];
-						$sql_documentos_fecha_inicio = $row2['fecha_inicio'];
-					}
-					echo '<p for="turno" style="font-size: 22px; text-transform: capitalize;">Ya Tiene una Firma Registrada!</p>';
+				if($cargo==1){
+					$nombre_contrato = "contrato1";
 				}
 				?>
+
+				<div class="col-12 form-group form-check text-center mt-3">
+					<a href="../script/generador_nomina_contrato1.php#toolbar=0" target="_blank">
+						<button type="button" class="btn btn-info">Ver Contrato (Segunda Opción)</button>
+					</a>
+				</div>
+
+				<div class="col-12 form-group form-check text-center" id="seccion_contrato1" style="display: none;">
+					<label>Contrato Actualizado</label>
+					<embed src="../script/generador_nomina_contrato1.php#toolbar=0" type="application/pdf" width="100%" height="600px" />
+				</div>
+					
+				<div class="col-12 form-group form-check text-center mt-3">
+					<?php
+					$sql2 = "SELECT * FROM n_archivos WHERE id_documento = 8 and id_nomina = ".$id;
+					$consulta2 = mysqli_query($conexion,$sql2);
+					$contador2 = mysqli_num_rows($consulta2);
+					if($contador2==0){ ?>
+					<hr style="background-color: white;">
+					<form id="form_certificacion_bancaria" enctype="multipart/form-data" method="POST">
+						<div class="row mt-3">
+							<div class="col-12 form-group form-check">
+								<p for="turno" style="font-size: 22px; text-transform: capitalize;">No cuenta aún con una firma en el contrato</p>
+								<p>
+									<a href="../script/generador_firmas1.php" target="_blank">
+										<button type="button" class="btn btn-danger">Generar Firma Digital</button>
+									</a>
+								</p>
+								<hr style="background-color: white;">
+								<button type="submit" class="btn btn-success" id="submit_firma_digital" style="height: 35px; margin-top: 6px; margin-bottom: 11px;margin-right: 20px;">Subir</button>
+								<label for="turno">Firma Contrato de Prestación</label>
+								<input type="file" style="height:43px;" class="form-control" name="firma_digital" id="firma_digital" required>
+							</div>
+						</div>
+					</form>
+					<hr style="background-color: white;">
+					<?php
+					}else{
+						while($row2 = mysqli_fetch_array($consulta2)) {
+							$sql_documentos_id = $row2['id'];
+						}
+						echo '<p for="turno" style="font-size: 22px; text-transform: capitalize;">Ya Tiene una Firma Registrada!</p>';
+					}
+					?>
+				</div>
 			</div>
-		</div>
+		<?php } ?>
 	</form>
 	<!--***********************************************************-->
 	<!--***********************************************************-->
@@ -1578,9 +1580,11 @@
         var fd = new FormData();
         var files = $('#firma_digital')[0].files[0];
         fd.append('file',files);
+        fd.append('id',$('#contrato_id').val());
+        fd.append('condicion',"subir_archivo2");
 
         $.ajax({
-            url: '../script/modelo_subir_documento.php',
+            url: '../script/crud_nomina.php',
             type: 'POST',
             data: fd,
             contentType: false,
@@ -1591,6 +1595,7 @@
             },
 
             success: function(response){
+            	console.log(response);
             	if(response=='error'){
             		$('#submit_firma_digital').attr('disabled','false');
             		Swal.fire({

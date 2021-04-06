@@ -278,9 +278,24 @@
 							    <label for="fecha_ingreso">Fecha de Ingreso </label>
 							    <input type="date" name="fecha_ingreso" id="fecha_ingreso" class="form-control">
 						    </div>
-						    <div class="col-12 form-group form-check">
+						    <div class="col-6 form-group form-check">
 							    <label for="fecha_expedicion">Fecha de expedición del documento </label>
 							    <input type="date" name="fecha_expedicion" id="fecha_expedicion" class="form-control">
+						    </div>
+						    <div class="col-6 form-group form-check">
+							    <label for="funcion">Función </label>
+							    <select class="form-control" name="funcion" id="funcion" required>
+							    	<option value="">Seleccione</option>
+							    	<?php
+							    	$sql_funcion = "SELECT * FROM funciones";
+									$resultado_funcion = mysqli_query($conexion,$sql_funcion);
+									while($row5 = mysqli_fetch_array($resultado_funcion)) {
+										$funcion_id = $row5['id'];
+										$funcion_nombre = $row5['nombre'];
+										echo '<option value="'.$funcion_id.'">'.$funcion_nombre.'</option>';
+									}
+							    	?>
+							    </select>
 						    </div>
 					    </div>
 					</div>
@@ -417,6 +432,21 @@
 						    <div class="col-6 form-group form-check">
 							    <label for="edit_fecha_expedicion">Fecha de Expedición</label>
 							    <input type="date" id="edit_fecha_expedicion" name="edit_fecha_expedicion" class="form-control">
+						    </div>
+						    <div class="col-12 form-group form-check">
+							    <label for="edit_funcion">Función</label>
+							    <select class="form-control" name="edit_funcion" id="edit_funcion" required>
+							    	<option value="">Seleccione</option>
+							    	<?php
+							    	$sql_funcion = "SELECT * FROM funciones";
+									$resultado_funcion = mysqli_query($conexion,$sql_funcion);
+									while($row5 = mysqli_fetch_array($resultado_funcion)) {
+										$funcion_id = $row5['id'];
+										$funcion_nombre = $row5['nombre'];
+										echo '<option value="'.$funcion_id.'">'.$funcion_nombre.'</option>';
+									}
+							    	?>
+							    </select>
 						    </div>
 					    </div>
 					</div>
@@ -630,6 +660,7 @@
 		var fecha_nacimiento 	= $('#fecha_nacimiento').val();
 		var fecha_ingreso 		= $('#fecha_ingreso').val();
 		var fecha_expedicion 	= $('#fecha_expedicion').val();
+		var funcion 			= $('#funcion').val();
 
 	    $.ajax({
 			type: 'POST',
@@ -650,6 +681,7 @@
 				"fecha_nacimiento": fecha_nacimiento,
 				"fecha_ingreso": fecha_ingreso,
 				"fecha_expedicion": fecha_expedicion,
+				"funcion": funcion,
 				"condicion": "guardar1",
 			},
 			dataType: "JSON",
@@ -722,6 +754,11 @@
 				$("#edit_fecha_ingreso").val(respuesta["fecha_ingreso"]);
 				$("#edit_fecha_retiro").val(respuesta["fecha_retiro"]);
 				$("#edit_fecha_expedicion").val(respuesta["fecha_expedicion"]);
+				if(respuesta["funcion"]==0){
+					$("#edit_funcion").val("");
+				}else{
+					$("#edit_funcion").val(respuesta["funcion"]);
+				}
 			},
 
 			error: function(respuesta) {
@@ -751,6 +788,7 @@
 		var fecha_ingreso 		= $('#edit_fecha_ingreso').val();
 		var fecha_retiro 		= $('#edit_fecha_retiro').val();
 		var fecha_expedicion 	= $('#edit_fecha_expedicion').val();
+		var funcion 			= $('#edit_funcion').val();
 
 	    $.ajax({
 			type: 'POST',
@@ -774,6 +812,7 @@
 				"fecha_ingreso": fecha_ingreso,
 				"fecha_retiro": fecha_retiro,
 				"fecha_expedicion": fecha_expedicion,
+				"funcion": funcion,
 				"condicion": "editar1",
 			},
 			dataType: "JSON",

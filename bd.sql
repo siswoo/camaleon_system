@@ -69,22 +69,23 @@ CREATE TABLE sedes (
 	nombre VARCHAR(250) NOT NULL,
 	direccion VARCHAR(250) NOT NULL,
 	ciudad VARCHAR(250) NOT NULL,
+	descripcion VARCHAR(250) NOT NULL,
 	responsable VARCHAR(250) NOT NULL,
 	cedula VARCHAR(250) NOT NULL,
 	rut VARCHAR(250) NOT NULL,
 	PRIMARY KEY (id)
 ); ALTER TABLE sedes CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
-INSERT INTO sedes (nombre,direccion,ciudad,responsable,cedula,rut) VALUES 
-('VIP Occidente','Direccion','Bogotá D.C', 'Andres Fernando Bernal Correa', '80.774.671', '901.257.204-8'),
-('Norte','Direccion','Bogotá D.C', 'Andres Fernando Bernal Correa', '80.774.671', '901.257.204-8'),
-('Occidente I','Direccion','Bogotá D.C', 'Andres Fernando Bernal Correa', '80.774.671', '901.257.204-8'),
-('VIP Suba','Direccion','Bogotá D.C', 'Andres Fernando Bernal Correa', '80.774.671', '901.257.204-8'),
-('Medellin','Direccion','Medellin', 'Andres Fernando Bernal Correa', '80.774.671', '901.257.204-8'),
-('Soacha','Direccion','Bogotá D.C', 'Andres Fernando Bernal Correa', '80.774.671', '901.257.204-8'),
-('Belen','Carrera 81 #30A 67','Medellin', 'Andres Fernando Bernal Correa', '80.774.671', '901322261-6'),
-('Sur Americana','Calle 48 #66 70','Medellin', 'Andres Fernando Bernal Correa', '80.774.671', '901322261-6'),
-('Manrique','Carrera 36 #70 41','Medellin', 'Andres Fernando Bernal Correa', '80.774.671', '901322261-6');
+INSERT INTO sedes (nombre,direccion,ciudad,descripcion,responsable,cedula,rut) VALUES 
+('VIP Occidente','Direccion','Bogotá D.C','BERNAL GROUP  SAS','Andres Fernando Bernal Correa', '80.774.671', '901.257.204-8'),
+('Norte','Direccion','Bogotá D.C','BERNAL GROUP  SAS','Andres Fernando Bernal Correa', '80.774.671', '901.257.204-8'),
+('Occidente I','Direccion','Bogotá D.C','BERNAL GROUP  SAS','Andres Fernando Bernal Correa', '80.774.671', '901.257.204-8'),
+('VIP Suba','Direccion','Bogotá D.C','BERNAL GROUP  SAS','Andres Fernando Bernal Correa', '80.774.671', '901.257.204-8'),
+('Medellin','Direccion','Medellin','BERNAL GROUP  SAS','Andres Fernando Bernal Correa', '80.774.671', '901.257.204-8'),
+('Soacha','Direccion','Bogotá D.C','BERNAL GROUP  SAS','Andres Fernando Bernal Correa', '80.774.671', '901.257.204-8'),
+('Belen','Carrera 81 #30A 67','Medellin','BERNAL GROUP  SAS','Andres Fernando Bernal Correa', '80.774.671', '901322261-6'),
+('Sur Americana','Calle 48 #66 70','Medellin','BERNAL GROUP  SAS','Andres Fernando Bernal Correa', '80.774.671', '901322261-6'),
+('Manrique','Carrera 36 #70 41','Medellin','BERNAL GROUP  SAS','Andres Fernando Bernal Correa', '80.774.671', '901322261-6');
 
 
 DROP TABLE IF EXISTS usuarios;
@@ -1222,12 +1223,56 @@ CREATE TABLE n_pagos (
 DROP TABLE IF EXISTS funciones;
 CREATE TABLE funciones (
 	id INT AUTO_INCREMENT,
-	id_cargo INT NOT NULL,
 	nombre VARCHAR(250) NOT NULL,
-	descripcion VARCHAR(250) NOT NULL,
+	descripcion1 VARCHAR(250) NOT NULL,
+	descripcion2 VARCHAR(250) NOT NULL,
+	descripcion3 VARCHAR(250) NOT NULL,
+	descripcion4 VARCHAR(250) NOT NULL,
+	descripcion5 VARCHAR(250) NOT NULL,
+	descripcion6 VARCHAR(250) NOT NULL,
+	descripcion7 VARCHAR(250) NOT NULL,
+	descripcion8 VARCHAR(250) NOT NULL,
+	descripcion9 VARCHAR(250) NOT NULL,
+	descripcion10 VARCHAR(250) NOT NULL,
+	descripcion11 VARCHAR(250) NOT NULL,
+	descripcion12 VARCHAR(250) NOT NULL,
+	descripcion13 VARCHAR(250) NOT NULL,
+	descripcion14 VARCHAR(250) NOT NULL,
+	descripcion15 VARCHAR(250) NOT NULL,
+	responsable INT NOT NULL,
 	fecha_inicio date NOT NULL,
 	PRIMARY KEY (id)
 );ALTER TABLE funciones CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
+INSERT INTO funciones (nombre,descripcion1,descripcion2,descripcion3,descripcion4,descripcion5,descripcion6,descripcion7,descripcion8,descripcion9,descripcion10,descripcion11,descripcion12,descripcion13,descripcion14,descripcion15,responsable,fecha_inicio) VALUES 
+("Financiero","El Responsable Financiero","Encargada Corroborar, Verificar Y Controlar, Todo Lo Relacionado A Pagos De Nomina, Empleados, Proovedores Y Pago De Servicios.","Asi Mismo Controlar Los Ingresos De Todo Lo Referido A Monetizacion.","","","","","","","","","","","","",1,"2021-04-05"),
+("JEFE DE MONITOREO","Supervisar Y Verificar E Innovar todas las actividades de los monitores","","","","","","","","","","","","","","",1,"2021-04-05"),
+("MAQUINAS","Realizar Inventarios De Productos Para Maquinas De Café Y Dispensadores","Realizar Y Recibir Pedidos Para Maquinas De Café Y Dispensador","Surtir Maquina","Llevar Finanzas De Maquinas","Velar Por El Buen Funcionamiento De Las Maquinas  En Las 3 Sedes","","","","","","","","","","",1,"2021-04-05"),
+("MONITORES","Recibir a los modelos y asignarles room","Entregar un reporte al incio de cada turno de modelos en trasmisión","Configurar paginas, obs y angulos de cámara para empezar una trasmision optima","Cada monitor tiene en promedio 8 modelos bajo su cargo a quienes tendrán en sus pantallas supervisadas para resolver cualquier situación que se presente en el streaming y a su vez brindar apoyo en sus shows","Entregar reporte de números al final del turno para hacer una evaluación de dicho proceso","Llevar un control del proceso del modelo para asi verificar sus fallas y dar soluciones al mejoramiento de las mismas","","","","","","","","","",1,"2021-04-05"),
+("ADMINISTRADORES","Reclutamiento y selección del personal","Capacitar personal","Resolver conflictos que puedan haber dentro de la sede","Evaluación del personal de nomina que esta en la sede y de las modelos","Gestionar creacion de bios","Mandar información para apertura de cuentas","Gestionar seccion de fotos a las modelos"," Llevar el control de la aplicacion (carga de documentos)","Verificar desprendibles de pagos","Llevar control de inasistencias y llegadas tardes (subir multas a la aplicacion)","Depuración de la aplicación","Ayudar a Resolver dudas de las modelos de otros departamentos"," apoyar  y Capacitar a la modelos","","",1,"2021-04-05"),
+("VIGILANTE","Apertura de puerta principal ala 6 am ","Verificacion de toda la sede ","Chequeo de todo los modelos que ingresan y salen de las sede en los 3 turnos ","Verificacion de todo el personal nomina ; hora de llega con sus respectivos uniformes ","Verificacion que las modelos esten en trasmision a la hora correspondiente ","Chequeo cada 30 minitos por toda la sede para que no se presente nunguna anomalia ","Verificacion de aseo y limpiesa de toda la sede ","Verificacion y cierre de la sede al final del turno asegurando el cierre y la seguridad de la sede","","","","","","","",1,"2021-04-05"),
+("MANTENIMIENTO","Realización de limpieza de cada área y rooms","Manejo de cafetería","Realizar lavados de tendidos","Supervisar que cada área este limpia del personal encargado","","","","","","","","","","","",1,"2021-04-05"),
+("JEFE DE SOPORTE","Verificación y supervisión de la creación de cuentas","Desmaneo de cuentas","Verificación de las cuentas en la app ,cuando ya están aprobadas  y se alertan para que la modelo cepa que ya tienen sus cuentas a la app,  en el drive se aprueban","Capacitación de personal nuevo para el área de soporte","Apoyo en las demás sedes con la solución de requerimientos","Supervisar que todos los modelos tengan plan choque (todas las cuentas) al día","Solución de rechazos de documentos en las diferentes paginas","Actualización y verificación de la app","Apoyo en las demás áreas con diferentes demás donde se pueden intervenir","","","","","","",1,"2021-04-05"),
+("DISEÑADOR GRAFICO","Actualización de biografías","Diseño de cenefa de las pg de cada modelo","Verificación de datos personales","Elaboración de contenido profesional  y personalizado en cada biografía  con su line grafica","Integrar las biografías en cada página","Creación de gif para la trasmisión","","","","","","","","","",1,"2021-04-05"),
+("COMUNITY MANAGER","Elaboración de artículos para el posicionamiento de la marca camaleón.","Creación de objetivos para parrilla de contenido semanal.","Redacción y creación de textos para la parrilla de contenido semanal.","Coordinación de las funciones del equipo de marketing.","Posicionamiento de las redes sociales instagram, facebook, twitter, youtube y página web. Elaboración de estrategias y campañas para eventos de camaleón models.","Elaboración de guiones para videos de la marca.","Posicionamiento de embajadores camaleón.","Actualización de base de datos de modelos públicas y consecución de su autorización por escrito.","Posicionamiento en redes sociales tienda camaleón shop.","Elaboración de contenido escrito para magazine camaleón (próximamente). Visibilizarcion de la marca camaleón con medios de comunicación.","","","","","",1,"2021-04-05"),
+("SOPORTE","Creación de cuentas","desmaneó de cuentas","Verificación de las cuentas en la app ,cuando ya están aprobadas  y se alertan para que la modelo cepa que ya tienen sus cuentas a la app,  en el drive se aprueba","","","","","","","","","","","","",1,"2021-04-05"),
+("DISEÑADOR G DE MARK","Diseñar piezas gráficas para redes sociales","Diseñar y actualizar contenido de página web","Diseñar y actualizar contenido de tienda virtual","Realización y edición de videos para redes sociales","Acompañamiento en procesos de posicionamiento de redes sociales","Diseño de piezas gráficas de comunicación interna y externa como correos de rebote para app.","Manejo de imagen corporativa.","","","","","","","","",1,"2021-04-05"),
+("FOTOGRAFO","Crear de contenidos para las modelos en la pag web","Crear contenido para marketing y redes sociales","Encargado de tomas las fotografías y videos","","","","","","","","","","","","",1,"2021-04-05"),
+("SOPORTE TECNICO","Realizar auditoria de las configuraciones y calidades de las modelos de las 7 sedes","Realizar el paralelo de tráfico a cada modelo","","","","","","","","","","","","","",1,"2021-04-05"),
+("RECURSOS HUMANOS","Seguimiento de modelos","Controlar base de datos para realizar aperturas de cuenta de las modelos","Realizar entrevistas para las personas que desean ser modelos","Control de registros en el app","Realizar la aprobación de modelos en el app","Ejecución y planificación de capacitaciones a las modelos","Entrega de reportes de entrevistas y de capacitaciones","","","","","","","","",1,"2021-04-05"),
+("SEXSHOP","Ventas de la tienda","Sostenibilidad en la tienda de sex-shop","","","","","","","","","","","","","",1,"2021-04-05"),
+("SOPORTE TÉCNICO DE INFRAESTRUCTURA","Verificación  del mantenimiento diario de la parte estructural y supervisión para el cuidado de las sedes","Encargamos de la solicitud de requerimientos de material de trabajo al momento de detectar daños, bajo cotización y compra con la parte operacional, entré otras labores","","","","","","","","","","","","","",1,"2021-04-05"),
+("DISEÑADOR MULTIMEDIA","Diseñador en 3d con conocimiento en ( cinema 4d o unreal engine 4 ) para la creacion de espacios virtuales","Conocimiento en ( z brush ) para el modelado de personajes virtuales","Conocimiento en animacion en cinema 4d de personajes con formato ( obj, fbx, 3ds )","Creación de texturas en cualquier programa de diseño 2d","Manejo de programas de edición de formatos mp4","Manejos de  programas estructuras con base de archivos stl para impresiones en 3d","","","","","","","","","",1,"2021-04-05"),
+("GERENTE OPERACIONAL","Encargado de las administración de los recursos necesarios para el correcto funcionamiento de una empresa ","Función de planificar e implementar y supervisar el desarrollo óptimo y la ejecución de todas las actividades  y procesos diarios","","","","","","","","","","","","","",1,"2021-04-05"),
+("PROGRAMADOR","Ejecucion y modificacion  de toda la parte de  la app","","","","","","","","","","","","","","",1,"2021-04-05");
+
+DROP TABLE IF EXISTS n_funciones;
+CREATE TABLE n_funciones (
+	id INT AUTO_INCREMENT,
+	id_cargo INT NOT NULL,
+	id_funciones INT NOT NULL,
+	fecha_inicio date NOT NULL,
+	PRIMARY KEY (id)
+);ALTER TABLE funciones CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 

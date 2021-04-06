@@ -22,6 +22,7 @@ if($condicion=='guardar1'){
 	$fecha_nacimiento 	= $_POST['fecha_nacimiento'];
 	$fecha_ingreso 		= $_POST['fecha_ingreso'];
 	$fecha_expedicion 	= $_POST['fecha_expedicion'];
+	$funcion 			= $_POST['funcion'];
 	$clave = md5($numero_documento);
 
 	$sql2 = "SELECT * FROM nomina WHERE documento_numero = '".$numero_documento."'";
@@ -34,7 +35,7 @@ if($condicion=='guardar1'){
 		];
 		echo json_encode($datos);
 	}else{
-		$sql1 = "INSERT INTO nomina (nombre,apellido,documento_tipo,documento_numero,genero,correo,direccion,salario,telefono,estatus,fecha_inicio,turno,sede,cargo,fecha_nacimiento,fecha_ingreso,clave) VALUES ('$nombre','$apellido','$tipo_documento','$numero_documento','$genero','$correo','$direccion','$salario','$telefono','Aceptado','$fecha_inicio','$turno','$sedes','$cargo','$fecha_nacimiento','$fecha_ingreso','$clave','$fecha_expedicion')";
+		$sql1 = "INSERT INTO nomina (nombre,apellido,documento_tipo,documento_numero,genero,correo,direccion,salario,telefono,estatus,fecha_inicio,turno,sede,cargo,fecha_nacimiento,fecha_ingreso,clave,fecha_expedicion,funcion) VALUES ('$nombre','$apellido','$tipo_documento','$numero_documento','$genero','$correo','$direccion','$salario','$telefono','Aceptado','$fecha_inicio','$turno','$sedes','$cargo','$fecha_nacimiento','$fecha_ingreso','$clave','$fecha_expedicion','$funcion')";
 		$consulta1 = mysqli_query($conexion,$sql1);
 
 		$datos = [
@@ -70,6 +71,7 @@ if($condicion=='consultar1'){
 		$fecha_ingreso = $row1['fecha_ingreso'];
 		$fecha_retiro = $row1['fecha_retiro'];
 		$fecha_expedicion = $row1['fecha_expedicion'];
+		$funcion = $row1['funcion'];
 	}
 
 	$datos = [
@@ -92,6 +94,7 @@ if($condicion=='consultar1'){
 		"fecha_ingreso" => $fecha_ingreso,
 		"fecha_retiro" => $fecha_retiro,
 		"fecha_expedicion" => $fecha_expedicion,
+		"funcion" => $funcion,
 	];
 
 	echo json_encode($datos);
@@ -116,12 +119,13 @@ if($condicion=='editar1'){
 	$fecha_ingreso = $_POST['fecha_ingreso'];
 	$fecha_retiro = $_POST['fecha_retiro'];
 	$fecha_expedicion = $_POST['fecha_expedicion'];
+	$funcion = $_POST['funcion'];
 
 	if($estatus=='Aceptado'){
 		$fecha_retiro = '';
 	}
 
-	$sql1 = "UPDATE nomina SET documento_tipo = '$tipo_documento', documento_numero = '$numero_documento', nombre = '$nombre', apellido = '$apellido', genero = '$genero', correo = '$correo', direccion = '$direccion', salario = '$salario', turno = '$turno', telefono = '$telefono', cargo = '$cargo', sede = '$sedes', estatus = '$estatus', fecha_nacimiento = '$fecha_nacimiento', fecha_ingreso = '$fecha_ingreso', fecha_retiro = '$fecha_retiro', fecha_expedicion = '$fecha_expedicion' WHERE id = ".$id;
+	$sql1 = "UPDATE nomina SET documento_tipo = '$tipo_documento', documento_numero = '$numero_documento', nombre = '$nombre', apellido = '$apellido', genero = '$genero', correo = '$correo', direccion = '$direccion', salario = '$salario', turno = '$turno', telefono = '$telefono', cargo = '$cargo', sede = '$sedes', estatus = '$estatus', fecha_nacimiento = '$fecha_nacimiento', fecha_ingreso = '$fecha_ingreso', fecha_retiro = '$fecha_retiro', fecha_expedicion = '$fecha_expedicion', funcion = '$funcion' WHERE id = ".$id;
 	$consulta1 = mysqli_query($conexion,$sql1);
 
 	$sql2 = "SELECT * FROM sedes WHERE id = ".$sedes;
@@ -487,6 +491,89 @@ if($condicion=='eliminar2'){
 	$datos = [
 		"estatus" => 'ok',
 		"sql" => $sql1,
+	];
+
+	echo json_encode($datos);
+}
+
+if($condicion=='subir_archivo2'){
+
+	$id_nomina = $_POST["id"];
+	
+	if(file_exists('../resources/documentos/nominas/archivos/'.$id_nomina)){}else{
+    	mkdir('../resources/documentos/nominas/archivos/'.$id_nomina, 0777);
+	}
+
+	function redimensionar_imagen($nombreimg, $rutaimg, $xmax, $ymax){
+	    $ext = explode(".", $nombreimg);
+	    $ext = $ext[count($ext)-1];
+
+	    if($ext!="jpg" && $ext!="jpeg" && $ext!="png" && $ext!="gif"){
+	        echo 'error';
+	        exit;
+	    }
+	      
+	    if($ext == "jpg" || $ext == "jpeg")  
+	        $imagen = imagecreatefromjpeg($rutaimg);
+	    elseif($ext == "png")  
+	        $imagen = imagecreatefrompng($rutaimg);
+	    elseif($ext == "gif")  
+	        $imagen = imagecreatefromgif($rutaimg);
+
+	    $x = imagesx($imagen);  
+	    $y = imagesy($imagen);  
+	          
+	    if($x <= $xmax && $y <= $ymax){
+	        return $imagen;  
+	    }
+	      
+	    if($x >= $y) {  
+	        $nuevax = $xmax;  
+	        $nuevay = $nuevax * $y / $x;  
+	    }  
+	    else {  
+	        $nuevay = $ymax;  
+	        $nuevax = $x / $y * $nuevay;  
+	    }  
+
+	    $img2 = imagecreatetruecolor($nuevax, $nuevay);
+	    imagecopyresized($img2, $imagen, 0, 0, 0, 0, floor($nuevax), floor($nuevay), $x, $y);
+	    return $img2;
+	}
+
+	$imagen_temporal = $_FILES['file']['tmp_name'];
+	$location = "../resources/documentos/nominas/archivos/".$id_nomina."/";
+	$imagen_nombre = $_FILES['file']['name'];
+	$imagen = getimagesize($_FILES['file']['tmp_name']);
+	$ancho = $imagen[0];
+	$alto = $imagen[1];
+	$extension = explode(".", $imagen_nombre);
+	$extension = $extension[count($extension)-1];
+
+	if($ancho>$alto){
+	    $imagen_optimizada = redimensionar_imagen($imagen_nombre,$imagen_temporal,1920,1080);
+	    imagejpeg($imagen_optimizada, $location.'firma_digital'.'.jpg');
+	}else if($ancho<$alto){
+	    $imagen_optimizada = redimensionar_imagen($imagen_nombre,$imagen_temporal,1080,1920);
+	    imagejpeg($imagen_optimizada, $location.'firma_digital'.'.jpg');
+	}else{
+	    $imagen_optimizada = redimensionar_imagen($imagen_nombre,$imagen_temporal,1080,1080);
+	    imagejpeg($imagen_optimizada, $location.'firma_digital'.'.jpg');
+	}
+
+	if($extension=='jpg'){}else{
+	    $extension='jpg';
+	}
+
+	$sql3 = "DELETE FROM n_archivos WHERE id_documentos = 8 and id_nomina = ".$id_nomina;
+	$eliminar1 = mysqli_query($conexion,$sql3);
+
+	$sql2 = "INSERT INTO n_archivos (id_nomina,id_documento,responsable,fecha_inicio) VALUES ($id_nomina,8,'$responsable','$fecha_inicio')";
+	$registro1 = mysqli_query($conexion,$sql2);
+
+
+	$datos = [
+		"estatus" => 'ok',
 	];
 
 	echo json_encode($datos);
