@@ -368,6 +368,7 @@
 					<option value="Pasaporte">Pasaporte</option>
 					<option value="Cedula de Ciudadania">Cedula de Ciudadania</option>
 					<option value="NIT">NIT</option>
+					<option value="NIT de extranjeria">NIT de extranjeria</option>
 				</select>
 			</div>
 

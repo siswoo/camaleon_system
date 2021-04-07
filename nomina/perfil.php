@@ -222,7 +222,7 @@
 		<div class="row">
 			<div class="col-6 form-group form-check">
 				<label for="BCPP">Cuenta Propia o Prestada?</label>
-				<select name="BCPP" class="form-control" id="BCPP" required>
+				<select name="BCPP" class="form-control" id="BCPP" onchange="prestada1(value);" required>
 					<?php
 					if($bcpp==''){ ?>
 						<option value="">Seleccione</option>
@@ -314,6 +314,20 @@
 					<option value="BANCO WWB">BANCO WWB</option>
 					<option value="Cooperativa Financiera de Antioquia">Cooperativa Financiera de Antioquia</option>
 				</select>
+			</div>
+
+			<div class="col-12 form-group form-check" id="div_acta_cuenta_prestada" style="display: none;">
+				<label for="acta_cuenta_prestada">Acta de Cuenta Prestada</label>
+				<?php
+					$sql9 = "SELECT * FROM n_archivos WHERE id_nomina = ".$id." and id_documento = 12";
+					$consulta9 = mysqli_query($conexion,$sql9);
+					$contador9 = mysqli_num_rows($consulta9);
+
+					if($contador9>=1){
+						echo "Ya tiene su Acta Montada";
+					}else{ ?>
+						<input type="file" name="acta_cuenta_prestada" id="acta_cuenta_prestada" class="form-control">
+					<?php } ?>
 			</div>
 
 		</div>
@@ -1059,12 +1073,22 @@
 
 	$("#formulario2").on("submit", function(e){
 		e.preventDefault();
-		var f = $(this);
-	    $.ajax({
-			type: 'POST',
-			url: '../script/crud_nomina.php',
-			data: $('#formulario2').serialize(),
-			dataType: "JSON",
+		var fd = new FormData();
+        var files = $('#acta_cuenta_prestada')[0].files[0];
+        fd.append('file',files);
+        fd.append('condicion',"subir_archivo1");
+        fd.append('condicion2',"Acta Cuenta Prestada");
+        fd.append('condicion3',"acta_cuenta_prestada");
+        fd.append('id',$('#id').val());
+
+        $.ajax({
+            url: '../script/crud_nomina.php',
+            type: 'POST',
+            data: fd,
+            dataType: "JSON",
+            contentType: false,
+            processData: false,
+		
 			success: function(respuesta) {
 				console.log(respuesta);
 				Swal.fire({
@@ -1959,6 +1983,14 @@
             }
         });
     });
+
+    function prestada1(value){
+    	if(value=='Prestada'){
+    		$('#div_acta_cuenta_prestada').show();
+    	}else{
+    		$('#div_acta_cuenta_prestada').hide();
+    	}
+    }
 
 
 	/********************************************/

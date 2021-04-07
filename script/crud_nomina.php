@@ -441,6 +441,18 @@ if($condicion=='documentos1'){
 						</div>
 					';
 				break;
+
+				case '10':
+					$html .= '
+						<div class="col-12 text-center" id="div_documento1_'.$row2["id"].'">
+							<label style="text-transform: capitalize;">'.$row2["nombre"].'</label>
+							<br>
+							<embed src="../resources/documentos/nominas/archivos/'.$id.'/certificacion_bancaria.pdf#toolbar=0" type="application/pdf" width="100%" height="300px" style="">
+							<button type="button" class="btn btn-danger" onclick="eliminar2('.$id.','.$row2["id"].');">Eliminar</button>
+							<hr style="background-color:black;">
+						</div>
+					';
+				break;
 				
 				default:
 					# code...
@@ -459,6 +471,70 @@ if($condicion=='documentos1'){
 			</div>
 		';
 	}
+
+	$datos = [
+		"estatus" => 'ok',
+		"html" => $html,
+	];
+
+	echo json_encode($datos);
+}
+
+
+
+if($condicion=='contrato1'){
+	$id = $_POST['id'];
+
+	$sql1 = "SELECT * FROM n_archivos WHERE id_nomina = ".$id." and id_documento = 8";
+	$proceso1 = mysqli_query($conexion,$sql1);
+
+	$sql3 = "SELECT * FROM nomina WHERE id = ".$id;
+	$proceso3 = mysqli_query($conexion,$sql3);
+	while($row3 = mysqli_fetch_array($proceso3)) {
+		$contrato = $row3["contrato"];
+		$funcion = $row3["funcion"];
+	}
+
+	$html = '
+		<div class="row">
+			<input type="hidden" name="edit_contrato_id" id="edit_contrato_id" value="'.$id.'">
+	';
+	$contador1 = mysqli_num_rows($proceso1);
+	if($contador1==0){
+		$html .= '
+			<div class="col-12 text-center mt-3" style="font-weight:bold; font-size:20px;">No Ha Firmado el Contrato</div>
+		';
+	}else if($contrato==0){
+		$html .= '
+			<div class="col-12 text-center mt-3" style="font-weight:bold; font-size:20px;">No se le ha asignado un contrato</div>
+		';
+	}else if($funcion==0){
+		$html .= '
+			<div class="col-12 text-center mt-3" style="font-weight:bold; font-size:20px;">No se le ha asignado una función</div>
+		';
+	}else{
+		while($row1 = mysqli_fetch_array($proceso1)) {
+			$sql2 = "SELECT * FROM nomina WHERE id = ".$id;
+			$proceso2 = mysqli_query($conexion,$sql2);
+			while($row2 = mysqli_fetch_array($proceso2)) {
+				$sede = $row2["sede"];
+				$cargo = $row2["cargo"];
+				$funcion = $row2["funcion"];
+				$contrato = $row2["contrato"];
+				$html .= '
+					<div class="col-12 text-center">
+						<label style="text-transform: capitalize;">Firma de Contrato</label>
+						<br>
+						<embed src="../script/generador_nomina_contrato2.php?id='.$id.'" type="application/pdf" width="100%" height="300px" style="">
+					</div>
+				';
+			}
+		}
+	}
+
+	$html .= '
+		</div>
+	';
 
 	$datos = [
 		"estatus" => 'ok',

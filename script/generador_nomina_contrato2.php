@@ -3,7 +3,9 @@ session_start();
 include('conexion.php');
 require('../resources/fpdf/fpdf.php');
 
-$sql1 = "SELECT * FROM nomina WHERE id = ".$_SESSION["id"];
+$id = $_GET["id"];
+
+$sql1 = "SELECT * FROM nomina WHERE id = ".$id;
 $proceso1 = mysqli_query($conexion,$sql1);
 while($row1 = mysqli_fetch_array($proceso1)) {
 	$nombre = $row1["nombre"];
@@ -55,7 +57,7 @@ while($row3 = mysqli_fetch_array($proceso3)) {
 	$sede_rut = $row3["rut"];
 }
 
-$sql4 = "SELECT * FROM n_archivos WHERE id_documento = 8 and id_nomina = ".$_SESSION["id"];
+$sql4 = "SELECT * FROM n_archivos WHERE id_documento = 8 and id_nomina = ".$id;
 $proceso4 = mysqli_query($conexion,$sql4);
 $contador1 = mysqli_num_rows($proceso4);
 
@@ -469,6 +471,12 @@ $pdf->MultiCell(0,10,utf8_decode("MINUTA ACUERDO DE CONFIDENCIALIDAD CONTRATO N�
 
 $pdf->Ln(10);
 $pdf->SetFont('Times','',12);
+if($contador1==0){
+	$array_fecha_inicio[0] = "";
+	$array_fecha_inicio[1] = "";
+	$array_fecha_inicio[2] = "";
+	$mes = "";
+}
 $pdf->MultiCell(0,10,utf8_decode("Entre los suscritos a saber, ".$nombre." ".$apellido.", mayor de edad, residente de ".$sede_ciudad.", identificado con ".$documento_tipo." Nº ".$documento_numero." de ".$sede_ciudad.", quien en su calidad de ".$cargo_nombre." del día ".$array_fecha_inicio[2]." del mes ".$mes." del ".$array_fecha_inicio[0].", en nombre y representación de ".$sede_descripcion.", sociedad con domicilio en ".$sede_ciudad.", transformada en empresa procesamientos de datos , alojamiento (hosting) y actividades relacionadas , inscrita en la Cámara de Comercio de Bogotá, el 13 de febrero de 2019 bajo el N° 02423940, del Libro IX, con matrícula mercantil N° 03066829 , por una parte y que en el texto de este contrato se denominará LA EMPRESA, y de la otra, ".$sede_responsable.", mayor de edad, residente en la ciudad de ".$sede_ciudad." , identificado con la cédula de ciudadanía No. ".$sede_cedula." de Bogotá  en su calidad representante legal, , quienes en su conjunto se consideran las PARTES, hemos convenido celebrar el siguiente Acuerdo de Confidencialidad (en adelante el Acuerdo), previas las siguientes"),0,'');
 
 $pdf->SetFont('Times','B',12);
@@ -569,13 +577,10 @@ $pdf->MultiCell(0,10,utf8_decode("10. LEY APLICABLE"),0,'');
 $pdf->SetFont('Times','',12);
 $pdf->MultiCell(0,10,utf8_decode("El presente Acuerdo se regirá e interpretará de conformidad con las leyes de la República de Colombia y quedarán excluidas las reglas de conflictos de leyes que pudiesen remitir el caso a las leyes de otra jurisdicción."),0,'');
 
-
 //$pdf->MultiCell(0,10,utf8_decode("as"),0,'');
 /************************************************************************/
 /************************************************************************/
 /************************************************************************/
-
-
 
 $pdf->addPage();
 $pdf->MultiCell(0,10,utf8_decode("Las partes suscriben el presente documento en dos ejemplares, el día ".$array_fecha_inicio[2]." del mes ".$mes." del ".$array_fecha_inicio[0]."."),0,'');
@@ -583,10 +588,10 @@ $pdf->MultiCell(0,10,utf8_decode("Las partes suscriben el presente documento en 
 $pdf->Ln(60);
 $pdf->Cell(20,5,utf8_decode(''),0,'');
 $pdf->Cell(60,5,utf8_decode('Firma del Jefe'),0,'C');
-//$pdf->Image('../resources/documentos/nominas/archivos/'.$_SESSION["id"].'/firma_digital.jpg',10,60,100,40);
+//$pdf->Image('../resources/documentos/nominas/archivos/'.$id.'/firma_digital.jpg',10,60,100,40);
 
 if($contador1 >= 1){
-	$pdf->Image('../resources/documentos/nominas/archivos/'.$_SESSION["id"].'/firma_digital.jpg',80,60,100,40);
+	$pdf->Image('../resources/documentos/nominas/archivos/'.$id.'/firma_digital.jpg',80,60,100,40);
 }else{
 	$pdf->Cell(60,5,utf8_decode('Falta Firmar'),0,'C');
 }
@@ -614,7 +619,6 @@ if($contador1 >= 1){
 	$pdf->Image('../resources/documentos/modelos/archivos/'.$id_modelo.'/firma_digital.jpg',55,155,100,40);
 }
 */
-
 
 $pdf->Output();
 ?>

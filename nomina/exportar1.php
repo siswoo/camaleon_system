@@ -13,19 +13,19 @@ $sheet = $spreadsheet->getActiveSheet();
 include('../script/conexion.php');
 
 $sheet->setCellValue('A1', 'Nombre');
-$sheet->setCellValue('B2', 'Apellido');
-$sheet->setCellValue('C2', 'Documento Tipo');
-$sheet->setCellValue('D2', 'Documento Numero');
-$sheet->setCellValue('E2', 'Estatus');
-$sheet->setCellValue('F2', 'Titular Cedula');
-$sheet->setCellValue('G2', 'Titular Nombre');
-$sheet->setCellValue('H2', 'Banco');
-$sheet->setCellValue('I2', 'Propia Prestada');
-$sheet->setCellValue('J2', 'Turno');
-$sheet->setCellValue('K2', 'Sede');
-$sheet->setCellValue('L2', 'Cargo');
-$sheet->setCellValue('M2', 'Salario');
-$sheet->setCellValue('N2', 'Fecha de Nacimiento');
+$sheet->setCellValue('B1', 'Apellido');
+$sheet->setCellValue('C1', 'Documento Tipo');
+$sheet->setCellValue('D1', 'Documento Numero');
+$sheet->setCellValue('E1', 'Estatus');
+$sheet->setCellValue('F1', 'Titular Cedula');
+$sheet->setCellValue('G1', 'Titular Nombre');
+$sheet->setCellValue('H1', 'Banco');
+$sheet->setCellValue('I1', 'Propia Prestada');
+$sheet->setCellValue('J1', 'Turno');
+$sheet->setCellValue('K1', 'Sede');
+$sheet->setCellValue('L1', 'Cargo');
+$sheet->setCellValue('M1', 'Salario');
+$sheet->setCellValue('N1', 'Fecha de Nacimiento');
 
 /***************LIBRERIA DE ACENTOS*****************/
 function eliminar_acentos($cadena){
@@ -54,7 +54,20 @@ function eliminar_acentos($cadena){
 }
 /************************************************************/
 
-//$spreadsheet->getActiveSheet()->getColumnDimension('C')->setWidth(20);
+$spreadsheet->getActiveSheet()->getColumnDimension('A')->setWidth(20);
+$spreadsheet->getActiveSheet()->getColumnDimension('B')->setWidth(20);
+$spreadsheet->getActiveSheet()->getColumnDimension('C')->setWidth(20);
+$spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(20);
+//$spreadsheet->getActiveSheet()->getColumnDimension('E')->setWidth(20);
+$spreadsheet->getActiveSheet()->getColumnDimension('F')->setWidth(20);
+$spreadsheet->getActiveSheet()->getColumnDimension('G')->setWidth(30);
+$spreadsheet->getActiveSheet()->getColumnDimension('H')->setWidth(20);
+//$spreadsheet->getActiveSheet()->getColumnDimension('I')->setWidth(20);
+//$spreadsheet->getActiveSheet()->getColumnDimension('J')->setWidth(20);
+$spreadsheet->getActiveSheet()->getColumnDimension('K')->setWidth(20);
+$spreadsheet->getActiveSheet()->getColumnDimension('L')->setWidth(20);
+$spreadsheet->getActiveSheet()->getColumnDimension('M')->setWidth(20);
+$spreadsheet->getActiveSheet()->getColumnDimension('N')->setWidth(20);
 
 $fila = 2;
 $sql2 = "SELECT * FROM nomina";
@@ -86,8 +99,21 @@ while($row2 = mysqli_fetch_array($consulta2)) {
 	$sheet->setCellValue('H'.$fila, $banco_banco);
 	$sheet->setCellValue('I'.$fila, $bcpp);
 	$sheet->setCellValue('J'.$fila, $turno);
-	$sheet->setCellValue('K'.$fila, $sede);
-	$sheet->setCellValue('L'.$fila, $cargo);
+
+	$sql3 = "SELECT * FROM sedes WHERE id = ".$sede;
+	$consulta3 = mysqli_query($conexion,$sql3);
+	while($row3 = mysqli_fetch_array($consulta3)) {
+		$sede_nombre = $row3["nombre"];
+	}
+
+	$sql4 = "SELECT * FROM cargos WHERE id = ".$cargo;
+	$consulta4 = mysqli_query($conexion,$sql4);
+	while($row4 = mysqli_fetch_array($consulta4)) {
+		$cargo_nombre = $row4["nombre"];
+	}
+
+	$sheet->setCellValue('K'.$fila, $sede_nombre);
+	$sheet->setCellValue('L'.$fila, $cargo_nombre);
 	$sheet->setCellValue('M'.$fila, $salario);
 	$sheet->setCellValue('N'.$fila, $fecha_nacimiento);
 	$fila = $fila+1;

@@ -128,7 +128,7 @@ INSERT INTO usuarios (nombre,apellido,documento_tipo,documento_numero,correo,usu
 ('Karen Stefanny','Parra Sanchez','Cedula de Ciudadania','1018492284','stefanny1parra@gmail.com','karenparra','ed53feba2a0a4df03d19ef836b701ea0','3058754431','',8,6,'2021-03-22'),
 ('Jorse Luis','Casique Useche','Cedula de Ciudadania','1130245934','jorgecasique220@gmail.com','jorgeuseche','5311b986f20a6f348fad8fb41f898995','3504633380','',15,6,'2021-03-22'),
 ('Soacha','Test6','PEP','66666666666','test6@gmail.com','soacha','a5604eb6a51af9e9719bb9fda7bf0686','77777777','',4,6,'2021-03-22'),
-('Kenlly','Test6','PEP','66666666666','test6@gmail.com','soacha','a5604eb6a51af9e9719bb9fda7bf0686','77777777','',4,1,'2021-03-22'),
+('Kenlly','Lopez','Cedula de Ciudadania','1016063760','Kenllylopez25@gmail.com','kenlly123','599fdfa24809faf5bd5b7047c63557ea','3502915076','',15,1,'2021-04-07'),
 ('Anderson','Prieto','Cedula de Ciudadania','1001046590','prietovargas4@gmail.com','soportesoacha','bf4dee03a08c7c0536760c11e3041ab3','3123790146','',2,6,'2021-03-29'),
 
 ('Thayana','Rios Vasquez','Cedula de Ciudadania','1017230042','thayana503@gmail.com','thayana503','959b551e0a7fe3f0ec403884dfac2769','3023769858','',15,7,'2021-03-30'),
@@ -1199,7 +1199,7 @@ INSERT INTO n_documentos (nombre,responsable,fecha_inicio) VALUES
 ("Rut",1,"2021-03-29"),
 ("Certificación Bancaria",1,"2021-04-06"),
 ("Permiso Bancario",1,"2021-04-06");
-
+	
 DROP TABLE IF EXISTS n_archivos;
 CREATE TABLE n_archivos (
 	id INT AUTO_INCREMENT,
@@ -1244,6 +1244,7 @@ CREATE TABLE funciones (
 	descripcion14 VARCHAR(250) NOT NULL,
 	descripcion15 VARCHAR(250) NOT NULL,
 	responsable INT NOT NULL,
+	cargo INT NOT NULL,
 	fecha_inicio date NOT NULL,
 	PRIMARY KEY (id)
 );ALTER TABLE funciones CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;

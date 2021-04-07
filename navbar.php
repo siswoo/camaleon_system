@@ -205,6 +205,16 @@ if($ubicacion == 'welcome'){ ?>
 	        	<a class="nav-link navbar-active-a botones_navbar1" href="../nomina/index.php" id="a-nomina">Nómina</a>
 	      	</li>
 	      	<?php } ?>
+
+	      	<?php
+			if($_SESSION['rol']==1 or $_SESSION['rol']==16){ ?>
+	      	<li class="nav-item" id="li-cargos">
+	        	<a class="nav-link navbar-active-a botones_navbar1" href="../cargos/index.php" id="a-cargos">Cargos</a>
+	      	</li>
+	      	<li class="nav-item" id="li-funciones">
+	        	<a class="nav-link navbar-active-a botones_navbar1" href="../funciones/index.php" id="a-funciones">Funciones</a>
+	      	</li>
+	      	<?php } ?>
 	      	
 	    </ul>
 
