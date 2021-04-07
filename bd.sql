@@ -1120,6 +1120,8 @@ CREATE TABLE nomina (
 	clave VARCHAR(250) NOT NULL,
 	fecha_expedicion date NOT NULL,
 
+	contrato INT NOT NULL,
+
 	PRIMARY KEY (id)
 );ALTER TABLE nomina CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
@@ -1194,7 +1196,9 @@ INSERT INTO n_documentos (nombre,responsable,fecha_inicio) VALUES
 ("Hoja de Vida",1,"2021-03-17"),
 ("Identificacion",1,"2021-03-19"),
 ("Firma",1,"2021-03-19"),
-("Rut",1,"2021-03-29");
+("Rut",1,"2021-03-29"),
+("Certificación Bancaria",1,"2021-04-06"),
+("Permiso Bancario",1,"2021-04-06");
 
 DROP TABLE IF EXISTS n_archivos;
 CREATE TABLE n_archivos (
@@ -1273,6 +1277,16 @@ CREATE TABLE n_funciones (
 	id_funciones INT NOT NULL,
 	fecha_inicio date NOT NULL,
 	PRIMARY KEY (id)
-);ALTER TABLE funciones CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+);ALTER TABLE n_funciones CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
+DROP TABLE IF EXISTS n_contrato;
+CREATE TABLE n_contrato (
+	id INT AUTO_INCREMENT,
+	nombre VARCHAR(250) NOT NULL,
+	fecha_inicio date NOT NULL,
+	PRIMARY KEY (id)
+);ALTER TABLE n_contrato CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
+INSERT INTO n_contrato (nombre,fecha_inicio) VALUES 
+("Indefinido","2021-04-06"),
+("Prestación de servicio","2021-04-06");

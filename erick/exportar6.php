@@ -29,6 +29,7 @@ $sheet->setCellValue('K1', '');
 $sheet->setCellValue('L1', 'TOTAL TEXTO');
 $sheet->setCellValue('M1', '');
 $sheet->setCellValue('N1', '');
+$sheet->setCellValue('O1', 'Sede');
 $fila = 2;
 
 /*
@@ -52,6 +53,8 @@ while($row1 = mysqli_fetch_array($consulta)) {
 	$spreadsheet->getActiveSheet()->getColumnDimension('L')->setWidth(40);
 	$spreadsheet->getActiveSheet()->getColumnDimension('M')->setWidth(40);
 	$spreadsheet->getActiveSheet()->getColumnDimension('N')->setWidth(40);
+	$spreadsheet->getActiveSheet()->getColumnDimension('O')->setWidth(40);
+	$spreadsheet->getActiveSheet()->getColumnDimension('P')->setWidth(25);
 
 	$id_modelo = $row1['id_modelo'];
 	$rf = $row1['rf'];
@@ -312,6 +315,7 @@ while($row1 = mysqli_fetch_array($consulta)) {
 		$spreadsheet->getActiveSheet()->getStyle('N'.$fila)->getNumberFormat()->setFormatCode('00');
 
 		$sheet->setCellValue('O'.$fila, $nombre_modelo);
+		$sheet->setCellValue('P'.$fila, $nombre_sede);
 
 		$fila = $fila+1;
 	}

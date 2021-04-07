@@ -297,6 +297,21 @@
 							    	?>
 							    </select>
 						    </div>
+						    <div class="col-12 form-group form-check">
+							    <label for="contrato">Contrato </label>
+							    <select class="form-control" name="contrato" id="contrato" required>
+							    	<option value="">Seleccione</option>
+							    	<?php
+							    	$sql4 = "SELECT * FROM n_contrato";
+									$proceso4 = mysqli_query($conexion,$sql4);
+									while($row4 = mysqli_fetch_array($proceso4)) {
+										$contrato_id = $row4['id'];
+										$contrato_nombre = $row4['nombre'];
+										echo '<option value="'.$contrato_id.'">'.$contrato_nombre.'</option>';
+									}
+							    	?>
+							    </select>
+						    </div>
 					    </div>
 					</div>
 					<div class="modal-footer">
@@ -433,7 +448,7 @@
 							    <label for="edit_fecha_expedicion">Fecha de Expedición</label>
 							    <input type="date" id="edit_fecha_expedicion" name="edit_fecha_expedicion" class="form-control">
 						    </div>
-						    <div class="col-12 form-group form-check">
+						    <div class="col-6 form-group form-check">
 							    <label for="edit_funcion">Función</label>
 							    <select class="form-control" name="edit_funcion" id="edit_funcion" required>
 							    	<option value="">Seleccione</option>
@@ -444,6 +459,21 @@
 										$funcion_id = $row5['id'];
 										$funcion_nombre = $row5['nombre'];
 										echo '<option value="'.$funcion_id.'">'.$funcion_nombre.'</option>';
+									}
+							    	?>
+							    </select>
+						    </div>
+						    <div class="col-6 form-group form-check">
+							    <label for="edit_contrato">Contrato </label>
+							    <select class="form-control" name="edit_contrato" id="edit_contrato" required>
+							    	<option value="">Seleccione</option>
+							    	<?php
+							    	$sql4 = "SELECT * FROM n_contrato";
+									$proceso4 = mysqli_query($conexion,$sql4);
+									while($row4 = mysqli_fetch_array($proceso4)) {
+										$contrato_id = $row4['id'];
+										$contrato_nombre = $row4['nombre'];
+										echo '<option value="'.$contrato_id.'">'.$contrato_nombre.'</option>';
 									}
 							    	?>
 							    </select>
@@ -661,6 +691,7 @@
 		var fecha_ingreso 		= $('#fecha_ingreso').val();
 		var fecha_expedicion 	= $('#fecha_expedicion').val();
 		var funcion 			= $('#funcion').val();
+		var contrato 			= $('#contrato').val();
 
 	    $.ajax({
 			type: 'POST',
@@ -682,6 +713,7 @@
 				"fecha_ingreso": fecha_ingreso,
 				"fecha_expedicion": fecha_expedicion,
 				"funcion": funcion,
+				"contrato": contrato,
 				"condicion": "guardar1",
 			},
 			dataType: "JSON",
@@ -754,10 +786,17 @@
 				$("#edit_fecha_ingreso").val(respuesta["fecha_ingreso"]);
 				$("#edit_fecha_retiro").val(respuesta["fecha_retiro"]);
 				$("#edit_fecha_expedicion").val(respuesta["fecha_expedicion"]);
+				
 				if(respuesta["funcion"]==0){
 					$("#edit_funcion").val("");
 				}else{
 					$("#edit_funcion").val(respuesta["funcion"]);
+				}
+
+				if(respuesta["contrato"]==0){
+					$("#edit_contrato").val("");
+				}else{
+					$("#edit_contrato").val(respuesta["contrato"]);
 				}
 			},
 
@@ -789,6 +828,7 @@
 		var fecha_retiro 		= $('#edit_fecha_retiro').val();
 		var fecha_expedicion 	= $('#edit_fecha_expedicion').val();
 		var funcion 			= $('#edit_funcion').val();
+		var contrato 			= $('#edit_contrato').val();
 
 	    $.ajax({
 			type: 'POST',
@@ -813,6 +853,7 @@
 				"fecha_retiro": fecha_retiro,
 				"fecha_expedicion": fecha_expedicion,
 				"funcion": funcion,
+				"contrato": contrato,
 				"condicion": "editar1",
 			},
 			dataType: "JSON",

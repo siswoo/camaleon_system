@@ -23,6 +23,7 @@ if($condicion=='guardar1'){
 	$fecha_ingreso 		= $_POST['fecha_ingreso'];
 	$fecha_expedicion 	= $_POST['fecha_expedicion'];
 	$funcion 			= $_POST['funcion'];
+	$contrato 			= $_POST['contrato'];
 	$clave = md5($numero_documento);
 
 	$sql2 = "SELECT * FROM nomina WHERE documento_numero = '".$numero_documento."'";
@@ -35,7 +36,7 @@ if($condicion=='guardar1'){
 		];
 		echo json_encode($datos);
 	}else{
-		$sql1 = "INSERT INTO nomina (nombre,apellido,documento_tipo,documento_numero,genero,correo,direccion,salario,telefono,estatus,fecha_inicio,turno,sede,cargo,fecha_nacimiento,fecha_ingreso,clave,fecha_expedicion,funcion) VALUES ('$nombre','$apellido','$tipo_documento','$numero_documento','$genero','$correo','$direccion','$salario','$telefono','Aceptado','$fecha_inicio','$turno','$sedes','$cargo','$fecha_nacimiento','$fecha_ingreso','$clave','$fecha_expedicion','$funcion')";
+		$sql1 = "INSERT INTO nomina (nombre,apellido,documento_tipo,documento_numero,genero,correo,direccion,salario,telefono,estatus,fecha_inicio,turno,sede,cargo,fecha_nacimiento,fecha_ingreso,clave,fecha_expedicion,funcion,contrato) VALUES ('$nombre','$apellido','$tipo_documento','$numero_documento','$genero','$correo','$direccion','$salario','$telefono','Aceptado','$fecha_inicio','$turno','$sedes','$cargo','$fecha_nacimiento','$fecha_ingreso','$clave','$fecha_expedicion','$funcion','$contrato')";
 		$consulta1 = mysqli_query($conexion,$sql1);
 
 		$datos = [
@@ -72,6 +73,7 @@ if($condicion=='consultar1'){
 		$fecha_retiro = $row1['fecha_retiro'];
 		$fecha_expedicion = $row1['fecha_expedicion'];
 		$funcion = $row1['funcion'];
+		$contrato = $row1['contrato'];
 	}
 
 	$datos = [
@@ -95,6 +97,7 @@ if($condicion=='consultar1'){
 		"fecha_retiro" => $fecha_retiro,
 		"fecha_expedicion" => $fecha_expedicion,
 		"funcion" => $funcion,
+		"contrato" => $contrato,
 	];
 
 	echo json_encode($datos);
@@ -120,12 +123,13 @@ if($condicion=='editar1'){
 	$fecha_retiro = $_POST['fecha_retiro'];
 	$fecha_expedicion = $_POST['fecha_expedicion'];
 	$funcion = $_POST['funcion'];
+	$contrato = $_POST['contrato'];
 
 	if($estatus=='Aceptado'){
 		$fecha_retiro = '';
 	}
 
-	$sql1 = "UPDATE nomina SET documento_tipo = '$tipo_documento', documento_numero = '$numero_documento', nombre = '$nombre', apellido = '$apellido', genero = '$genero', correo = '$correo', direccion = '$direccion', salario = '$salario', turno = '$turno', telefono = '$telefono', cargo = '$cargo', sede = '$sedes', estatus = '$estatus', fecha_nacimiento = '$fecha_nacimiento', fecha_ingreso = '$fecha_ingreso', fecha_retiro = '$fecha_retiro', fecha_expedicion = '$fecha_expedicion', funcion = '$funcion' WHERE id = ".$id;
+	$sql1 = "UPDATE nomina SET documento_tipo = '$tipo_documento', documento_numero = '$numero_documento', nombre = '$nombre', apellido = '$apellido', genero = '$genero', correo = '$correo', direccion = '$direccion', salario = '$salario', turno = '$turno', telefono = '$telefono', cargo = '$cargo', sede = '$sedes', estatus = '$estatus', fecha_nacimiento = '$fecha_nacimiento', fecha_ingreso = '$fecha_ingreso', fecha_retiro = '$fecha_retiro', fecha_expedicion = '$fecha_expedicion', funcion = '$funcion', contrato = '$contrato' WHERE id = ".$id;
 	$consulta1 = mysqli_query($conexion,$sql1);
 
 	$sql2 = "SELECT * FROM sedes WHERE id = ".$sedes;
@@ -160,6 +164,7 @@ if($condicion=='editar1'){
 		"fecha_nacimiento" => $fecha_nacimiento,
 		"fecha_ingreso" => $fecha_ingreso,
 		"fecha_retiro" => $fecha_retiro,
+		"contrato" => $contrato,
 	];
 
 	echo json_encode($datos);
