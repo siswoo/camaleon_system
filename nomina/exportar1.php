@@ -21,11 +21,12 @@ $sheet->setCellValue('F1', 'Titular Cedula');
 $sheet->setCellValue('G1', 'Titular Nombre');
 $sheet->setCellValue('H1', 'Banco');
 $sheet->setCellValue('I1', 'Propia Prestada');
-$sheet->setCellValue('J1', 'Turno');
+$sheet->setCellValue('J1', 'Numero de Cuenta');
 $sheet->setCellValue('K1', 'Sede');
 $sheet->setCellValue('L1', 'Cargo');
 $sheet->setCellValue('M1', 'Salario');
 $sheet->setCellValue('N1', 'Fecha de Nacimiento');
+$sheet->setCellValue('O1', 'Sede');
 
 /***************LIBRERIA DE ACENTOS*****************/
 function eliminar_acentos($cadena){
@@ -63,7 +64,7 @@ $spreadsheet->getActiveSheet()->getColumnDimension('F')->setWidth(20);
 $spreadsheet->getActiveSheet()->getColumnDimension('G')->setWidth(30);
 $spreadsheet->getActiveSheet()->getColumnDimension('H')->setWidth(20);
 //$spreadsheet->getActiveSheet()->getColumnDimension('I')->setWidth(20);
-//$spreadsheet->getActiveSheet()->getColumnDimension('J')->setWidth(20);
+$spreadsheet->getActiveSheet()->getColumnDimension('J')->setWidth(25);
 $spreadsheet->getActiveSheet()->getColumnDimension('K')->setWidth(20);
 $spreadsheet->getActiveSheet()->getColumnDimension('L')->setWidth(20);
 $spreadsheet->getActiveSheet()->getColumnDimension('M')->setWidth(20);
@@ -82,6 +83,7 @@ while($row2 = mysqli_fetch_array($consulta2)) {
 	$banco_cedula = $row2['banco_cedula'];
 	$banco_nombre = $row2['banco_nombre'];
 	$banco_banco = $row2['banco_banco'];
+	$banco_numero = $row2['banco_numero'];
 	$bcpp = $row2['BCPP'];
 	$turno = $row2['turno'];
 	$sede = $row2['sede'];
@@ -98,7 +100,7 @@ while($row2 = mysqli_fetch_array($consulta2)) {
 	$sheet->setCellValue('G'.$fila, $banco_nombre);
 	$sheet->setCellValue('H'.$fila, $banco_banco);
 	$sheet->setCellValue('I'.$fila, $bcpp);
-	$sheet->setCellValue('J'.$fila, $turno);
+	$sheet->setCellValue('J'.$fila, $banco_numero);
 
 	$sql3 = "SELECT * FROM sedes WHERE id = ".$sede;
 	$consulta3 = mysqli_query($conexion,$sql3);
@@ -116,6 +118,7 @@ while($row2 = mysqli_fetch_array($consulta2)) {
 	$sheet->setCellValue('L'.$fila, $cargo_nombre);
 	$sheet->setCellValue('M'.$fila, $salario);
 	$sheet->setCellValue('N'.$fila, $fecha_nacimiento);
+	$sheet->setCellValue('O'.$fila, $turno);
 	$fila = $fila+1;
 
 }

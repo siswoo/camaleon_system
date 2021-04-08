@@ -453,6 +453,18 @@ if($condicion=='documentos1'){
 						</div>
 					';
 				break;
+
+				case '11':
+					$html .= '
+						<div class="col-12 text-center" id="div_documento1_'.$row2["id"].'">
+							<label style="text-transform: capitalize;">'.$row2["nombre"].'</label>
+							<br>
+							<embed src="../resources/documentos/nominas/archivos/'.$id.'/acta_cuenta_prestada.jpg#toolbar=0" type="application/pdf" width="100%" height="300px" style="">
+							<button type="button" class="btn btn-danger" onclick="eliminar2('.$id.','.$row2["id"].');">Eliminar</button>
+							<hr style="background-color:black;">
+						</div>
+					';
+				break;
 				
 				default:
 					# code...
@@ -660,4 +672,107 @@ if($condicion=='subir_archivo2'){
 	echo json_encode($datos);
 }
 
+if($condicion=='subir_archivo3'){
+	$id = $_POST['id'];
+	$condicion2 = $_POST['condicion2'];
+	$condicion3 = $_POST['condicion3'];
 
+	$banco_cedula = $_POST['banco_cedula'];
+	$banco_nombre = $_POST['banco_nombre'];
+	$banco_tipo = $_POST['banco_tipo'];
+	$banco_numero = $_POST['banco_numero'];
+	$banco_banco = $_POST['banco_banco'];
+	$bcpp = $_POST['bcpp'];
+
+	if(file_exists('../resources/documentos/nominas/archivos/'.$id)){}else{
+    	mkdir('../resources/documentos/nominas/archivos/'.$id, 0777);
+	}
+
+	function redimensionar_imagen($nombreimg, $rutaimg, $xmax, $ymax){
+	    $ext = explode(".", $nombreimg);
+	    $ext = $ext[count($ext)-1];
+
+	    if($ext!="jpg" && $ext!="jpeg" && $ext!="png" && $ext!="gif"){
+	        $datos = [
+				"estatus" => 'error',
+			];
+			echo json_encode($datos);
+	        exit;
+	    }
+	      
+	    if($ext == "jpg" || $ext == "jpeg")  
+	        $imagen = imagecreatefromjpeg($rutaimg);
+	    elseif($ext == "png")  
+	        $imagen = imagecreatefrompng($rutaimg);
+	    elseif($ext == "gif")  
+	        $imagen = imagecreatefromgif($rutaimg);
+
+	    $x = imagesx($imagen);  
+	    $y = imagesy($imagen);  
+	          
+	    if($x <= $xmax && $y <= $ymax){
+	        return $imagen;  
+	    }
+	      
+	    if($x >= $y) {  
+	        $nuevax = $xmax;  
+	        $nuevay = $nuevax * $y / $x;  
+	    }  
+	    else {  
+	        $nuevay = $ymax;  
+	        $nuevax = $x / $y * $nuevay;  
+	    }  
+
+	    $img2 = imagecreatetruecolor($nuevax, $nuevay);
+	    imagecopyresized($img2, $imagen, 0, 0, 0, 0, floor($nuevax), floor($nuevay), $x, $y);
+	    return $img2;
+	}
+
+	if(@$_FILES['file']!=null and $bcpp=="Prestada"){
+		$imagen_temporal = $_FILES['file']['tmp_name'];
+		$location = "../resources/documentos/nominas/archivos/".$id."/";
+		$imagen_nombre = $_FILES['file']['name'];
+		$imagen = getimagesize($_FILES['file']['tmp_name']);
+		$ancho = $imagen[0];
+		$alto = $imagen[1];
+		$extension = explode(".", $imagen_nombre);
+		$extension = $extension[count($extension)-1];
+
+		if($ancho>$alto){
+		    $imagen_optimizada = redimensionar_imagen($imagen_nombre,$imagen_temporal,1920,1080);
+		    imagejpeg($imagen_optimizada, $location.$condicion3.'.jpg');
+		}else if($ancho<$alto){
+		    $imagen_optimizada = redimensionar_imagen($imagen_nombre,$imagen_temporal,1080,1920);
+		    imagejpeg($imagen_optimizada, $location.$condicion3.'.jpg');
+		}else{
+		    $imagen_optimizada = redimensionar_imagen($imagen_nombre,$imagen_temporal,1080,1080);
+		    imagejpeg($imagen_optimizada, $location.$condicion3.'.jpg');
+		}
+
+		if($extension=='jpg'){}else{
+		    $extension='jpg';
+		}
+
+		$sql4 = "SELECT * FROM n_documentos WHERE nombre = '".$condicion2."'";
+		$proceso4 = mysqli_query($conexion,$sql4);
+		while($row4 = mysqli_fetch_array($proceso4)) {
+			$documento_id = $row4['id'];
+		}
+
+		$sql3 = "DELETE FROM n_archivos WHERE id_documento = ".$documento_id." and id_nomina = ".$id;
+		$eliminar1 = mysqli_query($conexion,$sql3);
+
+		$sql2 = "INSERT INTO n_archivos (id_documento,id_nomina,responsable,fecha_inicio) VALUES ('$documento_id','$id','$responsable','$fecha_inicio')";
+		$registro1 = mysqli_query($conexion,$sql2);
+	}
+
+	$sql3 = "UPDATE nomina SET banco_cedula = '$banco_cedula', banco_nombre = '$banco_nombre', banco_tipo = '$banco_tipo', banco_numero = '$banco_numero', banco_banco = '$banco_banco', BCPP = '$bcpp' WHERE id = ".$id;
+	$proceso3 = mysqli_query($conexion,$sql3);
+
+	$datos = [
+		"estatus" => 'ok',
+		"sql3" => $sql3,
+	];
+
+	echo json_encode($datos);
+}
