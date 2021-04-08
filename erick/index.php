@@ -94,23 +94,14 @@
 					<a href="ejecucionbd1.php" style="text-decoration: none;" target="_blank">
 				    	<button type="button" class="btn btn-info ml-3">Quitar Espacios en Cedulas BD</button>
 					</a>
-					<!--
-					<a href="exportar6.php" style="text-decoration: none;">
-				    	<button type="button" class="btn btn-info ml-3">Registrados con Banco</button>
+					<a href="exportar13.php" style="text-decoration: none;" target="_blank">
+				    	<button type="button" class="btn btn-info ml-3">Reporte de Cuentas</button>
 					</a>
-					<a href="exportar7.php" style="text-decoration: none;">
-				    	<button type="button" class="btn btn-info ml-3">Faltantes Mixtos 1</button>
-					</a>
-					<a href="exportar8.php" style="text-decoration: none;">
-				    	<button type="button" class="btn btn-info ml-3">Cuentas Repetidas</button>
-					</a>
-					-->
 		    	</div>
 		    	<div class="col-12 mt-3 text-center">
 		    		<hr style="background-color: black; height: 2px;">
 		    	</div>
 			<?php } ?>
-
 
 	    	<div class="col-12 mt-3 text-center" style="font-weight: bold; font-size: 30px; text-transform: uppercase;">
 	    		Zona de Desprendibles

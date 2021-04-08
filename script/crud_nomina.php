@@ -423,7 +423,7 @@ if($condicion=='documentos1'){
 						<div class="col-12 text-center" id="div_documento1_'.$row2["id"].'">
 							<label style="text-transform: capitalize;">'.$row2["nombre"].'</label>
 							<br>
-							<embed src="../resources/documentos/nominas/archivos/'.$id.'/firma.pdf#toolbar=0" type="application/pdf" width="100%" height="300px" style="">
+							<embed src="../resources/documentos/nominas/archivos/'.$id.'/firma_digital.jpg#toolbar=0" type="application/pdf" width="100%" height="300px" style="">
 							<button type="button" class="btn btn-danger" onclick="eliminar2('.$id.','.$row2["id"].');">Eliminar</button>
 							<hr style="background-color:black;">
 						</div>
