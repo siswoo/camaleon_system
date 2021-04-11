@@ -58,17 +58,6 @@
 
   	body{
   		font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
-		/*
-		background: rgba(50,55,66,1);
-		background: -moz-linear-gradient(left, rgba(50,55,66,1) 0%, rgba(42,57,92,1) 100%);
-		background: -webkit-gradient(left top, right top, color-stop(0%, rgba(50,55,66,1)), color-stop(100%, rgba(42,57,92,1)));
-		background: -webkit-linear-gradient(left, rgba(50,55,66,1) 0%, rgba(42,57,92,1) 100%);
-		background: -o-linear-gradient(left, rgba(50,55,66,1) 0%, rgba(42,57,92,1) 100%);
-		background: -ms-linear-gradient(left, rgba(50,55,66,1) 0%, rgba(42,57,92,1) 100%);
-		background: linear-gradient(to right, rgba(50,55,66,1) 0%, rgba(42,57,92,1) 100%);
-		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#323742', endColorstr='#2a395c', GradientType=1 );
-		color: white;
-		*/
   	}
 </style>
 <body>
@@ -131,7 +120,16 @@
 			        	<?php
 			        	$condicion_administracion = 0;
 			        	if($_SESSION['rol']==2){
-			        		$consulta2 = "SELECT * FROM usuarios WHERE rol = 9";	
+
+			        		if($_SESSION["sede"]==1 or $_SESSION["sede"]==2 or $_SESSION["sede"]==3 or $_SESSION["sede"]==4){
+					        	$separar_usuarios1 = ' and (sede = 1 or sede = 2 or sede = 3 or sede = 4)';
+					        }else if($_SESSION["sede"]==6){
+					        	$separar_usuarios1 = ' and (sede = 6)';
+					        }else if($_SESSION["sede"]==7 or $_SESSION["sede"]==8 or $_SESSION["sede"]==9){
+					       		$separar_usuarios1 = ' and (sede = 7 or sede = 8 or sede = 9)';
+					       	}
+
+			        		$consulta2 = "SELECT * FROM usuarios WHERE rol = 9"." ".$separar_usuarios1;
 			        	}else if($_SESSION['rol']==15){
 			        		$sql3 = "SELECT * FROM usuarios WHERE id = ".$_SESSION['id'];
 				        	$resultado3 = mysqli_query($conexion,$sql3);
@@ -274,7 +272,14 @@
 							    	}else if($condicion_administracion == 2){
 							    		$sql_sedes = "SELECT * FROM sedes WHERE id = 2 or id = 4";
 							    	}else{
-							    		$sql_sedes = "SELECT * FROM sedes";
+							    		if($_SESSION["sede"]==1 or $_SESSION["sede"]==2 or $_SESSION["sede"]==3 or $_SESSION["sede"]==4){
+								        	$separar_sedes1 = ' or (id = 1 or id = 2 or id = 3 or id = 4)';
+								        }else if($_SESSION["sede"]==6){
+								        	$separar_sedes1 = ' or (id = 6)';
+								        }else if($_SESSION["sede"]==7 or $_SESSION["sede"]==8 or $_SESSION["sede"]==9){
+								       		$separar_sedes1 = ' or (id = 7 or id = 8 or id = 9)';
+								       	}
+							    		$sql_sedes = "SELECT * FROM sedes WHERE id = 999999"." ".$separar_sedes1;
 							    	}
 									$resultado_sedes = mysqli_query($conexion,$sql_sedes);
 									while($row4 = mysqli_fetch_array($resultado_sedes)) {
@@ -394,7 +399,14 @@
 							    	}else if($condicion_administracion == 2){
 							    		$sql_sedes = "SELECT * FROM sedes WHERE id = 2 or id = 4";
 							    	}else{
-							    		$sql_sedes = "SELECT * FROM sedes";	
+							    		if($_SESSION["sede"]==1 or $_SESSION["sede"]==2 or $_SESSION["sede"]==3 or $_SESSION["sede"]==4){
+								        	$separar_sedes1 = ' or (id = 1 or id = 2 or id = 3 or id = 4)';
+								        }else if($_SESSION["sede"]==6){
+								        	$separar_sedes1 = ' or (id = 6)';
+								        }else if($_SESSION["sede"]==7 or $_SESSION["sede"]==8 or $_SESSION["sede"]==9){
+								       		$separar_sedes1 = ' or (id = 7 or id = 8 or id = 9)';
+								       	}
+							    		$sql_sedes = "SELECT * FROM sedes WHERE id = 9999999"." ".$separar_sedes1;	
 							    	}
 									$resultado_sedes = mysqli_query($conexion,$sql_sedes);
 									while($row4 = mysqli_fetch_array($resultado_sedes)) {

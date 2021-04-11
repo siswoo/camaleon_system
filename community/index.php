@@ -56,6 +56,12 @@
   		border-color: #A9814F !important;
   	}
 
+  	.tr_señalada{
+  		background-color: #83f7034d;
+  		transition-property: all;
+    	transition-duration: 3s;
+  	}
+
   	body{
   		font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
   	}
@@ -80,10 +86,14 @@
 	}
 	include('../navbar.php');
 ?>
+	
 	<div class="seccion1">
 	    <div class="row">
-	    	<div class="col-12 text-center">
+	    	<div class="col-6 text-center">
 	    		<button class="btn btn-info" id="enterados" value="No" onclick="mostrarseccion1(this.id,value);">Estadisticas de Enterados</button>
+	    	</div>
+	    	<div class="col-6 text-center">
+	    		<button class="btn btn-info" id="consulta1" value="No" onclick="mostrarseccion1(this.id,value);">Consulta # 01</button>
 	    	</div>
 		</div>
 	</div>
@@ -94,14 +104,6 @@
 				<span style="font-weight: bold; font-size: 17px;">Total Pasantes: </span>
 				<span id="span_total1">0</span>
 			</div>
-			<!--
-			<div class="col-3 mb-3">
-				Google: 
-				<span id="span_google1">0</span>
-				 | 
-				<span id="span_google2">0</span>
-			</div>
-			-->
 			<div class="col-3 mb-3">
 				Facebook: 
 				<span id="span_facebook1">0</span>
@@ -134,9 +136,210 @@
 			</div>
 		</div>
 	</div>
+	
+
+	<div class="seccion1" id="div_consulta1" style="display: none;">
+		<div class="row">
+			<table id="example" class="table row-border hover table-bordered" style="font-size: 12px; color:rgba(50,55,66,1);">
+			        <thead>
+			            <tr>
+			                <th class="text-center">Sede</th>
+			                <th class="text-center">Nombre Completo</th>
+			                <th class="text-center">Chaturbate</th>
+			                <th class="text-center">Contrato Firmado</th>
+			                <th class="text-center">Twitter</th>
+			                <th class="text-center">Instagram</th>
+			                <th class="text-center">Celular</th>
+			                <th class="text-center">Horario Transmisión</th>
+			                <th class="text-center">Público</th>
+			                <th class="text-center">Opciones</th>
+			            </tr>
+			        </thead>
+			        <tbody id="resultados">
+			        	<?php
+			        	$consulta1 = "SELECT * FROM modelos WHERE estatus = 'Activa' ORDER BY id DESC";
+						$resultado1 = mysqli_query( $conexion, $consulta1 );
+						while($row1 = mysqli_fetch_array($resultado1)) {
+							$id_modelo 			= $row1['id'];
+							$nombre1 			= $row1['nombre1'];
+							$nombre2 			= $row1['nombre2'];
+							$apellido1 			= $row1['apellido1'];
+							$apellido2 			= $row1['apellido2'];
+							$documento_tipo 	= $row1['documento_tipo'];
+							$documento_numero 	= $row1['documento_numero'];
+							$correo 			= $row1['correo'];
+							$telefono1 			= $row1['telefono1'];
+							$sede 				= $row1['sede'];
+							$turno 				= $row1['turno'];
+							$fecha_inicio 		= $row1['fecha_inicio'];
+							
+							if($sede==""){
+								$nombre_sede = 'Desconocido';
+							}else{
+								$consulta2 = "SELECT * FROM sedes WHERE id = ".$sede;
+								$resultado2 = mysqli_query( $conexion, $consulta2 );
+								while($row2 = mysqli_fetch_array($resultado2)) {
+									$nombre_sede = $row2['nombre'];
+								}
+							}
+
+
+							$html_chaturbate = '';
+							$consulta3 = "SELECT * FROM modelos_cuentas WHERE id_modelos = ".$id_modelo." and id_paginas = 1";
+							$resultado3 = mysqli_query( $conexion, $consulta3 );
+							while($row3 = mysqli_fetch_array($resultado3)) {
+								$html_chaturbate .= '
+									<a href="https://es.chaturbate.com/'.$row3["usuario"].'" target="_blank">
+										<button type="button" class="btn btn-info">'.$row3["usuario"].'</button>
+									</a>
+								';
+							}
+
+							$html_contrato = 'No';
+							$consulta4 = "SELECT * FROM modelos_documentos WHERE id_modelos = ".$id_modelo." and id_documentos = 1";
+							$resultado4 = mysqli_query( $conexion, $consulta4 );
+							while($row4 = mysqli_fetch_array($resultado4)) {
+								$html_contrato = 'Si';
+							}
+
+							if($turno==''){
+								$turno = 'Sin Asignar';
+							}
+
+							$html_twitter = '';
+							$contador_twitter = 0;
+							$consulta5 = "SELECT * FROM redes_sociales WHERE id_modelo = ".$id_modelo." and red = 'Twitter'";
+							$resultado5 = mysqli_query( $conexion, $consulta5 );
+							while($row5 = mysqli_fetch_array($resultado5)) {
+								$contador_twitter = $contador_twitter+1;
+								$html_twitter .= '
+									<a href="'.$row5["link"].'" target="_blank">
+										<!--<button type="button" class="btn btn-info">'.$contador_twitter.'</button>-->
+										<img src="../img/icons/twitter1.png" style="width:40px;">
+									</a>
+								';
+							}
+
+							$html_instagram = '';
+							$contador_instagram = 0;
+							$consulta5 = "SELECT * FROM redes_sociales WHERE id_modelo = ".$id_modelo." and red = 'Instagram'";
+							$resultado5 = mysqli_query( $conexion, $consulta5 );
+							while($row5 = mysqli_fetch_array($resultado5)) {
+								$contador_instagram = $contador_instagram+1;
+								$html_instagram .= '
+									<a href="'.$row5["link"].'" target="_blank">
+										<!--<button type="button" class="btn btn-info">'.$contador_instagram.'</button>-->
+										<img src="../img/icons/instagram1.png" style="width:40px;">
+									</a>
+								';
+							}
+
+							$html_publico = 'No';
+							$consulta6 = "SELECT * FROM publicas WHERE id_modelo = ".$id_modelo;
+							$resultado6 = mysqli_query( $conexion, $consulta6 );
+							while($row6 = mysqli_fetch_array($resultado6)) {
+								$html_publico = 'Si';
+							}
+
+							echo '
+								<tr id="tr_'.$id_modelo.'">
+					                <td class="text-center">'.$nombre_sede.'</td>
+					                <td class="text-center">'.$nombre1.' '.$nombre2.' '.$apellido1.' '.$apellido2.'</td>
+					                <td class="text-center" nowrap="nowrap">'.$html_chaturbate.'</td>
+					                <td class="text-center">'.$html_contrato.'</td>
+					                <td class="text-center" nowrap="nowrap">'.$html_twitter.'</td>
+					                <td class="text-center" nowrap="nowrap">'.$html_instagram.'</td>
+					                <td class="text-center">'.$telefono1.'</td>
+					                <td class="text-center">'.$turno.'</td>
+					                <td class="text-center" id="publico_'.$id_modelo.'">'.$html_publico.'</td>
+					                <td class="text-center" nowrap="nowrap">
+					               		<i class="fas fa-edit" style="color:#0095ff; cursor:pointer;" title="" value="'.$id_modelo.'" data-toggle="modal" data-target="#exampleModal" onclick="modal_redes1('.$id_modelo.');"></i>
+					                	<i class="fas fa-trash-alt ml-3" style="color:red; cursor:pointer;"  data-toggle="modal" data-target="#exampleModal2" onclick="eliminar1('.$id_modelo.');" value="'.$id_modelo.'"></i>
+					                	<button type="button" class="btn btn-success ml-3" onclick="publico1('.$id_modelo.')">Público</button>
+					                	<button type="button" class="btn btn-danger ml-3" onclick="privado1('.$id_modelo.')">Privado</button>
+					                </td>
+					            ';
+						}
+						?>
+			        </tbody>
+			    </table>
+		</div>
+	</div>
 
 </body>
 </html>
+
+<!-- Modal Asignar Red -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<form action="#" method="POST" id="form_modal_redes1" style="">
+				<input type="hidden" name="add_id1" id="add_id1">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Asignar Redes</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+					    <div class="row">
+						    <div class="col-12 form-group form-check">
+							    <label for="add_redes1">Tipo de Documento <small style="color:#F2B76F; font-size: 17px;">*</small></label>
+							    <select name="add_redes1" id="add_redes1" class="form-control" required>
+							    	<option value="">Seleccione</option>
+							    	<option value="Instagram">Instagram</option>
+							    	<option value="Twitter">Twitter</option>
+							    </select>
+						    </div>
+						    <div class="col-12 form-group form-check">
+							    <label for="add_link_red1">Link de la Red <small style="color:#F2B76F; font-size: 17px;">*</small></label>
+							    <input type="url" name="add_link_red1" id="add_link_red1" class="form-control" autocomplete="off" required>
+						    </div>
+				    	</div>
+				    </div>
+				    <div class="modal-footer">
+				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+				        <button type="submit" class="btn btn-success" id="submit_add_redes1">Guardar</button>
+			      	</div>
+		      	</form>
+	    	</div>
+	  	</div>
+	</div>
+<!-- FIN Modal Asignar Red -->
+
+<!-- Modal Eliminar Red -->
+	<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<form action="#" method="POST" id="form_modal_eliminar1" style="">
+				<input type="hidden" name="eliminar_id1" id="eliminar_id1">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Eliminar Redes</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+					    <div class="row">
+						    <div class="col-12 form-group form-check">
+							    <label for="eliminar_redes1">Tipo de Documento <small style="color:#F2B76F; font-size: 17px;">*</small></label>
+							    <select name="eliminar_redes1" id="eliminar_redes1" class="form-control" required>
+							    	<option value="">Seleccione</option>
+							    	<option value="Instagram">Instagram</option>
+							    	<option value="Twitter">Twitter</option>
+							    </select>
+						    </div>
+				    	</div>
+				    </div>
+				    <div class="modal-footer">
+				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+				        <button type="submit" class="btn btn-success" id="submit_add_redes1">Guardar</button>
+			      	</div>
+		      	</form>
+	    	</div>
+	  	</div>
+	</div>
+<!-- FIN Modal Eliminar Red -->
 
 <script src="../js/jquery-3.5.1.min.js"></script>
 <script type="text/javascript" src="../js/popper.js"></script>
@@ -233,6 +436,150 @@
 					$('#div_'+button).show('slow');
 					$('#'+button).val('Si');
 				}
+			},
+
+			error: function(respuesta) {
+				console.log(respuesta['responseText']);
+			}
+		});
+	}
+
+	function modal_redes1(id_modelo){
+		$('#add_redes1').val('');
+		$('#add_link_red1').val('');
+		$('#add_id1').val(id_modelo);
+	}
+
+	$("#form_modal_redes1").on("submit", function(e){
+		e.preventDefault();
+		var id_modelo = $('#add_id1').val();
+		var add_redes1 = $('#add_redes1').val();
+		var add_link_red1 = $('#add_link_red1').val();
+
+        $.ajax({
+            url: '../script/crud_redes1.php',
+            type: 'POST',
+           	data: {
+				"id_modelo": id_modelo,
+				"add_redes1": add_redes1,
+				"add_link_red1": add_link_red1,
+				"condicion": 'guardar',
+			},
+
+            beforeSend: function (){
+            	$('#submit_add_redes1').attr('disabled','true');
+            },
+
+            success: function(response){
+            	console.log(response);
+            	$('#submit_add_redes1').removeAttr('disabled','false');
+            	
+            	Swal.fire({
+		 			title: 'Guardado exitosamente!',
+		 			text: "Limpiando Cache...",
+		 			icon: 'success',
+		 			position: 'center',
+		 			showConfirmButton: true,
+		 			timer: 2000
+				});
+
+            },
+
+            error: function(response){
+            	console.log(response['responseText']);
+            }
+        });
+    });
+
+    $("#form_modal_eliminar1").on("submit", function(e){
+		e.preventDefault();
+		Swal.fire({
+		  title: 'Estas seguro?',
+		  text: "Esta acción no podra revertirse",
+		  icon: 'warning',
+		  showConfirmButton: true,
+		  showCancelButton: true,
+		  confirmButtonColor: '#3085d6',
+		  cancelButtonColor: '#d33',
+		  confirmButtonText: 'Si, Eliminar registro!',
+		  cancelButtonText: 'Cancelar'
+		}).then((result) => {
+		  if (result.value) {
+		  	var id_modelo = $('#eliminar_id1').val();
+			var add_redes1 = $('#eliminar_redes1').val();
+		    $.ajax({
+				type: 'POST',
+				url: '../script/crud_redes1.php',
+				data: {
+					"id_modelo": id_modelo,
+					"add_redes1": add_redes1,
+					"condicion": 'eliminar',
+				},
+				dataType: "JSON",
+				success: function(respuesta) {
+					Swal.fire({
+					    title: 'Registro Eliminado!',
+					    text: 'Redirigiendo...',
+					    icon: 'success',
+					    showConfirmButton: false
+				    });setTimeout(function() {
+			      		window.location.href = "index.php";
+			    	},3500);
+				},
+
+				error: function(respuesta) {
+					console.log("error..."+respuesta);
+				}
+			});
+		  }
+		})
+	});
+
+	function eliminar1(id_modelo){
+		$('#eliminar_redes1').val('');
+		$('#eliminar_id1').val(id_modelo);
+	}
+
+	function publico1(id_modelo){
+		$.ajax({
+			type: 'POST',
+			url: '../script/crud_publicos1.php',
+			data: {
+				"id_modelo": id_modelo,
+				"condicion": 'publico',
+			},
+			dataType: "JSON",
+			success: function(respuesta) {
+				console.log(respuesta);
+				$('#publico_'+id_modelo).html('Si');
+				$('#tr_'+id_modelo).addClass('tr_señalada');
+				setTimeout(function() {
+					$('#tr_'+id_modelo).removeClass('tr_señalada');
+				},5000);
+			},
+
+			error: function(respuesta) {
+				console.log(respuesta['responseText']);
+			}
+		});
+	}
+
+	function privado1(id_modelo){
+		$.ajax({
+			type: 'POST',
+			url: '../script/crud_publicos1.php',
+			data: {
+				"id_modelo": id_modelo,
+				"condicion": 'privado',
+			},
+			dataType: "JSON",
+			success: function(respuesta) {
+				console.log(respuesta);
+				$('#publico_'+id_modelo).html('No');
+				$('#tr_'+id_modelo).addClass('tr_señalada');
+				setTimeout(function() {
+					$('#tr_'+id_modelo).removeClass('tr_señalada');
+				},5000);
 			},
 
 			error: function(respuesta) {

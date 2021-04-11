@@ -91,35 +91,31 @@
 					<a href="exportar5.php" style="text-decoration: none;">
 				    	<button type="button" class="btn btn-info ml-3">Todas las Pasantes</button>
 					</a>
-					<!--
-					<a href="exportar6.php" style="text-decoration: none;">
-				    	<button type="button" class="btn btn-info ml-3">Registrados con Banco</button>
+					<a href="ejecucionbd1.php" style="text-decoration: none;" target="_blank">
+				    	<button type="button" class="btn btn-info ml-3">Quitar Espacios en Cedulas BD</button>
 					</a>
-					<a href="exportar7.php" style="text-decoration: none;">
-				    	<button type="button" class="btn btn-info ml-3">Faltantes Mixtos 1</button>
+					<a href="exportar13.php" style="text-decoration: none;" target="_blank">
+				    	<button type="button" class="btn btn-info ml-3">Reporte de Cuentas</button>
 					</a>
-					<a href="exportar8.php" style="text-decoration: none;">
-				    	<button type="button" class="btn btn-info ml-3">Cuentas Repetidas</button>
-					</a>
-					-->
 		    	</div>
 		    	<div class="col-12 mt-3 text-center">
 		    		<hr style="background-color: black; height: 2px;">
 		    	</div>
 			<?php } ?>
 
-
 	    	<div class="col-12 mt-3 text-center" style="font-weight: bold; font-size: 30px; text-transform: uppercase;">
 	    		Zona de Desprendibles
 	    	</div>
 
 		    <div class="col-12 mt-3 text-center">
+		    	<div class="row">
 		    	<?php
 		    		$sql_presabana1 = "SELECT * FROM presabana GROUP BY inicio";
 		    		$consulta_presabana1 = mysqli_query($conexion,$sql_presabana1);
 					while($row1 = mysqli_fetch_array($consulta_presabana1)) {
 						echo '
-						<div class="form-group col-4">
+						<div class="form-group col-4 mt-3">
+							<!--
 							<p style="font-size: 16px;">'.$row1["inicio"].' al '.$row1["fin"].'</p>
 						    <a href="ver_presabanas1.php?inicio='.$row1["inicio"].'&fin='.$row1["fin"].'" class="mr-2" style="text-decoration:none;" target="_blank">
 								<button class="btn btn-info">Positivos</button>
@@ -127,6 +123,25 @@
 							<a href="ver_presabanas2.php?inicio='.$row1["inicio"].'&fin='.$row1["fin"].'" class="mr-2" style="text-decoration:none;" target="_blank">
 								<button class="btn btn-info">Negativos</button>
 							</a>
+							-->
+							<form action="ver_presabanas3.php" target="_blank">
+								<p style="font-size: 16px;">'.$row1["inicio"].' al '.$row1["fin"].'</p>
+								<input type="hidden" value="'.$row1["inicio"].'" name="inicio">
+								<input type="hidden" value="'.$row1["fin"].'" name="fin">
+								<select name="condicion" id="condicion" class="form-control" required>
+									<option value="">Seleccione</option>
+									<option value="Positivos">Positivos</option>
+									<option value="Negativos">Negativos</option>
+								</select>
+								<select name="sedes" id="sedes" class="form-control">
+									<option value="">Todos</option>
+									<option value="1">VIP Occidente</option>
+									<option value="2">Norte</option>
+									<option value="3">Occidente I</option>
+									<option value="4">VIP Suba</option>
+								</select>
+								<button type="submit" class="btn btn-info mt-1">Inspeccionar</button>
+							</form>
 						</div>
 						';
 
@@ -139,6 +154,7 @@
 						*/
 					}
 		    	?>
+		    	</div>
 		   	</div>
 
 
@@ -150,13 +166,13 @@
 			if($_SESSION['rol']!=14){?>
 
 	    	<div class="col-12 mt-3 text-center" style="font-weight: bold; font-size: 30px; text-transform: uppercase;">
-	    		Zona de Desprendibles Bancarios para Andrea y | <3 Camila *-* |
+	    		Zona de Desprendibles Bancarios
 	    	</div>
 
 		    <div class="col-12 mt-3 text-center">
 		    	<div class="row">
 		    	<?php
-		    		$sql_presabana1 = "SELECT * FROM presabana GROUP BY fecha_inicio";
+		    		$sql_presabana1 = "SELECT * FROM presabana GROUP BY inicio";
 		    		$consulta_presabana1 = mysqli_query($conexion,$sql_presabana1);
 					while($row1 = mysqli_fetch_array($consulta_presabana1)) {
 						echo '

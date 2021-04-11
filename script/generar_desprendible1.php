@@ -253,13 +253,8 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 		$sheet->setCellValue('R'.$fila, $total_tokens);
 
 		$subt_total_dolares = $total_tokens*0.05;
-		//$subt_total_dolares = $contador_dolares_chaturbate1+$contador_dolares_myfreecams1+$contador_dolares_camsoda1+$contador_dolares_bonga1+$contador_dolares_stripchat1+$contador_dolares_cam41+$contador_dolares_streamate1+$contador_dolares_flirt4free1+$contador_dolares_livejasmin1+$contador_dolares_imlive1+$contador_dolares_xlove1;
 
 		$sheet->setCellValue('S'.$fila, $subt_total_dolares);
-
-		$retencion_fuente = $subt_total_dolares*0.03;
-
-		$sheet->setCellValue('T'.$fila, $retencion_fuente);
 
 		if($total_tokens==0){
 			$meta1 = '0%';
@@ -337,9 +332,22 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 
 		if($fvp1==0){
 			$fpv2 = 0;
+			$retencion_fuente = 0;
 		}else{
 			$fpv2 = $fvp1/$total_tokens;
+			$retencion_fuente = ((($total_tokens*$fpv2)/$meta3)*0.03)/$desprendible_trm;
+			/*
+			echo '<div class="col-12"><p>';
+			echo "Cedula = ".$documento_numero;
+			echo " tokens = ".$total_tokens;
+			echo " pv = ".$fpv2;
+			echo " meta3 = ".$meta3;
+			echo " Total = ".((($total_tokens*$fpv2)/$meta3)*0.03)/$desprendible_trm;
+			echo '</p></div>';
+			*/
 		}
+
+		$sheet->setCellValue('T'.$fila, $retencion_fuente);
 
 		$sheet->setCellValue('Y'.$fila, $fpv2);
 
@@ -468,13 +476,6 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 		$consulta4 = mysqli_query($conexion,$sql4);
 }
 
-/*
-$datos = [
-	"sql" 			=> $sql_paginas1,
-];
-
-echo json_encode($datos);
-*/
 
 $fecha_inicio1 = date('Y-m-d');
 $writer = new Xlsx($spreadsheet);

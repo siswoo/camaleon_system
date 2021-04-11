@@ -13,10 +13,35 @@ $caracteres_permitidos = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQR
 $longitud = 12;
 $codigo = substr(str_shuffle($caracteres_permitidos), 0, $longitud);
 
-$sql1 = "SELECT * FROM usuarios WHERE usuario = '".$usuario."' or correo = '".$usuario."'";
+$sql1 = "SELECT * FROM usuarios WHERE (usuario = '".$usuario."' or correo = '".$usuario."') and rol = 5";
 $consulta1 = mysqli_query($conexion,$sql1);
 $contador1 = mysqli_num_rows($consulta1);
 
+if($contador1>=1){
+	while($row1 = mysqli_fetch_array($consulta1)) {
+		$id = $row1['id'];
+		$documento_numero = $row1['documento_numero'];
+	}
+	$clave_nueva = md5($documento_numero);
+	$sql2 = "UPDATE usuarios SET clave = '".$clave_nueva."' WHERE id = ".$id;
+	$consulta2 = mysqli_query($conexion,$sql2);
+	
+	$datos = [
+		"sql" => $sql2,
+		"contador" => $contador1,
+	];
+
+	echo json_encode($datos);
+}else{
+	$datos = [
+		"sql" => $sql1,
+		"contador" => $contador1,
+	];
+
+	echo json_encode($datos);
+}
+
+/*
 if($contador1>=1){
 	while($row1 = mysqli_fetch_array($consulta1)) {
 		$correo = $row1['correo'];
@@ -40,25 +65,12 @@ if($contador1>=1){
 
 		    $mail->setFrom('contactosmodelos@camaleonmg.com');
 		    $mail->addAddress($correo);
-		    //$mail->AddEmbeddedImage("../img/alerta_recordatorio_cuenta.png", "my-attach", "alerta_recordatorio_cuenta.png");
 		    
 		    $html.='
 		    	<p style="text-align:center;">Proceso de Recordar Cuenta</p>
 		    	<p style="text-align:center;">Ingresar al siguiente link de verificación</p>
 		    	<p style="text-align:center;">https://www.camaleonmg.com/recuperar_contraseña3.php?key='.$codigo.'</p>
 		    ';
-		    
-		    /*
-		    $html .= "
-		        <h2 style='color:#3F568A; text-align:center; font-family: Helvetica Neue,Helvetica,Arial,sans-serif;'>
-		            <p>Recuerda que tienes una cuenta habilitada que no has estrenado</p>
-		            <p>Si tienes alguna duda, consultar con tu monitor de confianza.</p>
-		        </h2>
-		        <div style='text-align:center;'>
-		        	<img alt='PHPMailer' src='cid:my-attach'>
-		        </div>
-		    ";
-		    */
 
 		    $mail->isHTML(true);
 		    $mail->Subject = 'Camaleon Models!';
@@ -69,11 +81,5 @@ if($contador1>=1){
 
 	    } catch (Exception $e) {}
 }
-
-$datos = [
-	"sql" => $sql1,
-	"contador" => $contador1,
-];
-
-echo json_encode($datos);
+*/
 ?>

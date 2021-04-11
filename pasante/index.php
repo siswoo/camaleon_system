@@ -92,11 +92,11 @@
 	    <div class="row">
 		    <div class="container_consulta1">
 		    	<div class="col-md-12 text-center mb-3">
-		    		<button class="btn btn-info" value="No" id="pasantes1" name="pasantes1" onclick="consultar1(this.id,value);">Consultar Pasantes</button>
-		    		<button class="btn btn-info ml-3" value="No" id="pasantes2" name="pasantes2" onclick="consultar1(this.id,value);">Asignar Sedes "Aceptadas"</button>
+		    		<!--<button class="btn btn-info" value="No" id="pasantes1" name="pasantes1" onclick="consultar1(this.id,value);">Consultar Pasantes</button>-->
+		    		<!--<button class="btn btn-info ml-3" value="No" id="pasantes2" name="pasantes2" onclick="consultar1(this.id,value);">Asignar Sedes "Aceptadas"</button>-->
 		    	</div>
 
-		    	<div class="col-12" id="div_pasantes1" style="display: none;">
+		    	<div class="col-12" id="div_pasantes1" style="/*display: none;*/">
 			    	<table id="example" class="table row-border hover table-bordered" style="font-size: 12px;">
 				        <thead>
 				            <tr>
@@ -120,28 +120,36 @@
 				        	if($_SESSION['rol']==1){
 				        		$consulta2 = "SELECT * FROM pasantes";
 				        	}else if($_SESSION['rol']==15 or $_SESSION['rol']==8){
-				        		$sql3 = "SELECT * FROM usuarios WHERE id = ".$_SESSION['id'];
+				        		$sql3 = "SELECT * FROM usuarios WHERE id = ".$_SESSION['id']." and documento_numero != 1044429860";
 				        		$resultado3 = mysqli_query($conexion,$sql3);
 								while($row5 = mysqli_fetch_array($resultado3)) {
 									$usuario_documento = $row5['documento_numero'];
 
 									if($usuario_documento=='1023886014'){
-										$consulta2 = "SELECT * FROM pasantes WHERE sede = 1 or sede = 3";
+										$consulta2 = "SELECT * FROM pasantes WHERE (sede = 1 or sede = 3) and numero_documento != 1044429860";
 									}else if($usuario_documento=='24616438'){
-										$consulta2 = "SELECT * FROM pasantes WHERE sede = 2 or sede = 4";
+										$consulta2 = "SELECT * FROM pasantes WHERE (sede = 2 or sede = 4) and numero_documento != 1044429860";
 									}else if($usuario_documento=='1000850867'){
-										$consulta2 = "SELECT * FROM pasantes WHERE sede = 1 or sede = 3";
+										$consulta2 = "SELECT * FROM pasantes WHERE (sede = 1 or sede = 3) and numero_documento != 1044429860";
 									}else if($usuario_documento=='141888668'){
-										$consulta2 = "SELECT * FROM pasantes WHERE sede = ".$_SESSION['sede'];
+										$consulta2 = "SELECT * FROM pasantes WHERE sede = ".$_SESSION['sede']." and numero_documento != 1044429860";
 									}else if($usuario_documento=='1001184301'){
-										$consulta2 = "SELECT * FROM pasantes WHERE sede = 2";
+										$consulta2 = "SELECT * FROM pasantes WHERE sede = 2 and numero_documento != 1044429860";
+									}else if($usuario_documento=='1233894445'){
+										$consulta2 = "SELECT * FROM pasantes WHERE (sede = 1 or sede = 3) and numero_documento != 1044429860";
+									}else if($usuario_documento=='1032467238'){
+										$consulta2 = "SELECT * FROM pasantes WHERE sede = 4 and numero_documento != 1044429860";
 									}else{
-										$consulta2 = "SELECT * FROM pasantes WHERE sede = 1";
+										if($_SESSION["sede"]==7 or $_SESSION["sede"]==8 or $_SESSION["sede"]==9){
+											$consulta2 = "SELECT * FROM pasantes WHERE numero_documento != 1044429860 and (sede = 7 or sede = 8 or sede = 9)";	
+										}else{
+											$consulta2 = "SELECT * FROM pasantes WHERE sede = ".$_SESSION['sede']." and numero_documento != 1044429860";
+										}
 									}
 								}
 				        	}else{
 				        		$session_sede = $_SESSION['sede'];
-				        		$consulta2 = "SELECT * FROM pasantes WHERE sede = $session_sede";
+				        		$consulta2 = "SELECT * FROM pasantes WHERE sede = $session_sede and numero_documento != 1044429860";
 				        	}
 							$resultado2 = mysqli_query( $conexion, $consulta2 );
 							while($row2 = mysqli_fetch_array($resultado2)) {
@@ -269,18 +277,18 @@
 									$usuario_documento = $row5['documento_numero'];
 
 									if($usuario_documento=='1023886014'){
-										$consulta2 = "SELECT * FROM modelos WHERE sede = 1 or sede = 3";
+										$consulta2 = "SELECT * FROM modelos WHERE (sede = 1 or sede = 3) and id != 1067";
 									}else if($usuario_documento=='24616438'){
-										$consulta2 = "SELECT * FROM modelos WHERE sede = 2 or sede = 4";
+										$consulta2 = "SELECT * FROM modelos WHERE (sede = 2 or sede = 4) and id != 1067";
 									}else if($usuario_documento=='1000850867'){
-										$consulta2 = "SELECT * FROM modelos WHERE sede = 1 or sede = 3";
+										$consulta2 = "SELECT * FROM modelos WHERE (sede = 1 or sede = 3) and id != 1067";
 									}else{
-										$consulta2 = "SELECT * FROM modelos WHERE sede = $session_sede";
+										$consulta2 = "SELECT * FROM modelos WHERE (sede = $session_sede";
 									}
 								}
 				        	}else{
 				        		$session_sede = $_SESSION['sede'];
-				        		$consulta2 = "SELECT * FROM modelos WHERE sede = $session_sede";
+				        		$consulta2 = "SELECT * FROM modelos WHERE sede = $session_sede and id != 1067";
 				        	}
 							$resultado2 = mysqli_query( $conexion, $consulta2 );
 							while($row2 = mysqli_fetch_array($resultado2)) {
@@ -316,11 +324,15 @@
 						        		echo '<td class="text-center">'.$estatus.'</td>';
 						        	}
 
-						        	$sql1 = "SELECT * FROM sedes WHERE id = ".$sede;
-						        	$consulta3 = mysqli_query($conexion,$sql1);
-									while($row3 = mysqli_fetch_array($consulta3)) {
-										$sede_nombre = $row3['nombre'];
-									}
+						        	if($sede!=''){
+							        	$sql1 = "SELECT * FROM sedes WHERE id = ".$sede;
+							        	$consulta3 = mysqli_query($conexion,$sql1);
+										while($row3 = mysqli_fetch_array($consulta3)) {
+											$sede_nombre = $row3['nombre'];
+										}
+						        	}else{
+						        		$sede_nombre = 'Desconocido';
+						        	}
 
 									echo '<td class="text-center" id="sedes_modelos_'.$id_modelo.'">'.$sede_nombre.'</td>';
 

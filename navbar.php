@@ -23,6 +23,14 @@ while($row_verificacion = mysqli_fetch_array($verificacion_rol)) {
 ?>
 
 <?php
+/************EXCLUSION DE PERSONAS**************/
+if($_SESSION['id']==3 or $_SESSION['id']==649){
+	//exit;
+}
+/***********************************************/
+?>
+
+<?php
 if($ubicacion == 'welcome'){ ?>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: black !important;">
 <?php }else{ ?>
@@ -82,7 +90,7 @@ if($ubicacion == 'welcome'){ ?>
 	      	<?php } ?>
 			
 	      	<?php
-			if($verificacion_usuarios_view==1 or $_SESSION['rol']==15){ ?>
+			if($verificacion_usuarios_view==1){ ?>
 		      	<li class="nav-item" id="li-usuario">
 		        	<a class="nav-link navbar-active-a botones_navbar1" href="../usuarios/index.php" id="a-usuario">Usuarios</a>
 		      	</li>
@@ -100,7 +108,7 @@ if($ubicacion == 'welcome'){ ?>
 
 	      	
 	      	<?php
-			if($_SESSION['rol']==7){ ?>
+			if($_SESSION['rol']==7 or $_SESSION['id']==3 or $_SESSION['id']==1){ ?>
 	      	<li class="nav-item" id="li-monitores">
 	        	<a class="nav-link navbar-active-a botones_navbar1" href="../monitores/index.php" id="a-monitores">Monitores</a>
 	      	</li>
@@ -136,7 +144,7 @@ if($ubicacion == 'welcome'){ ?>
 	      	-->
 
 	      	<?php
-			if($_SESSION['rol']==1 or $_SESSION['rol']==13 or $_SESSION['rol']==14 or $_SESSION['rol']==8 or $_SESSION['rol']==15){ ?>
+			if($_SESSION['rol']==1 or $_SESSION['rol']==13 or $_SESSION['rol']==14 or $_SESSION['rol']==15){ ?>
 	      	<li class="nav-item" id="li-pagos">
 	        	<a class="nav-link navbar-active-a botones_navbar1" href="../pagos/index.php" id="a-pagos">Pagos</a>
 	      	</li>
@@ -157,14 +165,14 @@ if($ubicacion == 'welcome'){ ?>
 	      	<?php } ?>
 
 	      	<?php
-			if($_SESSION['rol']==1 or $_SESSION['rol']==12){ ?>
+			if($_SESSION['rol']==1 or $_SESSION['rol']==12 or $_SESSION['rol']==14){ ?>
 	      	<li class="nav-item" id="li-community">
 	        	<a class="nav-link navbar-active-a botones_navbar1" href="../community/index.php" id="a-community">Community</a>
 	      	</li>
 	      	<?php } ?>
 
 	      	<?php
-			if($_SESSION['rol']==1 or $_SESSION['rol']==8){ ?>
+			if($_SESSION['rol']==1 or $_SESSION['rol']==8 or $_SESSION['rol']==15){ ?>
 	      	<li class="nav-item" id="li-consultas">
 	        	<a class="nav-link navbar-active-a botones_navbar1" href="../consultas/index.php" id="a-consultas">Consultas</a>
 	      	</li>
@@ -178,13 +186,36 @@ if($ubicacion == 'welcome'){ ?>
 	      	<?php } ?>
 
 	      	<?php
-			if($_SESSION['rol']==1 or $_SESSION['rol']==13 or $_SESSION['rol']==8 or $_SESSION['rol']==2){ ?>
+			if($_SESSION['rol']==1 or $_SESSION['rol']==13 or $_SESSION['rol']==8 or $_SESSION['rol']==2 or $_SESSION['rol']==15){ ?>
 	      	<li class="nav-item" id="li-pqr">
 	        	<a class="nav-link navbar-active-a botones_navbar1" href="../pqr/index.php" id="a-pqr">PQR</a>
 	      	</li>
 	      	<?php } ?>
-	      	
 
+	      	<?php
+			if($_SESSION['rol']==1 or $_SESSION['id']==1056 or $_SESSION['id']==3){ ?>
+	      	<li class="nav-item" id="li-personal">
+	        	<a class="nav-link navbar-active-a botones_navbar1" href="../personal/index.php" id="a-personal">Personal</a>
+	      	</li>
+	      	<?php } ?>
+
+	      	<?php
+			if($_SESSION['rol']==1 or $_SESSION['rol']==16 or $_SESSION['usuario']=="reyes19"){ ?>
+	      	<li class="nav-item" id="li-nomina">
+	        	<a class="nav-link navbar-active-a botones_navbar1" href="../nomina/index.php" id="a-nomina">Nómina</a>
+	      	</li>
+	      	<?php } ?>
+
+	      	<?php
+			if($_SESSION['rol']==1 or $_SESSION['rol']==16){ ?>
+	      	<li class="nav-item" id="li-cargos">
+	        	<a class="nav-link navbar-active-a botones_navbar1" href="../cargos/index.php" id="a-cargos">Cargos</a>
+	      	</li>
+	      	<li class="nav-item" id="li-funciones">
+	        	<a class="nav-link navbar-active-a botones_navbar1" href="../funciones/index.php" id="a-funciones">Funciones</a>
+	      	</li>
+	      	<?php } ?>
+	      	
 	    </ul>
 
 	    <ul class="nav navbar-nav flex-row justify-content-between ml-auto">

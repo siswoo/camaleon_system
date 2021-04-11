@@ -20,7 +20,9 @@ if($responsable!=''){
 }
 
 $datos = [
-	"resultado" => 'ok',
+	"sql1" => $sql1,
+	"sql3" => $sql3,
+	"status" => 'ok',
 ];
 
 echo json_encode($datos);

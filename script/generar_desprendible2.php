@@ -251,6 +251,10 @@ while($row2 = mysqli_fetch_array($consulta2)) {
 		$bono1 = 500000;
 	}
 
+	if($id_modelo == 377 and $fecha_desde == '2021-02-16'){
+		$bono1 = 300000;
+	}
+
 	if($bono1>=1){
 		$pdf->Ln(5);
 		$pdf->Cell(65,5,utf8_decode('BONO'),0,0,'');

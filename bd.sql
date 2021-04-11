@@ -39,6 +39,8 @@ CREATE TABLE roles (
 
 	administracion INT DEFAULT 0,
 
+	nomina INT DEFAULT 0,
+
 	test INT DEFAULT 0,
 
 	PRIMARY KEY (id)
@@ -58,8 +60,8 @@ INSERT INTO roles (id,nombre,community) VALUES (12,'Community Manager',1);
 INSERT INTO roles (id,nombre,financiera) VALUES (13,'Financiera',1);
 INSERT INTO roles (id,nombre,jefe) VALUES (14,'Jefe',1);
 INSERT INTO roles (id,nombre,administracion) VALUES (15,'Administración Sede',1);
+INSERT INTO roles (id,nombre,nomina) VALUES (16,'Gestion Nomina',1);
 ALTER TABLE roles CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
-
 
 DROP TABLE IF EXISTS sedes;
 CREATE TABLE sedes (
@@ -67,18 +69,23 @@ CREATE TABLE sedes (
 	nombre VARCHAR(250) NOT NULL,
 	direccion VARCHAR(250) NOT NULL,
 	ciudad VARCHAR(250) NOT NULL,
+	descripcion VARCHAR(250) NOT NULL,
 	responsable VARCHAR(250) NOT NULL,
 	cedula VARCHAR(250) NOT NULL,
 	rut VARCHAR(250) NOT NULL,
 	PRIMARY KEY (id)
 ); ALTER TABLE sedes CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
-INSERT INTO sedes (nombre,direccion,ciudad,responsable,cedula,rut) VALUES 
-('VIP Occidente','Direccion','Bogotá D.C', 'Andres Fernando Bernal Correa', '80.774.671', '901.257.204-8'),
-('Norte','Direccion','Bogotá D.C', 'Andres Fernando Bernal Correa', '80.774.671', '901.257.204-8'),
-('Occidente I','Direccion','Bogotá D.C', 'Andres Fernando Bernal Correa', '80.774.671', '901.257.204-8'),
-('VIP Suba','Direccion','Bogotá D.C', 'Andres Fernando Bernal Correa', '80.774.671', '901.257.204-8'),
-('Medellin','Direccion','Medellin', 'Andres Fernando Bernal Correa', '80.774.671', '901.257.204-8');
+INSERT INTO sedes (nombre,direccion,ciudad,descripcion,responsable,cedula,rut) VALUES 
+('VIP Occidente','Direccion','Bogotá D.C','BERNAL GROUP  SAS','Andres Fernando Bernal Correa', '80.774.671', '901.257.204-8'),
+('Norte','Direccion','Bogotá D.C','BERNAL GROUP  SAS','Andres Fernando Bernal Correa', '80.774.671', '901.257.204-8'),
+('Occidente I','Direccion','Bogotá D.C','BERNAL GROUP  SAS','Andres Fernando Bernal Correa', '80.774.671', '901.257.204-8'),
+('VIP Suba','Direccion','Bogotá D.C','BERNAL GROUP  SAS','Andres Fernando Bernal Correa', '80.774.671', '901.257.204-8'),
+('Medellin','Direccion','Medellin','BERNAL GROUP  SAS','Andres Fernando Bernal Correa', '80.774.671', '901.257.204-8'),
+('Soacha','Direccion','Bogotá D.C','BERNAL GROUP  SAS','Andres Fernando Bernal Correa', '80.774.671', '901.257.204-8'),
+('Belen','Carrera 81 #30A 67','Medellin','BERNAL GROUP  SAS','Andres Fernando Bernal Correa', '80.774.671', '901322261-6'),
+('Sur Americana','Calle 48 #66 70','Medellin','BERNAL GROUP  SAS','Andres Fernando Bernal Correa', '80.774.671', '901322261-6'),
+('Manrique','Carrera 36 #70 41','Medellin','BERNAL GROUP  SAS','Andres Fernando Bernal Correa', '80.774.671', '901322261-6');
 
 
 DROP TABLE IF EXISTS usuarios;
@@ -116,7 +123,24 @@ INSERT INTO usuarios (nombre,apellido,documento_tipo,documento_numero,correo,usu
 ('Variable','Variable','PEP','77777777','Variable@gmail.com','Variable','21232f297a57a5a743894a0e4a801fc3','77777777','',99,1,'2020-09-29'),
 ('Carlos','Vargas','Cedula de Ciudadania','1108456684','vargas1101@gmail.com','Soporte123','827ccb0eea8a706c4c34a16891f84e7b','','',2,1,'2020-10-06'),
 ('Denisse Giannyna','Gonzalez Cifuentes','Cedula de Ciudadania','1001184301','denisse.gonzalez1234@gmail.com','denisse.gonzales','723a1d81851c596931b050cae056197f','','',8,2,'2020-10-08'),
-('Andres Fernando','Bernal Correa','Cedula de Ciudadania','80.774.671','gerencia@bernal-group.com','gerencia','800e6e2dd493e8db8d867f021d1c25a7','','',14,1,'2020-12-30');
+('Andres Fernando','Bernal Correa','Cedula de Ciudadania','80.774.671','gerencia@bernal-group.com','gerencia','800e6e2dd493e8db8d867f021d1c25a7','','',14,1,'2020-12-30'),
+('Daniela','Buitrago','Cedula de Ciudadania','1031175837','lauradanielabuga@gmail.com','dani_8','c591db46628b4c9292ac9e0d3223026e','','',12,1,'2021-02-19'),
+('Karen Stefanny','Parra Sanchez','Cedula de Ciudadania','1018492284','stefanny1parra@gmail.com','karenparra','ed53feba2a0a4df03d19ef836b701ea0','3058754431','',8,6,'2021-03-22'),
+('Jorse Luis','Casique Useche','Cedula de Ciudadania','1130245934','jorgecasique220@gmail.com','jorgeuseche','5311b986f20a6f348fad8fb41f898995','3504633380','',15,6,'2021-03-22'),
+('Soacha','Test6','PEP','66666666666','test6@gmail.com','soacha','a5604eb6a51af9e9719bb9fda7bf0686','77777777','',4,6,'2021-03-22'),
+('Kenlly','Lopez','Cedula de Ciudadania','1016063760','Kenllylopez25@gmail.com','kenlly123','599fdfa24809faf5bd5b7047c63557ea','3502915076','',15,1,'2021-04-07'),
+('Anderson','Prieto','Cedula de Ciudadania','1001046590','prietovargas4@gmail.com','soportesoacha','bf4dee03a08c7c0536760c11e3041ab3','3123790146','',2,6,'2021-03-29'),
+
+('Thayana','Rios Vasquez','Cedula de Ciudadania','1017230042','thayana503@gmail.com','thayana503','959b551e0a7fe3f0ec403884dfac2769','3023769858','',15,7,'2021-03-30'),
+('Yoryenis','Cabrejo Ortega','Cedula de Ciudadania','1000871360','Yoryenisortega@gmail.com','Yoryenis123','356bc2382667819f405b4dd88b5b6ac4','3004758167','',2,7,'2021-03-30'),
+('Isabel','Arango','Cedula de Ciudadania','43252386','cris4325@gmail.com','cris4325','ebb9800d3b2856e85f7d2eee4d76dfa7','3154655878','',15,8,'2021-03-30'),
+
+('pasantebelen','pasantebelen','Cedula de Ciudadania','77777777777','pasantebelen@gmail.com','pasantebelen','a5604eb6a51af9e9719bb9fda7bf0686','777777777777','',4,7,'2021-03-30'),
+('pasantesa','pasantesa','Cedula de Ciudadania','77777777777','pasantesa@gmail.com','pasantesa','a5604eb6a51af9e9719bb9fda7bf0686','777777777777','',4,8,'2021-03-30'),
+('pasantemanrique','pasantemanrique','Cedula de Ciudadania','77777777777','pasantemanrique@gmail.com','pasantemanrique','a5604eb6a51af9e9719bb9fda7bf0686','777777777777','',4,9,'2021-03-30'),
+
+('Valentina','Linares','Cedula de Ciudadania','1026594002','givalimu0321@gmail.com','valentina0321','cd2acea595e93463bc8ea3b6d1583fc9','3222791497','',8,6,'2021-03-31'),
+('Lizeth','Reyes','Cedula de Ciudadania','1073699719','santiagoreyes1201@gmail.com','reyes19','30d708ec57e485cd54a78968d278959f','3123109781','',15,6,'2021-04-01');
 ALTER TABLE usuarios CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 DROP TABLE IF EXISTS modelos;
@@ -924,3 +948,346 @@ CREATE TABLE auditoria (
    	PRIMARY KEY (id)
 ); ALTER TABLE auditoria CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
+DROP TABLE IF EXISTS redes_sociales;
+CREATE TABLE redes_sociales (
+	id INT AUTO_INCREMENT,
+	id_modelo INT NOT NULL,
+	red TEXT NOT NULL,
+	link TEXT NOT NULL,
+	responsable INT NOT NULL,
+	fecha_inicio DATE NOT NULL,
+   	PRIMARY KEY (id)
+); ALTER TABLE redes_sociales CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+DROP TABLE IF EXISTS publicas;
+CREATE TABLE publicas (
+	id INT AUTO_INCREMENT,
+	id_modelo INT NOT NULL,
+	responsable INT NOT NULL,
+	fecha_inicio DATE NOT NULL,
+   	PRIMARY KEY (id)
+); ALTER TABLE publicas CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+DROP TABLE IF EXISTS categorias;
+CREATE TABLE categorias (
+	id INT AUTO_INCREMENT,
+	nombre VARCHAR(250) NOT NULL,
+	estatus VARCHAR(250) NOT NULL,
+	responsable INT NOT NULL,
+	fecha_inicio DATE NOT NULL,
+   	PRIMARY KEY (id)
+); ALTER TABLE categorias CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+
+DROP TABLE IF EXISTS t_usuarios;
+CREATE TABLE t_usuarios (
+	id INT AUTO_INCREMENT,
+	nombre VARCHAR(250) NOT NULL,
+	usuario VARCHAR(250) NOT NULL,
+	clave VARCHAR(250) NOT NULL,
+	correo VARCHAR(250) NOT NULL,
+	fecha_inicio DATE NOT NULL,
+   	PRIMARY KEY (id)
+); ALTER TABLE t_usuarios CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+INSERT INTO t_usuarios (nombre,usuario,clave,correo,fecha_inicio) VALUES 
+('Juan Maldonado','admin','202cb962ac59075b964b07152d234b70','juanmaldonado.co@gmail.com','2021-02-19');
+
+DROP TABLE IF EXISTS t_categorias;
+CREATE TABLE t_categorias (
+	id INT AUTO_INCREMENT,
+	nombre VARCHAR(250) NOT NULL,
+	estatus VARCHAR(250) NOT NULL,
+	responsable INT NOT NULL,
+	fecha_inicio DATE NOT NULL,
+   	PRIMARY KEY (id)
+); ALTER TABLE t_categorias CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+INSERT INTO t_categorias (nombre,estatus,responsable,fecha_inicio) VALUES ('Categoria1','Activo',1,'2021-02-20');
+
+DROP TABLE IF EXISTS t_productos;
+CREATE TABLE t_productos (
+	id INT AUTO_INCREMENT,
+	nombre VARCHAR(250) NOT NULL,
+	marca VARCHAR(250) NOT NULL,
+	modelo VARCHAR(250) NOT NULL,
+	descripcion TEXT NOT NULL,
+	caracteristica1 TEXT NOT NULL,
+	caracteristica2 TEXT NOT NULL,
+	caracteristica3 TEXT NOT NULL,
+	caracteristica4 TEXT NOT NULL,
+	caracteristica5 TEXT NOT NULL,
+	precio INT NOT NULL,
+	categoria INT NOT NULL,
+	imagen VARCHAR(250) NOT NULL,
+	estatus VARCHAR(250) NOT NULL,
+	responsable INT NOT NULL,
+	fecha_inicio DATE NOT NULL,
+   	PRIMARY KEY (id)
+); ALTER TABLE t_productos CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+/*
+INSERT INTO t_productos (nombre,descripcion,precio,categoria,imagen,estatus,responsable,fecha_inicio) VALUES 
+('nombre','descripcion',50000,1,'default.png','Activa',1,'2021-02-23'),
+('manzana','descripcion2',10000,1,'default.png','Activa',1,'2021-02-23');
+*/
+
+DROP TABLE IF EXISTS t_sedes;
+CREATE TABLE t_sedes (
+	id INT AUTO_INCREMENT,
+	nombre VARCHAR(250) NOT NULL,
+	direccion VARCHAR(250) NOT NULL,
+	responsable INT NOT NULL,
+	fecha_inicio DATE NOT NULL,
+   	PRIMARY KEY (id)
+); ALTER TABLE t_sedes CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+INSERT INTO t_sedes (nombre,responsable,fecha_inicio) VALUES 
+('Vip Occidente',1,'2021-03-02'),
+('Occidente I',1,'2021-03-02'),
+('Norte',1,'2021-03-02'),
+('Vip Suba',1,'2021-03-02');
+
+DROP TABLE IF EXISTS t_inventario;
+CREATE TABLE t_inventario (
+	id INT AUTO_INCREMENT,
+	id_producto INT NOT NULL,
+	cantidad INT NOT NULL,
+	colores VARCHAR(250) NOT NULL,
+	tamanios VARCHAR(250) NOT NULL,
+	sabores VARCHAR(250) NOT NULL,
+	estatus VARCHAR(250) NOT NULL,
+	tamanios_precios INT NOT NULL,
+	imagen VARCHAR(250) NOT NULL,
+	responsable INT NOT NULL,
+	sede INT NOT NULL,
+	fecha_inicio DATE NOT NULL,
+   	PRIMARY KEY (id)
+); ALTER TABLE t_inventario CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+DROP TABLE IF EXISTS t_carrito;
+CREATE TABLE t_carrito (
+	id INT AUTO_INCREMENT,
+	id_usuario INT NOT NULL,
+	id_producto INT NOT NULL,
+	cantidad INT NOT NULL,
+	fecha_inicio DATE NOT NULL,
+   	PRIMARY KEY (id)
+); ALTER TABLE t_carrito CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+/*
+INSERT INTO t_carrito (id_usuario,id_producto,cantidad,fecha_inicio) VALUES 
+(1,1,5,'2021-02-23'),
+(1,2,3,'2021-02-23');
+*/
+
+DROP TABLE IF EXISTS nomina;
+CREATE TABLE nomina (
+	id INT AUTO_INCREMENT,
+	nombre VARCHAR(250) NOT NULL,
+	apellido VARCHAR(250) NOT NULL,
+	documento_tipo VARCHAR(250) NOT NULL,
+	documento_numero VARCHAR(250) NOT NULL,
+	genero VARCHAR(250) NOT NULL,
+	correo VARCHAR(250) NOT NULL,
+	direccion VARCHAR(250) NOT NULL,
+	telefono VARCHAR(250) NOT NULL,
+	estatus VARCHAR(250) DEFAULT 'Activa',
+	fecha_inicio date NOT NULL,
+
+	banco_cedula VARCHAR(250) NOT NULL,
+	banco_nombre VARCHAR(250) NOT NULL,
+	banco_tipo VARCHAR(250) NOT NULL,
+	banco_numero VARCHAR(250) NOT NULL,
+	banco_banco VARCHAR(250) NOT NULL,
+	BCPP VARCHAR(250) NOT NULL,
+	
+	turno VARCHAR(250) NOT NULL,
+	sede VARCHAR(250) NOT NULL,
+	cargo VARCHAR(250) NOT NULL,
+
+	emergencia_nombre VARCHAR(250) NOT NULL,
+	emergencia_telefono VARCHAR(250) NOT NULL,
+	emergencia_parentesco VARCHAR(250) NOT NULL,
+
+	salario INT NOT NULL,
+	fecha_nacimiento date NOT NULL,
+	fecha_ingreso date NOT NULL,
+	fecha_retiro date NOT NULL,
+
+	funcion INT NOT NULL,
+
+	clave VARCHAR(250) NOT NULL,
+	fecha_expedicion date NOT NULL,
+
+	contrato INT NOT NULL,
+
+	PRIMARY KEY (id)
+);ALTER TABLE nomina CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+DROP TABLE IF EXISTS personal1;
+CREATE TABLE personal1 (
+	id INT AUTO_INCREMENT,
+	id_modelo INT NOT NULL,
+	turno INT NOT NULL,
+	observacion VARCHAR(250) NOT NULL,
+	fotos VARCHAR(250) NOT NULL,
+	nickname VARCHAR(250) NOT NULL,
+	responsable INT NOT NULL,
+	fecha_asignada date NOT NULL,
+	fecha_inicio date NOT NULL,
+	PRIMARY KEY (id)
+);ALTER TABLE personal1 CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+DROP TABLE IF EXISTS cargos;
+CREATE TABLE cargos (
+	id INT AUTO_INCREMENT,
+	nombre VARCHAR(250) NOT NULL,
+	responsable INT NOT NULL,
+	fecha_inicio date NOT NULL,
+	PRIMARY KEY (id)
+);ALTER TABLE cargos CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+INSERT INTO cargos (nombre,responsable,fecha_inicio) VALUES 
+('Directivo',1,'2021-03-11'),
+('Administrador',1,'2021-03-11'),
+('Aseo',1,'2021-03-11'),
+('Asesor de Imagen',1,'2021-03-11'),
+('Asistente',1,'2021-03-11'),
+('Capacitadora y Pagos',1,'2021-03-11'),
+('Diseñador',1,'2021-03-11'),
+('Fotografo',1,'2021-03-11'),
+('Gerente de Operaciones',1,'2021-03-11'),
+('Jefe Soporte',1,'2021-03-11'),
+('Mantenimiento',1,'2021-03-11'),
+('Monitor',1,'2021-03-11'),
+('Programador',1,'2021-03-11'),
+('Recursos Humanos',1,'2021-03-11'),
+('Reparaciones',1,'2021-03-11'),
+('Soporte',1,'2021-03-11'),
+('Soporte Técnico',1,'2021-03-11'),
+('Tráfico',1,'2021-03-11'),
+('Vigilante',1,'2021-03-11'),
+('Financiera',1,'2021-03-15'),
+('Jefe de Monitores',1,'2021-03-16'),
+('Community Manager',1,'2021-03-16'),
+('Sexshop',1,'2021-03-16'),
+('Seguridad Social',1,'2021-03-17'),
+('Hoster',1,'2021-03-20'),
+('APP',1,'2021-03-20'),
+('Administrador Restaurante',1,'2021-03-20'),
+('Chef',1,'2021-03-20');
+
+DROP TABLE IF EXISTS n_documentos;
+CREATE TABLE n_documentos (
+	id INT AUTO_INCREMENT,
+	nombre VARCHAR(250) NOT NULL,
+	responsable INT NOT NULL,
+	fecha_inicio date NOT NULL,
+	PRIMARY KEY (id)
+);ALTER TABLE n_documentos CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+INSERT INTO n_documentos (nombre,responsable,fecha_inicio) VALUES 
+("Seguridad Social",1,"2021-03-17"),
+("EPS",1,"2021-03-17"),
+("Fondo de Pension",1,"2021-03-17"),
+("ARL",1,"2021-03-17"),
+("Antecedentes Penales",1,"2021-03-17"),
+("Hoja de Vida",1,"2021-03-17"),
+("Identificacion",1,"2021-03-19"),
+("Firma",1,"2021-03-19"),
+("Rut",1,"2021-03-29"),
+("Certificación Bancaria",1,"2021-04-06"),
+("Permiso Bancario",1,"2021-04-06");
+	
+DROP TABLE IF EXISTS n_archivos;
+CREATE TABLE n_archivos (
+	id INT AUTO_INCREMENT,
+	id_nomina INT NOT NULL,
+	id_documento INT NOT NULL,
+	responsable INT NOT NULL,
+	fecha_inicio date NOT NULL,
+	PRIMARY KEY (id)
+);ALTER TABLE n_archivos CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+DROP TABLE IF EXISTS n_pagos;
+CREATE TABLE n_pagos (
+	id INT AUTO_INCREMENT,
+	id_nomina INT NOT NULL,
+	salario INT NOT NULL,
+	bonos INT NOT NULL,
+	multas INT NOT NULL,
+	responsable INT NOT NULL,
+	desde date NOT NULL,
+	hasta date NOT NULL,
+	fecha_inicio date NOT NULL,
+	PRIMARY KEY (id)
+);ALTER TABLE n_pagos CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+DROP TABLE IF EXISTS funciones;
+CREATE TABLE funciones (
+	id INT AUTO_INCREMENT,
+	nombre VARCHAR(250) NOT NULL,
+	descripcion1 VARCHAR(250) NOT NULL,
+	descripcion2 VARCHAR(250) NOT NULL,
+	descripcion3 VARCHAR(250) NOT NULL,
+	descripcion4 VARCHAR(250) NOT NULL,
+	descripcion5 VARCHAR(250) NOT NULL,
+	descripcion6 VARCHAR(250) NOT NULL,
+	descripcion7 VARCHAR(250) NOT NULL,
+	descripcion8 VARCHAR(250) NOT NULL,
+	descripcion9 VARCHAR(250) NOT NULL,
+	descripcion10 VARCHAR(250) NOT NULL,
+	descripcion11 VARCHAR(250) NOT NULL,
+	descripcion12 VARCHAR(250) NOT NULL,
+	descripcion13 VARCHAR(250) NOT NULL,
+	descripcion14 VARCHAR(250) NOT NULL,
+	descripcion15 VARCHAR(250) NOT NULL,
+	responsable INT NOT NULL,
+	cargo INT NOT NULL,
+	fecha_inicio date NOT NULL,
+	PRIMARY KEY (id)
+);ALTER TABLE funciones CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+INSERT INTO funciones (nombre,descripcion1,descripcion2,descripcion3,descripcion4,descripcion5,descripcion6,descripcion7,descripcion8,descripcion9,descripcion10,descripcion11,descripcion12,descripcion13,descripcion14,descripcion15,responsable,fecha_inicio) VALUES 
+("Financiero","El Responsable Financiero","Encargada Corroborar, Verificar Y Controlar, Todo Lo Relacionado A Pagos De Nomina, Empleados, Proovedores Y Pago De Servicios.","Asi Mismo Controlar Los Ingresos De Todo Lo Referido A Monetizacion.","","","","","","","","","","","","",1,"2021-04-05"),
+("JEFE DE MONITOREO","Supervisar Y Verificar E Innovar todas las actividades de los monitores","","","","","","","","","","","","","","",1,"2021-04-05"),
+("MAQUINAS","Realizar Inventarios De Productos Para Maquinas De Café Y Dispensadores","Realizar Y Recibir Pedidos Para Maquinas De Café Y Dispensador","Surtir Maquina","Llevar Finanzas De Maquinas","Velar Por El Buen Funcionamiento De Las Maquinas  En Las 3 Sedes","","","","","","","","","","",1,"2021-04-05"),
+("MONITORES","Recibir a los modelos y asignarles room","Entregar un reporte al incio de cada turno de modelos en trasmisión","Configurar paginas, obs y angulos de cámara para empezar una trasmision optima","Cada monitor tiene en promedio 8 modelos bajo su cargo a quienes tendrán en sus pantallas supervisadas para resolver cualquier situación que se presente en el streaming y a su vez brindar apoyo en sus shows","Entregar reporte de números al final del turno para hacer una evaluación de dicho proceso","Llevar un control del proceso del modelo para asi verificar sus fallas y dar soluciones al mejoramiento de las mismas","","","","","","","","","",1,"2021-04-05"),
+("ADMINISTRADORES","Reclutamiento y selección del personal","Capacitar personal","Resolver conflictos que puedan haber dentro de la sede","Evaluación del personal de nomina que esta en la sede y de las modelos","Gestionar creacion de bios","Mandar información para apertura de cuentas","Gestionar seccion de fotos a las modelos"," Llevar el control de la aplicacion (carga de documentos)","Verificar desprendibles de pagos","Llevar control de inasistencias y llegadas tardes (subir multas a la aplicacion)","Depuración de la aplicación","Ayudar a Resolver dudas de las modelos de otros departamentos"," apoyar  y Capacitar a la modelos","","",1,"2021-04-05"),
+("VIGILANTE","Apertura de puerta principal ala 6 am ","Verificacion de toda la sede ","Chequeo de todo los modelos que ingresan y salen de las sede en los 3 turnos ","Verificacion de todo el personal nomina ; hora de llega con sus respectivos uniformes ","Verificacion que las modelos esten en trasmision a la hora correspondiente ","Chequeo cada 30 minitos por toda la sede para que no se presente nunguna anomalia ","Verificacion de aseo y limpiesa de toda la sede ","Verificacion y cierre de la sede al final del turno asegurando el cierre y la seguridad de la sede","","","","","","","",1,"2021-04-05"),
+("MANTENIMIENTO","Realización de limpieza de cada área y rooms","Manejo de cafetería","Realizar lavados de tendidos","Supervisar que cada área este limpia del personal encargado","","","","","","","","","","","",1,"2021-04-05"),
+("JEFE DE SOPORTE","Verificación y supervisión de la creación de cuentas","Desmaneo de cuentas","Verificación de las cuentas en la app ,cuando ya están aprobadas  y se alertan para que la modelo cepa que ya tienen sus cuentas a la app,  en el drive se aprueban","Capacitación de personal nuevo para el área de soporte","Apoyo en las demás sedes con la solución de requerimientos","Supervisar que todos los modelos tengan plan choque (todas las cuentas) al día","Solución de rechazos de documentos en las diferentes paginas","Actualización y verificación de la app","Apoyo en las demás áreas con diferentes demás donde se pueden intervenir","","","","","","",1,"2021-04-05"),
+("DISEÑADOR GRAFICO","Actualización de biografías","Diseño de cenefa de las pg de cada modelo","Verificación de datos personales","Elaboración de contenido profesional  y personalizado en cada biografía  con su line grafica","Integrar las biografías en cada página","Creación de gif para la trasmisión","","","","","","","","","",1,"2021-04-05"),
+("COMUNITY MANAGER","Elaboración de artículos para el posicionamiento de la marca camaleón.","Creación de objetivos para parrilla de contenido semanal.","Redacción y creación de textos para la parrilla de contenido semanal.","Coordinación de las funciones del equipo de marketing.","Posicionamiento de las redes sociales instagram, facebook, twitter, youtube y página web. Elaboración de estrategias y campañas para eventos de camaleón models.","Elaboración de guiones para videos de la marca.","Posicionamiento de embajadores camaleón.","Actualización de base de datos de modelos públicas y consecución de su autorización por escrito.","Posicionamiento en redes sociales tienda camaleón shop.","Elaboración de contenido escrito para magazine camaleón (próximamente). Visibilizarcion de la marca camaleón con medios de comunicación.","","","","","",1,"2021-04-05"),
+("SOPORTE","Creación de cuentas","desmaneó de cuentas","Verificación de las cuentas en la app ,cuando ya están aprobadas  y se alertan para que la modelo cepa que ya tienen sus cuentas a la app,  en el drive se aprueba","","","","","","","","","","","","",1,"2021-04-05"),
+("DISEÑADOR G DE MARK","Diseñar piezas gráficas para redes sociales","Diseñar y actualizar contenido de página web","Diseñar y actualizar contenido de tienda virtual","Realización y edición de videos para redes sociales","Acompañamiento en procesos de posicionamiento de redes sociales","Diseño de piezas gráficas de comunicación interna y externa como correos de rebote para app.","Manejo de imagen corporativa.","","","","","","","","",1,"2021-04-05"),
+("FOTOGRAFO","Crear de contenidos para las modelos en la pag web","Crear contenido para marketing y redes sociales","Encargado de tomas las fotografías y videos","","","","","","","","","","","","",1,"2021-04-05"),
+("SOPORTE TECNICO","Realizar auditoria de las configuraciones y calidades de las modelos de las 7 sedes","Realizar el paralelo de tráfico a cada modelo","","","","","","","","","","","","","",1,"2021-04-05"),
+("RECURSOS HUMANOS","Seguimiento de modelos","Controlar base de datos para realizar aperturas de cuenta de las modelos","Realizar entrevistas para las personas que desean ser modelos","Control de registros en el app","Realizar la aprobación de modelos en el app","Ejecución y planificación de capacitaciones a las modelos","Entrega de reportes de entrevistas y de capacitaciones","","","","","","","","",1,"2021-04-05"),
+("SEXSHOP","Ventas de la tienda","Sostenibilidad en la tienda de sex-shop","","","","","","","","","","","","","",1,"2021-04-05"),
+("SOPORTE TÉCNICO DE INFRAESTRUCTURA","Verificación  del mantenimiento diario de la parte estructural y supervisión para el cuidado de las sedes","Encargamos de la solicitud de requerimientos de material de trabajo al momento de detectar daños, bajo cotización y compra con la parte operacional, entré otras labores","","","","","","","","","","","","","",1,"2021-04-05"),
+("DISEÑADOR MULTIMEDIA","Diseñador en 3d con conocimiento en ( cinema 4d o unreal engine 4 ) para la creacion de espacios virtuales","Conocimiento en ( z brush ) para el modelado de personajes virtuales","Conocimiento en animacion en cinema 4d de personajes con formato ( obj, fbx, 3ds )","Creación de texturas en cualquier programa de diseño 2d","Manejo de programas de edición de formatos mp4","Manejos de  programas estructuras con base de archivos stl para impresiones en 3d","","","","","","","","","",1,"2021-04-05"),
+("GERENTE OPERACIONAL","Encargado de las administración de los recursos necesarios para el correcto funcionamiento de una empresa ","Función de planificar e implementar y supervisar el desarrollo óptimo y la ejecución de todas las actividades  y procesos diarios","","","","","","","","","","","","","",1,"2021-04-05"),
+("PROGRAMADOR","Ejecucion y modificacion  de toda la parte de  la app","","","","","","","","","","","","","","",1,"2021-04-05");
+
+DROP TABLE IF EXISTS n_funciones;
+CREATE TABLE n_funciones (
+	id INT AUTO_INCREMENT,
+	id_cargo INT NOT NULL,
+	id_funciones INT NOT NULL,
+	fecha_inicio date NOT NULL,
+	PRIMARY KEY (id)
+);ALTER TABLE n_funciones CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+DROP TABLE IF EXISTS n_contrato;
+CREATE TABLE n_contrato (
+	id INT AUTO_INCREMENT,
+	nombre VARCHAR(250) NOT NULL,
+	fecha_inicio date NOT NULL,
+	PRIMARY KEY (id)
+);ALTER TABLE n_contrato CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+INSERT INTO n_contrato (nombre,fecha_inicio) VALUES 
+("Indefinido","2021-04-06"),
+("Prestación de servicio","2021-04-06");

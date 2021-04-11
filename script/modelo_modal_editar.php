@@ -29,6 +29,7 @@ while($row = mysqli_fetch_array($registro1)) {
 	$banco_numero 			= $row['banco_numero'];
 	$banco_banco 			= $row['banco_banco'];
 	$BCPP 					= $row['BCPP'];
+	$banco_tipo_documento 	= $row['banco_tipo_documento'];
 	/*************************************/
 	/**********CORPORALES*****************/
 	$altura 				= $row['altura'];
@@ -81,6 +82,7 @@ $datos = [
 	"banco_numero" 				=> $banco_numero,
 	"banco_banco" 				=> $banco_banco,
 	"BCPP" 						=> $BCPP,
+	"banco_tipo_documento" 		=> $banco_tipo_documento,
 	/*************************************/
 	/**********CORPORALES*****************/
 	"altura" 					=> $altura,

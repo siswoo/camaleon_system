@@ -99,7 +99,7 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 			if($modelo_estatus=='Aprobada'){
 				$html.= "
 				<div class='col-12 text-center mt-2'>
-					<button type='button' class='btn btn-primary' onclick='alerta_cuenta1(".$modelo_id.",".$modelo_cuenta_id.");'>Alertar a Modelo</button>
+					<!--<button type='button' class='btn btn-primary' onclick='alerta_cuenta1(".$modelo_id.",".$modelo_cuenta_id.");'>Alertar a Modelo</button>-->
 					<button type='button' class='btn btn-danger' value='".$pagina_nombre."' id='Rechazada' onclick='cuenta_estatus(this.id,this.value,".$modelo_id.",".$pagina_id.",".$modelo_cuenta_id.");'>Cuenta Rechazada</button>
 					<button type='button' class='btn btn-dark' value='".$pagina_nombre."' id='Eliminar' onclick='cuenta_eliminar(this.id,this.value,".$modelo_id.",".$pagina_id.",".$modelo_cuenta_id.");'>Eliminar Cuenta</button>
 					<button type='button' class='btn btn-warning' value='".$pagina_nombre."' id='Eliminar' style='color:white;' onclick='cuenta_editar(".$modelo_cuenta_id.",".$pagina_id.");'>Editar Cuenta</button>

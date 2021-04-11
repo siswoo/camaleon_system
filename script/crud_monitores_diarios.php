@@ -82,11 +82,21 @@ if($condicion == 'consultar1'){
 		$sql1 = "SELECT SUM(tokens) as Total FROM monitores_registro_diario WHERE fecha BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."'";
 	}else if($monitor!='' and $turno==''){
 		$sql1 = "SELECT SUM(tokens) as Total FROM monitores_registro_diario WHERE fecha BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."' and monitor =".$monitor;
+	}else if($monitor!='' and $turno!=''){
+		$sql1 = "SELECT SUM(tokens) as Total FROM monitores_registro_diario WHERE fecha BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."' and monitor =".$monitor." and turno = '".$turno."'";
 	}else{
 		$sql1 = "SELECT SUM(tokens) as Total FROM monitores_registro_diario WHERE fecha BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."' and turno = '".$turno."'";
 	}
 	$consulta1 = mysqli_query($conexion,$sql1);
 	$contador1 = mysqli_num_rows($consulta1);
+
+	$contador1 = 8300;
+	$contador2 = 49800;
+	$contador3 = 150000;
+
+	$extra1 = ' ';
+	$extra2 = ' ';
+	$extra3 = ' ';
 
 	if($contador1>=1){
 		while($row1 = mysqli_fetch_array($consulta1)) {
@@ -95,9 +105,29 @@ if($condicion == 'consultar1'){
 				$total = 0;
 			}
 		}
-		$html = '<span>Total: '.$total.'</span>';
+
+		if($total>=$contador1){
+			$extra1 .= '<p style="color:green;"><strong>Diario</strong> '.number_format($contador1, 0, '', '.').'</p>';
+		}else{
+			$extra1 .= '<p style="color:red;"><strong>Diario</strong> '.number_format($contador1, 0, '', '.').'</p>';
+		}
+
+		if($total>=$contador2){
+			$extra2 .= '<p style="color:green;"><strong>Semanal</strong> '.number_format($contador2, 0, '', '.').'</p>';
+		}else{
+			$extra2 .= '<p style="color:red;"><strong>Semanal</strong> '.number_format($contador2, 0, '', '.').'</p>';
+		}
+
+		if($total>=$contador3){
+			$extra3 .= '<p style="color:green;"><strong>Mensual</strong> '.number_format($contador3, 0, '', '.').'</p>';
+		}else{
+			$extra3 .= '<p style="color:red;"><strong>Mensual</strong> '.number_format($contador3, 0, '', '.').'</p>';
+		}
+
+		$html = '<p>Total: $'.number_format($total, 0, '', '.').'</p>';
+		$html .= $extra1."".$extra2."".$extra3;
 	}else{
-		$html = '<span>No se ha conseguido registros</span>';
+		$html = '<p>No se ha conseguido registros</p>';
 	}
 
 	$datos = [

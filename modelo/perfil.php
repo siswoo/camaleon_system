@@ -66,6 +66,9 @@
 	<?php
 	include('../script/conexion.php');
 	$usuario = $_SESSION["usuario"];
+	echo '
+		<input type="hidden" name="usuario_hidden" id="usuario_hidden" value="'.$usuario.'">
+	';
 	$ubicacion = "perfil";
 	$consulta1 = "SELECT * FROM roles WHERE id = ".$_SESSION['rol']." LIMIT 1";
 	$resultado1 = mysqli_query( $conexion, $consulta1 );
@@ -110,6 +113,7 @@
 			$banco_numero=$row['banco_numero'];
 			$banco_banco=$row['banco_banco'];
 			$bcpp=$row['BCPP'];
+			$banco_tipo_documento=$row['banco_tipo_documento'];
 			
 			/*********CORPORALES*************/
 			$altura=$row['altura'];
@@ -159,6 +163,7 @@
 		<input type="hidden" id="hidden_banco_numero" value="<?php echo $banco_numero; ?>">
 		<input type="hidden" id="hidden_banco_banco" value="<?php echo $banco_banco; ?>">
 		<input type="hidden" id="hidden_bcpp" value="<?php echo $bcpp; ?>">
+		<input type="hidden" id="hidden_banco_tipo_documento" value="<?php echo $banco_tipo_documento; ?>">
 
 		<input type="hidden" id="hidden_altura" value="<?php echo $altura; ?>">
 		<input type="hidden" id="hidden_peso" value="<?php echo $peso; ?>">
@@ -225,6 +230,9 @@
 			</li>
 			<li class="nav-item">
 				<a class="nav-link" href="#" id="Dpagos" onclick="pestañas(this.id);" style="color:white; text-transform: uppercase;">Pagos</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#" id="Dclave" onclick="pestañas(this.id);" style="color:white; text-transform: uppercase;">Clave</a>
 			</li>
 		</ul>
 
@@ -353,6 +361,18 @@
 			</div>
 
 			<div class="col-6 form-group form-check">
+				<label for="banco_tipo_documento">Tipo de Documento del Titular <small style="color:#F2B76F; font-size: 17px;">*</small></label>
+				<select name="banco_tipo_documento" class="form-control" id="banco_tipo_documento" required>
+					<option value="">Seleccione</option>
+					<option value="PEP">PEP</option>
+					<option value="Pasaporte">Pasaporte</option>
+					<option value="Cedula de Ciudadania">Cedula de Ciudadania</option>
+					<option value="NIT">NIT</option>
+					<option value="NIT de extranjeria">NIT de extranjeria</option>
+				</select>
+			</div>
+
+			<div class="col-6 form-group form-check">
 				<label for="banco_cedula">N° Cédula Titular <small style="color:#F2B76F; font-size: 17px;">*</small></label>
 				<input type="text" name="banco_cedula" id="banco_cedula" class="form-control" autocomplete="off" required>
 			</div>
@@ -376,7 +396,7 @@
 				<input type="text" name="banco_numero" id="banco_numero" class="form-control" autocomplete="off" required>
 			</div>
 
-			<div class="col-6 form-group form-check">
+			<div class="col-12 form-group form-check">
 				<label for="banco_banco">Banco <small style="color:#F2B76F; font-size: 17px;">*</small></label>
 				<select name="banco_banco" class="form-control" id="banco_banco" required>
 					<option value="">Seleccione</option>
@@ -1431,18 +1451,23 @@
 							$dinero = $row7['total_dolares'];
 							$presabana_desde = $row7['inicio'];
 							$presabana_hasta = $row7['fin'];
+							$id_modelo_especial = $row7['id_modelo'];
 
 							if($dinero>=1){
-								$html_presabana.='
-									<div class="col-12 text-center form-group mt-3">
-										<span style="font-size: 20px; font-weight: bold;">Desprendible desde '.$presabana_desde.' hasta '.$presabana_hasta.'</span>
-										<br>
-										<a href="../script/generar_desprendible2.php?id='.$id.'&pre='.$documentos2_id.'" target="_blank" style="color: white; text-decoration: none;">
-											<button type="button" class="btn btn-success mt-3">Descargar</button>
-										</a>
-										<hr style="background-color: white;">
-									</div>
-								';
+								if($id_modelo_especial==908 and $presabana_desde=='2021-02-01'){
+									$html_presabana .= '';
+								}else{
+									$html_presabana.='
+										<div class="col-12 text-center form-group mt-3">
+											<span style="font-size: 20px; font-weight: bold;">Desprendible desde '.$presabana_desde.' hasta '.$presabana_hasta.'</span>
+											<br>
+											<a href="../script/generar_desprendible2.php?id='.$id.'&pre='.$documentos2_id.'" target="_blank" style="color: white; text-decoration: none;">
+												<button type="button" class="btn btn-success mt-3">Descargar</button>
+											</a>
+											<hr style="background-color: white;">
+										</div>
+									';
+								}
 							}else{
 								$html_presabana.='
 									<div class="col-12 form-group form-check text-center mt-3">No Tienes Pagos Efectuados</div>
@@ -1456,6 +1481,30 @@
 					';
 				}
 				?>
+		</div>
+	</form>
+	<!--***********************************************************-->
+	<!--***********************************************************-->
+
+	<!--***********************************************************-->
+	<!--**********************Clave*********************-->
+	<!--***********************************************************-->
+	<form class="d-none" action="#" method="POST" id="formulario10">
+		<div class="row">
+			<div class="col-12 text-center" style="font-size: 20px; font-weight: bold;">
+				Cambiar Contraseña
+			</div>
+			<div class="col-12 form-group form-check">
+				<label for="clave_password1">Nueva Contraseña</label>
+				<input type="password" class="form-control" name="clave_password1" id="clave_password1" required>
+			</div>
+			<div class="col-12 form-group form-check">
+				<label for="clave_password2">Repetir Contraseña</label>
+				<input type="password" class="form-control" name="clave_password2" id="clave_password2" required>
+			</div>
+			<div class="col-md-12 form-group form-check text-center">
+				<button type="submit" class="btn btn-success" id="submit_clave1" style="width: 20%; font-weight: bold;">Actualizar</button>
+			</div>
 		</div>
 	</form>
 	<!--***********************************************************-->
@@ -1556,6 +1605,7 @@
 		$('#banco_numero').val($('#hidden_banco_numero').val());
 		$('#banco_banco').val($('#hidden_banco_banco').val());
 		$('#BCPP').val($('#hidden_bcpp').val());
+		$('#banco_tipo_documento').val($('#hidden_banco_tipo_documento').val());
 
 		$('#altura').val($('#hidden_altura').val());
 		$('#peso').val($('#hidden_peso').val());
@@ -1599,6 +1649,7 @@
 				$('#Dcuentas').removeClass('active1');
 				$('#Dfotos').removeClass('active1');
 				$('#Dpagos').removeClass('active1');
+				$('#Dclave').removeClass('active1');
 				
 				$('#formulario1').removeClass('d-none');
 				$('#formulario2').addClass('d-none');
@@ -1609,6 +1660,7 @@
 				$('#formulario7').addClass('d-none');
 				$('#formulario8').addClass('d-none');
 				$('#formulario9').addClass('d-none');
+				$('#formulario10').addClass('d-none');
 			break;
 
 			case 'Dbancarios':
@@ -1622,6 +1674,7 @@
 				$('#Dcuentas').removeClass('active1');
 				$('#Dfotos').removeClass('active1');
 				$('#Dpagos').removeClass('active1');
+				$('#Dclave').removeClass('active1');
 				
 				$('#formulario1').addClass('d-none');
 				$('#formulario2').removeClass('d-none');
@@ -1632,6 +1685,7 @@
 				$('#formulario7').addClass('d-none');
 				$('#formulario8').addClass('d-none');
 				$('#formulario9').addClass('d-none');
+				$('#formulario10').addClass('d-none');
 			break;
 
 			case 'Dcorporales':
@@ -1645,6 +1699,7 @@
 				$('#Dcuentas').removeClass('active1');
 				$('#Dfotos').removeClass('active1');
 				$('#Dpagos').removeClass('active1');
+				$('#Dclave').removeClass('active1');
 				
 				$('#formulario1').addClass('d-none');
 				$('#formulario2').addClass('d-none');
@@ -1655,6 +1710,7 @@
 				$('#formulario7').addClass('d-none');
 				$('#formulario8').addClass('d-none');
 				$('#formulario9').addClass('d-none');
+				$('#formulario10').addClass('d-none');
 			break;
 
 			case 'Dempresa':
@@ -1668,6 +1724,7 @@
 				$('#Dcuentas').removeClass('active1');
 				$('#Dfotos').removeClass('active1');
 				$('#Dpagos').removeClass('active1');
+				$('#Dclave').removeClass('active1');
 				
 				$('#formulario1').addClass('d-none');
 				$('#formulario2').addClass('d-none');
@@ -1678,6 +1735,7 @@
 				$('#formulario7').addClass('d-none');
 				$('#formulario8').addClass('d-none');
 				$('#formulario9').addClass('d-none');
+				$('#formulario10').addClass('d-none');
 			break;
 
 			case 'Ddocumentos':
@@ -1691,6 +1749,7 @@
 				$('#Dcuentas').removeClass('active1');
 				$('#Dfotos').removeClass('active1');
 				$('#Dpagos').removeClass('active1');
+				$('#Dclave').removeClass('active1');
 				
 				$('#formulario1').addClass('d-none');
 				$('#formulario2').addClass('d-none');
@@ -1701,6 +1760,7 @@
 				$('#formulario7').addClass('d-none');
 				$('#formulario8').addClass('d-none');
 				$('#formulario9').addClass('d-none');
+				$('#formulario10').addClass('d-none');
 			break;
 
 			case 'Dcontrato':
@@ -1714,6 +1774,7 @@
 				$('#Dcuentas').removeClass('active1');
 				$('#Dfotos').removeClass('active1');
 				$('#Dpagos').removeClass('active1');
+				$('#Dclave').removeClass('active1');
 				
 				$('#formulario1').addClass('d-none');
 				$('#formulario2').addClass('d-none');
@@ -1724,6 +1785,7 @@
 				$('#formulario7').addClass('d-none');
 				$('#formulario8').addClass('d-none');
 				$('#formulario9').addClass('d-none');
+				$('#formulario10').addClass('d-none');
 			break;
 
 			case 'Dcuentas':
@@ -1737,6 +1799,7 @@
 				$('#Ddocumentos').removeClass('active1');
 				$('#Dfotos').removeClass('active1');
 				$('#Dpagos').removeClass('active1');
+				$('#Dclave').removeClass('active1');
 				
 				$('#formulario1').addClass('d-none');
 				$('#formulario2').addClass('d-none');
@@ -1747,6 +1810,7 @@
 				$('#formulario7').removeClass('d-none');
 				$('#formulario8').addClass('d-none');
 				$('#formulario9').addClass('d-none');
+				$('#formulario10').addClass('d-none');
 			break;
 
 			case 'Dfotos':
@@ -1760,6 +1824,7 @@
 				$('#Dpersonales').removeClass('active1');
 				$('#Ddocumentos').removeClass('active1');
 				$('#Dpagos').removeClass('active1');
+				$('#Dclave').removeClass('active1');
 				
 				$('#formulario1').addClass('d-none');
 				$('#formulario2').addClass('d-none');
@@ -1770,6 +1835,7 @@
 				$('#formulario7').addClass('d-none');
 				$('#formulario8').removeClass('d-none');
 				$('#formulario9').addClass('d-none');
+				$('#formulario10').addClass('d-none');
 			break;
 
 			case 'Dpagos':
@@ -1783,6 +1849,7 @@
 				$('#Dpersonales').removeClass('active1');
 				$('#Ddocumentos').removeClass('active1');
 				$('#Dpagos').addClass('active1');
+				$('#Dclave').removeClass('active1');
 				
 				$('#formulario1').addClass('d-none');
 				$('#formulario2').addClass('d-none');
@@ -1793,6 +1860,32 @@
 				$('#formulario7').addClass('d-none');
 				$('#formulario8').addClass('d-none');
 				$('#formulario9').removeClass('d-none');
+				$('#formulario10').addClass('d-none');
+			break;
+
+			case 'Dclave':
+				$('#Dfotos').removeClass('active1');
+				$('#Dcuentas').removeClass('active1');
+				$('#Dcontrato').removeClass('active1');
+				$('#Dcontrato').removeClass('d-none');
+				$('#Dempresa').removeClass('active1');
+				$('#Dbancarios').removeClass('active1');
+				$('#Dcorporales').removeClass('active1');
+				$('#Dpersonales').removeClass('active1');
+				$('#Ddocumentos').removeClass('active1');
+				$('#Dpagos').removeClass('active1');
+				$('#Dclave').addClass('active1');
+				
+				$('#formulario1').addClass('d-none');
+				$('#formulario2').addClass('d-none');
+				$('#formulario3').addClass('d-none');
+				$('#formulario4').addClass('d-none');
+				$('#formulario5').addClass('d-none');
+				$('#formulario6').addClass('d-none');
+				$('#formulario7').addClass('d-none');
+				$('#formulario8').addClass('d-none');
+				$('#formulario9').addClass('d-none');
+				$('#formulario10').removeClass('d-none');
 			break;
 			
 		default:
@@ -1810,6 +1903,8 @@
 				showConfirmButton: true,
 				//timer: 3000
 			})
+
+			//$('#bancario_oculto1').val(); PENDIENTE
 		}
 	}
 
@@ -2691,6 +2786,59 @@
 				$('#Modal_fotos_sensuales1').removeClass('modal-open');
 				$('.modal-backdrop').remove();
             },
+        });
+    });
+
+    $("#formulario10").on("submit", function(e){
+		e.preventDefault();
+		var usuario = $('#usuario_hidden').val();
+		var password1 = $('#clave_password1').val();
+		var password2 = $('#clave_password2').val();
+
+		if(password1!=password2){
+        	Swal.fire({
+		 		title: 'Error',
+			 	text: "Las claves no son iguales",
+			 	icon: 'error',
+			 	position: 'center',
+			 	showConfirmButton: false,
+			 	timer: 3000
+			});
+            return false;
+        }
+
+        $.ajax({
+            url: '../script/crud_modelos.php',
+            type: 'POST',
+            dataType: "JSON",
+            data: { 
+            	"usuario": usuario,
+            	"password1": password1,
+            	"password2": password2,
+            	"condicion": "cambiar_clave1",
+            },
+
+            beforeSend: function (){
+            	$('#submit_clave1').attr('disabled','true');
+            },
+
+            success: function(response){
+            	console.log(response);
+            	$('#submit_clave1').removeAttr('disabled');
+            	Swal.fire({
+	 				title: 'Correcto',
+	 				text: "Claves Cambiadas",
+	 				icon: 'success',
+	 				position: 'center',
+	 				showConfirmButton: false,
+	 				timer: 3000
+				});
+            },
+
+            error: function(response){
+            	console.log(response);
+            	$('#submit_clave1').removeAttr('disabled');
+            }
         });
     });
 

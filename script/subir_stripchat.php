@@ -52,6 +52,7 @@ for($i=1;$i<=$limite;$i++){
             $nickname = $worksheet->getCell('A'.$i);
             $j = 14;
             $tokens = $worksheet->getCell('A'.$j);
+            $tokens = str_replace(".", "", $tokens);
             $fecha_inicio = $fecha_inicio;
             $limpiar = 0;
 
@@ -91,6 +92,7 @@ for($i=1;$i<=$limite;$i++){
             $nickname = $worksheet->getCell('A'.$i);
             $j = $i+13;
             $tokens = $worksheet->getCell('A'.$j);
+            $tokens = str_replace(".", "", $tokens);
             $fecha_inicio = $fecha_inicio;
             $limpiar = 0;
 

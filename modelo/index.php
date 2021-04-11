@@ -4,6 +4,8 @@
 		header("Location: index.php");
 		exit;
 	}
+	header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
+	header("Expires: Sat, 1 Jul 2000 05:00:00 GMT"); // Fecha en el pasado
 ?>
 
 <!doctype html>
@@ -16,6 +18,12 @@
 	<link rel="stylesheet" href="../css/validaciones.css">
 	<link rel="stylesheet" href="../css/dataTables.bootstrap4.min.css">
 	<link href="../resources/fontawesome/css/all.css" rel="stylesheet">
+	<!-- ******** EVITAR CACHE ************ -->
+	<meta http-equiv="Expires" content="0">
+	<meta http-equiv="Last-Modified" content="0"> 
+	<meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
+	<meta http-equiv="Pragma" content="no-cache">
+	<!-- ********************************** -->
 	<title>Camaleon Sistem</title>
 </head>
 <body>
@@ -53,6 +61,12 @@
   		border-color: #A9814F !important;
   	}
 
+  	.tr_señalada{
+  		background-color: #83f7034d;
+  		transition-property: all;
+    	transition-duration: 3s;
+  	}
+
 	</style>
 
 <?php
@@ -61,74 +75,70 @@
 	include('../script/navbar_verificacion.php');
 	include('../navbar.php');
 ?>
-	<form id="formulario1" method="POST">
-		<input type="hidden" id="modelo_view" value="<?php echo $modelo_view; ?>">
-		<input type="hidden" id="modelo_edit" value="<?php echo $modelo_edit; ?>">
-		<input type="hidden" id="modelo_delete" value="<?php echo $modelo_delete; ?>">
-	</form>
+
+<?php
+	//$sr_filtre1 = $_GET['sr_filtre1'];
+	if(empty($_GET['sr_filtre1'])){
+		$sr_filtre1 = '';
+	}else{
+		$sr_filtre1 = $_GET['sr_filtre1'];
+	}
+?>
+
+	<div class="row mt-3 mb-3 ml-3">
+		<?php
+		if($_SESSION["rol"]!=9){ ?>
+			<div class="col-4">
+				<label for="sr_select_filtre">Filtro de Responsables</label>
+				<select name="sr_select_filtre" id="sr_select_filtre" class="form-control" onchange="sr_change_filtre(value);">
+					<option value="">Seleccione</option>
+					<?php
+						if($sr_filtre1!=''){
+							$sql3 = "SELECT * FROM usuarios WHERE id = ".$sr_filtre1;
+							$consulta5 = mysqli_query($conexion,$sql3);
+							while($row6 = mysqli_fetch_array($consulta5)) {
+								echo '<option style="text-transform:capitalize;" selected="selected" value="'.$row6["id"].'">'.$row6["nombre"].' '.$row6["apellido"].'</option>';
+							}
+						}
+
+						$condicionsql1 = "";
+						if($_SESSION["sede"]==1 or $_SESSION["sede"]==2 or $_SESSION["sede"]==3 or $_SESSION["sede"]==4){
+				       		$condicionsql1 .= ' and (sede = 1 or sede = 2 or sede = 3 or sede = 4)';
+				       	}else if($_SESSION["sede"]==6){
+				       		$condicionsql1 .= ' and (sede = 6)';
+				       	}else if($_SESSION["sede"]==7 or $_SESSION["sede"]==8 or $_SESSION["sede"]==9){
+				       		$condicionsql1 .= ' and (sede = 7 or sede = 8 or sede = 9)';
+			        	}
+
+						$sql2 = "SELECT * FROM usuarios WHERE rol = 9 ".$condicionsql1;
+						$consulta4 = mysqli_query($conexion,$sql2);
+						while($row5 = mysqli_fetch_array($consulta4)) {
+							echo '<option style="text-transform:capitalize;" value="'.$row5["id"].'">'.$row5["nombre"].' '.$row5["apellido"].'</option>';
+						}
+					?>
+				</select>
+			</div>
+		<?php } ?>
+		<form id="form_sr_filtre" name="form_sr_filtre" action="index.php" method="GET">
+			<input type="hidden" name="sr_filtre1" id="sr_filtre1" value="">
+		</form>
+	</div>
 
 	<div class="seccion1">
 	    <div class="row">
 		    <div class="container_consulta1">
-		    	<?php
-		    	if($_SESSION['rol']==1 or $_SESSION['rol']==2){ ?>
-			    	<div class="row mb-3">
-			    		<div class="col-12">
-			    			<span style="font-weight:bold;">Filtro de Soportes</span>
-			    			<select class="form-control" style="width: 200px;" onchange="filtros2(value);">
-								<option value="">Todos</option>
-								<?php
-								$sql_soportes = "SELECT * FROM usuarios WHERE rol = 9";
-								$consulta_soportes = mysqli_query($conexion,$sql_soportes);
-								while($row_soportes = mysqli_fetch_array($consulta_soportes)) {
-									$soporte_id = $row_soportes['id'];
-									$soporte_nombre = $row_soportes['nombre'];
-									echo '
-										<option value="'.$soporte_id.'">'.$soporte_nombre.'</option>
-									';
-								}
-								?>
-							</select>
-			    		</div>
-			    		<div class="col-md-12 text-center">
-			    			<?php
-			    			$sql_sedes1 = "SELECT * FROM sedes";
-			    			$consulta_sedes = mysqli_query($conexion,$sql_sedes1);
-							while($row_sedes1 = mysqli_fetch_array($consulta_sedes)) {
-								$sede_id 		= $row_sedes1['id'];
-								$sede_nombre 	= $row_sedes1['nombre'];
-								$sede_macro 	= $_SESSION['sede'];
-								echo '
-									<button type="button" class="btn btn-info ml-3" value="'.$sede_id.'" onclick="filtros(value,'.$sede_macro.');">'.$sede_nombre.'</button>
-								';
-							} ?>
-			    		</div>
-			    		<!--
-			    		<div class="col-md-6 text-right">
-			    			<a href="crear_cuenta.php">
-			    				<input type="button" class="btn btn-success" value="Nuevo Registro">
-			    			</a>
-			    		</div>
-			    		-->
-			    	</div>
-			    <?php } ?>
-
-
-
-			    <?php
-			    if($_SESSION['rol']==9){ ?>
 		    	<table id="example" class="table row-border hover table-bordered" style="font-size: 12px;">
 			        <thead>
 			            <tr>
-			            	<th class="text-center">Responsabilidad</th>
+			            	<th class="text-center">Soporte</th>
 			                <th class="text-center">Nombre</th>
-			                <th class="text-center">Apellido</th>
 			                <th class="text-center">Tipo Doc</th>
 			                <th class="text-center">Número Doc</th>
 			                <th class="text-center">NickName</th>
 			                <th class="text-center">Turno</th>
 			                <th class="text-center">Sede</th>
 			                <th class="text-center">Fecha Inicio</th>
+			                <th class="text-center">Teléfono</th>
 			                <th class="text-center">Opciones</th>
 			                <th class="text-center">Documentos</th>
 			                <th class="text-center">Cuentas</th>
@@ -136,155 +146,68 @@
 			        </thead>
 			        <tbody id="resultados">
 			        	<?php
-			        	$consulta3 = "SELECT * FROM soporte_responsable_modelo WHERE id_soporte =".$_SESSION['id'];
-			        	$resultado4 = mysqli_query($conexion,$consulta3);
-			        	while($row5 = mysqli_fetch_array($resultado4)) {
-			        		$modelo_de_junior = $row5['id_modelo'];
+			        	$modelos_extras1 = '';
+			        	if($_SESSION["sede"]==1 or $_SESSION["sede"]==2 or $_SESSION["sede"]==3 or $_SESSION["sede"]==4){
+			        		if($_SESSION["sede"]==1 and $_SESSION["rol"]==8){
+			        			$separar_modelos1 = ' or (sede = 1 or sede = 2 or sede = 3 or sede = 4 or sede = 6)';	
+			        		}else{
+			        			$separar_modelos1 = ' or (sede = 1 or sede = 2 or sede = 3 or sede = 4)';
+			        		}
+			        	}else if($_SESSION["sede"]==6){
+			        		$separar_modelos1 = ' or (sede = 6)';
+			        	}else if($_SESSION["sede"]==7 or $_SESSION["sede"]==8 or $_SESSION["sede"]==9){
+			        		$separar_modelos1 = ' or (sede = 7 or sede = 8 or sede = 9)';
+			        	}
+			        	if($_SESSION['rol']==1 or $_SESSION['rol']==2 or $_SESSION['rol']==8 or $_SESSION['rol']==14 or $_SESSION['rol']==15){
+			        		if($sr_filtre1!=''){
+			        			$consulta2_extra1 = '';
+			        			$consulta6 = "SELECT * FROM soporte_responsable_modelo WHERE id_soporte = ".$sr_filtre1;
+			        			$resultado6 = mysqli_query($conexion,$consulta6);
+			        			$contador6 = mysqli_num_rows($resultado6);
+			        			while($row6 = mysqli_fetch_array($resultado6)) {
+			        				$id_modelo = $row6["id_modelo"];
+			        				$consulta2_extra1 .= ' or id = '.$id_modelo;
+			        			}
+			        			$consulta2 = "SELECT * FROM modelos WHERE id = 999999 ".$consulta2_extra1." ".$separar_modelos1;
+			        			$resultado2 = mysqli_query($conexion,$consulta2);
+			        		}else{
+			        			$consulta2 = "SELECT * FROM modelos WHERE id = 9999999"." ".$separar_modelos1;
+			        			$resultado2 = mysqli_query($conexion,$consulta2);
+			        		}
+			        	}else if($_SESSION['rol']==9){
+			        		$consulta3 = "SELECT * FROM soporte_responsable_modelo WHERE id_soporte =".$_SESSION['id'];
+			        		$resultado4 = mysqli_query($conexion,$consulta3);
+			        		$contador2 = mysqli_num_rows($resultado4);
+			        		if($contador2>=1){
+			        			while($row5 = mysqli_fetch_array($resultado4)) {
+			        			$modelo_de_junior = $row5['id_modelo'];
+			        			$modelos_extras1 .= ' or id = '.$modelo_de_junior;
+			        		}
+			        			$consulta2 = "SELECT * FROM modelos WHERE id = 99999 ".$modelos_extras1;
+			        		}else{
+			        			$consulta2 = "SELECT * FROM modelos WHERE id = 999999";
+			        		}
+			        		$resultado2 = mysqli_query($conexion,$consulta2);
+			        	}
 
-				        	$consulta2 = "SELECT * FROM modelos WHERE id =".$modelo_de_junior;
-							$resultado2 = mysqli_query( $conexion, $consulta2 );
-							while($row2 = mysqli_fetch_array($resultado2)) {
-								$modelo_id 					= $row2['id'];
-								$modelo_nombre1 			= $row2['nombre1'];
-								$modelo_nombre2 			= $row2['nombre2'];
-								$modelo_apellido1 			= $row2['apellido1'];
-								$modelo_apellido2 			= $row2['apellido2'];
-								$modelo_documento_tipo 		= $row2['documento_tipo'];
-								$modelo_documento_numero 	= $row2['documento_numero'];
-								$modelo_correo 				= $row2['correo'];
-								$modelo_usuario 			= $row2['usuario'];
-								$modelo_telefono1 			= $row2['telefono1'];
-								$modelo_telefono2 			= $row2['telefono2'];
-								$modelo_turno 				= $row2['turno'];
-								$modelo_estatus 			= $row2['estatus'];
-								$modelo_sede 				= $row2['sede'];
-								$modelo_nickname 			= $row2['sugerenciaNickname'];
-								$modelo_fecha_inicio 		= $row2['fecha_inicio'];
+			        	$html_sr1 = '';
 
-								$sql_responsable1 = "SELECT * FROM soporte_responsable_modelo WHERE id_modelo = ".$modelo_id;
-								$resultado3 = mysqli_query($conexion,$sql_responsable1);
-								$contador1 = mysqli_num_rows($resultado3);
-								while($row8 = mysqli_fetch_array($resultado3)) {
-									$soporte_responsable_fecha_inicio = $row8['fecha_inicio'];
-								}
+			        	if($_SESSION["sede"]==1 or $_SESSION["sede"]==2 or $_SESSION["sede"]==3 or $_SESSION["sede"]==4){
+				        	$separar_usuarios2 = ' and (sede = 1 or sede = 2 or sede = 3 or sede = 4)';
+				        }else if($_SESSION["sede"]==6){
+				        	$separar_usuarios2 = ' and (sede = 6)';
+				        }else if($_SESSION["sede"]==7 or $_SESSION["sede"]==8 or $_SESSION["sede"]==9){
+				       		$separar_usuarios2 = ' and (sede = 7 or sede = 8 or sede = 9)';
+				       	}
 
-								$sql_modelos_cuentas = "SELECT * FROM modelos_cuentas WHERE id_modelos = ".$modelo_id;
-								$resultado9 = mysqli_query($conexion,$sql_modelos_cuentas);
-								$contador3 = mysqli_num_rows($resultado9);
-
-								echo '
-									<tr>
-										<td class="text-center">'.$soporte_responsable_fecha_inicio.'</td>
-						                <td nowrap>'.$modelo_nombre1.' '.$modelo_nombre2.'</td>
-						                <td nowrap>'.$modelo_apellido1.' '.$modelo_apellido2.'</td>
-						                <td class="text-center">'.$modelo_documento_tipo.'</td>
-						                <td class="text-center">'.$modelo_documento_numero.'</td>
-						                <td class="text-center">'.$modelo_nickname.'</td>
-						                <td class="text-center">'.$modelo_turno.'</td>
-						            ';
-						            	if($modelo_sede==''){
-						            		echo '<td class="text-center">Desconocido</td>';
-						            	}else{
-							            	$sql_rol2 = "SELECT * FROM sedes WHERE id = ".$modelo_sede." LIMIT 1";
-											$resultado_rol2 = mysqli_query($conexion, $sql_rol2);
-											$fila1 = mysqli_num_rows($resultado_rol2);
-											while($row4 = mysqli_fetch_array($resultado_rol2)) {
-												$rol_id2 = $row4['id'];
-												$rol_nombre2 = $row4['nombre'];
-												echo '<td class="text-center">'.$rol_nombre2.'</td>';
-											}
-										}
-										
-										if($_SESSION['rol']==1 or $_SESSION['rol']==2){
-											echo '<td class="text-center">'.$modelo_telefono1.'</td>';
-										}
-
-									echo '
-						                <td class="text-center">'.$modelo_fecha_inicio.'</td>
-						                <td class="text-center">
-						            ';
-
-						        	if($verificacion_modelo_edit==1){
-						        		echo '
-						                	<i class="fas fa-edit" style="color:#0095ff; cursor:pointer;" title="" value="'.$modelo_id.'" data-toggle="modal" data-target="#exampleModal_soporte1" onclick="modal_edit2('.$modelo_id.');"></i>
-						                ';
-						        	}else{
-						        		echo '
-						                	<i class="fas fa-edit" style="color:#c3bebe; cursor:pointer;" data-toggle="popover-hover" data-placement="top" title="Deshabilitado" data-content="Falta de permisos"></i>
-						                ';
-						        	}
-						        	echo '</td>
-						        		</td>
-							        	<td class="text-center">';
-
-						        	if($_SESSION['rol']==1 or $_SESSION['rol']==8){
-							        	echo '
-							        		<i class="fas fa-folder-open" style="cursor:pointer; font-size:20px;" title="" value="'.$modelo_id.'" data-toggle="modal" data-target="#Modal_documentos1" onclick="documentos1('.$modelo_id.');"></i>
-							        	';
-						        	}
-
-						        	if($_SESSION['rol']==1 or $_SESSION['rol']==2 or $_SESSION['rol']==9){
-						        		echo '
-						        			<i class="fas fa-camera-retro" style="cursor:pointer; font-size:20px;" title="" value="'.$modelo_id.'" data-toggle="modal" data-target="#Modal_fotos1" onclick="fotos1('.$modelo_id.');"></i>
-						        		';
-						        	}
-
-						        	if($_SESSION['rol']==1 or $_SESSION['rol']==2 or $_SESSION['rol']==9){
-						        		echo '
-						        			<i class="fas fa-images ml-3" style="cursor:pointer; font-size:20px;" title="" value="'.$modelo_id.'" data-toggle="modal" data-target="#Modal_fotos2" onclick="fotos2('.$modelo_id.');"></i>
-						        		';
-						        	}
-						        	
-						        	echo '</td>';
-
-						        	echo '
-						        		<td class="text-center">
-						        			<!--<p class="text-center"><strong>('.$contador3.')</strong></p>-->
-						        			<i class="fas fa-user-shield" style="cursor:pointer; font-size:20px;" data-toggle="modal" data-target="#Modal_cuentas1" onclick="cuentas('.$modelo_id.');"></i>
-						        			<strong>('.$contador3.')</strong>
-						        			<i class="fas fa-user-plus ml-3" style="cursor:pointer; font-size:20px;" data-toggle="modal" data-target="#Modal_cuentas2" onclick="cuentas2('.$modelo_id.');"></i>
-						        		</td>
-						        	';
-							}
+			        	$sql2 = "SELECT * FROM usuarios WHERE rol = 9"." ".$separar_usuarios2;
+						$consulta4 = mysqli_query($conexion,$sql2);
+			        	while($row11 = mysqli_fetch_array($consulta4)) {
+							$sr_id = $row11['id'];
+							$sr_nombre = $row11['nombre']." ".$row11['apellido'];
+							$html_sr1 .= '<option value="'.$sr_id.'" style="text-transform:capitalize;">'.$sr_nombre.'</option>';
 						}
-						?>
-			        </tbody>
-			    </table>
-				<?php } ?>
 
-
-
-
-
-			    <?php
-			    if($_SESSION['rol']!=9){ ?>
-		    	<table id="example" class="table row-border hover table-bordered" style="font-size: 12px;">
-			        <thead>
-			            <tr>
-			                <th class="text-center">Responsable</th>
-			                <th class="text-center">Nombre</th>
-			                <th class="text-center">Apellido</th>
-			                <th class="text-center">Tipo Doc</th>
-			                <th class="text-center">Número Doc</th>
-			                <th class="text-center">NickName</th>
-			                <th class="text-center">Turno</th>
-			                <th class="text-center">Sede</th>
-			                <?php
-			                	if($_SESSION['rol']==1 or $_SESSION['rol']==2){ ?>
-			                		<th class="text-center">Teléfono</th>
-			                	<?php }
-			                ?>
-			                <th class="text-center">Fecha Inicio</th>
-			                <th class="text-center">Opciones</th>
-			                <th class="text-center">Documentos</th>
-			                <th class="text-center">Cuentas</th>
-			                <th class="text-center">Recuperar</th>
-			            </tr>
-			        </thead>
-			        <tbody id="resultados">
-			        	<?php
-			        	$consulta2 = "SELECT * FROM modelos";
-						$resultado2 = mysqli_query( $conexion, $consulta2 );
 						while($row2 = mysqli_fetch_array($resultado2)) {
 							$modelo_id 					= $row2['id'];
 							$modelo_nombre1 			= $row2['nombre1'];
@@ -303,184 +226,141 @@
 							$modelo_nickname 			= $row2['sugerenciaNickname'];
 							$modelo_fecha_inicio 		= $row2['fecha_inicio'];
 
-							$soporte_responsable_usuario = '';
-							$soporte_responsable_id = '';
-							$html_responsable_usuario = '';
-							
+							if($_SESSION["sede"]==1 or $_SESSION["sede"]==2 or $_SESSION["sede"]==3 or $_SESSION["sede"]==4){
+				        		$separar_usuarios1 = ' and (sede = 1 or sede = 2 or sede = 3 or sede = 4)';
+				        	}else if($_SESSION["sede"]==6){
+				        		$separar_usuarios1 = ' and (sede = 6)';
+				        	}else if($_SESSION["sede"]==7 or $_SESSION["sede"]==8 or $_SESSION["sede"]==9){
+				        		$separar_usuarios1 = ' and (sede = 7 or sede = 8 or sede = 9)';
+				        	}
+
+							$sql_responsable1 = "SELECT * FROM soporte_responsable_modelo WHERE id_modelo = ".$modelo_id." ".$separar_usuarios1;
+							$resultado3 = mysqli_query($conexion,$sql_responsable1);
+							$contador1 = mysqli_num_rows($resultado3);
+							if($contador1>=1){
+								while($row8 = mysqli_fetch_array($resultado3)) {
+									$soporte_responsable_fecha_inicio = $row8['fecha_inicio'];
+									$soporte_responsable_id = $row8['id'];
+									$soporte_responsable_id_soporte = $row8['id_soporte'];
+								}
+							}else{
+								$soporte_responsable_id_soporte = 999999;
+							}
+
+							$sql_responsable2 = "SELECT * FROM usuarios WHERE id = ".$soporte_responsable_id_soporte;
+							$resultado10 = mysqli_query($conexion,$sql_responsable2);
+							$contador4 = mysqli_num_rows($resultado10);
+
+							if($contador4==0){
+								$soporte_responsable_nombre = 'Ninguno';
+							}else{
+								while($row10 = mysqli_fetch_array($resultado10)) {
+									$soporte_responsable_nombre = $row10['usuario'];
+								}
+							}
+
 							$sql_modelos_cuentas = "SELECT * FROM modelos_cuentas WHERE id_modelos = ".$modelo_id;
 							$resultado9 = mysqli_query($conexion,$sql_modelos_cuentas);
 							$contador3 = mysqli_num_rows($resultado9);
 
-							$sql_responsable1 = "SELECT * FROM soporte_responsable_modelo WHERE id_modelo = ".$modelo_id;
-							$resultado3 = mysqli_query($conexion,$sql_responsable1);
-							$contador2 = mysqli_num_rows($resultado3);
+							if($_SESSION['rol']==1 or $_SESSION['rol']==2 or $_SESSION['rol']==8 or $_SESSION['rol']==14 or $_SESSION['rol']==15){
 
-							if($contador2>=1){
-								while($row6 = mysqli_fetch_array($resultado3)) {
-									$soporte_responsable_id = $row6['id_soporte'];
-								}
+								echo '
+								<tr id="tr_'.$modelo_id.'">
+									<td class="text-center">
+										<select name="sr_select_'.$soporte_responsable_nombre.'" id="sr_select_'.$soporte_responsable_nombre.'" class="form-control" style="width: 160px;" onchange="colocar_responsable('.$modelo_id.',value)">
+								';
+										if($contador1>=1){
+											echo '
+												<option value="">Seleccione</option>
+												<option value="'.$soporte_responsable_id.'" selected="selected">'.$soporte_responsable_nombre.'</option>
+												'.$html_sr1.'
+											';
+										}else{
+											echo '
+												<option value="">Seleccione</option>
+												'.$html_sr1.'
+											';
+										}
 
-								$sql_responsable2 = "SELECT * FROM usuarios WHERE id = ".$soporte_responsable_id;
-								$resultado4 = mysqli_query($conexion,$sql_responsable2);
-								while($row7 = mysqli_fetch_array($resultado4)) {
-									$soporte_responsable_id = $row7['id'];
-									$soporte_responsable_usuario = $row7['usuario'];
+										echo '
+										</select>
+									</td>
+								';
+
+								echo '
+						            <td class="text-center" id="td_nombre_'.$modelo_id.'">'.$modelo_nombre1.' '.$modelo_nombre2.' '.$modelo_apellido1.' '.$modelo_apellido2.'</td>
+						            <td class="text-center" id="td_dt_'.$modelo_id.'">'.$modelo_documento_tipo.'</td>
+						            <td class="text-center" id="td_dn_'.$modelo_id.'">'.$modelo_documento_numero.'</td>
+						            <td class="text-center" id="td_nickname_'.$modelo_id.'">'.$modelo_nickname.'</td>
+						            <td class="text-center" id="td_turno_'.$modelo_id.'">'.$modelo_turno.'</td>
+						        ';
+							}else{
+								echo '
+								<tr>
+									<td class="text-center">'.$soporte_responsable_nombre.'</td>
+						            <td class="text-center" id="td_nombre_'.$modelo_id.'">'.$modelo_nombre1.' '.$modelo_nombre2.' '.$modelo_apellido1.' '.$modelo_apellido2.'</td>
+						            <td class="text-center" id="td_dt_'.$modelo_id.'">'.$modelo_documento_tipo.'</td>
+						            <td class="text-center" id="td_dn_'.$modelo_id.'">'.$modelo_documento_numero.'</td>
+						            <td class="text-center" id="td_nickname_'.$modelo_id.'">'.$modelo_nickname.'</td>
+						            <td class="text-center" id="td_turno_'.$modelo_id.'">'.$modelo_turno.'</td>
+						        ';
+							}
+						    
+						    if($modelo_sede==''){
+						    	echo '<td class="text-center" id="td_sede_'.$modelo_id.'">Desconocido</td>';
+						    }else{
+							    $sql_rol2 = "SELECT * FROM sedes WHERE id = ".$modelo_sede." LIMIT 1";
+								$resultado_rol2 = mysqli_query($conexion, $sql_rol2);
+								$fila1 = mysqli_num_rows($resultado_rol2);
+								while($row4 = mysqli_fetch_array($resultado_rol2)) {
+									$rol_id2 = $row4['id'];
+									$rol_nombre2 = $row4['nombre'];
+									echo '<td class="text-center" id="td_sede_'.$modelo_id.'">'.$rol_nombre2.'</td>';
 								}
 							}
 
-							$sql_responsable3 = "SELECT * FROM usuarios WHERE rol = 9";
-							$resultado5 = mysqli_query($conexion,$sql_responsable3);
-
-							echo '
-								<tr>
-							';
-
-								if($contador2>=1){
-									echo '
-										<td class="text-center">
-											<select class="form-control" id="select_responsable_'.$modelo_id.'" onchange="colocar_responsable('.$modelo_id.',value);">
-												<option value="">Nadie</option>
-											';
-											while($row9 = mysqli_fetch_array($resultado5)) {
-												$soporte_responsable_id_general = $row9['id'];
-												$soporte_responsable_usuario_general = $row9['usuario'];
-												if($soporte_responsable_id == $soporte_responsable_id_general){
-													echo '
-														<option value="'.$soporte_responsable_id_general.'" selected="selected">'.$soporte_responsable_usuario_general.'</option>
-													';	
-												}else{
-													echo '
-														<option value="'.$soporte_responsable_id_general.'">'.$soporte_responsable_usuario_general.'</option>
-													';
-												}
-											}
-									echo '
-											</select>
-										</td>
-									';
-								}else{
-									echo '
-										<td class="text-center">
-											<select class="form-control" id="select_responsable_'.$modelo_id.'" onchange="colocar_responsable('.$modelo_id.',value);">
-												<option value="">Nadie</option>
-												';
-												while($row9 = mysqli_fetch_array($resultado5)) {
-													$soporte_responsable_id_general = $row9['id'];
-													$soporte_responsable_usuario_general = $row9['usuario'];
-													echo '
-														<option value="'.$soporte_responsable_id_general.'">'.$soporte_responsable_usuario_general.'</option>
-													';
-												}
-									echo '
-											</select>
-										</td>
-									';
-								}
-							echo '
-									<!--
-									<td class="text-center">
-										<p style="font-weight:bold;"> '.$soporte_responsable_usuario.'</p> 
-										<i class="fas fa-chalkboard-teacher" value="'.$modelo_id.'" style="font-size: 20px; cursor:pointer;" data-toggle="modal" data-target="#exampleModal_responsable1" onclick="modal_responsable1('.$modelo_id.');"></i>
-									</td>
-									-->
-					                <td nowrap>'.$modelo_nombre1.' '.$modelo_nombre2.'</td>
-					                <td nowrap>'.$modelo_apellido1.' '.$modelo_apellido2.'</td>
-					                <td class="text-center">'.$modelo_documento_tipo.'</td>
-					                <td class="text-center">'.$modelo_documento_numero.'</td>
-					                <td class="text-center">'.$modelo_nickname.'</td>
-					                <td class="text-center">'.$modelo_turno.'</td>
-					            ';
-					            	if($modelo_sede==''){
-					            		echo '<td class="text-center">Desconocido</td>';
-					            	}else{
-						            	$sql_rol2 = "SELECT * FROM sedes WHERE id = ".$modelo_sede." LIMIT 1";
-										$resultado_rol2 = mysqli_query($conexion, $sql_rol2);
-										$fila1 = mysqli_num_rows($resultado_rol2);
-										while($row4 = mysqli_fetch_array($resultado_rol2)) {
-											$rol_id2 = $row4['id'];
-											$rol_nombre2 = $row4['nombre'];
-											echo '<td class="text-center">'.$rol_nombre2.'</td>';
-										}
-									}
-									
-									if($_SESSION['rol']==1 or $_SESSION['rol']==2){
-										echo '<td class="text-center">'.$modelo_telefono1.'</td>';
-									}
-
+							if($_SESSION['rol']==1 or $_SESSION['rol']==2 or $_SESSION['rol']==9){
 								echo '
-					                <td class="text-center">'.$modelo_fecha_inicio.'</td>
-					                <td class="text-center">
-					            ';
-
-					        	if($verificacion_modelo_edit==1){
-					        		echo '
-					                	<i class="fas fa-edit" style="color:#0095ff; cursor:pointer;" title="" value="'.$modelo_id.'" data-toggle="modal" data-target="#exampleModal_soporte1" onclick="modal_edit2('.$modelo_id.');"></i>
-					                ';
-					        	}else{
-					        		echo '
-					                	<i class="fas fa-edit" style="color:#c3bebe; cursor:pointer;" data-toggle="popover-hover" data-placement="top" title="Deshabilitado" data-content="Falta de permisos"></i>
-					                ';
-					        	}
-					        	/*
-					        	if($modelo_delete==1){
-					        		echo '
-					                	<i class="fas fa-trash-alt ml-3" style="color:red; cursor:pointer;" data-toggle="popover-hover" onclick="eliminar('.$modelo_id.');" value="'.$modelo_id.'"></i>
-					                ';
-					        	}else{
-					        		echo '
-					                	<i class="fas fa-trash-alt ml-3" style="color:#c3bebe; cursor:pointer;" data-toggle="popover-hover" data-placement="top" title="Deshabilitado" data-content="Falta de permisos"></i>
-					        		';
-					        	}
-					        	*/
-
-					        	echo '</td>
-					        		</td>
-						        	<td class="text-center">';
-
-					        	if($_SESSION['rol']==1 or $_SESSION['rol']==8){
-						        	echo '
-						        		<i class="fas fa-folder-open" style="cursor:pointer; font-size:20px;" title="" value="'.$modelo_id.'" data-toggle="modal" data-target="#Modal_documentos1" onclick="documentos1('.$modelo_id.');"></i>
-						        	';
-					        	}
-
-					        	if($_SESSION['rol']==1 or $_SESSION['rol']==2 or $_SESSION['rol']==9 or $_SESSION['rol']==8){
-					        		echo '
-					        			<i class="fas fa-camera-retro" style="cursor:pointer; font-size:20px;" title="" value="'.$modelo_id.'" data-toggle="modal" data-target="#Modal_fotos1" onclick="fotos1('.$modelo_id.');"></i>
-					        		';
-					        	}
-
-					        	if($_SESSION['rol']==1 or $_SESSION['rol']==2 or $_SESSION['rol']==9){
-					        		echo '
-					        			<i class="fas fa-images ml-3" style="cursor:pointer; font-size:20px;" title="" value="'.$modelo_id.'" data-toggle="modal" data-target="#Modal_fotos2" onclick="fotos2('.$modelo_id.');"></i>
-					        		';
-					        	}
-
-					        	echo '</td>';
-
-					        	echo '
-					        		<td class="text-center">
-					        			<i class="fas fa-user-shield" style="cursor:pointer; font-size:20px;" data-toggle="modal" data-target="#Modal_cuentas1" onclick="cuentas('.$modelo_id.');"></i>
-					        			<strong>('.$contador3.')</strong>
-					        			<i class="fas fa-user-plus ml-3" style="cursor:pointer; font-size:20px;" data-toggle="modal" data-target="#Modal_cuentas2" onclick="cuentas2('.$modelo_id.');"></i>
-					        		</td>
-					        	';
-
-					        	echo '
-					        		<td class="text-center">
-					        			<button class="btn btn-success" value="'.$modelo_id.'" onclick="generar_clave1('.$modelo_id.');">Generar</button>
-					        		</td>
-					        	';
+									<td class="text-center">'.$modelo_fecha_inicio.'</td>
+									<td class="text-center" id="td_telefono_'.$modelo_id.'">'.$modelo_telefono1.'</td>
+							        <td class="text-center">
+							        	<i class="fas fa-edit" style="color:#0095ff; cursor:pointer;" title="" value="'.$modelo_id.'" data-toggle="modal" data-target="#exampleModal_soporte1" onclick="modal_edit2('.$modelo_id.');"></i>
+							                </td>
+							       <td class="text-center">
+							            <i class="fas fa-folder-open" style="cursor:pointer; font-size:20px;" title="" value="'.$modelo_id.'" data-toggle="modal" data-target="#Modal_documentos1" onclick="documentos1('.$modelo_id.');"></i>
+							            <i class="fas fa-camera-retro" style="cursor:pointer; font-size:20px;" title="" value="'.$modelo_id.'" data-toggle="modal" data-target="#Modal_fotos1" onclick="fotos1('.$modelo_id.');"></i>
+							            <i class="fas fa-images ml-3" style="cursor:pointer; font-size:20px;" title="" value="'.$modelo_id.'" data-toggle="modal" data-target="#Modal_fotos2" onclick="fotos2('.$modelo_id.');"></i>
+							        </td>
+							        <td class="text-center">
+							        	<i class="fas fa-user-shield" style="cursor:pointer; font-size:20px;" data-toggle="modal" data-target="#Modal_cuentas1" onclick="cuentas('.$modelo_id.');"></i>
+							        	<strong>('.$contador3.')</strong>
+							        	<i class="fas fa-user-plus ml-3" style="cursor:pointer; font-size:20px;" data-toggle="modal" data-target="#Modal_cuentas2" onclick="cuentas2('.$modelo_id.');"></i>
+							       	</td>
+						        ';
+							}else{
+								echo '
+									<td class="text-center">'.$modelo_fecha_inicio.'</td>
+									<td class="text-center">'.$modelo_telefono1.'</td>
+							        <td class="text-center">
+							            <i class="fas fa-edit" style="color:#0095ff; cursor:pointer;" title="" value="'.$modelo_id.'" data-toggle="modal" data-target="#exampleModal_soporte1" onclick="modal_edit2('.$modelo_id.');"></i>
+							        </td>
+							        <td class="text-center">
+							            <i class="fas fa-folder-open" style="cursor:pointer; font-size:20px;" title="" value="'.$modelo_id.'" data-toggle="modal" data-target="#Modal_documentos1" onclick="documentos1('.$modelo_id.');"></i>
+							            <i class="fas fa-camera-retro" style="cursor:pointer; font-size:20px;" title="" value="'.$modelo_id.'" data-toggle="modal" data-target="#Modal_fotos1" onclick="fotos1('.$modelo_id.');"></i>
+							            <i class="fas fa-images ml-3" style="cursor:pointer; font-size:20px;" title="" value="'.$modelo_id.'" data-toggle="modal" data-target="#Modal_fotos2" onclick="fotos2('.$modelo_id.');"></i>
+							        </td>
+							        <td class="text-center">
+							        	<i class="fas fa-user-shield" style="cursor:pointer; font-size:20px;" data-toggle="modal" data-target="#Modal_cuentas1" onclick="cuentas('.$modelo_id.');"></i>
+							        	<strong>('.$contador3.')</strong>
+							        	<i class="fas fa-user-plus ml-3" style="cursor:pointer; font-size:20px;" data-toggle="modal" data-target="#Modal_cuentas2" onclick="cuentas2('.$modelo_id.');"></i>
+							        </td>
+							    ';
+							}
 						}
 						?>
-			            <!-- Caracteristicas interesantes!
-			            <tr>
-			            	<td data-order="1303689600">Mon 25th Apr 11</td>
-                			<td data-order="320800">$320,800/y</td>
-			            </tr>
-			        	-->
 			        </tbody>
 			    </table>
-				<?php } ?>
 		    </div>
 		</div>
 	</div>
@@ -603,6 +483,7 @@
 					    </div>
 
 					    <?php
+					    
 					    if($_SESSION['rol'] == 8 or $_SESSION['rol'] == 1){ ?>
 						    <div class="col-12 text-center mb-3 mt-3" style="background-color: black; color:white; font-weight: bold;">
 						    	DATOS BANCARIOS
@@ -611,17 +492,22 @@
 						    <div class="row">
 								<div class="col-6 form-group form-check">
 									<label for="banco_cedula2">N° Cédula Titular </label>
-									<input type="text" name="banco_cedula2" id="banco_cedula2" class="form-control" autocomplete="off">
+									<input type="text" name="banco_cedula2" id="banco_cedula2" class="form-control" autocomplete="off" disabled>
+								</div>
+
+								<div class="col-6 form-group form-check">
+									<label for="banco_tipo_documento">Tipo de documento Titular </label>
+									<input type="text" name="banco_tipo_documento" id="banco_tipo_documento" class="form-control" autocomplete="off" disabled>
 								</div>
 
 								<div class="col-6 form-group form-check">
 									<label for="banco_nombre2">Nombre Titular </label>
-									<input type="text" name="banco_nombre2" id="banco_nombre2" class="form-control" autocomplete="off">
+									<input type="text" name="banco_nombre2" id="banco_nombre2" class="form-control" autocomplete="off" disabled>
 								</div>
 
 								<div class="col-6 form-group form-check">
 									<label for="banco_tipo2">Tipo de Cuenta </label>
-									<select name="banco_tipo2" class="form-control" id="banco_tipo2">
+									<select name="banco_tipo2" class="form-control" id="banco_tipo2" disabled>
 										<option value="">Seleccione</option>
 										<option value="Ahorro">Ahorro</option>
 										<option value="Corriente">Corriente</option>
@@ -630,12 +516,12 @@
 
 								<div class="col-6 form-group form-check">
 									<label for="banco_numero2">N° de Cuenta </label>
-									<input type="text" name="banco_numero2" id="banco_numero2" class="form-control" autocomplete="off">
+									<input type="text" name="banco_numero2" id="banco_numero2" class="form-control" autocomplete="off" disabled>
 								</div>
 
-								<div class="col-12 form-group form-check">
+								<div class="col-6 form-group form-check">
 									<label for="banco_banco2">Banco </label>
-									<select name="banco_banco2" class="form-control" id="banco_banco2">
+									<select name="banco_banco2" class="form-control" id="banco_banco2" disabled>
 										<option value="">Seleccione</option>
 										<option value="Banco Agrario de Colombia">Banco Agrario de Colombia</option>
 										<option value="Banco AV Villas">Banco AV Villas</option>
@@ -684,14 +570,16 @@
 
 								<div class="col-12 form-group form-check">
 									<label for="enlazar">Cuenta Propia o de Prestada? </label>
-									<select name="BCPP2" class="form-control" id="BCPP2">
+									<select name="BCPP2" class="form-control" id="BCPP2" disabled>
 										<option value="">Seleccione</option>
 										<option value="Propia">Propia</option>
 										<option value="Prestada">Prestada</option>
 									</select>
 								</div>
 							</div>
-					    <?php } ?>
+					    <?php } 
+					    
+					    ?>
 
 						<div class="col-12 text-center mb-3 mt-3" style="background-color: black; color:white; font-weight: bold;">
 					    	DATOS CORPORALES
@@ -825,10 +713,15 @@
 							    <label for="edit_sede">Sede </label>
 							    <select name="edit_sede2" id="edit_sede2" class="form-control" required>
 							    	<option value="">Seleccione</option>
-							    	<option value="1">VIP Occidente</option>
-							    	<option value="2">Norte</option>
-							    	<option value="3">Occidente 1</option>
-							    	<option value="4">VIP Suba</option>
+							    	<?php
+							    	$sql4 = "SELECT * FROM sedes";
+							    	$consulta4 = mysqli_query($conexion,$sql4);
+									while($row4 = mysqli_fetch_array($consulta4)) {
+										echo '
+											<option value="'.$row4["id"].'">'.$row4["nombre"].'</option>
+										';
+									}
+							    	?>
 							    </select>
 						    </div>
 
@@ -857,7 +750,7 @@
 					</div>
 					<div class="modal-footer">
 				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-				        <button type="submit" id="submit" class="btn btn-success">Guardar</button>
+				        <button type="submit" class="btn btn-success">Guardar</button>
 			      	</div>
 		      	</form>
 	    	</div>
@@ -871,10 +764,10 @@
 	<div class="modal fade" id="Modal_documentos1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<form action="#" method="POST" id="form_modal_documentos1" style="">
-				<input type="hidden" name="edit_id" id="edit_id">
+				<input type="hidden" name="edit_documentos_id" id="edit_documentos_id">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Documentos</h5>
+						<h5 class="modal-title" id="exampleModalLabel1">Documentos</h5>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
@@ -883,7 +776,7 @@
 					<!--
 					<div class="modal-footer">
 				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-				        <button type="submit" id="submit" class="btn btn-success">Guardar</button>
+				        <button type="submit" class="btn btn-success">Guardar</button>
 			      	</div>
 			      	-->
 		      	</form>
@@ -900,7 +793,7 @@
 				<input type="hidden" name="edit_id" id="edit_id">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Biblioteca De Fotos</h5>
+						<h5 class="modal-title" id="exampleModalLabel2">Biblioteca De Fotos</h5>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
@@ -942,8 +835,8 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-				        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="submit_Modal_fotos2">Cerrar</button>
-				        <button type="submit" id="submit" class="btn btn-success">Guardar</button>
+				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+				        <button type="submit" class="btn btn-success" id="submit_Modal_fotos2">Guardar</button>
 			      	</div>
 		      	</form>
 	    	</div>
@@ -955,7 +848,7 @@
 <!-- Modal Cuentas 1 -->
 	<div class="modal fade" id="Modal_cuentas1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
-			<form action="#" method="POST" id="form_modal_edit2" style="">
+			<form action="#" method="POST" id="exampleModalLabel" style="">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h5 class="modal-title" id="exampleModalLabel">Cuentas</h5>
@@ -979,7 +872,7 @@
 				<input type="hidden" name="cuentas2_id" id="cuentas2_id">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Creación de Cuenta</h5>
+						<h5 class="modal-title" id="form_modal_cuentas1">Creación de Cuenta</h5>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
@@ -1035,7 +928,7 @@
 <!-- Modal Responsables 1 -->
 	<div class="modal fade" id="exampleModal_responsable1" tabindex="-1" role="dialog" aria-labelledby="exampleModal_responsable1" aria-hidden="true">
 		<div class="modal-dialog" role="document">
-			<form action="#" method="POST" id="form_modal_edit2" style="">
+			<form action="#" method="POST" id="form_modal_responsable1" style="">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h5 class="modal-title" id="exampleModal_responsable1">Reponsables</h5>
@@ -1089,7 +982,7 @@
         	},
 
         	"paging": true,
-        	"order": [[ 9, "desc" ]],
+        	"order": [[ 7, "desc" ]],
 
     	} );
 
@@ -1116,173 +1009,14 @@
 		});
     	/******************************************/
 
-    	$('#select_equipo').change(function (){
-			var div = $('#select_equipo');
-			var variable = $('#select_equipo').val();
-			if(variable != '' && variable != 'Individual'){
-				//$('#divEquipos').removeClass('d-none');
-				$('#divEquipos').show();
-				$.ajax({
-					type: 'POST',
-					url: '../script/equipos_select1.php',
-					data: {
-						"equipo": variable
-					},
-					/*dataType: "JSON",*/
-					success: function(respuesta) {
-						//console.log(respuesta);
-						$('#select_enlazar').html(respuesta);
-
-					},
-
-					error: function(respuesta) {
-						console.log('Error...'+respuesta);
-					}
-				});
-			}else{
-				$('#divEquipos').hide();
-			}
-		});
-
 	} );
 
-    function filtros(variable,sede){
-	    $.ajax({
-			type: 'POST',
-			url: '../script/modelo_filtros_sedes.php',
-			data: {
-				"variable": variable,
-				"sede": sede,
-			},
-
-			success: function(respuesta) {
-				$('#example').DataTable().destroy();
-				$('#resultados').html(respuesta);
-				var table = $('#example').DataTable( {
-		        	"lengthMenu": [[10, 25, 50, 100], [10, 25, 50, 100]],
-
-		        	"language": {
-			            "lengthMenu": "Mostrar _MENU_ Registros por página",
-			            "zeroRecords": "No se ha encontrado resultados",
-			            "info": "Ubicado en la página <strong>_PAGE_</strong> de <strong>_PAGES_</strong>",
-			            "infoEmpty": "Sin registros actualmente",
-			            "infoFiltered": "(Filtrado de <strong>_MAX_</strong> total registros)",
-			            "paginate": {
-					        "first":      "Primero",
-					        "last":       "Última",
-					        "next":       "Siguiente",
-					        "previous":   "Anterior"
-					    },
-					    "search": "Buscar",
-		        	},
-
-		        	"paging": true
-
-	    		} );
-	    		/***************POPOVERS*******************/
-				$(function () {
-					$('[data-toggle="popover"]').popover()
-				})
-
-				// popovers initialization - on hover
-				$('[data-toggle="popover-hover"]').popover({
-				  html: true,
-				  trigger: 'hover',
-				  placement: 'bottom',
-				  /*content: function () { return '<img src="' + $(this).data('img') + '" />'; }*/
-				});
-
-				// popovers initialization - on click
-				$('[data-toggle="popover-click"]').popover({
-				  html: true,
-				  trigger: 'click',
-				  placement: 'bottom',
-				  content: function () { return '<img src="' + $(this).data('img') + '" />'; }
-				});
-		    	/******************************************/
-			},
-
-			error: function(respuesta) {
-				console.log('Error...'+respuesta);
-			}
-		});
-	};
-
-	$('#myModal').on('shown.bs.modal', function () {
-	  	$('#myInput').trigger('focus')
-	});
-
-	$("#form_modal_register").on("submit", function(e){
-		e.preventDefault();
-		console.log('guardando...');
-	});
-
-	/*************LLENAR FORM EDIT*******************/
-
-	function modal_edit (variable) {
-		$.ajax({
-			type: 'POST',
-			url: '../script/modelo_modal_editar.php',
-			dataType: "JSON",
-			data: {
-				"variable": variable,
-			},
-
-			success: function(respuesta) {
-				console.log(respuesta);
-				/***********PERSONALES*************/
-				$('#edit_id').val(respuesta['id']);
-				$('#edit_tipo_documento').val(respuesta['documento_tipo']);
-				$('#edit_numero_documento').val(respuesta['documento_numero']);
-				$('#edit_primer_nombre').val(respuesta['nombre1']);
-				$('#edit_segundo_nombre').val(respuesta['nombre2']);
-				$('#edit_primer_apellido').val(respuesta['apellido1']);
-				$('#edit_segundo_apellido').val(respuesta['apellido2']);
-				$('#edit_correo').val(respuesta['correo']);
-				$('#edit_telefono1').val(respuesta['telefono1']);
-				$('#edit_telefono2').val(respuesta['telefono2']);
-				$('#edit_direccion').val(respuesta['direccion']);
-				$('#edit_genero').val(respuesta['genero']);
-				$('#edit_estatus').val(respuesta['estatus']);
-				$('#barrio').val(respuesta['barrio']);
-				$('#perfil_transmision').val(respuesta['perfil_de_transmision']);
-				/*************************************/
-				/**********BANCARIOS*****************/
-				$('#banco_cedula').val(respuesta['banco_cedula']);
-				$('#banco_nombre').val(respuesta['banco_nombre']);
-				$('#banco_tipo').val(respuesta['banco_tipo']);
-				$('#banco_numero').val(respuesta['banco_numero']);
-				$('#banco_banco').val(respuesta['banco_banco']);
-				$('#BCPP').val(respuesta['BCPP']);
-				/*************************************/
-				/**********CORPORALES*****************/
-				$('#altura').val(respuesta['altura']);
-				$('#peso').val(respuesta['peso']);
-				$('#tpene').val(respuesta['tpene']);
-				$('#tsosten').val(respuesta['tsosten']);
-				$('#tbusto').val(respuesta['tbusto']);
-				$('#tcintura').val(respuesta['tcintura']);
-				$('#tcaderas').val(respuesta['tcaderas']);
-				$('#tipo_cuerpo').val(respuesta['tipo_cuerpo']);
-				$('#Pvello').val(respuesta['Pvello']);
-				$('#color_cabello').val(respuesta['color_cabello']);
-				$('#color_ojos').val(respuesta['color_ojos']);
-				
-				$('#Ptattu').val(respuesta['Ptattu']);
-				$('#Ppiercing').val(respuesta['Ppiercing']);
-				/*************************************/
-				/**********EMPRESA*****************/
-				$('#edit_turno').val(respuesta['turno']);
-				$('#edit_sede').val(respuesta['sede']);
-				$('#edit_Htransmision').val(respuesta['Htransmision']);
-				$('#select_equipo').val(respuesta['equipo']);
-			},
-
-			error: function(respuesta) {
-				console.log(respuesta['responseText']);
-			}
-		});
+	function CierraPopup(modal) {
+		$("#"+modal).modal('hide');
+		$('body').removeClass('modal-open');
+		$('.modal-backdrop').remove();
 	}
+
 
 	function modal_edit2 (variable) {
 		$.ajax({
@@ -1294,7 +1028,7 @@
 			},
 
 			success: function(respuesta) {
-				console.log(respuesta);
+				//console.log(respuesta);
 				/***********PERSONALES*************/
 				$('#edit_id2').val(respuesta['id']);
 				$('#edit_tipo_documento2').val(respuesta['documento_tipo']);
@@ -1319,6 +1053,7 @@
 				$('#banco_numero2').val(respuesta['banco_numero']);
 				$('#banco_banco2').val(respuesta['banco_banco']);
 				$('#BCPP2').val(respuesta['BCPP']);
+				$('#banco_tipo_documento').val(respuesta['banco_tipo_documento']);
 				/*************************************/
 				/**********CORPORALES*****************/
 				$('#altura2').val(respuesta['altura']);
@@ -1349,48 +1084,6 @@
 		});
 	}
 
-	/**********FIN LLENAR FORM EDIT******************/
-
-	$("#form_modal_edit").on("submit", function(e){
-		e.preventDefault();
-		var f = $(this);
-	    $.ajax({
-			type: 'POST',
-			url: '../script/editar_modelo1.php',
-			data: $('#form_modal_edit').serialize(),
-			dataType: "JSON",
-			success: function(respuesta) {
-				console.log(respuesta);
-				if(respuesta == 0){
-					Swal.fire({
-						position: 'center',
-						icon: 'error',
-						title: 'No se ha logrado modificar!',
-						showConfirmButton: true,
-						timer: 3000
-					})
-				}
-
-				if(respuesta != 0){
-					Swal.fire({
-						position: 'center',
-						icon: 'success',
-						title: 'Se ha modificado exitosamente!',
-						showConfirmButton: true,
-						timer: 3000
-					})
-					setTimeout(function() {
-			      		//window.location.href = "index.php";
-			    	},3500);
-				}
-			},
-
-			error: function(respuesta) {
-				console.log(respuesta['responseText']);
-			}
-		});
-	});
-
 	$("#form_modal_edit_soporte1").on("submit", function(e){
 		e.preventDefault();
 		var f = $(this);
@@ -1400,29 +1093,26 @@
 			data: $('#form_modal_edit_soporte1').serialize(),
 			dataType: "JSON",
 			success: function(respuesta) {
-				console.log(respuesta);
-				if(respuesta == 0){
-					Swal.fire({
-						position: 'center',
-						icon: 'error',
-						title: 'No se ha logrado modificar!',
-						showConfirmButton: true,
-						timer: 3000
-					})
-				}
+				//console.log(respuesta);
+				Swal.fire({
+					position: 'center',
+					icon: 'success',
+					title: 'Se ha modificado exitosamente!',
+					showConfirmButton: true,
+					timer: 3000
+				});
 
-				if(respuesta != 0){
-					Swal.fire({
-						position: 'center',
-						icon: 'success',
-						title: 'Se ha modificado exitosamente!',
-						showConfirmButton: true,
-						timer: 3000
-					})
-					setTimeout(function() {
-			      		//window.location.href = "index.php";
-			    	},3500);
-				}
+				CierraPopup('exampleModal_soporte1');
+				$('#tr_'+respuesta['id']).addClass('tr_señalada');
+				$('#td_nombre_'+respuesta['id']).html(respuesta['nombre']);
+				$('#td_td_'+respuesta['id']).html(respuesta['td']);
+				$('#td_nd_'+respuesta['id']).html(respuesta['nd']);
+				$('#td_turno_'+respuesta['id']).html(respuesta['turno']);
+				$('#td_sede_'+respuesta['id']).html(respuesta['sede']);
+				$('#td_telefono_'+respuesta['id']).html(respuesta['telefono']);
+				setTimeout(function() {
+					$('#tr_'+respuesta['id']).removeClass('tr_señalada');
+				},5000);
 			},
 
 			error: function(respuesta) {
@@ -1431,8 +1121,60 @@
 		});
 	});
 
+	function documentos1(variable){
+		$.ajax({
+			type: 'POST',
+			url: '../script/modelo_documentos1.php',
+			data: {"variable": variable},
+			dataType: "JSON",
 
-	function eliminar(variable){
+			success: function(respuesta) {
+				$('#div_modal_documentos1').html(respuesta['html_matriz']);
+			},
+
+			error: function(respuesta) {
+				console.log(respuesta['responseText']);
+			}
+		});
+	}
+
+
+	/******************CONTRATO*****************/
+	function bottonMostrar1(variable,value){
+    	if(value==0){
+    		$('#div_'+variable).show('slow');
+    		$('#'+variable).val(1);
+    	}else{
+    		$('#div_'+variable).hide('slow');
+    		$('#'+variable).val(0);
+    	}
+    }
+	/*******************************************/
+
+
+	/***************************FOTOS*******************************/
+	function fotos1(variable){
+		$.ajax({
+            url: '../script/modelo_modal_fotos1.php',
+            type: 'POST',
+           	dataType: "JSON",
+           	data: {
+           		"variable": variable,
+           	},
+
+            beforeSend: function (){},
+
+            success: function(response){
+            	$('#modal_body_fotos1').html(response['html_matriz']);
+            },
+
+            error: function(response){
+            	console.log(response['responseText']);
+            }
+        });
+	}
+
+	function eliminar_foto1(id_modelo,documento,id_documento){
 		Swal.fire({
 		  title: 'Estas seguro?',
 		  text: "Esta acción no podra revertirse",
@@ -1444,85 +1186,98 @@
 		  confirmButtonText: 'Si, Eliminar registro!',
 		  cancelButtonText: 'Cancelar'
 		}).then((result) => {
-		  if (result.value) {
-		    $.ajax({
-				type: 'POST',
-				url: '../script/eliminar_modelo.php',
-				data: {"variable": variable},
-				dataType: "JSON",
-				success: function(respuesta) {
-					Swal.fire({
-					    title: 'Registro Eliminado!',
-					    text: 'Redirigiendo...',
-					    icon: 'success',
-					    showConfirmButton: true
-				    });setTimeout(function() {
-			      		//window.location.href = "index.php";
-			    	},3500);
-				},
+			if (result.value) {
+		 		$.ajax({
+					url: '../script/borrar_foto_modelo1.php',
+					type: 'POST',
+					dataType: "JSON",
+					data: {
+						"id_modelo": id_modelo,
+						"documento": documento,
+						"id_documento": id_documento,
+					},
 
-				error: function(respuesta) {
-					console.log("error..."+respuesta);
-				}
-			});
-		  }
+					success: function(respuesta) {
+						//console.log(respuesta);
+						Swal.fire({
+						 	title: 'Perfecto!',
+						 	text: "Se ha eliminado correctamente",
+						 	icon: 'success',
+						 	position: 'center',
+						 	showConfirmButton: false,
+						 	timer: 3000
+						})
+						$('#documento_'+id_documento).hide('slow');
+					},
+
+					error: function(respuesta) {
+						console.log(respuesta['responseText']);
+					}
+				});
+			}
 		})
 	}
+	/*******************************************************************/
 
-	function checkbox1(){
-		if( $('#Ptattu').prop('checked') ) {
-		    $('#f3_hidden_Ptattu').val('Si');
-		}else{
-			$('#f3_hidden_Ptattu').val('No');
-		}
+	/********************AGREGAR FOTO******************/
+	function fotos2(variable){
+		$('#hidden_fotos2_id').val(variable);
 	}
 
-	function checkbox2(){
-		if( $('#Ppiercing').prop('checked') ) {
-		    $('#f3_hidden_Ppiercing').val('Si');
-		}else{
-			$('#f3_hidden_Ppiercing').val('No');
-		}
-	}
+	$("#form_modal_fotos2").on("submit", function(e){
+		e.preventDefault();
+        var fd = new FormData();
+        var files = $('#fotos2_file')[0].files[0];
+        fd.append('file',files);
+        fd.append('id_documentos',$('#fotos2_id_documentos').val());
+        fd.append('id_modelos',$('#hidden_fotos2_id').val());
 
-	function documentos1(variable){
-		$.ajax({
-			type: 'POST',
-			url: '../script/modelo_documentos1.php',
-			data: {"variable": variable},
-			dataType: "JSON",
+        $.ajax({
+            url: '../script/modelo_subir_documento11.php',
+            type: 'POST',
+            data: fd,
+            contentType: false,
+            processData: false,
 
-			success: function(respuesta) {
-				//console.log(respuesta['html_matriz']);
-				$('#div_modal_documentos1').html(respuesta['html_matriz']);
-			},
+            beforeSend: function (){
+            	$('#submit_Modal_fotos2').attr('disabled','true');
+            },
 
-			error: function(respuesta) {
-				console.log(respuesta['responseText']);
-			}
-		});
-	}
+            success: function(response){
+            	console.log(response);
+            	$('#submit_Modal_fotos2').removeAttr('disabled');
+            	if(response=='error'){
+            		Swal.fire({
+		 				title: 'Formato Invalido',
+			 			text: "Formato Validos -> jpg jpeg png",
+			 			icon: 'error',
+			 			position: 'center',
+			 			showConfirmButton: false,
+			 			timer: 3000
+					});
+            		return false;
+            	}
+            	Swal.fire({
+	 				title: 'Documento Subido',
+	 				text: "Redirigiendo...!",
+	 				icon: 'success',
+	 				position: 'center',
+	 				showConfirmButton: true,
+	 				confirmButtonColor: '#3085d6',
+	 				confirmButtonText: 'No esperar!',
+	 				timer: 3000
+				});
+            },
 
-	function ver_contrato1(){
-		var hidden_contrato1 = $('#hidden_contrato1').val();
-		if(hidden_contrato1=='1'){
-			$('#hidden_contrato1').val('0');
-			$('#div_contrato1').addClass('d-none');
-			$('#contrato1').val('Ocultar Documento');
-			console.log('ocultando...');
-		}else{
-			$('#hidden_contrato1').val('1');
-			$('#div_contrato1').removeClass('d-none');
-			$('#contrato1').val('Mostrar Documento');
-			console.log('mostrando...');
-		}
-	}
+            error: function(response){
+            	$('#submit_Modal_fotos2').removeAttr('disabled');
+            	console.log(response['responseText']);
+            }
+        });
+    });
+	/*************************************************/
 
-	function firmar1(){
-		console.log('generando firma...');
-		$('#div_firmar1').show();
-	}
-
+	/*********CUENTAS************/
 	function cuentas(variable){
 		console.log('cuentas...');
 		$.ajax({
@@ -1531,7 +1286,6 @@
 			data: {"variable": variable},
 			dataType: "JSON",
 			success: function(respuesta) {
-				//console.log(respuesta);
 				$('#hidden_cuentas1').html(respuesta['html']);
 			},
 
@@ -1540,59 +1294,6 @@
 			}
 		});
 	}
-
-	function cuentas2(variable){
-		$('#cuentas2_id').val(variable);
-	}
-
-	$("#form_modal_edit3").on("submit", function(e){
-		e.preventDefault();
-		var f = $(this);
-	    $.ajax({
-			type: 'POST',
-			url: '../script/modelo_cuenta1.php',
-			data: $('#form_modal_edit3').serialize(),
-			dataType: "JSON",
-			success: function(respuesta) {
-				//console.log(respuesta['duplicados_documentos']);
-				if(respuesta['resultado']=='duplicados'){
-					Swal.fire({
-						position: 'center',
-						icon: 'error',
-						title: 'Cuenta ya existentes! ',
-						text: respuesta['duplicados_documentos'][1]+' -> '+respuesta['duplicados_nombres'][1],
-						showConfirmButton: true,
-					});
-					return false;
-				}
-
-				if(respuesta['resultado']=='error'){
-					Swal.fire({
-						position: 'center',
-						icon: 'error',
-						title: 'Cuenta ya existente!',
-						text: 'Solo se permite una misma cuenta para esta pagina',
-						showConfirmButton: true,
-					});
-					return false;
-				}
-
-				Swal.fire({
-					position: 'center',
-					icon: 'success',
-					title: 'Se ha registrado la cuenta!',
-					showConfirmButton: true,
-				});
-				$("#Modal_cuentas2").modal('hide');
-				$('#Modal_cuentas2').removeClass('modal-open');
-				$('.modal-backdrop').remove();
-			},
-
-			error: function(respuesta) {
-				console.log(respuesta['responseText']);
-			}
-		});
-	});
 
 	function hidden_cuentas1(variable){
 		var div = $('#'+variable).val();
@@ -1604,6 +1305,37 @@
 			$('#div_'+variable).hide('slow');
 			$('#'+variable).val('0');
 		}
+	}
+
+	function alerta_cuenta1(variable,modelo_cuenta_id){
+		console.log('ok...');
+		$.ajax({
+			type: 'POST',
+			url: '../script/modelo_alerta1.php',
+			data: {
+				"variable": variable,
+				"modelo_cuenta_id": modelo_cuenta_id,
+			},
+			dataType: "JSON",
+			success: function(respuesta) {
+				//console.log(respuesta);
+				Swal.fire({
+	 				title: 'Alerta enviada!',
+	 				text: "Limpiando Cache de mensajes!",
+	 				icon: 'success',
+	 				position: 'center',
+	 				showConfirmButton: false,
+	 				timer: 2000
+				});
+				$("#Modal_cuentas1").modal('hide');
+				$('#Modal_cuentas1').removeClass('modal-open');
+				$('.modal-backdrop').remove();
+			},
+
+			error: function(respuesta) {
+				console.log(respuesta['responseText']);
+			}
+		});
 	}
 
 	function cuenta_estatus(estatus,pagina,id,pagina_id,modelo_cuenta_id){
@@ -1639,370 +1371,7 @@
 		});
 	}
 
-	function alerta_cuenta1(variable,modelo_cuenta_id){
-		console.log('ok...');
-		$.ajax({
-			type: 'POST',
-			url: '../script/modelo_alerta1.php',
-			data: {
-				"variable": variable,
-				"modelo_cuenta_id": modelo_cuenta_id,
-			},
-			dataType: "JSON",
-			success: function(respuesta) {
-				//console.log(respuesta);
-				Swal.fire({
-	 				title: 'Alerta enviada!',
-	 				text: "Limpiando Cache de mensajes!",
-	 				icon: 'success',
-	 				position: 'center',
-	 				showConfirmButton: false,
-	 				timer: 2000
-				});
-				$("#Modal_cuentas1").modal('hide');
-				$('#Modal_cuentas1').removeClass('modal-open');
-				$('.modal-backdrop').remove();
-			},
-
-			error: function(respuesta) {
-				console.log(respuesta['responseText']);
-			}
-		});
-	}
-
-	function fotos1(variable){
-		//console.log('configurando...');
-		$.ajax({
-            url: '../script/modelo_modal_fotos1.php',
-            type: 'POST',
-           	dataType: "JSON",
-           	data: {
-           		"variable": variable,
-           	},
-
-            beforeSend: function (){},
-
-            success: function(response){
-            	//console.log(response['html_matriz']);
-            	$('#modal_body_fotos1').html(response['html_matriz']);
-            },
-
-            error: function(response){
-            	console.log(response['responseText']);
-            }
-        });
-
-	}
-
-	function fotos2(variable){
-		$('#hidden_fotos2_id').val(variable);
-	}
-
-	$("#form_modal_fotos2").on("submit", function(e){
-		e.preventDefault();
-        var fd = new FormData();
-        var files = $('#fotos2_file')[0].files[0];
-        fd.append('file',files);
-        fd.append('id_documentos',$('#fotos2_id_documentos').val());
-        fd.append('id_modelos',$('#hidden_fotos2_id').val());
-        //paqueteDeDatos.append('nombre', $('#campoNombre').prop('value'));
-
-        $.ajax({
-            url: '../script/modelo_subir_documento11.php',
-            type: 'POST',
-            data: fd,
-            contentType: false,
-            processData: false,
-
-            beforeSend: function (){
-            	$('#submit_Modal_fotos2').attr('disabled','true');
-            },
-
-            success: function(response){
-            	console.log(response);
-            	if(response=='error'){
-            		$('#submit_Modal_fotos2').attr('disabled','false');
-            		Swal.fire({
-		 				title: 'Formato Invalido',
-			 			text: "Formato Validos -> jpg jpeg png",
-			 			icon: 'error',
-			 			position: 'center',
-			 			showConfirmButton: false,
-			 			timer: 3000
-					});
-            		return false;
-            	}
-            	Swal.fire({
-	 				title: 'Documento Subido',
-	 				text: "Redirigiendo...!",
-	 				icon: 'success',
-	 				position: 'center',
-	 				showConfirmButton: true,
-	 				confirmButtonColor: '#3085d6',
-	 				confirmButtonText: 'No esperar!',
-	 				timer: 3000
-				}).then((result) => {
-	 				if (result.value) {
-	   					//window.location.href = "index.php";
-	 				}
-				})
-				setTimeout(function() {
-			    	//window.location.href = "index.php";
-				},3500);
-            },
-
-            error: function(response){
-            	console.log(response['responseText']);
-            }
-        });
-    });
-
-    function bottonMostrar1(variable,value){
-    	if(value==0){
-    		$('#div_'+variable).show('slow');
-    		$('#'+variable).val(1);
-    	}else{
-    		$('#div_'+variable).hide('slow');
-    		$('#'+variable).val(0);
-    	}
-    }
-
-    function borrar_extra(variable,id_modelo){
-    	//console.log(variable);
-    	$.ajax({
-            url: '../script/modelo_borrar_extras1.php',
-            type: 'POST',
-           	dataType: "JSON",
-           	data: {
-           		"variable": variable,
-           		"id_modelo": id_modelo,
-           	},
-
-            beforeSend: function (){},
-
-            success: function(response){
-            	console.log(response);
-            	Swal.fire({
-	 				title: 'Eliminado!',
-	 				text: "Limpiando Cache de fotos!",
-	 				icon: 'success',
-	 				position: 'center',
-	 				showConfirmButton: false,
-	 				timer: 2000
-				});
-				$("#Modal_fotos1").modal('hide');
-				$('#Modal_fotos1').removeClass('modal-open');
-				$('.modal-backdrop').remove();
-            },
-
-            error: function(response){
-            	console.log(response['responseText']);
-            }
-        });
-    }
-
-     function borrar_sensual(variable,id_modelo){
-    	//console.log(variable);
-    	$.ajax({
-            url: '../script/modelo_borrar_sensual1.php',
-            type: 'POST',
-           	dataType: "JSON",
-           	data: {
-           		"variable": variable,
-           		"id_modelo": id_modelo,
-           	},
-
-            beforeSend: function (){},
-
-            success: function(response){
-            	console.log(response);
-            	Swal.fire({
-	 				title: 'Eliminado!',
-	 				text: "Limpiando Cache de fotos!",
-	 				icon: 'success',
-	 				position: 'center',
-	 				showConfirmButton: false,
-	 				timer: 2000
-				});
-				$("#Modal_fotos1").modal('hide');
-				$('#Modal_fotos1').removeClass('modal-open');
-				$('.modal-backdrop').remove();
-            },
-
-            error: function(response){
-            	console.log(response['responseText']);
-            }
-        });
-    }
-
-    function filtros2(variable){
-    	$.ajax({
-			type: 'POST',
-			url: '../script/modelo_filtros_soporte1.php',
-			data: {
-				"variable": variable,
-			},
-
-			success: function(respuesta) {
-				$('#example').DataTable().destroy();
-				$('#resultados').html(respuesta);
-				var table = $('#example').DataTable( {
-		        	"lengthMenu": [[10, 25, 50, 100], [10, 25, 50, 100]],
-
-		        	"language": {
-			            "lengthMenu": "Mostrar _MENU_ Registros por página",
-			            "zeroRecords": "No se ha encontrado resultados",
-			            "info": "Ubicado en la página <strong>_PAGE_</strong> de <strong>_PAGES_</strong>",
-			            "infoEmpty": "Sin registros actualmente",
-			            "infoFiltered": "(Filtrado de <strong>_MAX_</strong> total registros)",
-			            "paginate": {
-					        "first":      "Primero",
-					        "last":       "Última",
-					        "next":       "Siguiente",
-					        "previous":   "Anterior"
-					    },
-					    "search": "Buscar",
-		        	},
-
-		        	"paging": true
-
-	    		} );
-	    		/***************POPOVERS*******************/
-				$(function () {
-					$('[data-toggle="popover"]').popover()
-				})
-
-				// popovers initialization - on hover
-				$('[data-toggle="popover-hover"]').popover({
-				  html: true,
-				  trigger: 'hover',
-				  placement: 'bottom',
-				  /*content: function () { return '<img src="' + $(this).data('img') + '" />'; }*/
-				});
-
-				// popovers initialization - on click
-				$('[data-toggle="popover-click"]').popover({
-				  html: true,
-				  trigger: 'click',
-				  placement: 'bottom',
-				  content: function () { return '<img src="' + $(this).data('img') + '" />'; }
-				});
-		    	/******************************************/
-			},
-
-			error: function(respuesta) {
-				console.log('Error...'+respuesta);
-			}
-		});
-    }
-
-    function modal_responsable1(variable){
-    	$.ajax({
-            url: '../script/modelo_modal_responsable1.php',
-            type: 'POST',
-           	dataType: "JSON",
-           	data: {
-           		"variable": variable,
-           	},
-
-            beforeSend: function (){},
-
-            success: function(response){
-            	$('#hidden_responsable1').html(response['html']);
-            },
-
-            error: function(response){
-            	console.log(response['responseText']);
-            }
-        });
-    }
-
-    function agregar_responsable1(modelo_id){
-    	var responsable = $('#responsable_registro').val();
-    	if(responsable==''){
-    		return false;
-    	}
-    	$.ajax({
-            url: '../script/modelo_guardar_responsable1.php',
-            type: 'POST',
-           	dataType: "JSON",
-           	data: {
-           		"variable": modelo_id,
-           		"responsable": responsable,
-           	},
-
-            beforeSend: function (){},
-
-            success: function(response){
-            	console.log(response);
-            	if(response['resultado']=='error'){
-            		Swal.fire({
-		 				title: 'Error',
-		 				text: "Responsable ya enlazado",
-		 				icon: 'error',
-		 				position: 'center',
-		 				showConfirmButton: false,
-		 				timer: 2000
-					});
-            	}
-            	Swal.fire({
-	 				title: 'Guardado exitosamente!',
-	 				text: "Limpiando Cache...",
-	 				icon: 'success',
-	 				position: 'center',
-	 				showConfirmButton: true,
-	 				timer: 2000
-				});
-            	setTimeout(function() {
-			      	//window.location.href = "index.php";
-			    },2000);
-
-				//$("#exampleModal_responsable1").modal('hide');
-				//$('#exampleModal_responsable1').removeClass('modal-open');
-				//$('.modal-backdrop').remove();
-            },
-
-            error: function(response){
-            	console.log(response['responseText']);
-            }
-        });
-    }
-
-    function borrar_responsable(responsable,modelo_id){
-    	console.log('borrando...');
-    	$.ajax({
-            url: '../script/modelo_borrar_responsable1.php',
-            type: 'POST',
-           	dataType: "JSON",
-           	data: {
-           		"variable": modelo_id,
-           		"responsable": responsable,
-           	},
-
-            beforeSend: function (){},
-
-            success: function(response){
-            	console.log(response);
-            	Swal.fire({
-	 				title: 'Se ha borrado el enlace!',
-	 				text: "Limpiando Cache...",
-	 				icon: 'success',
-	 				position: 'center',
-	 				showConfirmButton: false,
-	 				timer: 2000
-				});
-				$("#exampleModal_responsable1").modal('hide');
-				$('#exampleModal_responsable1').removeClass('modal-open');
-				$('.modal-backdrop').remove();
-            },
-
-            error: function(response){
-            	console.log(response['responseText']);
-            }
-        });
-    }
-
-    function cuenta_eliminar(pagina,condicion,modelo_id,pagina_id,modelo_cuenta_id){
+	function cuenta_eliminar(pagina,condicion,modelo_id,pagina_id,modelo_cuenta_id){
     	console.log(condicion);
     	$.ajax({
             url: '../script/modelo_borrar_cuenta.php',
@@ -2083,7 +1452,62 @@
         });
     }
 
-    function colocar_responsable(id_modelo,id_responsable){
+    function cuentas2(variable){
+		$('#cuentas2_id').val(variable);
+	}
+
+	$("#form_modal_edit3").on("submit", function(e){
+		e.preventDefault();
+		var f = $(this);
+	    $.ajax({
+			type: 'POST',
+			url: '../script/modelo_cuenta1.php',
+			data: $('#form_modal_edit3').serialize(),
+			dataType: "JSON",
+			success: function(respuesta) {
+				//console.log(respuesta['duplicados_documentos']);
+				if(respuesta['resultado']=='duplicados'){
+					Swal.fire({
+						position: 'center',
+						icon: 'error',
+						title: 'Cuenta ya existentes! ',
+						text: respuesta['duplicados_documentos'][1]+' -> '+respuesta['duplicados_nombres'][1],
+						showConfirmButton: true,
+					});
+					return false;
+				}
+
+				if(respuesta['resultado']=='error'){
+					Swal.fire({
+						position: 'center',
+						icon: 'error',
+						title: 'Cuenta ya existente!',
+						text: 'Solo se permite una misma cuenta para esta pagina',
+						showConfirmButton: true,
+					});
+					return false;
+				}
+
+				Swal.fire({
+					position: 'center',
+					icon: 'success',
+					title: 'Se ha registrado la cuenta!',
+					showConfirmButton: true,
+				});
+				$("#Modal_cuentas2").modal('hide');
+				$('#Modal_cuentas2').removeClass('modal-open');
+				$('.modal-backdrop').remove();
+			},
+
+			error: function(respuesta) {
+				console.log(respuesta['responseText']);
+			}
+		});
+	});
+	/*****************************/
+
+	/********************RESPONSABLES**************************/
+	 function colocar_responsable(id_modelo,id_responsable){
     	$.ajax({
             url: '../script/modelo_guardar_responsable1.php',
             type: 'POST',
@@ -2115,91 +1539,11 @@
             }
         });
     }
+	/**********************************************************/
 
-    function generar_clave1(id){
-		$.ajax({
-			url: '../script/generar_clave1.php',
-			type: 'POST',
-			dataType: "JSON",
-			data: {
-				"id": id,
-			},
-
-			success: function(respuesta) {
-				console.log(respuesta);
-				Swal.fire({
-			 		title: 'Correo enviado',
-			 		text: "Se ha generado su clave",
-			 		icon: 'success',
-			 		position: 'center',
-			 		showConfirmButton: false,
-			 		timer: 3000
-				})
-			},
-
-			error: function(respuesta) {
-				console.log(respuesta['responseText']);
-			}
-		});
-	}
-
-	function eliminar_foto1(id_modelo,documento,id_documento){
-		Swal.fire({
-		  title: 'Estas seguro?',
-		  text: "Esta acción no podra revertirse",
-		  icon: 'warning',
-		  showConfirmButton: true,
-		  showCancelButton: true,
-		  confirmButtonColor: '#3085d6',
-		  cancelButtonColor: '#d33',
-		  confirmButtonText: 'Si, Eliminar registro!',
-		  cancelButtonText: 'Cancelar'
-		}).then((result) => {
-			if (result.value) {
-		 		$.ajax({
-					url: '../script/borrar_foto_modelo1.php',
-					type: 'POST',
-					dataType: "JSON",
-					data: {
-						"id_modelo": id_modelo,
-						"documento": documento,
-						"id_documento": id_documento,
-					},
-
-					success: function(respuesta) {
-						console.log(respuesta);
-						if(respuesta['resultado']=='no existe'){
-							Swal.fire({
-						 		title: 'Error',
-						 		text: "Ya se ha eliminado archivo!",
-						 		icon: 'error',
-						 		position: 'center',
-						 		showConfirmButton: false,
-						 		timer: 2000
-							});
-						}
-
-						if(respuesta['resultado']=='correcto'){
-							Swal.fire({
-						 		title: 'Perfecto!',
-						 		text: "Se ha eliminado correctamente",
-						 		icon: 'success',
-						 		position: 'center',
-						 		showConfirmButton: false,
-						 		timer: 3000
-							})
-						}
-
-						$('#documento_'+id_documento).hide('slow');
-
-					},
-
-					error: function(respuesta) {
-						console.log(respuesta['responseText']);
-					}
-				});
-			}
-		})
+	function sr_change_filtre(value){
+		$('#sr_filtre1').val(value);
+		$('#form_sr_filtre').submit();
 	}
 
 </script>

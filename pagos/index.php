@@ -839,6 +839,8 @@
 			                <th class="text-center">Cam4</th>
 			                <th class="text-center">Streamate</th>
 			                <th class="text-center">Camsoda</th>
+			                <th class="text-center">Xlove</th>
+			                <th class="text-center">Flirt4free</th>
 			                <th class="text-center">Paxum</th>
 			                <th class="text-center">Epay</th>
 			                <th class="text-center">Total Sede</th>
@@ -853,6 +855,8 @@
 			        		<td class="text-center" id="td_total_cam4">0</td>
 			        		<td class="text-center" id="td_total_streamate">0</td>
 			        		<td class="text-center" id="td_total_camsoda">0</td>
+			        		<td class="text-center" id="td_total_xlove">0</td>
+			        		<td class="text-center" id="td_total_flirt4free">0</td>
 			        		<td class="text-center" id="td_total_paxum">0</td>
 			        		<td class="text-center" id="td_total_epay">0</td>
 			        		<td class="text-center" style="font-weight: bold;" id="td_total_sede">0</td>
@@ -865,6 +869,8 @@
 			        		<td class="text-center" id="td_vipocc_cam4">0</td>
 			        		<td class="text-center" id="td_vipocc_streamate">0</td>
 			        		<td class="text-center" id="td_vipocc_camsoda">0</td>
+			        		<td class="text-center" id="td_vipocc_xlove">0</td>
+			        		<td class="text-center" id="td_vipocc_flirt4free">0</td>
 			        		<td class="text-center" id="td_vipocc_paxum">0</td>
 			        		<td class="text-center" id="td_vipocc_epay">0</td>
 			        		<td class="text-center" style="font-weight: bold;" id="td_vipocc_sede">0</td>
@@ -877,6 +883,8 @@
 			        		<td class="text-center" id="td_vipsuba_cam4">0</td>
 			        		<td class="text-center" id="td_vipsuba_streamate">0</td>
 			        		<td class="text-center" id="td_vipsuba_camsoda">0</td>
+			        		<td class="text-center" id="td_vipsuba_xlove">0</td>
+			        		<td class="text-center" id="td_vipsuba_flirt4free">0</td>
 			        		<td class="text-center" id="td_vipsuba_paxum">0</td>
 			        		<td class="text-center" id="td_vipsuba_epay">0</td>
 			        		<td class="text-center" style="font-weight: bold;" id="td_vipsuba_sede">0</td>
@@ -889,6 +897,8 @@
 			        		<td class="text-center" id="td_occ1_cam4">0</td>
 			        		<td class="text-center" id="td_occ1_streamate">0</td>
 			        		<td class="text-center" id="td_occ1_camsoda">0</td>
+			        		<td class="text-center" id="td_occ1_xlove">0</td>
+			        		<td class="text-center" id="td_occ1_flirt4free">0</td>
 			        		<td class="text-center" id="td_occ1_paxum">0</td>
 			        		<td class="text-center" id="td_occ1_epay">0</td>
 			        		<td class="text-center" style="font-weight: bold;" id="td_occ1_sede">0</td>
@@ -901,6 +911,8 @@
 			        		<td class="text-center" id="td_norte_cam4">0</td>
 			        		<td class="text-center" id="td_norte_streamate">0</td>
 			        		<td class="text-center" id="td_norte_camsoda">0</td>
+			        		<td class="text-center" id="td_norte_xlove">0</td>
+			        		<td class="text-center" id="td_norte_flirt4free">0</td>
 			        		<td class="text-center" id="td_norte_paxum">0</td>
 			        		<td class="text-center" id="td_norte_epay">0</td>
 			        		<td class="text-center" style="font-weight: bold;" id="td_norte_sede">0</td>
@@ -913,6 +925,8 @@
 			        		<td class="text-center" id="td_sinnombre_cam4">0</td>
 			        		<td class="text-center" id="td_sinnombre_streamate">0</td>
 			        		<td class="text-center" id="td_sinnombre_camsoda">0</td>
+			        		<td class="text-center" id="td_sinnombre_xlove">0</td>
+			        		<td class="text-center" id="td_sinnombre_flirt4free">0</td>
 			        		<td class="text-center" id="td_sinnombre_paxum">0</td>
 			        		<td class="text-center" id="td_sinnombre_epay">0</td>
 			        		<td class="text-center" style="font-weight: bold;" id="td_sinnombre_sede">0</td>
@@ -1042,47 +1056,6 @@
 				<div class="form-group col-12">
 				    <p class="text-center" style="font-weight: bold; font-size: 20px;">Consultar Extras</p>
 				</div>
-				<!--
-				<div class="form-group col-2 text-center">
-					<button class="btn btn-primary" type="button" value="descuento" onclick="generar_extra(value);">Descuentos</button>
-				</div>
-				<div class="form-group col-2 text-center">
-					<button class="btn btn-primary" type="button" value="tienda" onclick="generar_extra(value);">Tienda</button>
-				</div>
-				<div class="form-group col-2 text-center">	
-					<button class="btn btn-primary" type="button" value="avances" onclick="generar_extra(value);">Avances</button>
-				</div>
-				<div class="form-group col-2 text-center">	
-					<button class="btn btn-primary" type="button" value="multas" onclick="generar_extra(value);">Multas</button>
-				</div>
-				<div class="form-group col-2 text-center">	
-					<button class="btn btn-primary" type="button" value="bonos_horas" onclick="generar_extra(value);">Bonos Horas</button>
-				</div>
-				<div class="form-group col-2 text-center">	
-					<button class="btn btn-primary" type="button" value="bonos_streamate" onclick="generar_extra(value);">Bonos Streamate</button>
-				</div>
-				<div class="form-group col-2 text-center">	
-					<button class="btn btn-primary" type="button" value="odontologia" onclick="generar_extra(value);">Odontologia</button>
-				</div>
-				<div class="form-group col-2 text-center">	
-					<button class="btn btn-primary" type="button" value="seguridad_social" onclick="generar_extra(value);">Seguridad Social</button>
-				</div>
-				<div class="form-group col-2 text-center">	
-					<button class="btn btn-primary" type="button" value="coopserpak" onclick="generar_extra(value);">Coopserpak</button>
-				</div>
-				<div class="form-group col-2 text-center">	
-					<button class="btn btn-primary" type="button" value="sexshop" onclick="generar_extra(value);">Sexshop</button>
-				</div>
-				<div class="form-group col-2 text-center">	
-					<button class="btn btn-primary" type="button" value="belleza" onclick="generar_extra(value);">Belleza</button>
-				</div>
-				<div class="form-group col-2 text-center">	
-					<button class="btn btn-primary" type="button" value="sancionpagina" onclick="generar_extra(value);">Sanción Pagina</button>
-				</div>
-				<div class="form-group col-2 text-center">	
-					<button class="btn btn-primary" type="button" value="lenceria" onclick="generar_extra(value);">Lenceria</button>
-				</div>
-				-->
 				<div class="form-group col-10">
 					<select class="form-control" name="pagina_consultar_extra1" id="pagina_consultar_extra1" required>
 					    <option value="">Seleccione</option>
@@ -1099,6 +1072,7 @@
 					    <option value="belleza">Belleza</option>
 					    <option value="sancionpagina">Sanción Pagina</option>
 					    <option value="lenceria">Lenceria</option>
+					    <option value="Todos">Todos</option>
 					</select>
 				</div>
 
@@ -1556,9 +1530,9 @@
             },
 
             success: function(response){
-            	//console.log(response);
+            	console.log(response);
+            	$('#submit_XLove').removeAttr('disabled');
             	if(response=='error'){
-            		$('#submit_XLove').attr('disabled','false');
             		Swal.fire({
 		 				title: 'Formato Invalido',
 			 			text: "Formato Validos -> xls xml xlam xlsx",
@@ -1610,8 +1584,8 @@
 
             success: function(response){
             	console.log(response);
+            	$('#submit_chaturbate').removeAttr('disabled');
             	if(response=='error'){
-            		$('#submit_chaturbate').attr('disabled','false');
             		Swal.fire({
 		 				title: 'Formato Invalido',
 			 			text: "Formato Validos -> xls xml xlam xlsx",
@@ -1730,7 +1704,7 @@
 
             success: function(response){
             	console.log(response);
-            	$('#submit_streamate').attr('disabled','false');
+            	$('#submit_streamate').removeAttr('disabled');
             	if(response=='error'){
             		Swal.fire({
 		 				title: 'Formato Invalido',
@@ -1757,6 +1731,7 @@
             },
 
             error: function(response){
+            	$('#submit_streamate').removeAttr('disabled');
             	console.log(response['responseText']);
             }
         });
@@ -1809,10 +1784,10 @@
     	var fecha_desde_Myfreecams = $('#fecha_desde_Myfreecams').val();
     	var fecha_hasta_Myfreecams = $('#fecha_hasta_Myfreecams').val();
 
-    	if(tokens<=399 && tokens>=1){
+    	if(tokens<=199 && tokens>=1){
     		Swal.fire({
 				title: 'Error',
-				text: "No menos de 400 Tokens!",
+				text: "No menos de 200 Tokens!",
 				icon: 'error',
 				position: 'center',
 				showConfirmButton: false,
@@ -2509,7 +2484,7 @@
 			},
 
 			success: function(respuesta) {
-				//console.log(respuesta['contador1']);
+				console.log(respuesta);
 				if(respuesta['contador1']==0){
 					Swal.fire({
 				 		title: 'Error',
@@ -2991,9 +2966,11 @@
 				$('#td_total_stripchat').html("$"+respuesta['stripchat_dolares']);
 				$('#td_total_cam4').html("$"+respuesta['cam4_dolares']);
 				$('#td_total_streamate').html("$"+respuesta['streamate_dolares']);
+				$('#td_total_xlove').html("$"+respuesta['xlove_dolares']);
 				$('#td_total_camsoda').html("$"+respuesta['camsoda_dolares']);
 				$('#td_total_paxum').html("$"+respuesta['paxum_dolares']);
 				$('#td_total_epay').html("$"+respuesta['epay_dolares']);
+				$('#td_total_flirt4free').html("$"+respuesta['flirt4free_dolares']);
 				$('#td_total_sede').html("$"+respuesta['total_sede']);
 
 				$('#td_vipocc_chaturbate').html("$"+respuesta['sede1_chaturbate']);
@@ -3001,7 +2978,9 @@
 				$('#td_vipocc_stripchat').html("$"+respuesta['sede1_stripchat']);
 				$('#td_vipocc_cam4').html("$"+respuesta['sede1_cam4']);
 				$('#td_vipocc_streamate').html("$"+respuesta['sede1_streamate']);
+				$('#td_vipocc_xlove').html("$"+respuesta['sede1_xlove']);
 				$('#td_vipocc_camsoda').html("$"+respuesta['sede1_camsoda']);
+				$('#td_vipocc_flirt4free').html("$"+respuesta['sede1_flirt4free']);
 				$('#td_vipocc_paxum').html("$"+respuesta['sede1_paxum']);
 				$('#td_vipocc_epay').html("$"+respuesta['sede1_epay']);
 				$('#td_vipocc_sede').html("$"+respuesta['sede1_sede']);
@@ -3011,7 +2990,9 @@
 				$('#td_norte_stripchat').html("$"+respuesta['sede2_stripchat']);
 				$('#td_norte_cam4').html("$"+respuesta['sede2_cam4']);
 				$('#td_norte_streamate').html("$"+respuesta['sede2_streamate']);
+				$('#td_norte_xlove').html("$"+respuesta['sede2_xlove']);
 				$('#td_norte_camsoda').html("$"+respuesta['sede2_camsoda']);
+				$('#td_norte_flirt4free').html("$"+respuesta['sede2_flirt4free']);
 				$('#td_norte_paxum').html("$"+respuesta['sede2_paxum']);
 				$('#td_norte_epay').html("$"+respuesta['sede2_epay']);
 				$('#td_norte_sede').html("$"+respuesta['sede2_sede']);
@@ -3021,7 +3002,9 @@
 				$('#td_occ1_stripchat').html("$"+respuesta['sede3_stripchat']);
 				$('#td_occ1_cam4').html("$"+respuesta['sede3_cam4']);
 				$('#td_occ1_streamate').html("$"+respuesta['sede3_streamate']);
+				$('#td_occ1_xlove').html("$"+respuesta['sede3_xlove']);
 				$('#td_occ1_camsoda').html("$"+respuesta['sede3_camsoda']);
+				$('#td_occ1_flirt4free').html("$"+respuesta['sede3_flirt4free']);
 				$('#td_occ1_paxum').html("$"+respuesta['sede3_paxum']);
 				$('#td_occ1_epay').html("$"+respuesta['sede3_epay']);
 				$('#td_occ1_sede').html("$"+respuesta['sede3_sede']);
@@ -3031,7 +3014,9 @@
 				$('#td_vipsuba_stripchat').html("$"+respuesta['sede4_stripchat']);
 				$('#td_vipsuba_cam4').html("$"+respuesta['sede4_cam4']);
 				$('#td_vipsuba_streamate').html("$"+respuesta['sede4_streamate']);
+				$('#td_vipsuba_xlove').html("$"+respuesta['sede4_xlove']);
 				$('#td_vipsuba_camsoda').html("$"+respuesta['sede4_camsoda']);
+				$('#td_vipsuba_flirt4free').html("$"+respuesta['sede4_flirt4free']);
 				$('#td_vipsuba_paxum').html("$"+respuesta['sede4_paxum']);
 				$('#td_vipsuba_epay').html("$"+respuesta['sede4_epay']);
 				$('#td_vipsuba_sede').html("$"+respuesta['sede4_sede']);
@@ -3041,7 +3026,9 @@
 				$('#td_sinnombre_stripchat').html("$"+respuesta['total_stripchat_tokens']);
 				$('#td_sinnombre_cam4').html("$"+respuesta['total_cam4_tokens']);
 				$('#td_sinnombre_streamate').html("$"+respuesta['total_streamate_tokens']);
+				$('#td_sinnombre_xlove').html("$"+respuesta['total_xlove_tokens']);
 				$('#td_sinnombre_camsoda').html("$"+respuesta['total_camsoda_tokens']);
+				$('#td_sinnombre_flirt4free').html("$"+respuesta['total_flirt4free_tokens']);
 				$('#td_sinnombre_paxum').html("$"+respuesta['total_paxum_tokens']);
 				$('#td_sinnombre_epay').html("$"+respuesta['total_epay_tokens']);
 				$('#td_sinnombre_sede').html("$"+respuesta['total_sinnombre_sede']);

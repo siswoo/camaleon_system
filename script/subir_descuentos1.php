@@ -49,7 +49,8 @@ for($i=2;$i<=$limite;$i++){
 
         $identificacion = intval($identificacion);
         $multas = str_replace('.','',$multas);
-        $sexshop = str_replace('.','',$sexshop);
+        //$sexshop = str_replace('.','',$sexshop);
+        $sexshop = intval($sexshop);
         $avances = str_replace('.','',$avances);
         //$belleza = intval($belleza);
 

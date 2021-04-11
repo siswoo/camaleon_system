@@ -6,10 +6,10 @@ $tipo = $_POST['tipo'];
 $concepto = $_POST['concepto'];
 $valor = $_POST['valor'];
 $responsable = $_SESSION['id'];
-//$fecha_inicio = date('Y-m-d');
 $fecha_desde = $_POST['fecha'];
 $fecha_hasta = $_POST['fecha'];
-$fecha_inicio = $_POST['fecha'];
+//$fecha_inicio = $_POST['fecha'];
+$fecha_inicio = date('Y-m-d');
 
 $sql1 = "SELECT * FROM modelos WHERE documento_numero = ".$modelo;
 $consulta1 = mysqli_query($conexion,$sql1);
@@ -68,7 +68,7 @@ switch ($tipo) {
 		$sqlTipo = "INSERT INTO bonos_horas (id_modelo,concepto,monto,responsable,fecha_desde,fecha_hasta,fecha_inicio) VALUES ('$id_modelo','$concepto','$valor','$responsable','$fecha_desde','$fecha_hasta','$fecha_inicio')";
 		$consulta2 = mysqli_query($conexion,$sqlTipo);
 		$datos = [
-			"contador1" => $contador1,
+			"sql1" => $sqlTipo,
 		];
 		echo json_encode($datos);
 	break;
