@@ -339,7 +339,7 @@ if($condicion=='documentos1'){
 						<div class="col-12 text-center" id="div_documento1_'.$row2["id"].'">
 							<label style="text-transform: capitalize;">'.$row2["nombre"].'</label>
 							<br>
-							<embed src="../resources/documentos/nominas/archivos/'.$id.'/seguridad_social.pdf#toolbar=0" type="application/pdf" width="100%" height="300px" style="">
+							<embed src="../resources/documentos/nominas/archivos/'.$id.'/seguridad_social.pdf" type="application/pdf" width="100%" height="300px" style="">
 							<button type="button" class="btn btn-danger" onclick="eliminar2('.$id.','.$row2["id"].');">Eliminar</button>
 							<hr style="background-color:black;">
 						</div>
@@ -351,7 +351,7 @@ if($condicion=='documentos1'){
 						<div class="col-12 text-center" id="div_documento1_'.$row2["id"].'">
 							<label style="text-transform: capitalize;">'.$row2["nombre"].'</label>
 							<br>
-							<embed src="../resources/documentos/nominas/archivos/'.$id.'/eps.pdf#toolbar=0" type="application/pdf" width="100%" height="300px" style="">
+							<embed src="../resources/documentos/nominas/archivos/'.$id.'/eps.pdf" type="application/pdf" width="100%" height="300px" style="">
 							<button type="button" class="btn btn-danger" onclick="eliminar2('.$id.','.$row2["id"].');">Eliminar</button>
 							<hr style="background-color:black;">
 						</div>
@@ -363,7 +363,7 @@ if($condicion=='documentos1'){
 						<div class="col-12 text-center" id="div_documento1_'.$row2["id"].'">
 							<label style="text-transform: capitalize;">'.$row2["nombre"].'</label>
 							<br>
-							<embed src="../resources/documentos/nominas/archivos/'.$id.'/fondo_de_pension.pdf#toolbar=0" type="application/pdf" width="100%" height="300px" style="">
+							<embed src="../resources/documentos/nominas/archivos/'.$id.'/fondo_de_pension.pdf" type="application/pdf" width="100%" height="300px" style="">
 							<button type="button" class="btn btn-danger" onclick="eliminar2('.$id.','.$row2["id"].');">Eliminar</button>
 							<hr style="background-color:black;">
 						</div>
@@ -375,7 +375,7 @@ if($condicion=='documentos1'){
 						<div class="col-12 text-center" id="div_documento1_'.$row2["id"].'">
 							<label style="text-transform: capitalize;">'.$row2["nombre"].'</label>
 							<br>
-							<embed src="../resources/documentos/nominas/archivos/'.$id.'/arl.pdf#toolbar=0" type="application/pdf" width="100%" height="300px" style="">
+							<embed src="../resources/documentos/nominas/archivos/'.$id.'/arl.pdf" type="application/pdf" width="100%" height="300px" style="">
 							<button type="button" class="btn btn-danger" onclick="eliminar2('.$id.','.$row2["id"].');">Eliminar</button>
 							<hr style="background-color:black;">
 						</div>
@@ -387,7 +387,7 @@ if($condicion=='documentos1'){
 						<div class="col-12 text-center" id="div_documento1_'.$row2["id"].'">
 							<label style="text-transform: capitalize;">'.$row2["nombre"].'</label>
 							<br>
-							<embed src="../resources/documentos/nominas/archivos/'.$id.'/antecedentes_penales.pdf#toolbar=0" type="application/pdf" width="100%" height="300px" style="">
+							<embed src="../resources/documentos/nominas/archivos/'.$id.'/antecedentes_penales.pdf" type="application/pdf" width="100%" height="300px" style="">
 							<button type="button" class="btn btn-danger" onclick="eliminar2('.$id.','.$row2["id"].');">Eliminar</button>
 							<hr style="background-color:black;">
 						</div>
@@ -399,7 +399,7 @@ if($condicion=='documentos1'){
 						<div class="col-12 text-center" id="div_documento1_'.$row2["id"].'">
 							<label style="text-transform: capitalize;">'.$row2["nombre"].'</label>
 							<br>
-							<embed src="../resources/documentos/nominas/archivos/'.$id.'/hoja_de_vida.pdf#toolbar=0" type="application/pdf" width="100%" height="300px" style="">
+							<embed src="../resources/documentos/nominas/archivos/'.$id.'/hoja_de_vida.pdf" type="application/pdf" width="100%" height="300px" style="">
 							<button type="button" class="btn btn-danger" onclick="eliminar2('.$id.','.$row2["id"].');">Eliminar</button>
 							<hr style="background-color:black;">
 						</div>
@@ -423,7 +423,7 @@ if($condicion=='documentos1'){
 						<div class="col-12 text-center" id="div_documento1_'.$row2["id"].'">
 							<label style="text-transform: capitalize;">'.$row2["nombre"].'</label>
 							<br>
-							<embed src="../resources/documentos/nominas/archivos/'.$id.'/firma_digital.jpg#toolbar=0" type="application/pdf" width="100%" height="300px" style="">
+							<embed src="../resources/documentos/nominas/archivos/'.$id.'/firma_digital.jpg" type="application/pdf" width="100%" height="300px" style="">
 							<button type="button" class="btn btn-danger" onclick="eliminar2('.$id.','.$row2["id"].');">Eliminar</button>
 							<hr style="background-color:black;">
 						</div>
@@ -435,7 +435,7 @@ if($condicion=='documentos1'){
 						<div class="col-12 text-center" id="div_documento1_'.$row2["id"].'">
 							<label style="text-transform: capitalize;">'.$row2["nombre"].'</label>
 							<br>
-							<embed src="../resources/documentos/nominas/archivos/'.$id.'/rut.pdf#toolbar=0" type="application/pdf" width="100%" height="300px" style="">
+							<embed src="../resources/documentos/nominas/archivos/'.$id.'/rut.pdf" type="application/pdf" width="100%" height="300px" style="">
 							<button type="button" class="btn btn-danger" onclick="eliminar2('.$id.','.$row2["id"].');">Eliminar</button>
 							<hr style="background-color:black;">
 						</div>
@@ -447,7 +447,7 @@ if($condicion=='documentos1'){
 						<div class="col-12 text-center" id="div_documento1_'.$row2["id"].'">
 							<label style="text-transform: capitalize;">'.$row2["nombre"].'</label>
 							<br>
-							<embed src="../resources/documentos/nominas/archivos/'.$id.'/certificacion_bancaria.pdf#toolbar=0" type="application/pdf" width="100%" height="300px" style="">
+							<embed src="../resources/documentos/nominas/archivos/'.$id.'/certificacion_bancaria.pdf" type="application/pdf" width="100%" height="300px" style="">
 							<button type="button" class="btn btn-danger" onclick="eliminar2('.$id.','.$row2["id"].');">Eliminar</button>
 							<hr style="background-color:black;">
 						</div>
@@ -459,7 +459,7 @@ if($condicion=='documentos1'){
 						<div class="col-12 text-center" id="div_documento1_'.$row2["id"].'">
 							<label style="text-transform: capitalize;">'.$row2["nombre"].'</label>
 							<br>
-							<embed src="../resources/documentos/nominas/archivos/'.$id.'/acta_cuenta_prestada.jpg#toolbar=0" type="application/pdf" width="100%" height="300px" style="">
+							<embed src="../resources/documentos/nominas/archivos/'.$id.'/acta_cuenta_prestada.jpg" type="application/pdf" width="100%" height="300px" style="">
 							<button type="button" class="btn btn-danger" onclick="eliminar2('.$id.','.$row2["id"].');">Eliminar</button>
 							<hr style="background-color:black;">
 						</div>
