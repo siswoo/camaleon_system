@@ -1,8 +1,15 @@
 <?php
+session_start();
 include('conexion.php');
 $value = $_POST['value'];
+$sede = $_SESSION["sede"];
 
-$sql1 = "SELECT * FROM modelos WHERE documento_numero LIKE '%".$value."%' or nombre1 LIKE '%".$value."%' or nombre2 LIKE '%".$value."%' or apellido1 LIKE '%".$value."%' or apellido2 LIKE '%".$value."%' ";
+if($_SESSION["id"]==1){
+	$sql1 = "SELECT * FROM modelos WHERE documento_numero LIKE '%".$value."%' or nombre1 LIKE '%".$value."%' or nombre2 LIKE '%".$value."%' or apellido1 LIKE '%".$value."%' or apellido2 LIKE '%".$value."%' ";
+}else{
+	$sql1 = "SELECT * FROM modelos WHERE (documento_numero LIKE '%".$value."%' or nombre1 LIKE '%".$value."%' or nombre2 LIKE '%".$value."%' or apellido1 LIKE '%".$value."%' or apellido2 LIKE '%".$value."%') and sede = ".$sede;
+}
+
 $consulta1 = mysqli_query($conexion,$sql1);
 $contador1 = mysqli_num_rows($consulta1);
 

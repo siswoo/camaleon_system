@@ -272,11 +272,10 @@
 								';
 										if($contador1>=1){
 											echo '
-												<option value="">Seleccione</option>
 												<option value="'.$soporte_responsable_id.'" selected="selected">'.$soporte_responsable_nombre.'</option>
 												'.$html_sr1.'
 											';
-										}else{
+										}else{	
 											echo '
 												<option value="">Seleccione</option>
 												'.$html_sr1.'

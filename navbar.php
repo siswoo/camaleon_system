@@ -83,7 +83,7 @@ if($ubicacion == 'welcome'){ ?>
 	      	</li>
 			-->
 	      	<?php
-			if($verificacion_pasante_view==1 or $_SESSION['rol']==14 or $_SESSION['rol']==15){ ?>
+			if(($verificacion_pasante_view==1 or $_SESSION['rol']==14 or $_SESSION['rol']==15) and $_SESSION['id']!=1739){ ?>
 		      	<li class="nav-item" id="li-pasante">
 		        	<a class="nav-link navbar-active-a botones_navbar1" href="../pasante/index.php" id="a-pasante">Pasantes</a>
 		      	</li>
@@ -144,7 +144,8 @@ if($ubicacion == 'welcome'){ ?>
 	      	-->
 
 	      	<?php
-			if($_SESSION['rol']==1 or $_SESSION['rol']==13 or $_SESSION['rol']==14 or $_SESSION['rol']==15){ ?>
+	      	// 1722 == valentina  |  1056 == juliana  |  
+			if($_SESSION['rol']==1 or $_SESSION['rol']==13 or $_SESSION['rol']==14 or $_SESSION['rol']==15 or $_SESSION['id']==1722 or $_SESSION['id']==1056){ ?>
 	      	<li class="nav-item" id="li-pagos">
 	        	<a class="nav-link navbar-active-a botones_navbar1" href="../pagos/index.php" id="a-pagos">Pagos</a>
 	      	</li>
