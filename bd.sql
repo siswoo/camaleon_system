@@ -1216,10 +1216,12 @@ CREATE TABLE n_pagos (
 	id_nomina INT NOT NULL,
 	salario INT NOT NULL,
 	bonos INT NOT NULL,
+	inasistencias INT NOT NULL,
 	multas INT NOT NULL,
 	responsable INT NOT NULL,
-	desde date NOT NULL,
-	hasta date NOT NULL,
+	inicio date NOT NULL,
+	fin date NOT NULL,
+	estatus VARCHAR(250) DEFAULT "Proceso",
 	fecha_inicio date NOT NULL,
 	PRIMARY KEY (id)
 );ALTER TABLE n_pagos CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
@@ -1291,3 +1293,39 @@ CREATE TABLE n_contrato (
 INSERT INTO n_contrato (nombre,fecha_inicio) VALUES 
 ("Indefinido","2021-04-06"),
 ("Prestación de servicio","2021-04-06");
+
+DROP TABLE IF EXISTS presabana_inactivos;
+CREATE TABLE presabana_inactivos (
+	id INT AUTO_INCREMENT,
+	id_modelo INT NOT NULL,
+	sede INT NOT NULL,
+	inicio DATE NOT NULL,
+	fin DATE NOT NULL,
+	chaturbate FLOAT(11,2) NOT NULL,
+	imlive FLOAT(11,2) NOT NULL,
+	xlove FLOAT(11,2) NOT NULL,
+	stripchat FLOAT(11,2) NOT NULL,
+	streamate FLOAT(11,2) NOT NULL,
+	myfreecams FLOAT(11,2) NOT NULL,
+	livejasmin FLOAT(11,2) NOT NULL,
+	bonga FLOAT(11,2) NOT NULL,
+	cam4 FLOAT(11,2) NOT NULL,
+	camsoda FLOAT(11,2) NOT NULL,
+	flirt4free FLOAT(11,2) NOT NULL,
+	total_tokens FLOAT(11,2) NOT NULL,
+	subtotal_dolares FLOAT(11,2) NOT NULL,
+	rf FLOAT(11,2) NOT NULL,
+	meta_porcentajes VARCHAR(250) NOT NULL,
+	total_pesos FLOAT(11,2) NOT NULL,
+	total_dolares FLOAT(11,2) NOT NULL,
+	trm FLOAT(11,2) NOT NULL,
+	pv FLOAT(11,2) NOT NULL,
+	estatus VARCHAR(250) NOT NULL,
+	responsable INT NOT NULL,
+	fecha_inicio DATE NOT NULL,
+   	PRIMARY KEY (id)
+); ALTER TABLE presabana_inactivos CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+
+
+

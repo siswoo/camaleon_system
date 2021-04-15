@@ -83,6 +83,10 @@
 	<div class="seccion1">
 	    <div class="row">
 	    	<div class="col-12 mb-3 text-right">
+	    		<a href="pagos.php">
+					<button type="button" class="btn btn-primary" style="margin-right: 2rem;">Pagos</button>
+				</a>
+				<!--<button type="button" class="btn btn-primary" style="margin-right: 2rem;" data-toggle="modal" data-target="#exampleModal1">Pagos</button>-->
 				<button type="button" class="btn btn-primary" style="margin-right: 2rem;" data-toggle="modal" data-target="#exampleModal1">Registro Nuevo</button>
 				<a href="exportar1.php" target="_blank">
 					<button type="button" class="btn btn-info" style="margin-right: 2rem;">Exportar Datos</button>
@@ -1020,6 +1024,12 @@
 			$('#correo').val("administradorrestaurante@camaleonmg.com");
 		}else if(value==28){
 			$('#correo').val("chef@camaleonmg.com");
+		}else if(value==29){
+			$('#correo').val("cajera@camaleonmg.com");
+		}else if(value==30){
+			$('#correo').val("jefeimd@camaleonmg.com");
+		}else if(value==31){
+			$('#correo').val("auditoria@camaleonmg.com");
 		}
 	}
 
@@ -1080,6 +1090,12 @@
 			$('#edit_correo').val("administradorrestaurante@camaleonmg.com");
 		}else if(value==28){
 			$('#edit_correo').val("chef@camaleonmg.com");
+		}else if(value==29){
+			$('#edit_correo').val("cajera@camaleonmg.com");
+		}else if(value==30){
+			$('#edit_correo').val("jefeimd@camaleonmg.com");
+		}else if(value==31){
+			$('#edit_correo').val("auditoria@camaleonmg.com");
 		}
 	}
 

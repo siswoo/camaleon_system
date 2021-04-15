@@ -67,6 +67,7 @@ $(document).ready(function(){
         $('#a-nomina').attr('href','nomina/index.php');
         $('#a-cargos').attr('href','cargos/index.php');
         $('#a-funciones').attr('href','funciones/index.php');
+        $('#a-residuos').attr('href','residuos/index.php');
         $('#navbar-cerrarSesion').attr('href','script/cerrar_sesion.php');
     }else{
         $('#li-'+hidden_ubicacion).addClass('navbar-active');

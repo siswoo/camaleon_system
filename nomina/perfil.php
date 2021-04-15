@@ -710,7 +710,7 @@
 			$sql8 = "SELECT * FROM nomina WHERE id = ".$id;
 			$consulta8 = mysqli_query($conexion,$sql8);
 
-			$sql7 = "SELECT * FROM n_pagos WHERE id_nomina = ".$id;
+			$sql7 = "SELECT * FROM n_pagos WHERE id_nomina = ".$id." and estatus = 'Aceptado'";
 			$consulta7 = mysqli_query($conexion,$sql7);
 			$contador6 = mysqli_num_rows($consulta7);
 			$html_pagos = '';
@@ -720,15 +720,15 @@
 					$salario = $row7['salario'];
 					$bonos = $row7['bonos'];
 					$multas = $row7['multas'];
-					$desde = $row7['desde'];
-					$hasta = $row7['hasta'];
+					$inicio = $row7['inicio'];
+					$fin = $row7['fin'];
 						
 					$html_pagos.='
 						<div class="col-12 text-center form-group mt-3">
-							<span style="font-size: 20px; font-weight: bold;">Desprendible desde '.$presabana_desde.' hasta '.$presabana_hasta.'</span>
+							<span style="font-size: 20px; font-weight: bold;">Desde '.$inicio.' Hasta '.$fin.'</span>
 							<br>
-							<a href="../script/generar_desprendible2.php?id='.$id.'&pre='.$documentos2_id.'" target="_blank" style="color: white; text-decoration: none;">
-								<button type="button" class="btn btn-success mt-3">Descargar</button>
+							<a href="desprendible1.php?id='.$pago_id.'" target="_blank" style="color: white; text-decoration: none;">
+								<button type="button" class="btn btn-success mt-3">Ver Desprendible</button>
 							</a>
 							<hr style="background-color: white;">
 						</div>

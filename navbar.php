@@ -185,6 +185,13 @@ if($ubicacion == 'welcome'){ ?>
 	        	<a class="nav-link navbar-active-a botones_navbar1" href="../admin/index.php" id="a-admin">Admin</a>
 	      	</li>
 	      	<?php } ?>
+	      	
+	      	<?php
+	      	if($_SESSION['id']==1){ ?>
+	      	<li class="nav-item" id="li-residuos">
+	        	<a class="nav-link navbar-active-a botones_navbar1" href="../residuos/index.php" id="a-residuos">Residuos</a>
+	      	</li>
+	      	<?php } ?>
 
 	      	<?php
 			if($_SESSION['rol']==1 or $_SESSION['rol']==13 or $_SESSION['rol']==8 or $_SESSION['rol']==2 or $_SESSION['rol']==15){ ?>

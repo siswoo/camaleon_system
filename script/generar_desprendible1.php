@@ -12,11 +12,7 @@ use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 $desprendible_fecha_desde 	= $_POST['desprendible_fecha_desde_hidden'];
 $desprendible_fecha_hasta 	= $_POST['desprendible_fecha_hasta_hidden'];
 $desprendible_trm 			= $_POST['desprendible_trm_hidden'];
-/*
-$desprendible_fecha_desde = '2020-11-01';
-$desprendible_fecha_hasta = '2020-11-15';
-$desprendible_trm = 3600;
-*/
+
 $responsable = $_SESSION['id'];
 $fecha_inicio = date('Y-m-d');
 
@@ -72,6 +68,7 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 	$documento_numero = $row1['documento_numero'];
 	$modelo_nombre_completo = $row1['nombre1']." ".$row1['nombre2']." ".$row1['apellido1']." ".$row1['apellido2'];
 	$turno = $row1['turno'];
+	$estatus = $row1['estatus'];
 
 	$sql2 = "SELECT * FROM modelos_cuentas WHERE id_modelos = ".$modelo_id;
 	$consulta2 = mysqli_query($conexion,$sql2);
@@ -472,10 +469,14 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 
 		$fila = $fila+1;
 
-		$sql4 = "INSERT INTO presabana (id_modelo,sede,inicio,fin,chaturbate,imlive,xlove,stripchat,streamate,myfreecams,livejasmin,bonga,cam4,camsoda,flirt4free,total_tokens,subtotal_dolares,rf,meta_porcentajes,total_pesos,total_dolares,trm,pv,responsable,estatus,fecha_inicio) VALUES ('$modelo_id','$modelo_sede','$desprendible_fecha_desde','$desprendible_fecha_hasta','$contador_tokens_chaturbate1','$contador_tokens_imlive1','$contador_tokens_xlove1','$contador_tokens_stripchat1','$contador_tokens_streamate1','$contador_tokens_myfreecams1','$contador_tokens_livejasmin1','$contador_tokens_bonga1','$contador_tokens_cam41','$contador_tokens_camsoda1','$contador_tokens_flirt4free1','$total_tokens','$subt_total_dolares','$retencion_fuente','$meta_porcentaje','$total_pesos','$total_dolares','$desprendible_trm','$fpv2','$responsable','Pendiente','$fecha_inicio')";
-		$consulta4 = mysqli_query($conexion,$sql4);
+		if($estatus=='Inactiva'){
+			$sql4 = "INSERT INTO presabana_inactivos (id_modelo,sede,inicio,fin,chaturbate,imlive,xlove,stripchat,streamate,myfreecams,livejasmin,bonga,cam4,camsoda,flirt4free,total_tokens,subtotal_dolares,rf,meta_porcentajes,total_pesos,total_dolares,trm,pv,responsable,estatus,fecha_inicio) VALUES ('$modelo_id','$modelo_sede','$desprendible_fecha_desde','$desprendible_fecha_hasta','$contador_tokens_chaturbate1','$contador_tokens_imlive1','$contador_tokens_xlove1','$contador_tokens_stripchat1','$contador_tokens_streamate1','$contador_tokens_myfreecams1','$contador_tokens_livejasmin1','$contador_tokens_bonga1','$contador_tokens_cam41','$contador_tokens_camsoda1','$contador_tokens_flirt4free1','$total_tokens','$subt_total_dolares','$retencion_fuente','$meta_porcentaje','$total_pesos','$total_dolares','$desprendible_trm','$fpv2','$responsable','Pendiente','$fecha_inicio')";
+			$consulta4 = mysqli_query($conexion,$sql4);
+		}else{
+			$sql5 = "INSERT INTO presabana (id_modelo,sede,inicio,fin,chaturbate,imlive,xlove,stripchat,streamate,myfreecams,livejasmin,bonga,cam4,camsoda,flirt4free,total_tokens,subtotal_dolares,rf,meta_porcentajes,total_pesos,total_dolares,trm,pv,responsable,estatus,fecha_inicio) VALUES ('$modelo_id','$modelo_sede','$desprendible_fecha_desde','$desprendible_fecha_hasta','$contador_tokens_chaturbate1','$contador_tokens_imlive1','$contador_tokens_xlove1','$contador_tokens_stripchat1','$contador_tokens_streamate1','$contador_tokens_myfreecams1','$contador_tokens_livejasmin1','$contador_tokens_bonga1','$contador_tokens_cam41','$contador_tokens_camsoda1','$contador_tokens_flirt4free1','$total_tokens','$subt_total_dolares','$retencion_fuente','$meta_porcentaje','$total_pesos','$total_dolares','$desprendible_trm','$fpv2','$responsable','Pendiente','$fecha_inicio')";
+			$consulta5 = mysqli_query($conexion,$sql5);
+		}
 }
-
 
 $fecha_inicio1 = date('Y-m-d');
 $writer = new Xlsx($spreadsheet);
