@@ -1464,8 +1464,16 @@
 			data: $('#form_modal_edit3').serialize(),
 			dataType: "JSON",
 			success: function(respuesta) {
-				//console.log(respuesta['duplicados_documentos']);
-				if(respuesta['resultado']=='duplicados'){
+				console.log(respuesta);
+				if(respuesta['estatus']==1){
+					Swal.fire({
+						position: 'center',
+						icon: 'error',
+						title: 'Cuenta ya existente!',
+						text: 'Intentar con otro nombre de usuario',
+						showConfirmButton: true,
+					});
+					/*
 					Swal.fire({
 						position: 'center',
 						icon: 'error',
@@ -1473,10 +1481,19 @@
 						text: respuesta['duplicados_documentos'][1]+' -> '+respuesta['duplicados_nombres'][1],
 						showConfirmButton: true,
 					});
+					*/
 					return false;
 				}
 
-				if(respuesta['resultado']=='error'){
+				if(respuesta['estatus']==0){
+					Swal.fire({
+						position: 'center',
+						icon: 'success',
+						title: 'Correcto',
+						text: 'Agregado correctamente',
+						showConfirmButton: true,
+					});
+					/*
 					Swal.fire({
 						position: 'center',
 						icon: 'error',
@@ -1484,9 +1501,13 @@
 						text: 'Solo se permite una misma cuenta para esta pagina',
 						showConfirmButton: true,
 					});
+					*/
+					$("#Modal_cuentas2").modal('hide');
+					$('#Modal_cuentas2').removeClass('modal-open');
+					$('.modal-backdrop').remove();
 					return false;
 				}
-
+				/*
 				Swal.fire({
 					position: 'center',
 					icon: 'success',
@@ -1496,6 +1517,7 @@
 				$("#Modal_cuentas2").modal('hide');
 				$('#Modal_cuentas2').removeClass('modal-open');
 				$('.modal-backdrop').remove();
+				*/
 			},
 
 			error: function(respuesta) {

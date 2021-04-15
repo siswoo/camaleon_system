@@ -445,6 +445,47 @@
 				</select>
 			</div>
 
+			<?php
+			/****************************************************************************************/
+			/*****************************DOCUMENTO DE CUENTA PRESTADA**********************************/
+			/****************************************************************************************/
+			$sql9 = "SELECT * FROM modelos_documentos WHERE id_modelos = ".$id." and id_documentos = 14";
+			$consulta9 = mysqli_query($conexion,$sql9);
+			$contador9 = mysqli_num_rows($consulta9);
+
+			echo '
+				<input type="hidden" id="hidden_contador9" name="hidden_contador9" value="'.$contador9.'">
+			';
+
+			if($contador9>=1){
+				echo '
+					<div class="text-center col-12">
+						Ya tiene una foto subida
+					</div>
+					<div class="text-center col-12 mt-3 mb-3">
+						<img src="../resources/documentos/modelos/archivos/'.$id.'/acta_cuenta_prestada.jpg" class="img-fluid" style="max-width:170px;">
+					</div>
+					<div style="display:none;">
+						<input type="file" name="acta_cuenta_prestada" id="acta_cuenta_prestada" class="form-control">
+					</div>
+				';
+			}else{ ?>
+				<div id="div_acta_cuenta_prestada" class="text-center col-12 mt-1 mb-2" style="font-size: 20px; font-weight: bold;">
+					Acta de Cuenta Prestada ><a href="ejemplo1.jpg" target="_blank">Ejemplo</a><
+					<p style="font-size: 14px;">Solo si su cuenta es prestada</p>
+				</div>
+				<div class="col-3">&nbsp;</div>
+				<div id="div_acta_cuenta_prestada" class="text-center col-6 mt-3 mb-3">
+					<input type="file" name="acta_cuenta_prestada" id="acta_cuenta_prestada" class="form-control">
+				</div>
+				<div class="col-3">&nbsp;</div>
+			<?php 
+			} 
+			/****************************************************************************************/
+			/****************************************************************************************/
+			/****************************************************************************************/
+			?>
+
 		</div>
 
 		<div class="row">
@@ -1936,6 +1977,84 @@
 
 	$("#formulario2").on("submit", function(e){
 		e.preventDefault();
+		var bcpp = $('#BCPP').val();
+		var hidden_contador9 = $('#hidden_contador9').val();
+		var fd = new FormData();
+        var files = $('#acta_cuenta_prestada')[0].files[0];
+		if(files==null && bcpp=='Prestada' && hidden_contador9==0){
+			Swal.fire({
+		 		title: 'Subir Archivo',
+			 	text: "Debe colocar una imagen!",
+			 	icon: 'error',
+			 	position: 'center',
+			 	showConfirmButton: false,
+			 	timer: 3000
+			});
+            return false;
+		}
+
+        fd.append('file',files);
+        fd.append('condicion',"subir_archivo1");
+        fd.append('condicion2',"Permiso Bancario");
+        fd.append('condicion3',"acta_cuenta_prestada");
+        fd.append('id',$('#id').val());
+        fd.append('bcpp',$('#BCPP').val());
+        fd.append('banco_tipo_documento',$('#banco_tipo_documento').val());
+        fd.append('banco_cedula',$('#banco_cedula').val());
+        fd.append('banco_nombre',$('#banco_nombre').val());
+        fd.append('banco_tipo',$('#banco_tipo').val());
+        fd.append('banco_numero',$('#banco_numero').val());
+        fd.append('banco_banco',$('#banco_banco').val());
+
+        $.ajax({
+            url: '../script/crud_modelos.php',
+            type: 'POST',
+            data: fd,
+            dataType: "JSON",
+            contentType: false,
+            processData: false,
+		
+			success: function(respuesta) {
+				console.log(respuesta);
+
+				if(respuesta['estatus']=='error'){
+            		Swal.fire({
+		 				title: 'Formato Invalido',
+			 			text: "Formato Validos -> pdf",
+			 			icon: 'error',
+			 			position: 'center',
+			 			showConfirmButton: false,
+			 			timer: 3000
+					});
+            		return false;
+            	}
+
+            	Swal.fire({
+	 				title: 'Documento Subido',
+	 				text: "Redirigiendo...!",
+	 				icon: 'success',
+	 				position: 'center',
+	 				showConfirmButton: true,
+	 				confirmButtonColor: '#3085d6',
+	 				confirmButtonText: 'No esperar!',
+	 				timer: 3000
+				}).then((result) => {
+	 				if (result.value) {
+	   					window.location.href = "perfil.php";
+	 				}
+				})
+				setTimeout(function() {
+			    	window.location.href = "perfil.php";
+				},3500);
+
+			},
+
+			error: function(respuesta) {
+				console.log(respuesta['responseText']);
+			}
+		});
+		/*
+		e.preventDefault();
 		var f = $(this);
 	    $.ajax({
 			type: 'POST',
@@ -1958,6 +2077,7 @@
 			}
 		});
 		refrescar();
+		*/
 	});
 
 	$("#formulario3").on("submit", function(e){

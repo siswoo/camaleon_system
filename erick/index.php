@@ -88,7 +88,9 @@
 					<a href="exportar4.php" style="text-decoration: none;">
 				    	<button type="button" class="btn btn-info ml-3">Modelos Sin Cuentas</button>
 					</a>
-					<a href="exportar5.php" style="text-decoration: none;">
+		    	</div>
+		    	<div class="col-12 text-center mt-3">
+		    		<a href="exportar5.php" style="text-decoration: none;">
 				    	<button type="button" class="btn btn-info ml-3">Todas las Pasantes</button>
 					</a>
 					<a href="ejecucionbd1.php" style="text-decoration: none;" target="_blank">
@@ -96,6 +98,9 @@
 					</a>
 					<a href="exportar13.php" style="text-decoration: none;" target="_blank">
 				    	<button type="button" class="btn btn-info ml-3">Reporte de Cuentas</button>
+					</a>
+					<a href="exportar14.php" style="text-decoration: none;" target="_blank">
+				    	<button type="button" class="btn btn-info ml-3">Cuentas Repetidas</button>
 					</a>
 		    	</div>
 		    	<div class="col-12 mt-3 text-center">

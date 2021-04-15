@@ -284,7 +284,8 @@ INSERT INTO documentos (nombre,ruta,fecha_inicio) VALUES
 ('Foto Cédula Parte Respaldo','foto_cedula_parte_respaldo','2020-09-28'),
 ('Antecedentes Penales','antecedentes_penales','2020-09-28'),
 ('Extras','extras_','2020-10-02'),
-('Sensuales','sensuales_','2020-10-06');
+('Sensuales','sensuales_','2020-10-06'),
+('Permiso Bancario','acta_cuenta_prestada','2021-04-15');
 
 
 DROP TABLE IF EXISTS modelos_documentos;

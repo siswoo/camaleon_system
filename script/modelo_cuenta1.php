@@ -22,11 +22,42 @@ if($pagina == 1 or $pagina == 5 or $pagina == 7){
 }
 */
 
-$sql2 = "SELECT * FROM modelos_cuentas WHERE usuario = '".$cuenta."' and id_modelos != ".$id_modelo." GROUP BY id_modelos";
+//$sql2 = "SELECT * FROM modelos_cuentas WHERE usuario = '".$cuenta."' and id_modelos != ".$id_modelo." GROUP BY id_modelos";
+$sql2 = "SELECT * FROM modelos_cuentas WHERE usuario = '".$cuenta."'";
 $registro1 = mysqli_query($conexion,$sql2);
 $contador1 = mysqli_num_rows($registro1);
 
+$error1 = 0;
+$ok = 0;
+
 if($contador1>=1){
+	while($row1 = mysqli_fetch_array($registro1)) {
+		$id_modelos2 = $row1["id_modelos"];
+		$id_paginas2 = $row1["id_paginas"];
+		if($id_modelos2==$id_modelo and $id_paginas2==$pagina){
+			$ok = 1;
+			$error1 = 1;
+		}else if($id_modelos2!=$id_modelo){
+			$ok = 2;
+			$error1 = 1;
+		}
+	}
+}
+if($error1==0){
+	$sql1 = "INSERT INTO modelos_cuentas (id_modelos,id_paginas,usuario,clave,correo,link,nickname_xlove,estatus,fecha_inicio) VALUES ('$id_modelo','$pagina','$cuenta','$clave','$correo','$link','$nickname_xlove','Proceso','$fecha_inicio')";
+	$registro1 = mysqli_query($conexion, $sql1);
+}
+
+$datos = [
+	"estatus" => $error1,
+	"opcion" => $ok,
+];
+
+echo json_encode($datos);
+exit;
+
+/*
+if($error1>=1){
 	$contador2 = 0;
 	while($row1 = mysqli_fetch_array($registro1)) {
 		$contador2 = $contador2+1;
@@ -48,15 +79,9 @@ if($contador1>=1){
 	echo json_encode($datos);
 	exit;
 }
-
-/*
-if($pagina != 1 and $pagina != 5 and $pagina != 7){
-	$sql4 = "SELECT * FROM modelos_cuentas WHERE usuario = '".$cuenta."' and id_modelos = ".$id_modelo;
-	$registro4 = mysqli_query($conexion,$sql4);
-	$contador3 = mysqli_num_rows($registro4);
-}
 */
 
+/*
 $sql4 = "SELECT * FROM modelos_cuentas WHERE usuario = '".$cuenta."' and id_modelos != ".$id_modelo;
 $registro4 = mysqli_query($conexion,$sql4);
 $contador3 = mysqli_num_rows($registro4);
@@ -72,6 +97,7 @@ if($contador3>=1){
 
 $sql1 = "INSERT INTO modelos_cuentas (id_modelos,id_paginas,usuario,clave,correo,link,nickname_xlove,estatus,fecha_inicio) VALUES ('$id_modelo','$pagina','$cuenta','$clave','$correo','$link','$nickname_xlove','Proceso','$fecha_inicio')";
 $registro1 = mysqli_query($conexion, $sql1);
+*/
 
 $datos = [
 	"resultado" => "ok",
