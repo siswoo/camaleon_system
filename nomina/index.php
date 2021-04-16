@@ -1030,6 +1030,10 @@
 			$('#correo').val("jefeimd@camaleonmg.com");
 		}else if(value==31){
 			$('#correo').val("auditoria@camaleonmg.com");
+		}else if(value==32){
+			$('#correo').val("traficoestatico@camaleonmg.com");
+		}else if(value==33){
+			$('#correo').val("metirerestaurant@camaleonmg.com");
 		}
 	}
 
@@ -1096,6 +1100,10 @@
 			$('#edit_correo').val("jefeimd@camaleonmg.com");
 		}else if(value==31){
 			$('#edit_correo').val("auditoria@camaleonmg.com");
+		}else if(value==32){
+			$('#edit_correo').val("traficoestatico@camaleonmg.com");
+		}else if(value==33){
+			$('#edit_correo').val("metirerestaurant@camaleonmg.com");
 		}
 	}
 
