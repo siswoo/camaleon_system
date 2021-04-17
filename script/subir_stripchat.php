@@ -92,9 +92,22 @@ for($i=1;$i<=$limite;$i++){
             $nickname = $worksheet->getCell('A'.$i);
             $j = $i+13;
             $tokens = $worksheet->getCell('A'.$j);
-            $tokens = str_replace(".", "", $tokens);
+            $cantidad_tokens = strlen($tokens);
+            if($cantidad_tokens>=6){
+                $tokens = str_replace(".", "", $tokens);    
+            }else{
+                //$tokens = str_replace(",", "", $tokens);
+            }
+            
             $fecha_inicio = $fecha_inicio;
             $limpiar = 0;
+
+            /*
+            if($nickname=='3Mature_Jess'){
+                echo $tokens;
+                exit;
+            }
+            */
 
             $detectar1 = substr($nickname,0,1);
             if($detectar1=='1' or $detectar1=='2' or $detectar1=='3' or $detectar1=='4' or $detectar1=='5' or $detectar1=='6' or $detectar1=='7' or $detectar1=='8' or $detectar1=='9' or $detectar1=='0'){

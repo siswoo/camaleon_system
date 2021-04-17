@@ -87,7 +87,10 @@
 					<button type="button" class="btn btn-primary" style="margin-right: 2rem;">Pagos</button>
 				</a>
 				<!--<button type="button" class="btn btn-primary" style="margin-right: 2rem;" data-toggle="modal" data-target="#exampleModal1">Pagos</button>-->
-				<button type="button" class="btn btn-primary" style="margin-right: 2rem;" data-toggle="modal" data-target="#exampleModal1">Registro Nuevo</button>
+				<?php
+				if($_SESSION["id"]!=1739){ ?>
+					<button type="button" class="btn btn-primary" style="margin-right: 2rem;" data-toggle="modal" data-target="#exampleModal1">Registro Nuevo</button>
+				<?php } ?>
 				<a href="exportar1.php" target="_blank">
 					<button type="button" class="btn btn-info" style="margin-right: 2rem;">Exportar Datos</button>
 				</a>
@@ -1034,6 +1037,10 @@
 			$('#correo').val("traficoestatico@camaleonmg.com");
 		}else if(value==33){
 			$('#correo').val("metirerestaurant@camaleonmg.com");
+		}else if(value==34){
+			$('#correo').val("cocinero@camaleonmg.com");
+		}else if(value==35){
+			$('#correo').val("inventariosycostos@camaleonmg.com");
 		}
 	}
 
@@ -1104,6 +1111,10 @@
 			$('#edit_correo').val("traficoestatico@camaleonmg.com");
 		}else if(value==33){
 			$('#edit_correo').val("metirerestaurant@camaleonmg.com");
+		}else if(value==34){
+			$('#edit_correo').val("cocinero@camaleonmg.com");
+		}else if(value==35){
+			$('#edit_correo').val("inventariosycostos@camaleonmg.com");
 		}
 	}
 

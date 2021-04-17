@@ -339,14 +339,14 @@
 					</div>
 				';
 			}else{ ?>
-				<div id="div_acta_cuenta_prestada" class="text-center col-12 mt-1 mb-2" style="font-size: 20px; font-weight: bold;">
-					Acta de Cuenta Prestada
+				<div id="div_acta_cuenta_prestada" class="col-12">
+					<div class="text-center col-12 mt-1" style="font-size: 20px; font-weight: bold;">
+						Acta de Cuenta Prestada
+					</div>
+					<div class="text-center col-12 mt-1 mb-2">
+						<input type="file" name="acta_cuenta_prestada" id="acta_cuenta_prestada" class="form-control">
+					</div>
 				</div>
-				<div class="col-3">&nbsp;</div>
-				<div id="div_acta_cuenta_prestada" class="text-center col-6 mt-3 mb-3">
-					<input type="file" name="acta_cuenta_prestada" id="acta_cuenta_prestada" class="form-control">
-				</div>
-				<div class="col-3">&nbsp;</div>
 			<?php } ?>
 
 		</div>

@@ -27,6 +27,10 @@ $sheet->setCellValue('L1', 'Cargo');
 $sheet->setCellValue('M1', 'Salario');
 $sheet->setCellValue('N1', 'Fecha de Nacimiento');
 $sheet->setCellValue('O1', 'Sede');
+$sheet->setCellValue('P1', 'Dirección');
+$sheet->setCellValue('Q1', 'Teléfono');
+$sheet->setCellValue('R1', 'Fecha Retiro');
+$sheet->setCellValue('S1', 'Fecha Ingreso');
 
 /***************LIBRERIA DE ACENTOS*****************/
 function eliminar_acentos($cadena){
@@ -69,6 +73,11 @@ $spreadsheet->getActiveSheet()->getColumnDimension('K')->setWidth(20);
 $spreadsheet->getActiveSheet()->getColumnDimension('L')->setWidth(20);
 $spreadsheet->getActiveSheet()->getColumnDimension('M')->setWidth(20);
 $spreadsheet->getActiveSheet()->getColumnDimension('N')->setWidth(20);
+$spreadsheet->getActiveSheet()->getColumnDimension('O')->setWidth(20);
+$spreadsheet->getActiveSheet()->getColumnDimension('P')->setWidth(40);
+$spreadsheet->getActiveSheet()->getColumnDimension('Q')->setWidth(20);
+$spreadsheet->getActiveSheet()->getColumnDimension('R')->setWidth(20);
+$spreadsheet->getActiveSheet()->getColumnDimension('S')->setWidth(20);
 
 $fila = 2;
 $sql2 = "SELECT * FROM nomina";
@@ -90,6 +99,10 @@ while($row2 = mysqli_fetch_array($consulta2)) {
 	$cargo = $row2['cargo'];
 	$salario = $row2['salario'];
 	$fecha_nacimiento = $row2['fecha_nacimiento'];
+	$direccion = $row2['direccion'];
+	$telefono = $row2['telefono'];
+	$fecha_retiro = $row2['fecha_retiro'];
+	$fecha_ingreso = $row2['fecha_ingreso'];
 
 	$sheet->setCellValue('A'.$fila, $nombre);
 	$sheet->setCellValue('B'.$fila, $apellido);
@@ -119,6 +132,10 @@ while($row2 = mysqli_fetch_array($consulta2)) {
 	$sheet->setCellValue('M'.$fila, $salario);
 	$sheet->setCellValue('N'.$fila, $fecha_nacimiento);
 	$sheet->setCellValue('O'.$fila, $turno);
+	$sheet->setCellValue('P'.$fila, $direccion);
+	$sheet->setCellValue('Q'.$fila, $telefono);
+	$sheet->setCellValue('R'.$fila, $fecha_retiro);
+	$sheet->setCellValue('S'.$fila, $fecha_ingreso);
 	$fila = $fila+1;
 
 }
