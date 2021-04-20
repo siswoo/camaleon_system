@@ -113,7 +113,7 @@ if($condicion=='subir_archivo1'){
 		$registro1 = mysqli_query($conexion,$sql2);
 	}
 
-	$sql3 = "UPDATE modelos SET banco_cedula = '$banco_cedula', banco_nombre = '$banco_nombre', banco_tipo = '$banco_tipo', banco_numero = '$banco_numero', banco_banco = '$banco_banco', BCPP = '$bcpp' WHERE id = ".$id;
+	$sql3 = "UPDATE modelos SET banco_cedula = '$banco_cedula', banco_nombre = '$banco_nombre', banco_tipo = '$banco_tipo', banco_numero = '$banco_numero', banco_banco = '$banco_banco', BCPP = '$bcpp', banco_tipo_documento = '$banco_tipo_documento' WHERE id = ".$id;
 	$proceso3 = mysqli_query($conexion,$sql3);
 
 	$datos = [
