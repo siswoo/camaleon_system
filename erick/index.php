@@ -103,10 +103,42 @@
 				    	<button type="button" class="btn btn-info ml-3">Cuentas Repetidas</button>
 					</a>
 		    	</div>
+		    	<div class="col-12 text-center mt-3">
+		    		<a href="exportar15.php" target="_blank" style="text-decoration: none;">
+				    	<button type="button" class="btn btn-info ml-3">Reporte de Todas las Cuentas</button>
+					</a>
+				</div>
 		    	<div class="col-12 mt-3 text-center">
 		    		<hr style="background-color: black; height: 2px;">
 		    	</div>
 			<?php } ?>
+
+			<div class="col-12 mt-3 text-center" style="font-weight: bold; font-size: 30px; text-transform: uppercase;">
+	    		Sección de Andrea
+	    	</div>
+	    	<div class="col-12">
+				<form id="form_desprendibles1" action="../script/consultar_porcentajes4.php" method="POST" target="_blank">
+			</div>
+			<div class="col-9 ml-2">
+				<select name="desprendible_select1" id="desprendible_select1" class="form-control" required>
+					<option value="">Seleccione</option>
+					<?php
+					$sql1 = "SELECT * FROM presabana WHERE inicio >= '2021-01-01' GROUP BY inicio ORDER BY inicio";
+					$consulta1 = mysqli_query($conexion,$sql1);
+					while($row1 = mysqli_fetch_array($consulta1)) { ?>
+						<option value="<?php echo $row1['inicio']; ?>">Desde <?php echo $row1['inicio']; ?> Hasta <?php echo $row1['fin']; ?></option>
+					<?php } ?>
+				</select>
+			</div>
+			<div class="col-2">
+				<button type="submit" class="btn btn-info" id="desprendible_consultar1">Consultar</button>
+			</div>
+			<div class="col-12">
+				</form>
+			</div>
+	    	<div class="col-12 mt-3 text-center">
+		    	<hr style="background-color: black; height: 2px;">
+		    </div>
 
 	    	<div class="col-12 mt-3 text-center" style="font-weight: bold; font-size: 30px; text-transform: uppercase;">
 	    		Zona de Desprendibles

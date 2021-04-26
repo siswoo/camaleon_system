@@ -116,6 +116,10 @@ for($i=1;$i<=$limite;$i++){
                 if($detectar2=='1' or $detectar2=='2' or $detectar2=='3' or $detectar2=='4' or $detectar2=='5' or $detectar2=='6' or $detectar2=='7' or $detectar2=='8' or $detectar2=='9' or $detectar2=='0'){
                     $limpiar = 2;
                 }
+                $detectar3 = substr($nickname,2,1);
+                if($detectar3=='1' or $detectar3=='2' or $detectar3=='3' or $detectar3=='4' or $detectar3=='5' or $detectar3=='6' or $detectar3=='7' or $detectar3=='8' or $detectar3=='9' or $detectar3=='0'){
+                    $limpiar = 3;
+                }
             }
 
             if($limpiar>=1){

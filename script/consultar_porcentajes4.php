@@ -16,18 +16,7 @@ class PDF extends FPDF{}
 $pdf = new PDF();
 $pdf->AliasNbPages();
 
-$sql5 = "SELECT * FROM usuarios WHERE id = ".$_SESSION['id'];
-$consulta5 = mysqli_query($conexion,$sql5);
-while($row5 = mysqli_fetch_array($consulta5)) {
-	$usuario_documento = $row5['documento_numero'];
-}
-
-if($_SESSION["rol"]!=1){
-	$sql1 = "SELECT * FROM modelos WHERE sede = ".$_SESSION['sede'];
-}else{
-	$sql1 = "SELECT * FROM modelos";
-}
-
+$sql1 = "SELECT * FROM modelos";
 $consulta1 = mysqli_query($conexion,$sql1);
 while($row1 = mysqli_fetch_array($consulta1)) {
 	$id_modelo = $row1['id'];
@@ -53,10 +42,7 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 			$cam4 = $row2['cam4'];
 			$camsoda = $row2['camsoda'];
 			$flirt4free = $row2['flirt4free'];
-
 			$meta_porcentajes = $row2['meta_porcentajes'];
-			//$total_pesos = $row2['total_pesos'];
-			//$deducidos = $row2['deducidos'];
 			$deducidos = 0;
 			$pv = $row2['pv'];
 			$rf = $row2['rf'];
@@ -189,33 +175,9 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 				$monto_separacion = $monto_separacion+$row_separacion1["monto"];
 			}
 
-			/*
-			$rf_pesos_separacion = $rf*$trm;
-			$restar1 = $monto_separacion+$rf_pesos_separacion;
-			$sumar1 = $row2['total_pesos']+$monto_separacion2;
-			if($restar1 >= $sumar1){
-				echo "Sumatoria = ".$sumar1 ." | Resta = ". $restar1;
-				echo '<p></p>';
-			}
-
-			$total_pesos_separacion=0;
-			*/
-
 			$monto_separacion = $monto_separacion+($rf*$trm);
 
 			$total_pesos_separacion = $monto_separacion-$monto_separacion2;
-			
-			/*
-			echo '
-			<p>
-				Persona = '.$modelo_nombre.'
-				Monto Negativo = '.$monto_separacion.'
-				Monto Positivo = '.$monto_separacion2.'
-				Pesos de BD = '.$row2['total_pesos'].'
-				Total = '.$total_pesos_separacion.'
-			</p>
-			';
-			*/
 
 			/**************************************************************/
 			/**************************************************************/
@@ -601,16 +563,12 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 
 				$pdf->Ln(15);
 				$pdf->SetFont('Arial','B',10);
-				//$pdf->Cell(90,5,utf8_decode('FIRMA EMPLEADO _____________________'),0,0,'');
 				$pdf->Cell(120,5,utf8_decode('TOTAL '),0,0,'R');
 				$pdf->Cell(40,5,"$".number_format($total_final2,2,',','.'),0,0,'C');
 				$pdf->Cell(20,5,"$".number_format($total_deducido,2,',','.'),0,1,'C');
 				$pdf->Ln(5);
 				$pdf->Cell(120,5,utf8_decode("NETO PAGADO"),0,0,'R');
 				$total_final3 = $total_final2-$total_deducido;
-				/*$rf = $rf * $trm;
-				$total_final3 = $total_final3-$rf;*/
-
 				$pdf->Cell(55,5,"$".number_format($total_final3,2,',','.'),0,0,'R');
 
 			}

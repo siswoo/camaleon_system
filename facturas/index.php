@@ -62,7 +62,7 @@
 <body>
 <?php
 	include('../script/conexion.php');
-	$ubicacion = "funciones";
+	$ubicacion = "facturas";
 	$consulta1 = "SELECT * FROM roles WHERE id = ".$_SESSION['rol']." LIMIT 1";
 	$resultado1 = mysqli_query( $conexion, $consulta1 );
 	while($row1 = mysqli_fetch_array($resultado1)) {
@@ -83,10 +83,7 @@
 	<div class="seccion1">
 	    <div class="row">
 	    	<div class="col-12 mb-3 text-right">
-	    		<a href="exportar1.php" target="_blank">
-					<button type="button" class="btn btn-primary" style="margin-right: 2rem;">Exportar Datos</button>
-				</a>
-				<button type="button" class="btn btn-primary" style="margin-right: 2rem;" data-toggle="modal" data-target="#exampleModal1">Registro Nuevo</button>
+				<button type="button" class="btn btn-primary" style="margin-right: 2rem;" data-toggle="modal" data-target="#exampleModal1">Importar</button>
 			</div>
 
 		    <div class="container_consulta1">
@@ -95,7 +92,6 @@
 			            <tr>
 			                <th class="text-center">ID</th>
 			                <th class="text-center">Nombre</th>
-			                <th class="text-center">Cargo</th>
 			                <th class="text-center">Responsable</th>
 			                <th class="text-center">Fecha Creación</th>
 			                <th class="text-center">Opciones</th>
@@ -103,13 +99,12 @@
 			        </thead>
 			        <tbody id="resultados">
 			        	<?php
-			        		$sql1 = "SELECT * FROM funciones";
+			        		$sql1 = "SELECT * FROM cargos";
 			        		$consulta1 = mysqli_query($conexion,$sql1);
 			        		while($row1 = mysqli_fetch_array($consulta1)) {
 			        			$id = $row1['id'];
 			        			$nombre = $row1['nombre'];
 			        			$responsable = $row1['responsable'];
-			        			$cargo = $row1['cargo'];
 			        			$fecha_inicio = $row1['fecha_inicio'];
 
 			        			$sql2 = "SELECT * FROM usuarios WHERE id = ".$responsable;
@@ -117,21 +112,11 @@
 			        			while($row2 = mysqli_fetch_array($consulta2)) {
 			        				$responsable_nombre = $row2['nombre']." ".$row2['apellido'];
 			        			}
-			        			if($cargo==0){
-			        				$cargo_nombre = "Sin asignar";
-			        			}else{
-				        			$sql3 = "SELECT * FROM cargos WHERE id = ".$cargo;
-				        			$consulta3 = mysqli_query($conexion,$sql3);
-				        			while($row3 = mysqli_fetch_array($consulta3)) {
-				        				$cargo_nombre = $row3['nombre'];
-				        			}
-			        			}
 
 			        			echo '
 			        				<tr id="tr_'.$id.'">
 			        					<td class="text-center" id="id_'.$id.'">'.$id.'</td>
 			        					<td class="text-center" id="nombre_'.$id.'">'.$nombre.'</td>
-			        					<td class="text-center" id="cargo_'.$id.'">'.$cargo_nombre.'</td>
 			        					<td class="text-center" id="responsable_'.$id.'">'.$responsable_nombre.'</td>
 			        					<td class="text-center" id="fecha_inicio_'.$id.'">'.$fecha_inicio.'</td>
 			        					<td class="text-center" nowrap="nowrap">
@@ -163,86 +148,9 @@
 					</div>
 					<div class="modal-body">
 					    <div class="row">
-						    <div class="col-6 form-group form-check">
+						    <div class="col-12 form-group form-check">
 							    <label for="nombre">Nombre</label>
 							    <input type="text" name="nombre" id="nombre" class="form-control" autocomplete="off" required>
-						    </div>
-						    <div class="col-6 form-group form-check">
-							    <label for="cargo">Cargo</label>
-							    <select id="cargo" name="cargo" class="form-control" required>
-							    	<option value="">Seleccione</option>
-							    	<?php
-							    	$sql4 = "SELECT * FROM cargos";
-				        			$consulta4 = mysqli_query($conexion,$sql4);
-				        			while($row4 = mysqli_fetch_array($consulta4)) {
-				        				$cargo_id = $row4["id"];
-				        				$cargo_nombre = $row4["nombre"];
-				        				echo '
-				        					<option value="'.$cargo_id.'">'.$cargo_nombre.'</option>
-				        				';
-				        			}
-							    	?>
-							    </select>
-						    </div>
-						    <div class="col-6 form-group form-check">
-							    <label for="descripcion1">Descripción #1</label>
-							    <textarea class="form-control" id="descripcion1" name="descripcion1" autocomplete="off" required></textarea>
-						    </div>
-						    <div class="col-6 form-group form-check">
-							    <label for="descripcion2">Descripción #2</label>
-							    <textarea class="form-control" id="descripcion2" name="descripcion2" autocomplete="off"></textarea>
-						    </div>
-						    <div class="col-6 form-group form-check">
-							    <label for="descripcion3">Descripción #3</label>
-							    <textarea class="form-control" id="descripcion3" name="descripcion3" autocomplete="off"></textarea>
-						    </div>
-						    <div class="col-6 form-group form-check">
-							    <label for="descripcion4">Descripción #4</label>
-							    <textarea class="form-control" id="descripcion4" name="descripcion4" autocomplete="off"></textarea>
-						    </div>
-						    <div class="col-6 form-group form-check">
-							    <label for="descripcion5">Descripción #5</label>
-							    <textarea class="form-control" id="descripcion5" name="descripcion5" autocomplete="off"></textarea>
-						    </div>
-						    <div class="col-6 form-group form-check">
-							    <label for="descripcion6">Descripción #6</label>
-							    <textarea class="form-control" id="descripcion6" name="descripcion6" autocomplete="off"></textarea>
-						    </div>
-						    <div class="col-6 form-group form-check">
-							    <label for="descripcion7">Descripción #7</label>
-							    <textarea class="form-control" id="descripcion7" name="descripcion7" autocomplete="off"></textarea>
-						    </div>
-						    <div class="col-6 form-group form-check">
-							    <label for="descripcion8">Descripción #8</label>
-							    <textarea class="form-control" id="descripcion8" name="descripcion8" autocomplete="off"></textarea>
-						    </div>
-						    <div class="col-6 form-group form-check">
-							    <label for="descripcion9">Descripción #9</label>
-							    <textarea class="form-control" id="descripcion9" name="descripcion9" autocomplete="off"></textarea>
-						    </div>
-						    <div class="col-6 form-group form-check">
-							    <label for="descripcion10">Descripción #10</label>
-							    <textarea class="form-control" id="descripcion10" name="descripcion10" autocomplete="off"></textarea>
-						    </div>
-						    <div class="col-6 form-group form-check">
-							    <label for="descripcion11">Descripción #11</label>
-							    <textarea class="form-control" id="descripcion11" name="descripcion11" autocomplete="off"></textarea>
-						    </div>
-						    <div class="col-6 form-group form-check">
-							    <label for="descripcion12">Descripción #12</label>
-							    <textarea class="form-control" id="descripcion12" name="descripcion12" autocomplete="off"></textarea>
-						    </div>
-						    <div class="col-6 form-group form-check">
-							    <label for="descripcion13">Descripción #13</label>
-							    <textarea class="form-control" id="descripcion13" name="descripcion13" autocomplete="off"></textarea>
-						    </div>
-						    <div class="col-6 form-group form-check">
-							    <label for="descripcion14">Descripción #14</label>
-							    <textarea class="form-control" id="descripcion14" name="descripcion14" autocomplete="off"></textarea>
-						    </div>
-						    <div class="col-12 form-group form-check">
-							    <label for="descripcion15">Descripción #15</label>
-							    <textarea class="form-control" id="descripcion15" name="descripcion15" autocomplete="off"></textarea>
 						    </div>
 					    </div>
 					</div>
@@ -270,86 +178,9 @@
 					<div class="modal-body">
 					    <div class="row">
 					    	<input type="hidden" name="edit_id" id="edit_id">
-						    <div class="col-6 form-group form-check">
+						    <div class="col-12 form-group form-check">
 							    <label for="edit_nombre">Nombre</label>
 							    <input type="text" id="edit_nombre" name="edit_nombre" class="form-control" required>
-						    </div>
-						    <div class="col-6 form-group form-check">
-							    <label for="edit_cargo">Cargo</label>
-							    <select id="edit_cargo" name="edit_cargo" class="form-control" required>
-							    	<option value="">Seleccione</option>
-							    	<?php
-							    	$sql4 = "SELECT * FROM cargos";
-				        			$consulta4 = mysqli_query($conexion,$sql4);
-				        			while($row4 = mysqli_fetch_array($consulta4)) {
-				        				$cargo_id = $row4["id"];
-				        				$cargo_nombre = $row4["nombre"];
-				        				echo '
-				        					<option value="'.$cargo_id.'">'.$cargo_nombre.'</option>
-				        				';
-				        			}
-							    	?>
-							    </select>
-						    </div>
-						    <div class="col-6 form-group form-check">
-							    <label for="edit_descripcion1">Descripción #1</label>
-							    <textarea class="form-control" id="edit_descripcion1" name="edit_descripcion1" autocomplete="off" required></textarea>
-						    </div>
-						    <div class="col-6 form-group form-check">
-							    <label for="edit_descripcion2">Descripción #2</label>
-							    <textarea class="form-control" id="edit_descripcion2" name="edit_descripcion2" autocomplete="off"></textarea>
-						    </div>
-						    <div class="col-6 form-group form-check">
-							    <label for="edit_descripcion3">Descripción #3</label>
-							    <textarea class="form-control" id="edit_descripcion3" name="edit_descripcion3" autocomplete="off"></textarea>
-						    </div>
-						    <div class="col-6 form-group form-check">
-							    <label for="edit_descripcion4">Descripción #4</label>
-							    <textarea class="form-control" id="edit_descripcion4" name="edit_descripcion4" autocomplete="off"></textarea>
-						    </div>
-						    <div class="col-6 form-group form-check">
-							    <label for="edit_descripcion5">Descripción #5</label>
-							    <textarea class="form-control" id="edit_descripcion5" name="edit_descripcion5" autocomplete="off"></textarea>
-						    </div>
-						    <div class="col-6 form-group form-check">
-							    <label for="edit_descripcion6">Descripción #6</label>
-							    <textarea class="form-control" id="edit_descripcion6" name="edit_descripcion6" autocomplete="off"></textarea>
-						    </div>
-						    <div class="col-6 form-group form-check">
-							    <label for="edit_descripcion7">Descripción #7</label>
-							    <textarea class="form-control" id="edit_descripcion7" name="edit_descripcion7" autocomplete="off"></textarea>
-						    </div>
-						    <div class="col-6 form-group form-check">
-							    <label for="edit_descripcion8">Descripción #8</label>
-							    <textarea class="form-control" id="edit_descripcion8" name="edit_descripcion8" autocomplete="off"></textarea>
-						    </div>
-						    <div class="col-6 form-group form-check">
-							    <label for="edit_descripcion9">Descripción #9</label>
-							    <textarea class="form-control" id="edit_descripcion9" name="edit_descripcion9" autocomplete="off"></textarea>
-						    </div>
-						    <div class="col-6 form-group form-check">
-							    <label for="edit_descripcion10">Descripción #10</label>
-							    <textarea class="form-control" id="edit_descripcion10" name="edit_descripcion10" autocomplete="off"></textarea>
-						    </div>
-						    <div class="col-6 form-group form-check">
-							    <label for="edit_descripcion11">Descripción #11</label>
-							    <textarea class="form-control" id="edit_descripcion11" name="edit_descripcion11" autocomplete="off"></textarea>
-						    </div>
-						    <div class="col-6 form-group form-check">
-							    <label for="edit_descripcion12">Descripción #12</label>
-							    <textarea class="form-control" id="edit_descripcion12" name="edit_descripcion12" autocomplete="off"></textarea>
-						    </div>
-						    <div class="col-6 form-group form-check">
-							    <label for="edit_descripcion13">Descripción #13</label>
-							    <textarea class="form-control" id="edit_descripcion13" name="edit_descripcion13" autocomplete="off"></textarea>
-						    </div>
-						    <div class="col-6 form-group form-check">
-							    <label for="edit_descripcion14">Descripción #14</label>
-							    <textarea class="form-control" id="edit_descripcion14" name="edit_descripcion14" autocomplete="off"></textarea>
-						    </div>
-						    <div class="col-12 form-group form-check">
-							    <label for="edit_descripcion15">Descripción #15</label>
-							    <textarea class="form-control" id="edit_descripcion15" name="edit_descripcion15" autocomplete="off"></textarea>
 						    </div>
 					    </div>
 					</div>
@@ -570,44 +401,12 @@
 		e.preventDefault();
 		var f = $(this);
 		var nombre = $('#nombre').val();
-		var cargo = $('#cargo').val();
-		var descripcion1 = $('#descripcion1').val();
-		var descripcion2 = $('#descripcion2').val();
-		var descripcion3 = $('#descripcion3').val();
-		var descripcion4 = $('#descripcion4').val();
-		var descripcion5 = $('#descripcion5').val();
-		var descripcion6 = $('#descripcion6').val();
-		var descripcion7 = $('#descripcion7').val();
-		var descripcion8 = $('#descripcion8').val();
-		var descripcion9 = $('#descripcion9').val();
-		var descripcion10 = $('#descripcion10').val();
-		var descripcion11 = $('#descripcion11').val();
-		var descripcion12 = $('#descripcion12').val();
-		var descripcion13 = $('#descripcion13').val();
-		var descripcion14 = $('#descripcion14').val();
-		var descripcion15 = $('#descripcion15').val();
 
 	    $.ajax({
 			type: 'POST',
-			url: '../script/crud_funciones.php',
+			url: '../script/crud_cargos.php',
 			data: {
 				"nombre": nombre,
-				"cargo": cargo,
-				"descripcion1": descripcion1,
-				"descripcion2": descripcion2,
-				"descripcion3": descripcion3,
-				"descripcion4": descripcion4,
-				"descripcion5": descripcion5,
-				"descripcion6": descripcion6,
-				"descripcion7": descripcion7,
-				"descripcion8": descripcion8,
-				"descripcion9": descripcion9,
-				"descripcion10": descripcion10,
-				"descripcion11": descripcion11,
-				"descripcion12": descripcion12,
-				"descripcion13": descripcion13,
-				"descripcion14": descripcion14,
-				"descripcion15": descripcion15,
 				"condicion": "guardar1",
 			},
 			dataType: "JSON",
@@ -654,7 +453,7 @@
 	function editar1(id){
 		$.ajax({
 			type: 'POST',
-			url: '../script/crud_funciones.php',
+			url: '../script/crud_cargos.php',
 			data: {
 				"id": id,
 				"condicion": "consultar1",
@@ -664,22 +463,6 @@
 				console.log(respuesta);
 				$("#edit_id").val(id);
 				$("#edit_nombre").val(respuesta["nombre"]);
-				$("#edit_cargo").val(respuesta["cargo"]);
-				$("#edit_descripcion1").val(respuesta["descripcion1"]);
-				$("#edit_descripcion2").val(respuesta["descripcion2"]);
-				$("#edit_descripcion3").val(respuesta["descripcion3"]);
-				$("#edit_descripcion4").val(respuesta["descripcion4"]);
-				$("#edit_descripcion5").val(respuesta["descripcion5"]);
-				$("#edit_descripcion6").val(respuesta["descripcion6"]);
-				$("#edit_descripcion7").val(respuesta["descripcion7"]);
-				$("#edit_descripcion8").val(respuesta["descripcion8"]);
-				$("#edit_descripcion9").val(respuesta["descripcion9"]);
-				$("#edit_descripcion10").val(respuesta["descripcion10"]);
-				$("#edit_descripcion11").val(respuesta["descripcion11"]);
-				$("#edit_descripcion12").val(respuesta["descripcion12"]);
-				$("#edit_descripcion13").val(respuesta["descripcion13"]);
-				$("#edit_descripcion14").val(respuesta["descripcion14"]);
-				$("#edit_descripcion15").val(respuesta["descripcion15"]);
 			},
 
 			error: function(respuesta) {
@@ -693,45 +476,13 @@
 		var f = $(this);
 		var id = $('#edit_id').val();
 		var nombre = $('#edit_nombre').val();
-		var cargo = $('#edit_cargo').val();
-		var descripcion1 = $('#edit_descripcion1').val();
-		var descripcion2 = $('#edit_descripcion2').val();
-		var descripcion3 = $('#edit_descripcion3').val();
-		var descripcion4 = $('#edit_descripcion4').val();
-		var descripcion5 = $('#edit_descripcion5').val();
-		var descripcion6 = $('#edit_descripcion6').val();
-		var descripcion7 = $('#edit_descripcion7').val();
-		var descripcion8 = $('#edit_descripcion8').val();
-		var descripcion9 = $('#edit_descripcion9').val();
-		var descripcion10 = $('#edit_descripcion10').val();
-		var descripcion11 = $('#edit_descripcion11').val();
-		var descripcion12 = $('#edit_descripcion12').val();
-		var descripcion13 = $('#edit_descripcion13').val();
-		var descripcion14 = $('#edit_descripcion14').val();
-		var descripcion15 = $('#edit_descripcion15').val();
 
 	    $.ajax({
 			type: 'POST',
-			url: '../script/crud_funciones.php',
+			url: '../script/crud_cargos.php',
 			data: {
 				"id": id,
 				"nombre": nombre,
-				"cargo": cargo,
-				"descripcion1": descripcion1,
-				"descripcion2": descripcion2,
-				"descripcion3": descripcion3,
-				"descripcion4": descripcion4,
-				"descripcion5": descripcion5,
-				"descripcion6": descripcion6,
-				"descripcion7": descripcion7,
-				"descripcion8": descripcion8,
-				"descripcion9": descripcion9,
-				"descripcion10": descripcion10,
-				"descripcion11": descripcion11,
-				"descripcion12": descripcion12,
-				"descripcion13": descripcion13,
-				"descripcion14": descripcion14,
-				"descripcion15": descripcion15,
 				"condicion": "editar1",
 			},
 			dataType: "JSON",

@@ -1041,6 +1041,8 @@
 			$('#correo').val("cocinero@camaleonmg.com");
 		}else if(value==35){
 			$('#correo').val("inventariosycostos@camaleonmg.com");
+		}else if(value==36){
+			$('#correo').val("auxcontable@camaleonmg.com");
 		}
 	}
 
@@ -1115,6 +1117,8 @@
 			$('#edit_correo').val("cocinero@camaleonmg.com");
 		}else if(value==35){
 			$('#edit_correo').val("inventariosycostos@camaleonmg.com");
+		}else if(value==36){
+			$('#edit_correo').val("auxcontable@camaleonmg.com");
 		}
 	}
 

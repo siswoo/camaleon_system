@@ -32,6 +32,18 @@ $sheet->setCellValue('Q1', 'Teléfono');
 $sheet->setCellValue('R1', 'Fecha Retiro');
 $sheet->setCellValue('S1', 'Fecha Ingreso');
 
+$sheet->setCellValue('T1', 'Seguridad Social');
+$sheet->setCellValue('U1', 'EPS');
+$sheet->setCellValue('V1', 'Fondo de pension');
+$sheet->setCellValue('W1', 'ARL');
+$sheet->setCellValue('X1', 'Antecedentes Penales');
+$sheet->setCellValue('Y1', 'Hoja de Vida');
+$sheet->setCellValue('Z1', 'Identificacion');
+$sheet->setCellValue('AA1', 'Firma');
+$sheet->setCellValue('AB1', 'RUT');
+$sheet->setCellValue('AC1', 'Certificacion Bancario');
+$sheet->setCellValue('AD1', 'Permiso Bancario');
+
 /***************LIBRERIA DE ACENTOS*****************/
 function eliminar_acentos($cadena){
 	$cadena = str_replace(
@@ -84,6 +96,7 @@ $sql2 = "SELECT * FROM nomina";
 $consulta2 = mysqli_query($conexion,$sql2);
 $contador1 = mysqli_num_rows($consulta2);
 while($row2 = mysqli_fetch_array($consulta2)) {
+	$id = $row2['id'];
 	$nombre = $row2['nombre'];
 	$apellido = $row2['apellido'];
 	$documento_tipo = $row2['documento_tipo'];
@@ -136,6 +149,62 @@ while($row2 = mysqli_fetch_array($consulta2)) {
 	$sheet->setCellValue('Q'.$fila, $telefono);
 	$sheet->setCellValue('R'.$fila, $fecha_retiro);
 	$sheet->setCellValue('S'.$fila, $fecha_ingreso);
+
+	$sql5 = "SELECT * FROM n_archivos WHERE id_nomina = ".$id;
+	$consulta5 = mysqli_query($conexion,$sql5);
+	while($row5 = mysqli_fetch_array($consulta5)) {
+		$id_documentos = $row5["id_documento"];
+
+		switch ($id_documentos) {
+			case "1":
+				$sheet->setCellValue('T'.$fila, "Si");
+			break;
+
+			case "2":
+				$sheet->setCellValue('U'.$fila, "Si");
+			break;
+
+			case "3":
+				$sheet->setCellValue('V'.$fila, "Si");
+			break;
+
+			case "4":
+				$sheet->setCellValue('W'.$fila, "Si");
+			break;
+
+			case "5":
+				$sheet->setCellValue('X'.$fila, "Si");
+			break;
+
+			case "6":
+				$sheet->setCellValue('Y'.$fila, "Si");
+			break;
+
+			case "7":
+				$sheet->setCellValue('Z'.$fila, "Si");
+			break;
+
+			case "8":
+				$sheet->setCellValue('AA'.$fila, "Si");
+			break;
+
+			case "9":
+				$sheet->setCellValue('AB'.$fila, "Si");
+			break;
+
+			case "10":
+				$sheet->setCellValue('AC'.$fila, "Si");
+			break;
+
+			case "11":
+				$sheet->setCellValue('AD'.$fila, "Si");
+			break;
+			
+			default:
+				# code...
+				break;
+		}
+	}
 	$fila = $fila+1;
 
 }

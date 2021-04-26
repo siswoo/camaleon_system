@@ -159,6 +159,13 @@ if($ubicacion == 'welcome'){ ?>
 	      	<?php } ?>
 
 	      	<?php
+			if($_SESSION['rol']==1){ ?>
+	      	<li class="nav-item" id="li-facturas">
+	        	<a class="nav-link navbar-active-a botones_navbar1" href="../facturas/index.php" id="a-facturas">Facturas</a>
+	      	</li>
+	      	<?php } ?>
+
+	      	<?php
 			if($_SESSION['rol']==14){ ?>
 	      	<li class="nav-item" id="li-erick">
 	        	<a class="nav-link navbar-active-a botones_navbar1" href="../erick/index.php" id="a-erick">Desprendibles</a>

@@ -3,9 +3,9 @@ session_start();
 include('conexion.php');
 require('../resources/fpdf/fpdf.php');
 
-$inicio = $_POST['desprendible_select1'];
+$inicio = $_POST['desprendible_select2'];
 
-$sql7 = "SELECT * FROM presabana WHERE inicio = '".$inicio."'";
+$sql7 = "SELECT * FROM presabana_inactivos WHERE inicio = '".$inicio."'";
 $consulta7 = mysqli_query($conexion,$sql7);
 while($row7 = mysqli_fetch_array($consulta7)) {
 	$fin = $row7['fin'];
@@ -36,7 +36,7 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 	$modelo_cedula = $row1['documento_numero'];
 	$turno = $row1['turno'];
 
-	$sql2 = "SELECT * FROM presabana WHERE id_modelo = ".$id_modelo." and inicio BETWEEN '".$inicio."' AND '".$fin."' and fin BETWEEN '".$inicio."' AND '".$fin."' and total_dolares >=1";
+	$sql2 = "SELECT * FROM presabana_inactivos WHERE id_modelo = ".$id_modelo." and inicio BETWEEN '".$inicio."' AND '".$fin."' and fin BETWEEN '".$inicio."' AND '".$fin."' and total_dolares >=1 GROUP BY id_modelo";
 		$consulta2 = mysqli_query($conexion,$sql2);
 		while($row2 = mysqli_fetch_array($consulta2)) {
 			$fecha_desde = $row2['inicio'];

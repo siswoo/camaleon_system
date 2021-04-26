@@ -234,6 +234,9 @@
 			<li class="nav-item">
 				<a class="nav-link" href="#" id="Dclave" onclick="pestañas(this.id);" style="color:white; text-transform: uppercase;">Clave</a>
 			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#" id="Dsoporte" onclick="pestañas(this.id);" style="color:white; text-transform: uppercase;">Soporte</a>
+			</li>
 		</ul>
 
 	<!--***********************************************************-->
@@ -1551,6 +1554,41 @@
 	<!--***********************************************************-->
 	<!--***********************************************************-->
 
+	<!--***********************************************************-->
+	<!--**********************DATOS SOPORTE*********************-->
+	<!--***********************************************************-->
+	<form class="d-none" action="#" method="POST" id="formulario11">
+		<input type="hidden" id="soporte_id" name="soporte_id" value="<?php echo $id; ?>">
+		<input type="hidden" id="soporte_condicion" name="soporte_condicion" value="<?php echo $id; ?>">
+		<div class="row">
+			<div class="col-12 mt-3 form-group form-check">
+				<label for="soporte_documento_identidad">Documento de Identidad</label>
+				<button type="button" id="soporte_submit1" class="btn btn-success ml-3" style="font-weight: bold; float:right;" onclick="soporte_subir(<?php echo $id; ?>,id)">Subir</button>
+				<input type="file" id="soporte_documento_identidad" name="soporte_documento_identidad" class="form-control mt-2">
+			</div>
+
+			<div class="col-12 mt-3 form-group form-check">
+				<label for="soporte_foto_cedula_con_cara">Foto Cédula con Cara</label>
+				<button type="button" id="soporte_submit2" class="btn btn-success ml-3" style="font-weight: bold; float:right;" onclick="soporte_subir(<?php echo $id; ?>,id)">Subir</button>
+				<input type="file" id="soporte_foto_cedula_con_cara" name="soporte_foto_cedula_con_cara" class="form-control mt-2">
+			</div>
+
+			<div class="col-12 mt-3 form-group form-check">
+				<label for="soporte_foto_cedula_parte_frontal_cara">Foto Cédula Parte Frontal Cara</label>
+				<button type="button" id="soporte_submit3" class="btn btn-success ml-3" style="font-weight: bold; float:right;" onclick="soporte_subir(<?php echo $id; ?>,id)">Subir</button>
+				<input type="file" id="soporte_foto_cedula_parte_frontal_cara" name="soporte_foto_cedula_parte_frontal_cara" class="form-control mt-2">
+			</div>
+
+			<div class="col-12 mt-3 form-group form-check">
+				<label for="soporte_foto_cedula_parte_respaldo">Foto Cédula Parte Respaldo</label>
+				<button type="button" id="soporte_submit4" class="btn btn-success ml-3" style="font-weight: bold; float:right;" onclick="soporte_subir(<?php echo $id; ?>,id)">Subir</button>
+				<input type="file" id="soporte_foto_cedula_parte_respaldo" name="soporte_foto_cedula_parte_respaldo" class="form-control mt-2">
+			</div>
+		</div>
+	</form>
+	<!--***********************************************************-->
+	<!--***********************************************************-->
+
 
 
 	<!-- Modal Fotos Sensuales 1 -->
@@ -1691,6 +1729,7 @@
 				$('#Dfotos').removeClass('active1');
 				$('#Dpagos').removeClass('active1');
 				$('#Dclave').removeClass('active1');
+				$('#Dsoporte').removeClass('active1');
 				
 				$('#formulario1').removeClass('d-none');
 				$('#formulario2').addClass('d-none');
@@ -1702,6 +1741,7 @@
 				$('#formulario8').addClass('d-none');
 				$('#formulario9').addClass('d-none');
 				$('#formulario10').addClass('d-none');
+				$('#formulario11').addClass('d-none');
 			break;
 
 			case 'Dbancarios':
@@ -1716,6 +1756,7 @@
 				$('#Dfotos').removeClass('active1');
 				$('#Dpagos').removeClass('active1');
 				$('#Dclave').removeClass('active1');
+				$('#Dsoporte').removeClass('active1');
 				
 				$('#formulario1').addClass('d-none');
 				$('#formulario2').removeClass('d-none');
@@ -1727,6 +1768,7 @@
 				$('#formulario8').addClass('d-none');
 				$('#formulario9').addClass('d-none');
 				$('#formulario10').addClass('d-none');
+				$('#formulario11').addClass('d-none');
 			break;
 
 			case 'Dcorporales':
@@ -1741,6 +1783,7 @@
 				$('#Dfotos').removeClass('active1');
 				$('#Dpagos').removeClass('active1');
 				$('#Dclave').removeClass('active1');
+				$('#Dsoporte').removeClass('active1');
 				
 				$('#formulario1').addClass('d-none');
 				$('#formulario2').addClass('d-none');
@@ -1752,6 +1795,7 @@
 				$('#formulario8').addClass('d-none');
 				$('#formulario9').addClass('d-none');
 				$('#formulario10').addClass('d-none');
+				$('#formulario11').addClass('d-none');
 			break;
 
 			case 'Dempresa':
@@ -1766,6 +1810,7 @@
 				$('#Dfotos').removeClass('active1');
 				$('#Dpagos').removeClass('active1');
 				$('#Dclave').removeClass('active1');
+				$('#Dsoporte').removeClass('active1');
 				
 				$('#formulario1').addClass('d-none');
 				$('#formulario2').addClass('d-none');
@@ -1777,6 +1822,7 @@
 				$('#formulario8').addClass('d-none');
 				$('#formulario9').addClass('d-none');
 				$('#formulario10').addClass('d-none');
+				$('#formulario11').addClass('d-none');
 			break;
 
 			case 'Ddocumentos':
@@ -1791,6 +1837,7 @@
 				$('#Dfotos').removeClass('active1');
 				$('#Dpagos').removeClass('active1');
 				$('#Dclave').removeClass('active1');
+				$('#Dsoporte').removeClass('active1');
 				
 				$('#formulario1').addClass('d-none');
 				$('#formulario2').addClass('d-none');
@@ -1802,6 +1849,7 @@
 				$('#formulario8').addClass('d-none');
 				$('#formulario9').addClass('d-none');
 				$('#formulario10').addClass('d-none');
+				$('#formulario11').addClass('d-none');
 			break;
 
 			case 'Dcontrato':
@@ -1816,6 +1864,7 @@
 				$('#Dfotos').removeClass('active1');
 				$('#Dpagos').removeClass('active1');
 				$('#Dclave').removeClass('active1');
+				$('#Dsoporte').removeClass('active1');
 				
 				$('#formulario1').addClass('d-none');
 				$('#formulario2').addClass('d-none');
@@ -1827,6 +1876,7 @@
 				$('#formulario8').addClass('d-none');
 				$('#formulario9').addClass('d-none');
 				$('#formulario10').addClass('d-none');
+				$('#formulario11').addClass('d-none');
 			break;
 
 			case 'Dcuentas':
@@ -1841,6 +1891,7 @@
 				$('#Dfotos').removeClass('active1');
 				$('#Dpagos').removeClass('active1');
 				$('#Dclave').removeClass('active1');
+				$('#Dsoporte').removeClass('active1');
 				
 				$('#formulario1').addClass('d-none');
 				$('#formulario2').addClass('d-none');
@@ -1852,6 +1903,7 @@
 				$('#formulario8').addClass('d-none');
 				$('#formulario9').addClass('d-none');
 				$('#formulario10').addClass('d-none');
+				$('#formulario11').addClass('d-none');
 			break;
 
 			case 'Dfotos':
@@ -1866,6 +1918,7 @@
 				$('#Ddocumentos').removeClass('active1');
 				$('#Dpagos').removeClass('active1');
 				$('#Dclave').removeClass('active1');
+				$('#Dsoporte').removeClass('active1');
 				
 				$('#formulario1').addClass('d-none');
 				$('#formulario2').addClass('d-none');
@@ -1877,6 +1930,7 @@
 				$('#formulario8').removeClass('d-none');
 				$('#formulario9').addClass('d-none');
 				$('#formulario10').addClass('d-none');
+				$('#formulario11').addClass('d-none');
 			break;
 
 			case 'Dpagos':
@@ -1891,6 +1945,7 @@
 				$('#Ddocumentos').removeClass('active1');
 				$('#Dpagos').addClass('active1');
 				$('#Dclave').removeClass('active1');
+				$('#Dsoporte').removeClass('active1');
 				
 				$('#formulario1').addClass('d-none');
 				$('#formulario2').addClass('d-none');
@@ -1902,6 +1957,7 @@
 				$('#formulario8').addClass('d-none');
 				$('#formulario9').removeClass('d-none');
 				$('#formulario10').addClass('d-none');
+				$('#formulario11').addClass('d-none');
 			break;
 
 			case 'Dclave':
@@ -1916,6 +1972,7 @@
 				$('#Ddocumentos').removeClass('active1');
 				$('#Dpagos').removeClass('active1');
 				$('#Dclave').addClass('active1');
+				$('#Dsoporte').removeClass('active1');
 				
 				$('#formulario1').addClass('d-none');
 				$('#formulario2').addClass('d-none');
@@ -1927,6 +1984,34 @@
 				$('#formulario8').addClass('d-none');
 				$('#formulario9').addClass('d-none');
 				$('#formulario10').removeClass('d-none');
+				$('#formulario11').addClass('d-none');
+			break;
+
+			case 'Dsoporte':
+				$('#Dfotos').removeClass('active1');
+				$('#Dcuentas').removeClass('active1');
+				$('#Dcontrato').removeClass('active1');
+				$('#Dcontrato').removeClass('d-none');
+				$('#Dempresa').removeClass('active1');
+				$('#Dbancarios').removeClass('active1');
+				$('#Dcorporales').removeClass('active1');
+				$('#Dpersonales').removeClass('active1');
+				$('#Ddocumentos').removeClass('active1');
+				$('#Dpagos').removeClass('active1');
+				$('#Dclave').removeClass('active1');
+				$('#Dsoporte').addClass('active1');
+				
+				$('#formulario1').addClass('d-none');
+				$('#formulario2').addClass('d-none');
+				$('#formulario3').addClass('d-none');
+				$('#formulario4').addClass('d-none');
+				$('#formulario5').addClass('d-none');
+				$('#formulario6').addClass('d-none');
+				$('#formulario7').addClass('d-none');
+				$('#formulario8').addClass('d-none');
+				$('#formulario9').addClass('d-none');
+				$('#formulario10').addClass('d-none');
+				$('#formulario11').removeClass('d-none');
 			break;
 			
 		default:
@@ -2962,7 +3047,70 @@
         });
     });
 
-
 	/********************************************/
+
+	function soporte_subir(id,submit){
+		var condicion = "soporte_subir1";
+		var fd = new FormData();
+		fd.append('id',id);
+		if(submit=='soporte_submit1'){
+			var files = $('#soporte_documento_identidad')[0].files[0];
+			var condicion2 = "Documento de Identidad";
+			fd.append('file',files);
+			fd.append('condicion2',condicion2);
+		}else if(submit=='soporte_submit2'){
+			var files = $('#soporte_foto_cedula_con_cara')[0].files[0];
+			var condicion2 = "Foto Cédula con Cara";
+			fd.append('file',files);
+			fd.append('condicion2',condicion2);
+		}else if(submit=='soporte_submit3'){
+			var files = $('#soporte_foto_cedula_parte_frontal_cara')[0].files[0];
+			var condicion2 = "Foto Cédula Parte Frontal Cara";
+			fd.append('file',files);
+			fd.append('condicion2',condicion2);
+		}else if(submit=='soporte_submit4'){
+			var files = $('#soporte_foto_cedula_parte_respaldo')[0].files[0];
+			var condicion2 = "Foto Cédula Parte Respaldo";
+			fd.append('file',files);
+			fd.append('condicion2',condicion2);
+		}
+
+		if(files==undefined || files=="" || files==null){
+			console.log("No tiene Archivo Señalado");
+			return false;
+		}else{
+			console.log(files);
+			$.ajax({
+	            url: '../script/crud_modelos.php',
+	            type: 'POST',
+	            dataType: "JSON",
+	            data: fd,
+	            contentType: false,
+            	processData: false,
+
+	            beforeSend: function (){
+	            	$('#'+submit).attr('disabled','true');
+	            },
+
+	            success: function(response){
+	            	console.log(response);
+	            	$('#'+submit).removeAttr('disabled');
+	            	Swal.fire({
+		 				title: 'Correcto',
+		 				text: "Claves Cambiadas",
+		 				icon: 'success',
+		 				position: 'center',
+		 				showConfirmButton: false,
+		 				timer: 3000
+					});
+	            },
+
+	            error: function(response){
+	            	console.log(response);
+	            	$('#submit_clave1').removeAttr('disabled');
+	            }
+	        });
+		}
+	}
 
 </script>

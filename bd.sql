@@ -280,7 +280,7 @@ INSERT INTO documentos (nombre,ruta,fecha_inicio) VALUES
 ('EPS','eps','2020-09-28'),
 ('Antecedentes Disciplinarios','antecedentes_disciplinarios','2020-09-28'),
 ('Foto Cédula con Cara','foto_cedula_con_cara','2020-09-28'),
-('Foto Cédula Parte Frontal Cara','foto_cedula_parte_frontal','2020-09-28'),
+('Foto Cédula Parte Frontal Cara','foto_cedula_parte_frontal_cara','2020-09-28'),
 ('Foto Cédula Parte Respaldo','foto_cedula_parte_respaldo','2020-09-28'),
 ('Antecedentes Penales','antecedentes_penales','2020-09-28'),
 ('Extras','extras_','2020-10-02'),

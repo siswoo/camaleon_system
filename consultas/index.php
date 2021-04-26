@@ -148,7 +148,7 @@
 
 	<div class="row mt-3">
 		<div class="col-12 mt-3 text-center" style="font-weight: bold; font-size: 30px; text-transform: uppercase;">
-			Consultar Desprendibles
+			Consultar Desprendibles ACTIVOS
 		</div>
 
 		<div class="col-12">
@@ -168,6 +168,34 @@
 		</div>
 		<div class="col-2">
 			<button type="submit" class="btn btn-info" id="desprendible_consultar1">Consultar</button>
+		</div>
+		<div class="col-12">
+			</form>
+		</div>
+	</div>
+
+	<div class="row mt-3">
+		<div class="col-12 mt-3 text-center" style="font-weight: bold; font-size: 30px; text-transform: uppercase;">
+			Consultar Desprendibles INACTIVOS
+		</div>
+
+		<div class="col-12">
+			<form id="form_desprendibles1" action="../script/consultar_porcentajes3.php" method="POST" target="_blank">
+		</div>
+
+		<div class="col-9 ml-2">
+			<select name="desprendible_select2" id="desprendible_select2" class="form-control" required>
+				<option value="">Seleccione</option>
+				<?php
+				$sql1 = "SELECT * FROM presabana_inactivos WHERE inicio >= '2021-01-01' GROUP BY inicio ORDER BY inicio";
+				$consulta1 = mysqli_query($conexion,$sql1);
+				while($row1 = mysqli_fetch_array($consulta1)) { ?>
+					<option value="<?php echo $row1['inicio']; ?>">Desde <?php echo $row1['inicio']; ?> Hasta <?php echo $row1['fin']; ?></option>
+				<?php } ?>
+			</select>
+		</div>
+		<div class="col-2">
+			<button type="submit" class="btn btn-info" id="desprendible_consultar2">Consultar</button>
 		</div>
 		<div class="col-12">
 			</form>
