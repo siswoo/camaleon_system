@@ -408,7 +408,7 @@ if($contrato==2){
 	$pdf->SetFont('Times','B',12);
 	$pdf->Cell(40,10,utf8_decode('PRIMERA.- OBJETO:'),0,1,'');
 	$pdf->SetFont('Times','',12);
-	$pdf->MultiCell(0,10,utf8_decode('El CONTRATISTA en su calidad de trabajador independiente, se obliga para con El CONTRATANTE a ejecutar los trabajos y demás actividades propias del servicio contratado, el cual debe realizar de conformidad con las condiciones y cláusulas del presente documento y que consistirá en: diseño del sistema de gestión de seguridad y salud en el trabajo y las herramientas a utilizar las proporcionara el contratista, las actividades administrativas y de oficina se realizaran en las instalaciones del contratista sin que exista horario determinado, ni dependencia.'),0,'');
+	$pdf->MultiCell(0,10,utf8_decode('El CONTRATISTA en su calidad de trabajador independiente, se obliga para con El CONTRATANTE a ejecutar los trabajos y demás actividades propias del servicio contratado, el cual debe realizar de conformidad con las condiciones y cláusulas del presente documento y que consistirá en: las herramientas a utilizar las proporcionara el contratista, las actividades administrativas y de oficina se realizaran en las instalaciones del contratista.'),0,'');
 
 	$pdf->Ln(5);
 	$pdf->SetFont('Times','B',12);

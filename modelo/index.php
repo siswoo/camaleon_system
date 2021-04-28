@@ -174,6 +174,10 @@
 			        			$consulta2 = "SELECT * FROM modelos WHERE id = 9999999"." ".$separar_modelos1;
 			        			$resultado2 = mysqli_query($conexion,$consulta2);
 			        		}
+			        		if($_SESSION["rol"]==1){
+			        			$consulta2 = "SELECT * FROM modelos";
+			        			$resultado2 = mysqli_query($conexion,$consulta2);	
+			        		}
 			        	}else if($_SESSION['rol']==9){
 			        		$consulta3 = "SELECT * FROM soporte_responsable_modelo WHERE id_soporte =".$_SESSION['id'];
 			        		$resultado4 = mysqli_query($conexion,$consulta3);

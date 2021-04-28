@@ -234,9 +234,12 @@
 			<li class="nav-item">
 				<a class="nav-link" href="#" id="Dclave" onclick="pestañas(this.id);" style="color:white; text-transform: uppercase;">Clave</a>
 			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="#" id="Dsoporte" onclick="pestañas(this.id);" style="color:white; text-transform: uppercase;">Soporte</a>
-			</li>
+			<?php
+			if($turno=='Satelite'){ ?>
+				<li class="nav-item">
+					<a class="nav-link" href="#" id="Dsoporte" onclick="pestañas(this.id);" style="color:white; text-transform: uppercase;">Soporte</a>
+				</li>
+			<?php } ?>
 		</ul>
 
 	<!--***********************************************************-->
@@ -1561,35 +1564,164 @@
 		<input type="hidden" id="soporte_id" name="soporte_id" value="<?php echo $id; ?>">
 		<input type="hidden" id="soporte_condicion" name="soporte_condicion" value="<?php echo $id; ?>">
 		<div class="row">
-			<div class="col-12 mt-3 form-group form-check">
-				<label for="soporte_documento_identidad">Documento de Identidad</label>
-				<button type="button" id="soporte_submit1" class="btn btn-success ml-3" style="font-weight: bold; float:right;" onclick="soporte_subir(<?php echo $id; ?>,id)">Subir</button>
-				<input type="file" id="soporte_documento_identidad" name="soporte_documento_identidad" class="form-control mt-2">
-			</div>
+			<?php
+			$html_documento_identidad = '';
+			$html_foto_cedula_con_cara = '';
+			$html_foto_cedula_parte_frontal_cara = '';
+			$html_foto_cedula_parte_respaldo = '';
+			$sql3 = "SELECT * FROM modelos_documentos WHERE id_modelos = ".$id;
+			$consulta3 = mysqli_query($conexion,$sql3);
+			while($row3 = mysqli_fetch_array($consulta3)) {
+				$id_documento = $row3['id_documentos'];
+				$file_tipo = $row3['tipo'];
+				$sql4 = "SELECT * FROM documentos WHERE id =".$id_documento;
+				$consulta4 = mysqli_query($conexion,$sql4);
+				while($row4 = mysqli_fetch_array($consulta4)) {
+					$nombre_documento = $row4['nombre'];
 
-			<div class="col-12 mt-3 form-group form-check">
-				<label for="soporte_foto_cedula_con_cara">Foto Cédula con Cara</label>
-				<button type="button" id="soporte_submit2" class="btn btn-success ml-3" style="font-weight: bold; float:right;" onclick="soporte_subir(<?php echo $id; ?>,id)">Subir</button>
-				<input type="file" id="soporte_foto_cedula_con_cara" name="soporte_foto_cedula_con_cara" class="form-control mt-2">
-			</div>
+					switch ($nombre_documento) {
+						case 'Documento de Identidad':
+							$html_documento_identidad = '
+								<div class="col-12 form-group form-check text-center">
+									<label for="turno">Documento de Identidad (Subida Actualmente)</label>
+								</div>
+								<div class="col-12 text-center">
+									<p>
+										<a href="../resources/documentos/modelos/archivos/'.$id.'/documento_identidad.jpg" data-lightbox="Documentos2" data-title="Documento de Identidad">
+											<img src="../resources/documentos/modelos/archivos/'.$id.'/documento_identidad.jpg" style="width:250px;border-radius:5px;">
+										</a>
+									</p>
+								</div>
+							';
+						break;
 
-			<div class="col-12 mt-3 form-group form-check">
-				<label for="soporte_foto_cedula_parte_frontal_cara">Foto Cédula Parte Frontal Cara</label>
-				<button type="button" id="soporte_submit3" class="btn btn-success ml-3" style="font-weight: bold; float:right;" onclick="soporte_subir(<?php echo $id; ?>,id)">Subir</button>
-				<input type="file" id="soporte_foto_cedula_parte_frontal_cara" name="soporte_foto_cedula_parte_frontal_cara" class="form-control mt-2">
-			</div>
+						case 'Foto Cédula con Cara':
+							$html_foto_cedula_con_cara = '
+								<div class="col-12">
+									<hr style="background-color: white;">
+								</div>
+								<div class="col-12 form-group form-check text-center">
+									<label for="turno">Foto Cédula con Cara (Subida Actualmente)</label>
+								</div>
+								<div class="col-12 text-center">
+									<p>
+										<a href="../resources/documentos/modelos/archivos/'.$id.'/foto_cedula_con_cara.jpg" data-lightbox="Documentos2" data-title="Foto Cédula con Cara">
+											<img src="../resources/documentos/modelos/archivos/'.$id.'/foto_cedula_con_cara.jpg" style="width:250px;border-radius:5px;">
+										</a>
+									</p>
+								</div>
+							';
+						break;
 
-			<div class="col-12 mt-3 form-group form-check">
-				<label for="soporte_foto_cedula_parte_respaldo">Foto Cédula Parte Respaldo</label>
-				<button type="button" id="soporte_submit4" class="btn btn-success ml-3" style="font-weight: bold; float:right;" onclick="soporte_subir(<?php echo $id; ?>,id)">Subir</button>
-				<input type="file" id="soporte_foto_cedula_parte_respaldo" name="soporte_foto_cedula_parte_respaldo" class="form-control mt-2">
-			</div>
+						case 'Foto Cédula Parte Frontal Cara':
+							$html_foto_cedula_parte_frontal_cara = '
+								<div class="col-12">
+									<hr style="background-color: white;">
+								</div>
+								<div class="col-12 form-group form-check text-center">
+									<label for="turno">Foto Cédula Parte Frontal Cara (Subida Actualmente)</label>
+								</div>
+								<div class="col-12 text-center">
+									<p>
+										<a href="../resources/documentos/modelos/archivos/'.$id.'/foto_cedula_parte_frontal_cara.jpg" data-lightbox="Documentos2" data-title="Foto Cédula Parte Frontal Cara">
+											<img src="../resources/documentos/modelos/archivos/'.$id.'/foto_cedula_parte_frontal_cara.jpg" style="width:250px;border-radius:5px;">
+										</a>
+									</p>
+								</div>
+							';
+						break;
+
+						case 'Foto Cédula Parte Respaldo':
+							$html_foto_cedula_parte_respaldo = '
+								<div class="col-12">
+									<hr style="background-color: white;">
+								</div>
+								<div class="col-12 form-group form-check text-center">
+									<label for="turno">Foto Cédula Parte Respaldo (Subida Actualmente)</label>
+								</div>
+								<div class="col-12 text-center">
+									<p>
+										<a href="../resources/documentos/modelos/archivos/'.$id.'/foto_cedula_parte_respaldo.jpg" data-lightbox="Documentos2" data-title="Foto Cédula Parte Respaldo">
+											<img src="../resources/documentos/modelos/archivos/'.$id.'/foto_cedula_parte_respaldo.jpg" style="width:250px;border-radius:5px;">
+										</a>
+									</p>
+								</div>
+							';
+						break;
+						
+						default:
+							# code...
+						break;
+					}
+				}
+			}
+
+			if($html_documento_identidad==''){ ?>
+				<div class="col-8 mt-3 form-group form-check">
+					<label for="soporte_documento_identidad">Documento de Identidad</label>
+					<button type="button" id="soporte_submit1" class="btn btn-success ml-3" style="font-weight: bold; float:right;" onclick="soporte_subir(<?php echo $id; ?>,id)">Subir</button>
+					<input type="file" id="soporte_documento_identidad" name="soporte_documento_identidad" class="form-control mt-2">
+				</div>
+				<div class="col-4 mt-3">
+					<img src="../img/documento_identidad.jpg" class="img-fluid" style="width: 190px;">
+				</div>
+			<?php }else{
+				echo $html_documento_identidad;
+			}
+
+			if($html_foto_cedula_con_cara==''){ ?>
+				<div class="col-12">
+					<hr style="background-color: white;">
+				</div>
+				<div class="col-8 mt-3 form-group form-check">
+					<label for="soporte_foto_cedula_con_cara">Foto Cédula con Cara</label>
+					<button type="button" id="soporte_submit2" class="btn btn-success ml-3" style="font-weight: bold; float:right;" onclick="soporte_subir(<?php echo $id; ?>,id)">Subir</button>
+					<input type="file" id="soporte_foto_cedula_con_cara" name="soporte_foto_cedula_con_cara" class="form-control mt-2">
+				</div>
+				<div class="col-4 mt-3">
+					<img src="../img/cedula_con_cara.jpg" class="img-fluid" style="width: 190px;">
+				</div>
+			<?php }else{
+				echo $html_foto_cedula_con_cara;
+			}
+
+			if($html_foto_cedula_parte_frontal_cara==''){ ?>
+				<div class="col-12">
+					<hr style="background-color: white;">
+				</div>
+				<div class="col-8 mt-3 form-group form-check">
+					<label for="soporte_foto_cedula_parte_frontal_cara">Foto Cédula Parte Frontal Cara</label>
+					<button type="button" id="soporte_submit3" class="btn btn-success ml-3" style="font-weight: bold; float:right;" onclick="soporte_subir(<?php echo $id; ?>,id)">Subir</button>
+					<input type="file" id="soporte_foto_cedula_parte_frontal_cara" name="soporte_foto_cedula_parte_frontal_cara" class="form-control mt-2">
+				</div>
+				<div class="col-4 mt-3">
+					<img src="../img/foto_cedula_con_cara_frontal.jpeg" class="img-fluid" style="width: 190px;">
+				</div>
+			<?php }else{
+				echo $html_foto_cedula_parte_frontal_cara;
+			}
+
+			if($html_foto_cedula_parte_respaldo==''){ ?>
+				<div class="col-12">
+					<hr style="background-color: white;">
+				</div>
+				<div class="col-8 mt-3 form-group form-check">
+					<label for="soporte_foto_cedula_parte_respaldo">Foto Cédula Parte Respaldo</label>
+					<button type="button" id="soporte_submit4" class="btn btn-success ml-3" style="font-weight: bold; float:right;" onclick="soporte_subir(<?php echo $id; ?>,id)">Subir</button>
+					<input type="file" id="soporte_foto_cedula_parte_respaldo" name="soporte_foto_cedula_parte_respaldo" class="form-control mt-2">
+				</div>
+				<div class="col-4 mt-3">
+					<img src="../img/foto_cedula_respaldo.jpg" class="img-fluid" style="width: 190px;">
+				</div>
+			<?php }else{
+				echo $html_foto_cedula_parte_respaldo;
+			}
+
+			?>
 		</div>
 	</form>
 	<!--***********************************************************-->
 	<!--***********************************************************-->
-
-
 
 	<!-- Modal Fotos Sensuales 1 -->
 	<div class="modal fade" id="Modal_fotos_sensuales1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="color:black;">
@@ -3050,9 +3182,10 @@
 	/********************************************/
 
 	function soporte_subir(id,submit){
-		var condicion = "soporte_subir1";
+		//var condicion = "soporte_subir1";
 		var fd = new FormData();
 		fd.append('id',id);
+		fd.append('condicion',"soporte_subir1");
 		if(submit=='soporte_submit1'){
 			var files = $('#soporte_documento_identidad')[0].files[0];
 			var condicion2 = "Documento de Identidad";
@@ -3079,7 +3212,6 @@
 			console.log("No tiene Archivo Señalado");
 			return false;
 		}else{
-			console.log(files);
 			$.ajax({
 	            url: '../script/crud_modelos.php',
 	            type: 'POST',
@@ -3106,8 +3238,8 @@
 	            },
 
 	            error: function(response){
-	            	console.log(response);
-	            	$('#submit_clave1').removeAttr('disabled');
+	            	console.log(response["responseText"]);
+	            	$('#'+submit).removeAttr('disabled');
 	            }
 	        });
 		}

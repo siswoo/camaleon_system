@@ -43,6 +43,8 @@ CREATE TABLE roles (
 
 	test INT DEFAULT 0,
 
+	callcenter INT DEFAULT 0,
+
 	PRIMARY KEY (id)
 );
 INSERT INTO roles (id,nombre,modelo_view,modelo_edit,modelo_delete,roles_view,roles_edit,roles_delete,seguridad_view,pasante_view,pasante_edit,pasante_delete,usuarios_view,reporteModelos_view,monitores_view,sedes_view,paginas_view) VALUES 
@@ -61,6 +63,7 @@ INSERT INTO roles (id,nombre,financiera) VALUES (13,'Financiera',1);
 INSERT INTO roles (id,nombre,jefe) VALUES (14,'Jefe',1);
 INSERT INTO roles (id,nombre,administracion) VALUES (15,'Administración Sede',1);
 INSERT INTO roles (id,nombre,nomina) VALUES (16,'Gestion Nomina',1);
+INSERT INTO roles (id,nombre,callcenter) VALUES (17,'Call Center',1);
 ALTER TABLE roles CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 DROP TABLE IF EXISTS sedes;

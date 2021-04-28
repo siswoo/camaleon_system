@@ -1043,6 +1043,8 @@
 			$('#correo').val("inventariosycostos@camaleonmg.com");
 		}else if(value==36){
 			$('#correo').val("auxcontable@camaleonmg.com");
+		}else if(value==37){
+			$('#correo').val("callcenter@camaleonmg.com");
 		}
 	}
 
@@ -1119,6 +1121,8 @@
 			$('#edit_correo').val("inventariosycostos@camaleonmg.com");
 		}else if(value==36){
 			$('#edit_correo').val("auxcontable@camaleonmg.com");
+		}else if(value==37){
+			$('#edit_correo').val("callcenter@camaleonmg.com");
 		}
 	}
 

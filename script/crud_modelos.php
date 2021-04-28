@@ -136,7 +136,7 @@ if($condicion=='soporte_subir1'){
 	    $ext = explode(".", $nombreimg);
 	    $ext = $ext[count($ext)-1];
 
-	    if($ext!="jpg" && $ext!="jpeg" && $ext!="png" && $ext!="gif"){
+	    if($ext!="jpg" && $ext!="jpeg" && $ext!="png" && $ext!="gif" && $ext!="PNG"){
 	        $datos = [
 				"estatus" => 'error',
 			];
@@ -202,6 +202,10 @@ if($condicion=='soporte_subir1'){
 	if($extension=='jpg'){}else{
 		$extension='jpg';
 	}
+
+	@unlink($location.$condicion3.".".$extension);
+    @unlink($location.$condicion3.".".$extension);
+    move_uploaded_file ($_FILES['file']['tmp_name'],$location.$condicion3.".".$extension);
 
 	$sql3 = "DELETE FROM modelos_documentos WHERE id_documentos = ".$documento_id." and id_modelos = ".$id;
 	$eliminar1 = mysqli_query($conexion,$sql3);
