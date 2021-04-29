@@ -81,7 +81,7 @@
 ?>
 
 	<div class="seccion1">
-	    <div class="row">
+	    <div class="row" style="/*margin-left: 1rem; margin-right: 3rem; margin-top: 1rem; overflow-x: auto; white-space: nowrap;*/">
 	    	<div class="col-12 mb-3 text-right">
 				<button type="button" class="btn btn-primary" style="margin-right: 2rem;" data-toggle="modal" data-target="#exampleModal1">Importar</button>
 			</div>
@@ -90,38 +90,69 @@
 		    	<table id="example" class="table row-border hover table-bordered" style="font-size: 12px; color:rgba(50,55,66,1); border-radius: 5px;">
 			        <thead>
 			            <tr>
-			                <th class="text-center">ID</th>
-			                <th class="text-center">Nombre</th>
-			                <th class="text-center">Responsable</th>
+			                <th class="text-center">Fecha Desde</th>
+			                <th class="text-center">Fecha Hasta</th>
+			                <th class="text-center">Fecha Operación</th>
+			                <th class="text-center">Fecha Valor</th>
+			                <th class="text-center">Observaciones</th>
+			                <th class="text-center">Concepto</th>
+			                <th class="text-center">Importe</th>
+			                <th class="text-center">Detalle</th>
 			                <th class="text-center">Fecha Creación</th>
 			                <th class="text-center">Opciones</th>
 			            </tr>
 			        </thead>
 			        <tbody id="resultados">
 			        	<?php
-			        		$sql1 = "SELECT * FROM cargos";
+			        		$sql1 = "SELECT * FROM facturas1";
 			        		$consulta1 = mysqli_query($conexion,$sql1);
 			        		while($row1 = mysqli_fetch_array($consulta1)) {
 			        			$id = $row1['id'];
-			        			$nombre = $row1['nombre'];
-			        			$responsable = $row1['responsable'];
+			        			$cuenta = $row1['cuenta'];
+			        			$fecha_desde = $row1['fecha_desde'];
+			        			$fecha_hasta = $row1['fecha_hasta'];
+			        			$fecha_operacion = $row1['fecha_operacion'];
+			        			$fecha_valor = $row1['fecha_valor'];
+			        			$codigo = $row1['codigo'];
+			        			$observaciones = $row1['observaciones'];
+			        			$concepto = $row1['concepto'];
+			        			$numero_movimiento = $row1['numero_movimiento'];
+			        			$importe = $row1['importe'];
+			        			$detalle = $row1['detalle'];
 			        			$fecha_inicio = $row1['fecha_inicio'];
-
-			        			$sql2 = "SELECT * FROM usuarios WHERE id = ".$responsable;
-			        			$consulta2 = mysqli_query($conexion,$sql2);
-			        			while($row2 = mysqli_fetch_array($consulta2)) {
-			        				$responsable_nombre = $row2['nombre']." ".$row2['apellido'];
-			        			}
+			        			$soporte1 = $row1['soporte1'];
 
 			        			echo '
 			        				<tr id="tr_'.$id.'">
-			        					<td class="text-center" id="id_'.$id.'">'.$id.'</td>
-			        					<td class="text-center" id="nombre_'.$id.'">'.$nombre.'</td>
-			        					<td class="text-center" id="responsable_'.$id.'">'.$responsable_nombre.'</td>
+			        					<td class="text-center" id="fecha_desde_'.$id.'">'.$fecha_desde.'</td>
+			        					<td class="text-center" id="fecha_hasta_'.$id.'">'.$fecha_hasta.'</td>
+			        					<td class="text-center" id="fecha_operacion_'.$id.'">'.$fecha_operacion.'</td>
+			        					<td class="text-center" id="fecha_valor_'.$id.'">'.$fecha_valor.'</td>
+			        					<td class="text-center" id="observaciones_'.$id.'">'.$observaciones.'</td>
+			        					<td class="text-center" id="concepto_'.$id.'">'.$concepto.'</td>
+			        					<td class="text-center" id="importe_'.$id.'">'.$importe.'</td>
+			        					<td class="text-center" id="detalle_'.$id.'">'.$detalle.'</td>
 			        					<td class="text-center" id="fecha_inicio_'.$id.'">'.$fecha_inicio.'</td>
 			        					<td class="text-center" nowrap="nowrap">
-			        						<button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal2" onclick="editar1('.$id.');">Editar</button>
-			        						<!--<button class="btn btn-danger" data-toggle="modal" data-target="#exampleModal3" onclick="eliminar1('.$id.');">Eliminar</button>-->
+			        			';
+
+			        			if($soporte1==0){
+			        				echo '
+			        						<button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal2" onclick="subir2('.$id.');">Subir</button>
+			        						<button class="btn btn-danger" data-toggle="modal" data-target="#exampleModal3" onclick="eliminar1('.$id.');">Eliminar</button>
+			        				';
+			        			}else{
+			        				$location = '../resources/documentos/facturas1/'.$id.'/';
+									$nombre_final = "soporte1";
+			        				echo '
+			        						<a href="'.$location.$nombre_final.'.pdf" target="_blank">
+			        							<button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal3">Ver</button>
+			        						</a>
+			        						<button class="btn btn-danger" data-toggle="modal" data-target="#exampleModal3" onclick="eliminar1('.$id.');">Eliminar</button>
+			        				';
+			        			}
+
+			        			echo '
 			        					</td>
 			        				</tr>
 			        			';
@@ -135,7 +166,7 @@
 </body>
 </html>
 
-<!-- Modal Crear Registro -->
+<!-- Modal IMPORTAR Registro -->
 	<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<form action="#" method="POST" id="form_modal_new" style="">
@@ -149,195 +180,54 @@
 					<div class="modal-body">
 					    <div class="row">
 						    <div class="col-12 form-group form-check">
-							    <label for="nombre">Nombre</label>
-							    <input type="text" name="nombre" id="nombre" class="form-control" autocomplete="off" required>
+							    <label for="documento1">Documento Excel</label>
+							    <input type="file" name="documento1" id="documento1" class="form-control" required>
+						    </div>
+						    <div class="col-12 form-group form-check">
+							    <label for="detalle1">Detalle</label>
+							    <textarea name="detalle1" id="detalle1" class="form-control"></textarea>
 						    </div>
 					    </div>
 					</div>
 					<div class="modal-footer">
 				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-				        <button type="submit" class="btn btn-success" id="submit_guardar1">Guardar</button>
+				        <button type="submit" class="btn btn-success" id="submit_guardar1">Subir</button>
 			      	</div>
 		      	</form>
 	    	</div>
 	  	</div>
 	</div>
-<!-- FIN Modal Nuevo Registro -->
+<!-- FIN Modal IMPORTAR Registro -->
 
-<!-- Modal Editar Registro -->
+<!-- Modal PDF1 -->
 	<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
-			<form action="#" method="POST" id="form_modal_edit" style="">
+			<form action="#" method="POST" id="form_modal_subir2" style="">
+				<input type="hidden" id="subir2_id" name="subir2_id">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Editar Registro</h5>
+						<h5 class="modal-title" id="exampleModalLabel">Subir Soporte</h5>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
 					<div class="modal-body">
 					    <div class="row">
-					    	<input type="hidden" name="edit_id" id="edit_id">
 						    <div class="col-12 form-group form-check">
-							    <label for="edit_nombre">Nombre</label>
-							    <input type="text" id="edit_nombre" name="edit_nombre" class="form-control" required>
+							    <label for="documento2">Documento PDF</label>
+							    <input type="file" name="documento2" id="documento2" class="form-control" required>
 						    </div>
 					    </div>
 					</div>
 					<div class="modal-footer">
 				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-				        <button type="submit" class="btn btn-success" id="submit_edit1">Guardar</button>
+				        <button type="submit" class="btn btn-success" id="submit_guardar2">Subir</button>
 			      	</div>
 		      	</form>
 	    	</div>
 	  	</div>
 	</div>
-<!-- FIN Modal Editar Registro -->
-
-
-<!-- Modal Editar Bancarios -->
-	<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<form action="#" method="POST" id="form_modal_bancario" style="">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Editar Datos Bancarios</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body">
-					    <div class="row">
-					    	<input type="hidden" name="edit_bancario_id" id="edit_bancario_id">
-						    <div class="col-6 form-group form-check">
-							    <label for="edit_bancario_bcpp">Cuenta Propia o Prestada?</label>
-							    <select name="edit_bancario_bcpp" id="edit_bancario_bcpp" class="form-control" required>
-							    	<option value="">Seleccione</option>
-							    	<option value="Propia">Propia</option>
-							    	<option value="Prestada">Prestada</option>
-							    </select>
-						    </div>
-						    <div class="col-6 form-group form-check">
-							    <label for="edit_bancario_cedula">Cédula del titular</label>
-							    <input type="text" name="edit_bancario_cedula" id="edit_bancario_cedula" class="form-control" minlength="6" autocomplete="off" required>
-						    </div>
-						    <div class="col-6 form-group form-check">
-							    <label for="edit_bancario_nombre">Nombre Titular</label>
-							    <input type="text" name="edit_bancario_nombre" id="edit_bancario_nombre" class="form-control" autocomplete="off" required>
-						    </div>
-						    <div class="col-6 form-group form-check">
-							    <label for="edit_bancario_tipo_cuenta">Tipo de Cuenta</label>
-							    <select name="edit_bancario_tipo_cuenta" id="edit_bancario_tipo_cuenta" class="form-control" required>
-							    	<option value="">Seleccione</option>
-							    	<option value="Ahorro">Ahorro</option>
-							    	<option value="Corriente">Corriente</option>
-							    </select>
-						    </div>
-						    <div class="col-6 form-group form-check">
-							    <label for="edit_bancario_numero_cuenta">Número de Cuenta</label>
-							    <input type="text" name="edit_bancario_numero_cuenta" id="edit_bancario_numero_cuenta" class="form-control" autocomplete="off" required>
-						    </div>
-						    <div class="col-6 form-group form-check">
-							    <label for="edit_bancario_banco">Banco</label>
-							    <select name="edit_bancario_banco" id="edit_bancario_banco" class="form-control" required="">
-									<option value="">Seleccione</option>
-									<option value="Banco Agrario de Colombia">Banco Agrario de Colombia</option>
-									<option value="Banco AV Villas">Banco AV Villas</option>
-									<option value="Banco Caja Social">Banco Caja Social</option>
-									<option value="Banco de Occidente (Colombia)">Banco de Occidente (Colombia)</option>
-									<option value="Banco Popular (Colombia)">Banco Popular (Colombia)</option>
-									<option value="Bancolombia">Bancolombia</option>
-									<option value="BBVA Colombia">BBVA Colombia</option>
-									<option value="BBVA Movil">BBVA Movil</option>
-									<option value="Banco de Bogotá">Banco de Bogotá</option>
-									<option value="Colpatria">Colpatria</option>
-									<option value="Davivienda">Davivienda</option>
-									<option value="ITAU CorpBanca">ITAU CorpBanca</option>
-									<option value="Citibank">Citibank</option>
-									<option value="GNB Sudameris">GNB Sudameris</option>
-									<option value="ITAU">ITAU</option>
-									<option value="Scotiabank">Scotiabank</option>
-									<option value="Bancoldex">Bancoldex</option>
-									<option value="JPMorgan">JPMorgan</option>
-									<option value="BNP Paribas">BNP Paribas</option>
-									<option value="Banco ProCredit">Banco ProCredit</option>
-									<option value="Banco Pichincha">Banco Pichincha</option>
-									<option value="Bancoomeva">Bancoomeva</option>
-									<option value="Banco Finandina">Banco Finandina</option>
-									<option value="Banco CoopCentral">Banco CoopCentral</option>
-									<option value="Compensar">Compensar</option>
-									<option value="Aportes en linea">Aportes en linea</option>
-									<option value="Asopagos">Asopagos</option>
-									<option value="Fedecajas">Fedecajas</option>
-									<option value="Simple">Simple</option>
-									<option value="Enlace Operativo">Enlace Operativo</option>
-									<option value="CorfiColombiana">CorfiColombiana</option>
-									<option value="Old Mutual">Old Mutual</option>
-									<option value="Cotrafa">Cotrafa</option>
-									<option value="Confiar">Confiar</option>
-									<option value="JurisCoop">JurisCoop</option>
-									<option value="Deceval">Deceval</option>
-									<option value="Bancamia">Bancamia</option>
-									<option value="Nequi">Nequi</option>
-									<option value="Falabella">Falabella</option>
-									<option value="DGCPTN">DGCPTN</option>
-									<option value="BANCO WWB">BANCO WWB</option>
-									<option value="Cooperativa Financiera de Antioquia">Cooperativa Financiera de Antioquia</option>
-								</select>
-						    </div>
-						</div>
-					</div>
-					<div class="modal-footer">
-				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-				        <button type="submit" class="btn btn-success" id="submit_edit_bancario1">Guardar</button>
-			      	</div>
-			    </div>
-		      </form>
-	    </div>
-	</div>
-<!-- FIN Modal Editar Bancarios -->
-
-<!-- Modal Editar Documentos -->
-	<div class="modal fade" id="exampleModal4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<form action="#" method="POST" id="form_modal_documentos" style="">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Visualizar Documentos</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body" id="respuesta_documentos1"></div>
-					<div class="modal-footer">
-				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-			      	</div>
-			    </div>
-		      </form>
-	    </div>
-	</div>
-<!-- FIN Modal Editar Documentos -->
-
-<!-- Modal Editar Contrato -->
-	<div class="modal fade" id="exampleModal5" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<form action="#" method="POST" id="form_modal_contratos">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Visualizar Contrato</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body" id="respuesta_contratos1"></div>
-					<div class="modal-footer">
-				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-			      	</div>
-			    </div>
-		      </form>
-	    </div>
-	</div>
-<!-- FIN Modal Editar Contrato -->
+<!-- FIN Modal PDF1 -->
 
 <script src="../js/jquery-3.5.1.min.js"></script>
 <script type="text/javascript" src="../js/popper.js"></script>
@@ -369,7 +259,8 @@
 			    "search": "Buscar",
         	},
 
-        	"paging": true
+        	"paging": true,
+        	"order": [[ 1, "desc" ]],
 
     	} );
 
@@ -399,130 +290,130 @@
 
 	$("#form_modal_new").on("submit", function(e){
 		e.preventDefault();
-		var f = $(this);
-		var nombre = $('#nombre').val();
+        var fd = new FormData();
+        var files = $('#documento1')[0].files[0];
+        var detalle = $('#detalle1').val();
+        fd.append('file',files);
+        fd.append('condicion',"subir1");
+        fd.append('detalle',detalle);
 
-	    $.ajax({
-			type: 'POST',
-			url: '../script/crud_cargos.php',
-			data: {
-				"nombre": nombre,
-				"condicion": "guardar1",
-			},
-			dataType: "JSON",
-			success: function(respuesta) {
-				console.log(respuesta);
+        $.ajax({
+            url: '../script/crud_facturas.php',
+            type: 'POST',
+            data: fd,
+            contentType: false,
+            processData: false,
+            dataType: "JSON",
 
-				if(respuesta['estatus']=='repetido'){
-					Swal.fire({
-						position: 'center',
-						icon: 'error',
-						title: 'Error!',
-						text: 'Ya existe ese nombre del cargo',
-						showConfirmButton: true,
-						timer: 3000
-					})
-					return false;
-				}else{
-					Swal.fire({
-	 					title: 'Registro Correcto!',
-	 					text: "Redirigiendo...",
-	 					icon: 'success',
-	 					position: 'center',
-	 					showConfirmButton: false,
-	 					confirmButtonColor: '#3085d6',
-	 					confirmButtonText: 'No esperar!',
-	 					timer: 3000
-					}).then((result) => {
-	 					if (result.value) {
-	   						window.location.href = "index.php";
-	 					}
-					})
-					setTimeout(function() {
-				      window.location.href = "index.php";
-				    },3000);
-				}
-			},
+            beforeSend: function (){
+            	$('#submit_guardar1').attr('disabled','true');
+            },
 
-			error: function(respuesta) {
-				console.log(respuesta['responseText']);
-			}
-		});
+            success: function(response){
+            	$('#submit_guardar1').removeAttr('disabled');
+            	
+            	if(response["estatus"]=='error'){
+            		Swal.fire({
+		 				title: 'Formato Invalido',
+			 			text: "Debe ser un archivo de Excel Aceptable",
+			 			icon: 'error',
+			 			position: 'center',
+			 			showConfirmButton: false,
+			 			timer: 3000
+					});
+            		return false;
+            	}
+
+            	Swal.fire({
+	 				title: 'Documento Subido',
+	 				text: "Redirigiendo...!",
+	 				icon: 'success',
+	 				position: 'center',
+	 				showConfirmButton: true,
+	 				confirmButtonColor: '#3085d6',
+	 				confirmButtonText: 'No esperar!',
+	 				timer: 3000
+				}).then((result) => {
+	 				if (result.value) {
+	   					window.location.href = "index.php";
+	 				}
+				})
+				setTimeout(function() {
+			    	window.location.href = "index.php";
+				},3500);
+            },
+
+            error: function (response){
+            	console.log(response["responseText"]);
+            	$('#submit_guardar1').removeAttr('disabled');
+            }
+        });
 	});
 
-	function editar1(id){
-		$.ajax({
-			type: 'POST',
-			url: '../script/crud_cargos.php',
-			data: {
-				"id": id,
-				"condicion": "consultar1",
-			},
-			dataType: "JSON",
-			success: function(respuesta) {
-				console.log(respuesta);
-				$("#edit_id").val(id);
-				$("#edit_nombre").val(respuesta["nombre"]);
-			},
-
-			error: function(respuesta) {
-				console.log(respuesta['responseText']);
-			}
-		});
+	function subir2(id){
+		$('#subir2_id').val(id);
 	}
 
-	$("#form_modal_edit").on("submit", function(e){
+	$("#form_modal_subir2").on("submit", function(e){
 		e.preventDefault();
-		var f = $(this);
-		var id = $('#edit_id').val();
-		var nombre = $('#edit_nombre').val();
+        var fd = new FormData();
+        var files = $('#documento2')[0].files[0];
+        var id = $('#subir2_id').val();
+        fd.append('file',files);
+        fd.append('id',id);
+        fd.append('condicion',"subir2");
 
-	    $.ajax({
-			type: 'POST',
-			url: '../script/crud_cargos.php',
-			data: {
-				"id": id,
-				"nombre": nombre,
-				"condicion": "editar1",
-			},
-			dataType: "JSON",
-			success: function(respuesta) {
-				console.log(respuesta);
+        $.ajax({
+            url: '../script/crud_facturas.php',
+            type: 'POST',
+            data: fd,
+            contentType: false,
+            processData: false,
+            dataType: "JSON",
 
-				if(respuesta['estatus']=='repetido'){
-					Swal.fire({
-						position: 'center',
-						icon: 'error',
-						title: 'Error!',
-						text: 'Ya existe ese nombre del cargo',
-						showConfirmButton: true,
-						timer: 3000
-					})
-					return false;
-				}else{
-					Swal.fire({
-	 					title: 'Registro Correcto!',
-	 					text: "Redirigiendo...",
-	 					icon: 'success',
-	 					position: 'center',
-	 					showConfirmButton: false,
-	 					confirmButtonColor: '#3085d6',
-	 					confirmButtonText: 'No esperar!',
-	 					timer: 3000
+            beforeSend: function (){
+            	$('#submit_guardar1').attr('disabled','true');
+            },
+
+            success: function(response){
+            	$('#submit_guardar1').removeAttr('disabled');
+            	
+            	if(response["estatus"]=='error'){
+            		Swal.fire({
+		 				title: 'Formato Invalido',
+			 			text: "Debe ser un archivo de PDF Valido",
+			 			icon: 'error',
+			 			position: 'center',
+			 			showConfirmButton: false,
+			 			timer: 3000
 					});
+            		return false;
+            	}
 
-					$("#exampleModal2").modal('hide');
-					$('#exampleModal2').removeClass('modal-open');
-					$('.modal-backdrop').remove();
+            	Swal.fire({
+	 				title: 'Documento Subido',
+	 				text: "Redirigiendo...!",
+	 				icon: 'success',
+	 				position: 'center',
+	 				showConfirmButton: true,
+	 				confirmButtonColor: '#3085d6',
+	 				confirmButtonText: 'No esperar!',
+	 				timer: 3000
+				}).then((result) => {
+	 				if (result.value) {
+	   					window.location.href = "index.php";
+	 				}
+				})
+				setTimeout(function() {
+			    	window.location.href = "index.php";
+				},3500);
+            },
 
-					$('#nombre_'+id).html(respuesta['nombre']);
-				}
-			},
-
-			error: function(respuesta) {
-				console.log(respuesta['responseText']);
-			}
-		});
+            error: function (response){
+            	console.log(response["responseText"]);
+            	$('#submit_guardar1').removeAttr('disabled');
+            }
+        });
 	});
 
 	function eliminar1(id){
@@ -540,7 +431,7 @@
 			if (result.value) {
 				$.ajax({
 					type: 'POST',
-					url: '../script/crud_nomina.php',
+					url: '../script/crud_facturas.php',
 					dataType: "JSON",
 					data: {
 						"id": id,

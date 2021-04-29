@@ -16,8 +16,6 @@
 	<link rel="stylesheet" href="../css/dataTables.bootstrap4.min.css">
 	<link href="../resources/fontawesome/css/all.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
-	<!--<link rel="stylesheet" href="../css/mdb.css">-->
-	<!--<link rel="stylesheet" href="../css/style.css">-->
 	<link href="../resources/lightbox/dist/css/lightbox.css" rel="stylesheet">
 	<title>Camaleon Sistem</title>
 </head>
@@ -112,6 +110,33 @@
 		    		<hr style="background-color: black; height: 2px;">
 		    	</div>
 			<?php } ?>
+
+			<div class="col-12 mt-3 text-center" style="font-weight: bold; font-size: 30px; text-transform: uppercase;">
+	    		Reporte de Descuentos por Presabanas
+	    	</div>
+	    	<div class="col-12">
+	    		<form method="GET" action="exportar16.php" target="_blank">
+	    	</div>
+			<div class="col-6 text-center mt-3">
+		    	<select class="form-control" id="corte14" name="corte14" required>
+		    		<option value="">Seleccione</option>
+		   			<?php
+		  				$sql2 = "SELECT * FROM presabana GROUP BY inicio";
+		  				$consulta2 = mysqli_query($conexion,$sql2);
+						while($row2 = mysqli_fetch_array($consulta2)) { ?>
+							<option value="<?php echo $row2['id']; ?>"><?php echo $row2['inicio']." | ".$row2['fin']; ?></option>
+		    			<?php } ?>
+		    	</select>
+			</div>
+			<div class="col-6 text-center mt-3">
+				<button type="submit" class="btn btn-primary">Consultar</button>
+			</div>
+			<div class="col-12">
+				</form>
+			</div>
+			<div class="col-12 mt-3 text-center">
+		    	<hr style="background-color: black; height: 2px;">
+		    </div>
 
 			<div class="col-12 mt-3 text-center" style="font-weight: bold; font-size: 30px; text-transform: uppercase;">
 	    		Sección de Andrea

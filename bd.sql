@@ -1331,5 +1331,22 @@ CREATE TABLE presabana_inactivos (
 ); ALTER TABLE presabana_inactivos CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 
-
+DROP TABLE IF EXISTS facturas1;
+CREATE TABLE facturas1 (
+	id INT AUTO_INCREMENT,
+	cuenta VARCHAR(250) NOT NULL,
+	fecha_desde DATE NOT NULL,
+	fecha_hasta DATE NOT NULL,
+	fecha_operacion DATE NOT NULL,
+	fecha_valor DATE NOT NULL,
+	codigo VARCHAR(250) NOT NULL,
+	observaciones VARCHAR(250) NOT NULL,
+	concepto VARCHAR(250) NOT NULL,
+	numero_movimiento VARCHAR(250) NOT NULL,
+	importe FLOAT(11,2) NOT NULL,
+	detalle VARCHAR(250) NOT NULL,
+	soporte1 INT NOT NULL,
+	fecha_inicio date NOT NULL,
+	PRIMARY KEY (id)
+);ALTER TABLE facturas1 CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
