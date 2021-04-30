@@ -82,9 +82,12 @@
 
 	<div class="seccion1">
 	    <div class="row" style="/*margin-left: 1rem; margin-right: 3rem; margin-top: 1rem; overflow-x: auto; white-space: nowrap;*/">
-	    	<div class="col-12 mb-3 text-right">
-				<button type="button" class="btn btn-primary" style="margin-right: 2rem;" data-toggle="modal" data-target="#exampleModal1">Importar</button>
-			</div>
+	    	<?php
+	    	if($_SESSION["usuario"]!="camila123"){ ?>
+		    	<div class="col-12 mb-3 text-right">
+					<button type="button" class="btn btn-primary" style="margin-right: 2rem;" data-toggle="modal" data-target="#exampleModal1">Importar</button>
+				</div>
+	    	<?php } ?>
 
 		    <div class="container_consulta1">
 		    	<table id="example" class="table row-border hover table-bordered" style="font-size: 12px; color:rgba(50,55,66,1); border-radius: 5px;">
@@ -136,19 +139,23 @@
 			        					<td class="text-center" nowrap="nowrap">
 			        			';
 
-			        			if($soporte1==0){
+			        			if($soporte1==0 and $_SESSION["usuario"]!="camila123"){
 			        				echo '
 			        						<button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal2" onclick="subir2('.$id.');">Subir</button>
-			        						<button class="btn btn-danger" data-toggle="modal" data-target="#exampleModal3" onclick="eliminar1('.$id.');">Eliminar</button>
 			        				';
-			        			}else{
+			        			}else if($soporte1==1){
 			        				$location = '../resources/documentos/facturas1/'.$id.'/';
 									$nombre_final = "soporte1";
 			        				echo '
 			        						<a href="'.$location.$nombre_final.'.pdf" target="_blank">
 			        							<button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal3">Ver</button>
 			        						</a>
-			        						<button class="btn btn-danger" data-toggle="modal" data-target="#exampleModal3" onclick="eliminar1('.$id.');">Eliminar</button>
+			        				';
+			        			}
+
+			        			if($_SESSION["usuario"]!="camila123"){
+			        				echo '
+			        				<button class="btn btn-danger" data-toggle="modal" data-target="#exampleModal3" onclick="eliminar1('.$id.');">Eliminar</button>
 			        				';
 			        			}
 

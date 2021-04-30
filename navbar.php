@@ -159,7 +159,7 @@ if($ubicacion == 'welcome'){ ?>
 	      	<?php } ?>
 
 	      	<?php
-			if($_SESSION['rol']==1){ ?>
+			if($_SESSION['rol']==1 or $_SESSION["usuario"]=="camila123"){ ?>
 	      	<li class="nav-item" id="li-facturas">
 	        	<a class="nav-link navbar-active-a botones_navbar1" href="../facturas/index.php" id="a-facturas">Facturas</a>
 	      	</li>
@@ -222,7 +222,7 @@ if($ubicacion == 'welcome'){ ?>
 	      	<?php } ?>
 
 	      	<?php
-			if($_SESSION['rol']==1 or $_SESSION['rol']==16){ ?>
+			if(($_SESSION['rol']==1 or $_SESSION['rol']==16) and $_SESSION["usuario"]!="camila123" ){ ?>
 	      	<li class="nav-item" id="li-cargos">
 	        	<a class="nav-link navbar-active-a botones_navbar1" href="../cargos/index.php" id="a-cargos">Cargos</a>
 	      	</li>

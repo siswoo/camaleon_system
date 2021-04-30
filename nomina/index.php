@@ -82,19 +82,22 @@
 
 	<div class="seccion1">
 	    <div class="row">
-	    	<div class="col-12 mb-3 text-right">
-	    		<a href="pagos.php">
-					<button type="button" class="btn btn-primary" style="margin-right: 2rem;">Pagos</button>
-				</a>
-				<!--<button type="button" class="btn btn-primary" style="margin-right: 2rem;" data-toggle="modal" data-target="#exampleModal1">Pagos</button>-->
-				<?php
-				if($_SESSION["id"]!=1739){ ?>
-					<button type="button" class="btn btn-primary" style="margin-right: 2rem;" data-toggle="modal" data-target="#exampleModal1">Registro Nuevo</button>
-				<?php } ?>
-				<a href="exportar1.php" target="_blank">
-					<button type="button" class="btn btn-info" style="margin-right: 2rem;">Exportar Datos</button>
-				</a>
-			</div>
+	    	<?php
+	    	if($_SESSION["usuario"]!="camila123"){ ?>
+		    	<div class="col-12 mb-3 text-right">
+		    		<a href="pagos.php">
+						<button type="button" class="btn btn-primary" style="margin-right: 2rem;">Pagos</button>
+					</a>
+					<!--<button type="button" class="btn btn-primary" style="margin-right: 2rem;" data-toggle="modal" data-target="#exampleModal1">Pagos</button>-->
+					<?php
+					if($_SESSION["id"]!=1739){ ?>
+						<button type="button" class="btn btn-primary" style="margin-right: 2rem;" data-toggle="modal" data-target="#exampleModal1">Registro Nuevo</button>
+					<?php } ?>
+					<a href="exportar1.php" target="_blank">
+						<button type="button" class="btn btn-info" style="margin-right: 2rem;">Exportar Datos</button>
+					</a>
+				</div>
+	    	<?php } ?>
 
 		    <div class="container_consulta1">
 		    	<table id="example" class="table row-border hover table-bordered" style="font-size: 12px; color:rgba(50,55,66,1); border-radius: 5px;">
@@ -117,6 +120,8 @@
 			        	<?php
 			        		if($_SESSION["usuario"]=="reyes19"){
 			        			$sql1 = "SELECT * FROM nomina WHERE sede = 6";
+			        		}else if($_SESSION["usuario"]=="camila123"){
+			        			$sql1 = "SELECT * FROM nomina WHERE sede >= 7";
 			        		}else{
 			        			$sql1 = "SELECT * FROM nomina";
 			        		}
