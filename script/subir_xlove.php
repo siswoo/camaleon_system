@@ -68,12 +68,30 @@ for($i=2;$i<=$limite;$i++){
 }
 */
 
+/*  
 for($i=2;$i<=$limite;$i++){
     if($worksheet->getCell('A'.$i) != ""){
         $nickname = $worksheet->getCell('A'.$i);
         $Amount = $worksheet->getCell('E'.$i);
         $Amount_separado = explode("\n", $Amount);
         $Amount_final = $Amount_separado[0];
+        $fecha_inicio = $fecha_inicio;
+        $calculo_dolares = $coste_euro_XLove*$Amount_final;
+        $calculo_tokens = $calculo_dolares/0.05;
+
+        $sql2 = "INSERT INTO xlove (nickname, amount, dolares, tokens, fecha_desde, fecha_hasta, responsable, fecha_inicio) VALUES ('$nickname','$Amount_final','$calculo_dolares','$calculo_tokens','$fecha_desde_XLove','$fecha_hasta_XLove','$responsable','$fecha_inicio')";
+        $guardar1 = mysqli_query($conexion,$sql2);
+    }
+}
+*/
+
+for($i=2;$i<=$limite;$i++){
+    if($worksheet->getCell('A'.$i) != ""){
+        $nickname = $worksheet->getCell('A'.$i);
+        $Amount = $worksheet->getCell('I'.$i);
+        //$Amount_separado = explode("\n", $Amount);
+        //$Amount_final = $Amount_separado[0];
+        $Amount_final = str_replace(".", ",", $Amount);
         $fecha_inicio = $fecha_inicio;
         $calculo_dolares = $coste_euro_XLove*$Amount_final;
         $calculo_tokens = $calculo_dolares/0.05;

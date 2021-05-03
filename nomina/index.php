@@ -1050,6 +1050,8 @@
 			$('#correo').val("auxcontable@camaleonmg.com");
 		}else if(value==37){
 			$('#correo').val("callcenter@camaleonmg.com");
+		}else if(value==38){
+			$('#correo').val("adminspa@camaleonmg.com");
 		}
 	}
 
@@ -1128,6 +1130,8 @@
 			$('#edit_correo').val("auxcontable@camaleonmg.com");
 		}else if(value==37){
 			$('#edit_correo').val("callcenter@camaleonmg.com");
+		}else if(value==38){
+			$('#edit_correo').val("adminspa@camaleonmg.com");
 		}
 	}
 

@@ -198,7 +198,7 @@ while($row1 = mysqli_fetch_array($proceso1)) {
 				case 11:
 					$contadorp11 = $contadorp11+1;
 					if($contadorp11==1){
-						$xlovecam = $usuario1;
+						$xlovecam = $row2["nickname_xlove"];
 					}
 				break;
 
@@ -207,62 +207,62 @@ while($row1 = mysqli_fetch_array($proceso1)) {
 				break;
 			}
 
-			$sheet->setCellValue('A'.$fila, $modelo_nombre);
-			$sheet->setCellValue('B'.$fila, $documento_tipo);
-			$sheet->setCellValue('C'.$fila, $documento_numero);
-			$sheet->setCellValue('D'.$fila, $sede_nombre);
+			$sheet->setCellValue('A'.$fila, strtolower($modelo_nombre));
+			$sheet->setCellValue('B'.$fila, strtolower($documento_tipo));
+			$sheet->setCellValue('C'.$fila, strtolower($documento_numero));
+			$sheet->setCellValue('D'.$fila, strtolower($sede_nombre));
 			
 			if($contadorp1==1){
-				$sheet->setCellValue('E'.$fila, $chaturbate1);
+				$sheet->setCellValue('E'.$fila, strtolower($chaturbate1));
 			}else if($contadorp1==2){
-				$sheet->setCellValue('F'.$fila, $chaturbate2);
+				$sheet->setCellValue('F'.$fila, strtolower($chaturbate2));
 			}else if($contadorp1==3){
-				$sheet->setCellValue('G'.$fila, $chaturbate3);
+				$sheet->setCellValue('G'.$fila, strtolower($chaturbate3));
 			}
 
 			if($contadorp2==1){
-				$sheet->setCellValue('H'.$fila, $myfreecams);
+				$sheet->setCellValue('H'.$fila, strtolower($myfreecams));
 			}
 
 			if($contadorp3==1){
-				$sheet->setCellValue('I'.$fila, $camsoda);
+				$sheet->setCellValue('I'.$fila, strtolower($camsoda));
 			}
 
 			if($contadorp4==1){
-				$sheet->setCellValue('J'.$fila, $bongacams);
+				$sheet->setCellValue('J'.$fila, strtolower($bongacams));
 			}
 
 			if($contadorp5==1){
-				$sheet->setCellValue('K'.$fila, $stripchat1);
+				$sheet->setCellValue('K'.$fila, strtolower($stripchat1));
 			}else if($contadorp5==2){
-				$sheet->setCellValue('L'.$fila, $stripchat2);
+				$sheet->setCellValue('L'.$fila, strtolower($stripchat2));
 			}
 
 			if($contadorp6==1){
-				$sheet->setCellValue('M'.$fila, $cam4);
+				$sheet->setCellValue('M'.$fila, strtolower($cam4));
 			}
 
 			if($contadorp7==1){
-				$sheet->setCellValue('N'.$fila, $streamatemodels);
+				$sheet->setCellValue('N'.$fila, strtolower($streamatemodels));
 			}
 
 			if($contadorp8==1){
-				$sheet->setCellValue('O'.$fila, $flirt4free);
+				$sheet->setCellValue('O'.$fila, strtolower($flirt4free));
 			}
 
 			if($contadorp9==1){
-				$sheet->setCellValue('P'.$fila, $livejasmin);
+				$sheet->setCellValue('P'.$fila, strtolower($livejasmin));
 			}
 
 			if($contadorp10==1){
-				$sheet->setCellValue('Q'.$fila, $imlive);
+				$sheet->setCellValue('Q'.$fila, strtolower($imlive));
 			}
 
 			if($contadorp11==1){
-				$sheet->setCellValue('R'.$fila, $xlovecam);
+				$sheet->setCellValue('R'.$fila, strtolower($xlovecam));
 			}
 
-			$sheet->setCellValue('S'.$fila, $estatus);
+			$sheet->setCellValue('S'.$fila, strtolower($estatus));
 		}
 	$fila = $fila+1;
 	}

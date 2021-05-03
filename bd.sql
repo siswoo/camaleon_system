@@ -126,7 +126,7 @@ INSERT INTO usuarios (nombre,apellido,documento_tipo,documento_numero,correo,usu
 ('Variable','Variable','PEP','77777777','Variable@gmail.com','Variable','21232f297a57a5a743894a0e4a801fc3','77777777','',99,1,'2020-09-29'),
 ('Carlos','Vargas','Cedula de Ciudadania','1108456684','vargas1101@gmail.com','Soporte123','827ccb0eea8a706c4c34a16891f84e7b','','',2,1,'2020-10-06'),
 ('Denisse Giannyna','Gonzalez Cifuentes','Cedula de Ciudadania','1001184301','denisse.gonzalez1234@gmail.com','denisse.gonzales','723a1d81851c596931b050cae056197f','','',8,2,'2020-10-08'),
-('Andres Fernando','Bernal Correa','Cedula de Ciudadania','80.774.671','gerencia@bernal-group.com','gerencia','800e6e2dd493e8db8d867f021d1c25a7','','',14,1,'2020-12-30'),
+('Andres Fernando','Bernal Correa','Cedula de Ciudadania','80774671','gerencia@bernal-group.com','gerencia','a26f6e63b6c494cfaea39625a6f3abdd','','',14,1,'2020-12-30'),
 ('Daniela','Buitrago','Cedula de Ciudadania','1031175837','lauradanielabuga@gmail.com','dani_8','c591db46628b4c9292ac9e0d3223026e','','',12,1,'2021-02-19'),
 ('Karen Stefanny','Parra Sanchez','Cedula de Ciudadania','1018492284','stefanny1parra@gmail.com','karenparra','ed53feba2a0a4df03d19ef836b701ea0','3058754431','',8,6,'2021-03-22'),
 ('Jorse Luis','Casique Useche','Cedula de Ciudadania','1130245934','jorgecasique220@gmail.com','jorgeuseche','5311b986f20a6f348fad8fb41f898995','3504633380','',15,6,'2021-03-22'),
