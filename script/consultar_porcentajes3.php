@@ -241,7 +241,21 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 				$pdf->Cell(70,5,utf8_decode(''.strtoupper($modelo_tipo_documento).": ".$modelo_cedula),0,1,'');
 				$pdf->Ln(2);
 				$pdf->Cell(120,5,utf8_decode('CARGO: ASESOR CALL CENTER'),0,0,'');
-				$pdf->Cell(70,5,utf8_decode('SUELDO BÁSICO (TRM): '.$trm),0,1,'');
+
+				/********************APARTADO TRM NUEVO**************************/
+				$sql10 = "SELECT * FROM trm1 WHERE inicio = '".$fecha_desde."' and fin = '".$fecha_hasta."' LIMIT 1";
+				$consulta10 = mysqli_query($conexion,$sql10);
+				$contador10 = mysqli_num_rows($consulta10);
+				if($contador10>=1){
+					while($row10 = mysqli_fetch_array($consulta10)) {
+						$trm_mostrar = $row10["valor"];
+						$pdf->Cell(70,5,utf8_decode('SUELDO BÁSICO (TRM): '.$trm_mostrar),0,1,'');
+					}
+				}else{
+					$pdf->Cell(70,5,"",0,1,'');
+				}
+				/****************************************************************/
+
 				$pdf->Ln(2);
 				$pdf->SetFont('Times','B',8);
 				$pdf->Cell(70,5,utf8_decode('CONCEPTO NÓMINA'),0,0,'');

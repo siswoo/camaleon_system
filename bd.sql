@@ -1350,3 +1350,13 @@ CREATE TABLE facturas1 (
 	PRIMARY KEY (id)
 );ALTER TABLE facturas1 CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
+DROP TABLE IF EXISTS trm1;
+CREATE TABLE trm1 (
+	id INT AUTO_INCREMENT,
+	valor VARCHAR(250) NOT NULL,
+	inicio date NOT NULL,
+	fin date NOT NULL,
+	fecha_inicio date NOT NULL,
+	PRIMARY KEY (id)
+);ALTER TABLE trm1 CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+

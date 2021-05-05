@@ -89,10 +89,10 @@ for($i=2;$i<=$limite;$i++){
     if($worksheet->getCell('A'.$i) != ""){
         $nickname = $worksheet->getCell('A'.$i);
         $Amount = $worksheet->getCell('I'.$i);
-        //$Amount_separado = explode("\n", $Amount);
-        //$Amount_final = $Amount_separado[0];
-        $Amount_final = str_replace(".", ",", $Amount);
-        $fecha_inicio = $fecha_inicio;
+        $Amount_separado = explode("\n", $Amount);
+        $Amount_final = $Amount_separado[0];
+        //$Amount_final = str_replace(".", ",", $Amount);
+        //$fecha_inicio = $fecha_inicio;
         $calculo_dolares = $coste_euro_XLove*$Amount_final;
         $calculo_tokens = $calculo_dolares/0.05;
 

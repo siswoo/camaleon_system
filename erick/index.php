@@ -350,7 +350,7 @@
 	    	<div class="col-12 mt-3 text-center">
 	    		<hr style="background-color: black; height: 2px;">
 	    	</div>
-
+	    	<!--
 	    	<div class="col-12 mt-3 text-center" style="font-weight: bold; font-size: 30px; text-transform: uppercase;">
 	    		Zona de Consultas
 	    	</div>
@@ -418,343 +418,73 @@
 			</div>
 
 			<?php } ?>
-
+		-->
 		</div>
 	</div>
 
-	<div class="seccion1" id="div_Imlive" style="display: none; border: 3px solid black; border-radius: 1rem; padding: 5px 5px 5px 5px;">
-		<form id="formulario_Imlive" method="POST" action="#">
-	    	<div class="row">
-	    		<div class="form-group col-12">
-				    <p class="text-center" style="font-weight: bold; font-size: 20px;">Reporte de Imlive</p>
+	<div class="seccion2">
+		<div class="container">
+			<div class="row">
+				<div class="col-12 text-center" style="font-size: 25px; font-weight: bold;">VALOR ASIGNADO EN LOS DESPRENDIBLES DE TRM</div>
+				<div class="col-6">
+					<input type="text" id="trm_valor1" name="trm_valor1" class="form-control" placeholder="Valor" required>
 				</div>
-				<div class="form-group col-6">
-				    <label for="archivo_Imlive">Archivo Generado</label>
-				    <input type="file" class="form-control" name="archivo_Imlive" id="archivo_Imlive" style="margin-left: 18px; margin-right: 16px;" required>
-				</div>
-				<div class="form-group col-6">
-				    <label for="fecha">Fecha</label>
-				    <?php
-				    	$fecha_actual = date('Y-m-d');
-				    ?>
-				    <input type="date" class="form-control" value="<?php echo $fecha_actual; ?>" id="fecha_Imlive" required>
-				</div>
-				<div class="form-group col-12 text-center">
-				    <button type="submit" id="submit_Imlive" class="btn btn-primary">Cargar Datos</button>
-				</div>
-			</div>
-		</form>
-	</div>
-
-	<div class="seccion1" id="div_XLove" style="display: none; border: 3px solid black; border-radius: 1rem; padding: 5px 5px 5px 5px;">
-		<form id="formulario_XLove" method="POST" action="#">
-	    	<div class="row">
-				<div class="form-group col-12">
-				    <p class="text-center" style="font-weight: bold; font-size: 20px;">Reporte de XLove</p>
-				</div>
-				<div class="form-group col-12">
-					<label>Archivo Excel</label>
-				    <input type="file" class="form-control" name="archivo_XLove" id="archivo_XLove" required>
-				</div>
-				<div class="form-group col-6">
-					<label>Recorte N°</label>
-					<select class="form-control" required name="recorte_XLove" id="recorte_XLove">
+				<div class="col-4">
+					<select name="trm_select1" id="trm_select1" class="form-control" required>
 						<option value="">Seleccione</option>
-						<option value="1">1</option>
-						<option value="2">2</option>
+						<?php
+						$sql3 = "SELECT * FROM presabana GROUP BY inicio";
+						$consulta3 = mysqli_query($conexion,$sql3);
+						while($row3 = mysqli_fetch_array($consulta3)) { ?>
+							<option value="<?php echo $row3['id']; ?>"><?php echo "Desde ".$row3['inicio']." | Hasta ".$row3['fin']; ?></option>
+						<?php } ?>
 					</select>
 				</div>
-				<div class="form-group col-6">
-					<label>EUR a USD Coste</label>
-					<input type="text" id="coste_euro_XLove" name="coste_euro_XLove" class="form-control" required>
+				<div class="col-2">
+					<input type="button" id="trm_submit1" name="trm_submit1" value="Registrar" class="btn btn-info" onclick="registrar_trm1();">
 				</div>
-				<div class="form-group col-6">
-					<label>Mes</label>
-					<select class="form-control" required name="mes_XLove" id="mes_XLove">
-						<option value="">Seleccione</option>
-						<option value="Enero">Enero</option>
-						<option value="Febrero">Febrero</option>
-						<option value="Marzo">Marzo</option>
-						<option value="Abril">Abril</option>
-						<option value="Mayo">Mayo</option>
-						<option value="Junio">Junio</option>
-						<option value="Julio">Julio</option>
-						<option value="Agosto">Agosto</option>
-						<option value="Septiembre">Septiembre</option>
-						<option value="Octubre">Octubre</option>
-						<option value="Noviembre">Noviembre</option>
-						<option value="Diciembre">Diciembre</option>
-					</select>
+				<div class="col-12 text-center mt-3" style="font-weight: bold; font-size: 20px;">CONSULTAS REGISTRADAS</div>
+				<div class="col-12">
+					<table border="1" class="table">
+						<tr>
+							<th class="text-center">Valor</th>
+							<th class="text-center">Inicio</th>
+							<th class="text-center">Fin</th>
+							<th class="text-center">Fecha Asignada</th>
+							<th class="text-center">Opciones</th>
+						</tr>
+						<?php
+						$sql4 = "SELECT * FROM trm1";
+						$consulta4 = mysqli_query($conexion,$sql4);
+						$contador4 = mysqli_num_rows($consulta4);
+						if($contador4>=1){
+							while($row4 = mysqli_fetch_array($consulta4)) { 
+								$trm1_id = $row4["id"];
+								$trm1_valor = $row4["valor"];
+								$trm1_inicio = $row4["inicio"];
+								$trm1_fin = $row4["fin"];
+								$trm1_fecha_inicio = $row4["fecha_inicio"];
+								?>
+							<tr id="trm_tr_<?php echo $trm1_id; ?>">
+								<td><?php echo $trm1_valor; ?></td>
+								<td><?php echo $trm1_inicio; ?></td>
+								<td><?php echo $trm1_fin; ?></td>
+								<td><?php echo $trm1_fecha_inicio; ?></td>
+								<td class="text-center">
+									<button type="button" class="btn btn-danger" onclick="trm1_eliminar(<?php echo $trm1_id; ?>);">Eliminar</button>
+								</td>
+							</tr>
+						<?php }
+						}else{ ?>
+							<tr>
+								<td colspan="5" class="text-center">Sin Resultados</td>
+							</tr>
+						<?php } ?>
+					</table>
 				</div>
-				<div class="form-group col-6">
-					<label>Año</label>
-					<select class="form-control" required name="year_XLove" id="year_XLove">
-						<option value="2020">2020</option>
-						<option value="2021">2021</option>
-						<option value="2022">2022</option>
-						<option value="2023">2023</option>
-						<option value="2024">2024</option>
-						<option value="2025">2025</option>
-					</select>
-				</div>
-				<div class="form-group col-12 text-center">
-				    <button type="submit" id="submit_XLove" class="btn btn-primary">Ejecutar API</button>
-				</div>
-			</div>
-		</form>
-	</div>
-
-	<div class="seccion1" id="div_chaturbate" style="display: none; border: 3px solid black; border-radius: 1rem; padding: 5px 5px 5px 5px;">
-		<form id="formulario_chaturbate" method="POST" action="#">
-	    	<div class="row">
-				<div class="form-group col-12">
-				    <p class="text-center" style="font-weight: bold; font-size: 20px;">Reporte de Chaturbate</p>
-				</div>
-				<div class="form-group col-6">
-					<label>Archivo Excel</label>
-				    <input type="file" class="form-control" name="archivo_chaturbate" id="archivo_chaturbate" required>
-				</div>
-				<div class="form-group col-6">
-					<label>Fecha</label>
-					<input type="date" id="fecha_chaturbate" class="form-control" name="fecha_chaturbate" value="<?php echo date('Y-m-d'); ?>" required>
-				</div>
-				<div class="form-group col-12 text-center">
-				    <button type="submit" id="submit_chaturbate" class="btn btn-primary">Ejecutar API</button>
-				</div>
-			</div>
-		</form>
-	</div>
-
-	<div class="seccion1" id="div_stripchat" style="display: none; border: 3px solid black; border-radius: 1rem; padding: 5px 5px 5px 5px;">
-		<form id="formulario_stripchat" method="POST" action="#">
-	    	<div class="row">
-				<div class="form-group col-12">
-				    <p class="text-center" style="font-weight: bold; font-size: 20px;">Reporte de Stripchat</p>
-				</div>
-				<div class="form-group col-6">
-					<label>Archivo Excel</label>
-				    <input type="file" class="form-control" name="archivo_stripchat" id="archivo_stripchat" required>
-				</div>
-				<div class="form-group col-6">
-					<label>Fecha</label>
-					<input type="date" id="fecha_stripchat" class="form-control" name="fecha_stripchat" value="<?php echo date('Y-m-d'); ?>" required>
-				</div>
-				<div class="form-group col-12 text-center">
-				    <button type="submit" id="submit_stripchat" class="btn btn-primary">Ejecutar API</button>
-				</div>
-			</div>
-		</form>
-	</div>
-
-	<div class="seccion1" id="div_streamate" style="display: none; border: 3px solid black; border-radius: 1rem; padding: 5px 5px 5px 5px;">
-		<form id="formulario_streamate" method="POST" action="#">
-	    	<div class="row">
-				<div class="form-group col-12">
-				    <p class="text-center" style="font-weight: bold; font-size: 20px;">Reporte de StreaMate</p>
-				</div>
-				<div class="form-group col-6">
-					<label>Archivo Excel</label>
-				    <input type="file" class="form-control" name="archivo_streamate" id="archivo_streamate" required>
-				</div>
-				<div class="form-group col-6">
-					<label>Fecha</label>
-					<input type="week" name="fecha_streamate" id="fecha_streamate" class="form-control" min="2020-11-09" required>
-				</div>
-				<div class="form-group col-12 text-center">
-				    <button type="submit" id="submit_streamate" class="btn btn-primary">Ejecutar API</button>
-				</div>
-			</div>
-		</form>
-	</div>
-
-	<div class="seccion1" id="div_Myfreecams" style="display: none; border: 3px solid black; border-radius: 1rem; padding: 5px 5px 5px 5px;">
-	    	<div class="row">
-				<div class="form-group col-12">
-				    <p class="text-center" style="font-weight: bold; font-size: 20px;">Reporte de Myfreecams</p>
-				</div>
-				<div class="form-group col-3">
-					<label>Recorte N°</label>
-					<select class="form-control" name="recorte_Myfreecams" id="recorte_Myfreecams" required>
-						<option value="">Seleccione</option>
-						<option value="1">1</option>
-						<option value="2">2</option>
-					</select>
-				</div>
-				<div class="form-group col-3">
-					<label>Mes</label>
-					<select class="form-control" name="mes_Myfreecams" id="mes_Myfreecams" required>
-						<option value="">Seleccione</option>
-						<option value="01">Enero</option>
-						<option value="02">Febrero</option>
-						<option value="03">Marzo</option>
-						<option value="04">Abril</option>
-						<option value="05">Mayo</option>
-						<option value="06">Junio</option>
-						<option value="07">Julio</option>
-						<option value="08">Agosto</option>
-						<option value="09">Septiembre</option>
-						<option value="10">Octubre</option>
-						<option value="11">Noviembre</option>
-						<option value="12">Diciembre</option>
-					</select>
-				</div>
-				<div class="form-group col-3">
-					<label>Año</label>
-					<select class="form-control" name="year_Myfreecams" id="year_Myfreecams" required>
-						<option value="2020">2020</option>
-						<option value="2021">2021</option>
-						<option value="2022">2022</option>
-						<option value="2023">2023</option>
-						<option value="2024">2024</option>
-						<option value="2025">2025</option>
-					</select>
-				</div>
-				<div class="form-group col-3">
-				    <button type="submit" id="submit_Myfreecams" class="btn btn-primary" style="margin-top: 31px;" onclick="consultarMyfreecams();">Consultar Modelos</button>
-				</div>
-			</div>
-
-			<div id="div_Myfreecams2">
-				<form id="formulario_Myfreecams" method="POST" action="#">
-					<div id="resultado1_Myfreecams" class="form-group col-12 text-center">
-						<table border="1" class="table">
-							<thead>
-								<tr>
-									<th>Modelo</th>
-									<th>Usuario</th>
-									<th>Contraseña</th>
-									<th>Tokens</th>
-									<th>Opciones</th>
-								</tr>
-							</thead>
-							<tbody id="tbody_myfreecams">
-							</tbody>
-						</table>
-					</div>
-				</form>
-			</div>
-	</div>
-
-	<div class="seccion1" id="div_LiveJasmin" style="display: none; border: 3px solid black; border-radius: 1rem; padding: 5px 5px 5px 5px;">
-		<form id="formulario_LiveJasmin" method="POST" action="#">
-	    	<div class="row">
-	    		<div class="form-group col-12">
-				    <p class="text-center" style="font-weight: bold; font-size: 20px;">Reporte de LiveJasmin</p>
-				</div>
-				<div class="form-group col-6">
-				    <label for="archivo_LiveJasmin">Archivo Generado</label>
-				    <input type="file" class="form-control" name="archivo_LiveJasmin" id="archivo_LiveJasmin" style="margin-left: 18px; margin-right: 16px;" required>
-				</div>
-				<div class="form-group col-6">
-				    <label for="fecha">Fecha</label>
-				    <?php
-				    	$fecha_actual = date('Y-m-d');
-				    ?>
-				    <input type="date" class="form-control" value="<?php echo $fecha_actual; ?>" id="fecha_LiveJasmin" required>
-				</div>
-				<div class="form-group col-12 text-center">
-				    <button type="submit" id="submit_LiveJasmin" class="btn btn-primary">Cargar Datos</button>
-				</div>
-			</div>
-		</form>
-	</div>
-
-<!--****************************GRAFICOS****************************-->
-
-	<div class="seccion1" id="graficos1" style="display: none; border: 3px solid black; border-radius: 1rem; padding: 5px 5px 5px 5px;">
-		<form id="formulario_graficos1" method="POST" action="#">
-	    	<div class="row">
-				<div class="form-group col-12">
-				    <p class="text-center" style="font-weight: bold; font-size: 20px;">Reporte de Gráficos</p>
-				</div>
-				<div class="form-group col-12">
-					<label>Gráficos</label>
-				    <select class="form-control" name="select_graficos1" id="select_graficos1" required>
-				    	<option value="">Seleccione</option>
-				    	<option value="Imlive">Imlive</option>
-				    	<option value="XLove">XLove</option>
-				    	<option value="Chaturbate">Chaturbate</option>
-				    	<option value="Stripchat">Stripchat</option>
-				    	<option value="Streamate">Streamate</option>
-				    	<option value="Myfreecams">Myfreecams</option>
-				    </select>
-				</div>
-				<div class="form-group col-12 text-center">
-				    <button type="button" id="submit_crear_grafica1" class="btn btn-primary" onclick="creargrafica1(this.id);">Crear Gráfica</button>
-				</div>
-			</div>
-		</form>
-
-		<div class="container" id="div_grafica_mostrar1" style="max-height: 400px; max-width: 800px; display: none;">
-			<div class="col-12">
-				<canvas id="speedCanvas" height="400vw" width="800vw"></canvas>
 			</div>
 		</div>
-
-
 	</div>
-
-<!--****************************FIN GRAFICOS****************************-->
-
-
-<!--****************************PENDIENTES****************************-->
-
-	<div class="seccion1" id="div_pendientes" style="display: none; border: 3px solid black; border-radius: 1rem; padding: 5px 5px 5px 5px;">
-		<form id="formulario_stripchat" method="POST" action="#">
-	    	<div class="row">
-				<div class="form-group col-12">
-				    <p class="text-center" style="font-weight: bold; font-size: 20px;">PENDIENTES</p>
-				</div>
-				<div class="form-group col-12 text-center">
-				    <button class="btn btn-primary" type="button" onclick="button_pendientes(10);">Imlive</button>
-				    <button class="btn btn-primary ml-2" type="button" onclick="button_pendientes(11);">XLove</button>
-				    <button class="btn btn-primary ml-2" type="button" onclick="button_pendientes(1);">Chaturbate</button>
-				    <button class="btn btn-primary ml-2" type="button" onclick="button_pendientes(5);">Stripchat</button>
-				    <button class="btn btn-primary ml-2" type="button" onclick="button_pendientes(7);">Streamate</button>
-				    <button class="btn btn-primary ml-2" type="button" onclick="button_pendientes(2);">Myfreecams</button>
-				    <button class="btn btn-primary ml-2" type="button" onclick="button_pendientes(9);">LiveJasmin</button>
-				</div>
-				<div class="form-group col-12 text-center">
-				    <div id="respuesta_pendientes1"></div>
-				</div>
-			</div>
-		</form>
-
-		<div class="container" id="div_grafica_mostrar1" style="max-height: 400px; max-width: 800px; display: none;">
-			<div class="col-12">
-				<canvas id="speedCanvas" height="400vw" width="800vw"></canvas>
-			</div>
-		</div>
-
-
-	</div>
-
-<!--****************************FIN PENDIENTES****************************-->
-
-<!-- Modal Documentos 1 -->
-	<div class="modal fade" id="Modal_documentos1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<form action="#" method="POST" id="form_modal_documentos1" style="">
-				<input type="hidden" name="edit_id" id="edit_id">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Documentos</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body" id="div_modal_documentos1"></div>
-					<!--
-					<div class="modal-footer">
-				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-				        <button type="submit" id="submit" class="btn btn-success">Guardar</button>
-			      	</div>
-			      	-->
-		      	</form>
-	    	</div>
-	  	</div>
-	</div>
-<!-- FIN Modal Documentos1 -->
 
 </body>
 </html>
@@ -1424,5 +1154,87 @@
             }
         });
     });
+
+    function registrar_trm1(){
+    	var valor = $('#trm_valor1').val();
+    	var select = $('#trm_select1').val();
+    	if(valor=='' || select==''){
+    		Swal.fire({
+		 		title: 'Error',
+		 		text: "Complete los Campos",
+		 		icon: 'error',
+		 		position: 'center',
+		 		showConfirmButton: false,
+		 		timer: 2000
+			});
+			return false;
+    	}
+    	$.ajax({
+            url: '../script/crud_trm.php',
+            type: 'POST',
+            dataType: "JSON",
+            data: {
+				"valor": valor,
+				"select": select,
+				"condicion": "guardar1",
+			},
+
+            beforeSend: function (){
+            	$('#trm1_submit1').attr('disabled','true');
+            },
+
+            success: function(response){
+            	console.log(response);
+            	$('#trm1_submit1').removeAttr('disabled');
+            	Swal.fire({
+		 			title: 'Guardado exitosamente!',
+		 			text: "Limpiando Cache...",
+		 			icon: 'success',
+		 			position: 'center',
+		 			showConfirmButton: true,
+		 			timer: 2000
+				});
+	            setTimeout(function() {
+			     	window.location.href = "index.php";
+				},2000);
+            },
+
+            error: function(response){
+            	console.log(response['responseText']);
+            	$('#trm1_submit1').removeAttr('disabled');
+            }
+        });
+    }
+
+    function trm1_eliminar(id){
+    	$.ajax({
+            url: '../script/crud_trm.php',
+            type: 'POST',
+            dataType: "JSON",
+            data: {
+				"id": id,
+				"condicion": "eliminar1",
+			},
+
+            beforeSend: function (){},
+
+            success: function(response){
+            	console.log(response);
+            	Swal.fire({
+		 			title: 'Borrado exitosamente!',
+		 			text: "Limpiando Cache...",
+		 			icon: 'success',
+		 			position: 'center',
+		 			showConfirmButton: true,
+		 			timer: 2000
+				});
+				$('#trm_tr_'+id).hide("slow");
+            },
+
+            error: function(response){
+            	console.log(response['responseText']);
+            }
+        });
+    }
 
 </script>
