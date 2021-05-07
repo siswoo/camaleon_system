@@ -36,7 +36,7 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 	$modelo_cedula = $row1['documento_numero'];
 	$turno = $row1['turno'];
 
-	$sql2 = "SELECT * FROM presabana_inactivos WHERE id_modelo = ".$id_modelo." and inicio BETWEEN '".$inicio."' AND '".$fin."' and fin BETWEEN '".$inicio."' AND '".$fin."' and total_dolares >=1 GROUP BY id_modelo";
+	$sql2 = "SELECT * FROM presabana_inactivos WHERE id_modelo = ".$id_modelo." and inicio BETWEEN '".$inicio."' AND '".$fin."' and fin BETWEEN '".$inicio."' AND '".$fin."' and total_dolares >=1 GROUP BY id_modelo ORDER BY id DESC LIMIT 1";
 		$consulta2 = mysqli_query($conexion,$sql2);
 		while($row2 = mysqli_fetch_array($consulta2)) {
 			$fecha_desde = $row2['inicio'];

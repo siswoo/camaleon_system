@@ -93,9 +93,16 @@
 					if($_SESSION["id"]!=1739){ ?>
 						<button type="button" class="btn btn-primary" style="margin-right: 2rem;" data-toggle="modal" data-target="#exampleModal1">Registro Nuevo</button>
 					<?php } ?>
-					<a href="exportar1.php" target="_blank">
-						<button type="button" class="btn btn-info" style="margin-right: 2rem;">Exportar Datos</button>
-					</a>
+					<?php
+					if($_SESSION["id"]!=1739 and $_SESSION["id"]!=441 and $_SESSION["id"]!=1 and $_SESSION["id"]!=4){ ?>
+						<a href="exportar1_old.php" target="_blank">
+							<button type="button" class="btn btn-info" style="margin-right: 2rem;">Exportar Datos</button>
+						</a>
+					<?php }else{?>  
+						<a href="exportar1.php" target="_blank">
+							<button type="button" class="btn btn-info" style="margin-right: 2rem;">Exportar Datos</button>
+						</a>
+					<?php } ?>
 				</div>
 	    	<?php } ?>
 

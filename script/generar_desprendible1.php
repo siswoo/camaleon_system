@@ -299,6 +299,8 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 
 		$bono1 = 0;
 
+		/************CAMBIO NUMERO 165 FECHA 05/05/2021***********/
+		/*
 		if($total_tokens>=50000 and $total_tokens<=79999){
 			$bono1 = 100000/$desprendible_trm;
 		}
@@ -310,10 +312,23 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 		if($total_tokens>=100000){
 			$bono1 = 500000/$desprendible_trm;
 		}
+		/*************************************************************/
 
-		$total_dolares = $total_dolares+$bono1;
+		if($total_tokens>=50000 and $total_tokens<=79999){
+			$bono1 = 100000;
+		}
 
-		$total_pesos = $total_dolares*$desprendible_trm;
+		if($total_tokens>=80000 and $total_tokens<=99999){
+			$bono1 = 300000;
+		}
+
+		if($total_tokens>=100000){
+			$bono1 = 500000;
+		}
+
+		$total_dolares = $total_dolares;
+
+		$total_pesos = ($total_dolares*$desprendible_trm)+$bono1;
 		//$total_pesos = $total_pesos*$meta3;
 
 		$sheet->setCellValue('W'.$fila, $total_dolares);
