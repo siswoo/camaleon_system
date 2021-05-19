@@ -124,6 +124,7 @@
 			        			$detalle = $row1['detalle'];
 			        			$fecha_inicio = $row1['fecha_inicio'];
 			        			$soporte1 = $row1['soporte1'];
+			        			$extension = $row1['extension'];
 
 			        			echo '
 			        				<tr id="tr_'.$id.'">
@@ -147,7 +148,7 @@
 			        				$location = '../resources/documentos/facturas1/'.$id.'/';
 									$nombre_final = "soporte1";
 			        				echo '
-			        						<a href="'.$location.$nombre_final.'.pdf" target="_blank">
+			        						<a href="'.$location.$nombre_final.'.'.$extension.'" target="_blank">
 			        							<button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal3">Ver</button>
 			        						</a>
 			        				';

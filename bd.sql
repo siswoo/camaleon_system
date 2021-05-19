@@ -995,7 +995,8 @@ CREATE TABLE t_usuarios (
 ); ALTER TABLE t_usuarios CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 INSERT INTO t_usuarios (nombre,usuario,clave,correo,fecha_inicio) VALUES 
-('Juan Maldonado','admin','202cb962ac59075b964b07152d234b70','juanmaldonado.co@gmail.com','2021-02-19');
+('Juan Maldonado','admin','202cb962ac59075b964b07152d234b70','juanmaldonado.co@gmail.com','2021-02-19'),
+('Michell','sexshop1','8ebf43c2d97d2a3b5d453af2ddcde67a','sexshop1@camaleonmg.com','2021-05-11');
 
 DROP TABLE IF EXISTS t_categorias;
 CREATE TABLE t_categorias (
@@ -1345,6 +1346,7 @@ CREATE TABLE facturas1 (
 	numero_movimiento VARCHAR(250) NOT NULL,
 	importe FLOAT(11,2) NOT NULL,
 	detalle VARCHAR(250) NOT NULL,
+	extension VARCHAR(250) NOT NULL,
 	soporte1 INT NOT NULL,
 	fecha_inicio date NOT NULL,
 	PRIMARY KEY (id)

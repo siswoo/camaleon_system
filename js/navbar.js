@@ -66,6 +66,7 @@ $(document).ready(function(){
         $('#a-personal').attr('href','personal/index.php');
         $('#a-nomina').attr('href','nomina/index.php');
         $('#a-cargos').attr('href','cargos/index.php');
+        $('#a-facturas').attr('href','facturas/index.php');
         $('#a-funciones').attr('href','funciones/index.php');
         $('#a-residuos').attr('href','residuos/index.php');
         $('#navbar-cerrarSesion').attr('href','script/cerrar_sesion.php');

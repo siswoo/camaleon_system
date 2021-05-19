@@ -149,11 +149,7 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 }
 
 $fila = 2;
-if($inicio = '2021-02-16'){
-	$sql2 = "SELECT * FROM modelos WHERE documento_numero = 52051345 or documento_numero = 1020810208 or documento_numero = 52901295 or documento_numero = 948513028021994 or documento_numero = 1030582351 or documento_numero = 27295561 or documento_numero = 1233505303 or documento_numero = 1012459217 or documento_numero= 1000337597 or documento_numero = 1000987798";	
-}else{
-	$sql2 = "SELECT * FROM modelos WHERE fecha_inicio BETWEEN '".$inicio."' AND '".$fin."'";
-}
+$sql2 = "SELECT * FROM modelos WHERE fecha_inicio BETWEEN '".$inicio."' AND '".$fin."'";
 $consulta2 = mysqli_query($conexion,$sql2);
 while($row3 = mysqli_fetch_array($consulta2)) {
 

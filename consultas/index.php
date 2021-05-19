@@ -202,6 +202,42 @@
 		</div>
 	</div>
 
+
+	<div class="col-12 mt-3 text-center">
+		    	<hr style="background-color: black; height: 2px;">
+		    </div>
+
+	    	<div class="col-12 mt-3 text-center" style="font-weight: bold; font-size: 30px; text-transform: uppercase;">
+	    		Zona de Desprendibles
+	    	</div>
+
+		    <div class="col-12 mt-3 text-center">
+		    	<div class="row">
+		    	<?php
+		    		$sql_presabana1 = "SELECT * FROM presabana GROUP BY inicio";
+		    		$consulta_presabana1 = mysqli_query($conexion,$sql_presabana1);
+					while($row1 = mysqli_fetch_array($consulta_presabana1)) {
+						echo '
+						<div class="form-group col-4 mt-3">
+							<form action="ver_presabanas3.php" target="_blank">
+								<p style="font-size: 16px;">'.$row1["inicio"].' al '.$row1["fin"].'</p>
+								<input type="hidden" value="'.$row1["inicio"].'" name="inicio">
+								<input type="hidden" value="'.$row1["fin"].'" name="fin">
+								<select name="condicion" id="condicion" class="form-control" required>
+									<option value="">Seleccione</option>
+									<option value="Positivos">Positivos</option>
+									<option value="Negativos">Negativos</option>
+								</select>
+								<input type="hidden" value="'.$_SESSION["sede"].'" id="sedes" name="sedes">
+								<button type="submit" class="btn btn-info mt-1">Inspeccionar</button>
+							</form>
+						</div>
+						';
+					}
+		    	?>
+		    	</div>
+		   	</div>
+
 </body>
 </html>
 

@@ -84,19 +84,19 @@ if($condicion=='subir2'){
     	mkdir('../resources/documentos/facturas1/'.$id, 0777);
 	}
 
-	if($extension!='pdf'){
+	if($extension!='pdf' and $extension!='csv' and $extension!='xlsx' and $extension!='xlsxs'){
 	    $datos = [
 			"estatus" => "error",
 		];
 		echo json_encode($datos);
 	    exit;
 	}else{
-		$sql1 = "UPDATE facturas1 SET soporte1 = 1 WHERE id = ".$id;
+		$sql1 = "UPDATE facturas1 SET soporte1 = 1, extension = '".$extension."' WHERE id = ".$id;
 		$proceso1 = mysqli_query($conexion,$sql1);
 		$location = '../resources/documentos/facturas1/'.$id.'/';
 		$nombre_final = "soporte1";
-		@unlink($location.$nombre_final.'.pdf');
-		move_uploaded_file ($_FILES['file']['tmp_name'],$location.$nombre_final.'.pdf');
+		@unlink($location.$nombre_final.'.'.$extension);
+		move_uploaded_file ($_FILES['file']['tmp_name'],$location.$nombre_final.'.'.$extension);
 		$datos = [
 			"estatus" => "ok",
 		];
