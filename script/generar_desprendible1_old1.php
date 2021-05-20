@@ -220,14 +220,10 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 		$spreadsheet->getActiveSheet()->getColumnDimension('M')->setWidth(15);
 		$spreadsheet->getActiveSheet()->getColumnDimension('N')->setWidth(15);
 
-		if($modelo_sede==""){
-			$nombre_sede = "Desconocido";
-		}else{
-			$sql3 = "SELECT * FROM sedes WHERE id = ".$modelo_sede;
-			$consulta3 = mysqli_query($conexion,$sql3);
-			while($row3 = mysqli_fetch_array($consulta3)) {
-				$nombre_sede = $row3['nombre'];
-			}
+		$sql3 = "SELECT * FROM sedes WHERE id = ".$modelo_sede;
+		$consulta3 = mysqli_query($conexion,$sql3);
+		while($row3 = mysqli_fetch_array($consulta3)) {
+			$nombre_sede = $row3['nombre'];
 		}
 
 		$sheet->setCellValue('A'.$fila, $nombre_sede);
@@ -297,29 +293,43 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 
 		$sheet->setCellValue('U'.$fila, $meta_porcentaje);
 
+		//$total_dolares = $subt_total_dolares-$retencion_fuente;
 		$total_dolares = $subt_total_dolares*$meta3;
+		//$total_dolares = $total_dolares-$retencion_fuente;
 
 		$bono1 = 0;
 
-		if($turno!='Satelite'){
-			if($total_tokens>=50000 and $total_tokens<=79999){
-				$bono1 = 100000;
-			}
+		/************CAMBIO NUMERO 165 FECHA 05/05/2021***********/
+		/*
+		if($total_tokens>=50000 and $total_tokens<=79999){
+			$bono1 = 100000/$desprendible_trm;
+		}
 
-			if($total_tokens>=80000 and $total_tokens<=99999){
-				$bono1 = 300000;
-			}
+		if($total_tokens>=80000 and $total_tokens<=99999){
+			$bono1 = 300000/$desprendible_trm;
+		}
 
-			if($total_tokens>=100000){
-				$bono1 = 500000;
-			}
-		}else{
-			$bono1 = 0;
+		if($total_tokens>=100000){
+			$bono1 = 500000/$desprendible_trm;
+		}
+		/*************************************************************/
+
+		if($total_tokens>=50000 and $total_tokens<=79999){
+			$bono1 = 100000;
+		}
+
+		if($total_tokens>=80000 and $total_tokens<=99999){
+			$bono1 = 300000;
+		}
+
+		if($total_tokens>=100000){
+			$bono1 = 500000;
 		}
 
 		$total_dolares = $total_dolares;
 
 		$total_pesos = ($total_dolares*$desprendible_trm)+$bono1;
+		//$total_pesos = $total_pesos*$meta3;
 
 		$sheet->setCellValue('W'.$fila, $total_dolares);
 
@@ -331,6 +341,27 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 
 		$fvp1 = $total_dolares;
 		$fvp1 = $fvp1*$desprendible_trm;
+
+		if($fvp1==0){
+			$fpv2 = 0;
+			$retencion_fuente = 0;
+		}else{
+			$fpv2 = $fvp1/$total_tokens;
+			$retencion_fuente = ((($total_tokens*$fpv2)/$meta3)*0.03)/$desprendible_trm;
+			/*
+			echo '<div class="col-12"><p>';
+			echo "Cedula = ".$documento_numero;
+			echo " tokens = ".$total_tokens;
+			echo " pv = ".$fpv2;
+			echo " meta3 = ".$meta3;
+			echo " Total = ".((($total_tokens*$fpv2)/$meta3)*0.03)/$desprendible_trm;
+			echo '</p></div>';
+			*/
+		}
+
+		$sheet->setCellValue('T'.$fila, $retencion_fuente);
+
+		$sheet->setCellValue('Y'.$fila, $fpv2);
 
 		$sql6 = "SELECT * FROM descuento WHERE id_modelo = ".$modelo_id." and fecha_inicio BETWEEN '".$desprendible_fecha_desde."' AND '".$desprendible_fecha_hasta."'";
 		$consulta6 = mysqli_query($conexion,$sql6);
@@ -443,18 +474,6 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 
 
 		$descuentos_totales = $contador_descuento+$contador_tienda+$contador_avances+$contador_multas+$contador_sexshop+$contador_sancionpagina;
-
-		if($fvp1==0){
-			$fpv2 = 0;
-			$retencion_fuente = 0;
-		}else{
-			$fpv2 = $fvp1/$total_tokens;
-			$retencion_fuente = (($total_pesos)/$meta3)*0.03;
-		}
-
-		$sheet->setCellValue('T'.$fila, $retencion_fuente);
-		$sheet->setCellValue('Y'.$fila, $fpv2);
-
 		$bonos_totales = $contador_bonos_horas+$contador_bonos_streamate;
 		$total_pesos_final1 = $total_pesos-$descuentos_totales+$bonos_totales;
 		$retencion_fuente_pesos = $retencion_fuente*$desprendible_trm;
@@ -462,7 +481,6 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 
 
 		$sheet->setCellValue('V'.$fila, $total_pesos_final1);
-
 
 		$fila = $fila+1;
 

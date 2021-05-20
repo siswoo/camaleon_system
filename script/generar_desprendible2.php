@@ -35,8 +35,6 @@ while($row2 = mysqli_fetch_array($consulta2)) {
 	$flirt4free = $row2['flirt4free'];
 
 	$meta_porcentajes = $row2['meta_porcentajes'];
-	//$total_pesos = $row2['total_pesos'];
-	//$deducidos = $row2['deducidos'];
 	$deducidos = 0;
 	$pv = $row2['pv'];
 	$rf = $row2['rf'];
@@ -253,20 +251,24 @@ while($row2 = mysqli_fetch_array($consulta2)) {
 
 	$bono1 = 0;
 
-	if($total_tokens>=50000 and $total_tokens<=79999){
-		$bono1 = 100000;
-	}
+	if($turno!="Satelite"){
+		if($total_tokens>=50000 and $total_tokens<=79999){
+			$bono1 = 100000;
+		}
 
-	if($total_tokens>=80000 and $total_tokens<=99999){
-		$bono1 = 300000;
-	}
+		if($total_tokens>=80000 and $total_tokens<=99999){
+			$bono1 = 300000;
+		}
 
-	if($total_tokens>=100000){
-		$bono1 = 500000;
-	}
+		if($total_tokens>=100000){
+			$bono1 = 500000;
+		}
 
-	if($id_modelo == 377 and $fecha_desde == '2021-02-16'){
-		$bono1 = 300000;
+		if($id_modelo == 377 and $fecha_desde == '2021-02-16'){
+			$bono1 = 300000;
+		}
+	}else{
+		$bono1 = 0;
 	}
 
 	if($bono1>=1){
@@ -284,7 +286,7 @@ while($row2 = mysqli_fetch_array($consulta2)) {
 	$pdf->Cell(30,5,utf8_decode("0"),0,0,'C');
 	$pdf->Cell(30,5,utf8_decode('0'),0,0,'C');
 
-	$rf_pesos = $rf*$trm;
+	$rf_pesos = $rf;
 
 	$pdf->Cell(30,5,"$".number_format($rf_pesos,2,',','.'),0,1,'C');
 
@@ -492,8 +494,6 @@ while($row2 = mysqli_fetch_array($consulta2)) {
 	$pdf->Ln(5);
 	$pdf->Cell(120,5,utf8_decode("NETO PAGADO"),0,0,'R');
 	$total_final3 = $total_final2-$total_deducido;
-	/*$rf = $rf * $trm;
-	$total_final3 = $total_final3-$rf;*/
 
 	$pdf->Cell(55,5,"$".number_format($total_final3,2,',','.'),0,0,'R');
 

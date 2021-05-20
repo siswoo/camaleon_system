@@ -172,7 +172,7 @@ while($row1 = mysqli_fetch_array($consulta)) {
 		$monto_separacion = $monto_separacion+$row_separacion1["monto"];
 	}
 
-	$monto_separacion = $monto_separacion+($rf*$trm);
+	$monto_separacion = $monto_separacion+$rf;
 	$total_pesos_separacion = $monto_separacion-$monto_separacion2;
 
 	/**************************************************************/
@@ -301,7 +301,7 @@ while($row1 = mysqli_fetch_array($consulta)) {
 		$total_dolares = $row1['total_dolares'];
 		$total_pesos = $row1['total_pesos']*1;
 		$trm = $row1['trm'];
-		$rf_pesos = $rf*$trm;
+		$rf_pesos = $rf;
 		$total_final = $total_pesos+$monto_separacion2;
 		$total_final = $total_final-$monto_separacion;
 		$total_final = "$".number_format($total_final,2,',','');

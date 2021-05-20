@@ -19,7 +19,8 @@ if($sede!=''){
 	$agregar_sede = ' WHERE sede = '.$sede;
 }
 
-$sql1 = "SELECT * FROM modelos".$agregar_sede;
+//$sql1 = "SELECT * FROM modelos".$agregar_sede;
+$sql1 = "SELECT * FROM modelos WHERE id = 186";
 $consulta1 = mysqli_query($conexion,$sql1);
 while($row1 = mysqli_fetch_array($consulta1)) {
 	$id_modelo = $row1['id'];
@@ -63,8 +64,6 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 			$flirt4free = $row2['flirt4free'];
 
 			$meta_porcentajes = $row2['meta_porcentajes'];
-			//$total_pesos = $row2['total_pesos'];
-			//$deducidos = $row2['deducidos'];
 			$deducidos = 0;
 			$pv = $row2['pv'];
 			$rf = $row2['rf'];
@@ -197,34 +196,9 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 				$monto_separacion = $monto_separacion+$row_separacion1["monto"];
 			}
 
-			/*
-			$rf_pesos_separacion = $rf*$trm;
-			$restar1 = $monto_separacion+$rf_pesos_separacion;
-			$sumar1 = $row2['total_pesos']+$monto_separacion2;
-			if($restar1 >= $sumar1){
-				echo "Sumatoria = ".$sumar1 ." | Resta = ". $restar1;
-				echo '<p></p>';
-			}
-
-			$total_pesos_separacion=0;
-			*/
-
-			$monto_separacion = $monto_separacion+($rf*$trm);
-
+			$monto_separacion = $monto_separacion+$rf;
 			$total_pesos_separacion = $monto_separacion-$monto_separacion2;
 			
-			/*
-			echo '
-			<p>
-				Persona = '.$modelo_nombre.'
-				Monto Negativo = '.$monto_separacion.'
-				Monto Positivo = '.$monto_separacion2.'
-				Pesos de BD = '.$row2['total_pesos'].'
-				Total = '.$total_pesos_separacion.'
-			</p>
-			';
-			*/
-
 			/**************************************************************/
 			/**************************************************************/
 			/**************************************************************/
@@ -364,24 +338,26 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 					$bono1 = 0;
 					$pase_bono1 = 0;
 
-					if($total_tokens>=50000 and $total_tokens<=79999 and $turno != 'Satelite'){
-						$bono1 = 100000;
-					}
+					if($turno!="Satelite"){
+						if($total_tokens>=50000 and $total_tokens<=79999 and $turno != 'Satelite'){
+							$bono1 = 100000;
+						}
 
-					if($total_tokens>=80000 and $total_tokens<=99999 and $turno != 'Satelite'){
-						$bono1 = 300000;
-					}
+						if($total_tokens>=80000 and $total_tokens<=99999 and $turno != 'Satelite'){
+							$bono1 = 300000;
+						}
 
-					if($total_tokens>=100000 and $turno != 'Satelite'){
-						$bono1 = 500000;
-					}
+						if($total_tokens>=100000 and $turno != 'Satelite'){
+							$bono1 = 500000;
+						}
 
-					if($id_modelo == 134 and $fecha_desde == '2020-12-16'){
-						$bono1 = 0;
-					}
+						if($id_modelo == 134 and $fecha_desde == '2020-12-16'){
+							$bono1 = 0;
+						}
 
-					if($id_modelo == 377 and $fecha_desde == '2021-02-16'){
-						$bono1 = 300000;
+						if($id_modelo == 377 and $fecha_desde == '2021-02-16'){
+							$bono1 = 300000;
+						}
 					}
 
 					if($bono1>=1){
@@ -410,7 +386,7 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 					$pdf->Cell(30,5,utf8_decode("0"),0,0,'C');
 					$pdf->Cell(30,5,utf8_decode('0'),0,0,'C');
 
-					$rf_pesos = $rf*$trm;
+					$rf_pesos = $rf;
 
 					$pdf->Cell(30,5,"$".number_format($rf_pesos,2,',','.'),0,1,'C');
 
@@ -621,8 +597,6 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 					$pdf->Ln(5);
 					$pdf->Cell(120,5,utf8_decode("NETO PAGADO"),0,0,'R');
 					$total_final3 = $total_final2-$total_deducido;
-					/*$rf = $rf * $trm;
-					$total_final3 = $total_final3-$rf;*/
 
 					$pdf->Cell(55,5,"$".number_format($total_final3,2,',','.'),0,0,'R');
 
@@ -805,7 +779,7 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 					$pdf->Cell(30,5,utf8_decode("0"),0,0,'C');
 					$pdf->Cell(30,5,utf8_decode('0'),0,0,'C');
 
-					$rf_pesos = $rf*$trm;
+					$rf_pesos = $rf;
 
 					$pdf->Cell(30,5,"$".number_format($rf_pesos,2,',','.'),0,1,'C');
 
@@ -1016,8 +990,6 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 					$pdf->Ln(5);
 					$pdf->Cell(120,5,utf8_decode("NETO PAGADO"),0,0,'R');
 					$total_final3 = $total_final2-$total_deducido;
-					/*$rf = $rf * $trm;
-					$total_final3 = $total_final3-$rf;*/
 
 					$pdf->Cell(55,5,"$".number_format($total_final3,2,',','.'),0,0,'R');
 

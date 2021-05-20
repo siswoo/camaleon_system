@@ -36,7 +36,7 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 	$modelo_cedula = $row1['documento_numero'];
 	$turno = $row1['turno'];
 
-	$sql2 = "SELECT * FROM presabana_inactivos WHERE id_modelo = ".$id_modelo." and inicio BETWEEN '".$inicio."' AND '".$fin."' and fin BETWEEN '".$inicio."' AND '".$fin."' and total_dolares >=1 GROUP BY id_modelo ORDER BY id DESC LIMIT 1";
+	$sql2 = "SELECT * FROM presabana_inactivos WHERE id_modelo = ".$id_modelo." and inicio BETWEEN '".$inicio."' AND '".$fin."' and fin BETWEEN '".$inicio."' AND '".$fin."' and total_dolares >=1 ORDER BY id DESC LIMIT 1";
 		$consulta2 = mysqli_query($conexion,$sql2);
 		while($row2 = mysqli_fetch_array($consulta2)) {
 			$fecha_desde = $row2['inicio'];
@@ -55,8 +55,6 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 			$flirt4free = $row2['flirt4free'];
 
 			$meta_porcentajes = $row2['meta_porcentajes'];
-			//$total_pesos = $row2['total_pesos'];
-			//$deducidos = $row2['deducidos'];
 			$deducidos = 0;
 			$pv = $row2['pv'];
 			$rf = $row2['rf'];
@@ -189,33 +187,8 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 				$monto_separacion = $monto_separacion+$row_separacion1["monto"];
 			}
 
-			/*
-			$rf_pesos_separacion = $rf*$trm;
-			$restar1 = $monto_separacion+$rf_pesos_separacion;
-			$sumar1 = $row2['total_pesos']+$monto_separacion2;
-			if($restar1 >= $sumar1){
-				echo "Sumatoria = ".$sumar1 ." | Resta = ". $restar1;
-				echo '<p></p>';
-			}
-
-			$total_pesos_separacion=0;
-			*/
-
-			$monto_separacion = $monto_separacion+($rf*$trm);
-
+			$monto_separacion = $monto_separacion+$rf;
 			$total_pesos_separacion = $monto_separacion-$monto_separacion2;
-			
-			/*
-			echo '
-			<p>
-				Persona = '.$modelo_nombre.'
-				Monto Negativo = '.$monto_separacion.'
-				Monto Positivo = '.$monto_separacion2.'
-				Pesos de BD = '.$row2['total_pesos'].'
-				Total = '.$total_pesos_separacion.'
-			</p>
-			';
-			*/
 
 			/**************************************************************/
 			/**************************************************************/
@@ -411,7 +384,7 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 				$pdf->Cell(30,5,utf8_decode("0"),0,0,'C');
 				$pdf->Cell(30,5,utf8_decode('0'),0,0,'C');
 
-				$rf_pesos = $rf*$trm;
+				$rf_pesos = $rf;
 
 				$pdf->Cell(30,5,"$".number_format($rf_pesos,2,',','.'),0,1,'C');
 
@@ -622,8 +595,6 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 				$pdf->Ln(5);
 				$pdf->Cell(120,5,utf8_decode("NETO PAGADO"),0,0,'R');
 				$total_final3 = $total_final2-$total_deducido;
-				/*$rf = $rf * $trm;
-				$total_final3 = $total_final3-$rf;*/
 
 				$pdf->Cell(55,5,"$".number_format($total_final3,2,',','.'),0,0,'R');
 
