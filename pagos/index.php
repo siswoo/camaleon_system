@@ -982,7 +982,7 @@
 			<div class="form-group col-12 text-center">
 				<button class="btn btn-primary" type="button" value="No" id="crear_extras1" onclick="mostrarSeccionExtras2(this.id,value);">Crear Extras</button>
 				<button class="btn btn-primary ml-3" type="button" value="No" id="consultar_extras1" onclick="mostrarSeccionExtras3(this.id,value);">Consultar Extras</button>
-				<!--<button class="btn btn-primary ml-3" type="button" value="No" id="consultar_extras2" onclick="mostrarSeccionExtras4(this.id,value);">Subir Extras</button>-->
+				<button class="btn btn-primary ml-3" type="button" value="No" id="consultar_extras2" onclick="mostrarSeccionExtras4(this.id,value);">Subir Extras</button>
 				<!--<button class="btn btn-primary ml-3" type="button" value="No" id="consultar_extras2" onclick="mostrarSeccionExtras5(this.id,value);">Subir Extras (ROCIO)</button>-->
 			</div>
 		</div>

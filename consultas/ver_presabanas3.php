@@ -19,8 +19,7 @@ if($sede!=''){
 	$agregar_sede = ' WHERE sede = '.$sede;
 }
 
-//$sql1 = "SELECT * FROM modelos".$agregar_sede;
-$sql1 = "SELECT * FROM modelos WHERE id = 186";
+$sql1 = "SELECT * FROM modelos".$agregar_sede;
 $consulta1 = mysqli_query($conexion,$sql1);
 while($row1 = mysqli_fetch_array($consulta1)) {
 	$id_modelo = $row1['id'];
@@ -454,8 +453,12 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 					$total_devengado_bonos_horas = 0;
 					if($turno!='Satelite'){
 						while($row8 = mysqli_fetch_array($consulta8)) {
-							$bonos_horas_valor = $row8['monto'];
 							$bonos_horas_concepto = $row8['concepto'];
+							if($bonos_horas_concepto=='Amateur'){
+								$bonos_horas_valor = $row8['monto']*$trm;
+							}else{
+								$bonos_horas_valor = $row8['monto'];
+							}
 							$total_devengado_bonos_horas = $total_devengado_bonos_horas+$bonos_horas_valor;
 							$pdf->Ln(5);
 							$pdf->Cell(65,5,utf8_decode(strtoupper($bonos_horas_concepto)),0,0,'');
@@ -847,8 +850,12 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 					$total_devengado_bonos_horas = 0;
 					if($turno!='Satelite'){
 						while($row8 = mysqli_fetch_array($consulta8)) {
-							$bonos_horas_valor = $row8['monto'];
 							$bonos_horas_concepto = $row8['concepto'];
+							if($bonos_horas_concepto=='Amateur'){
+								$bonos_horas_valor = $row8['monto']*$trm;
+							}else{
+								$bonos_horas_valor = $row8['monto'];
+							}
 							$total_devengado_bonos_horas = $total_devengado_bonos_horas+$bonos_horas_valor;
 							$pdf->Ln(5);
 							$pdf->Cell(65,5,utf8_decode(strtoupper($bonos_horas_concepto)),0,0,'');

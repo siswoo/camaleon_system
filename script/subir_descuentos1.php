@@ -35,27 +35,30 @@ for($i=2;$i<=$limite;$i++){
         $nombre_completo = $worksheet->getCell('B'.$i);
         $identificacion = $worksheet->getCell('C'.$i)->getvalue();
         $horas = $worksheet->getCell('D'.$i);
-        $bono_streamate = $worksheet->getCell('E'.$i);
-        $tienda = $worksheet->getCell('F'.$i);
-        $odontologia = $worksheet->getCell('G'.$i);
-        $segsocial = $worksheet->getCell('H'.$i);
-        $coopserpak = $worksheet->getCell('I'.$i);
+        $amateur = $worksheet->getCell('E'.$i);
+        $sancionpagina = $worksheet->getCell('F'.$i);
+        $lenceria = $worksheet->getCell('G'.$i);
+        $sexshop = $worksheet->getCell('H'.$i);
+        $avances = $worksheet->getCell('I'.$i);
         $multas = $worksheet->getCell('J'.$i)->getvalue();
+        $restaurante = $worksheet->getCell('K'.$i)->getvalue();
+
+        /*
         $sexshop = $worksheet->getCell('K'.$i)->getvalue();
         $avances = $worksheet->getCell('L'.$i)->getvalue();
         $belleza = $worksheet->getCell('M'.$i)->getvalue();
         $sancionpagina = $worksheet->getCell('N'.$i);
         $lenceria = $worksheet->getCell('O'.$i);
+        */
 
         $identificacion = intval($identificacion);
         $multas = str_replace('.','',$multas);
         //$sexshop = str_replace('.','',$sexshop);
-        $sexshop = intval($sexshop);
+        //$sexshop = intval($sexshop);
         $avances = str_replace('.','',$avances);
         //$belleza = intval($belleza);
 
         $sql1 = "SELECT * FROM modelos WHERE documento_numero = ".$identificacion;
-        //$sql1 = "SELECT * FROM modelos WHERE documento_numero = 939980927121974";
         $consulta1 = mysqli_query($conexion,$sql1);
         if($consulta1==true){
             $contador1 = mysqli_num_rows($consulta1);
@@ -68,13 +71,26 @@ for($i=2;$i<=$limite;$i++){
 
         if($contador1>=1){
 
-            if($horas!=''){
+            if($horas!='' or $amateur!=''){
                 $sql2 = "DELETE FROM bonos_horas WHERE id_modelo = $id_modelo and fecha_desde BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."' and fecha_hasta BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."'";
                 $consulta2 = mysqli_query($conexion,$sql2);
-                $sql3 = "INSERT INTO bonos_horas (id_modelo,concepto,monto,fecha_desde,fecha_hasta,responsable,fecha_inicio) VALUES ($id_modelo,'Horas',75000,'$fecha_desde','$fecha_hasta','$responsable','$fecha_inicio')";
-                $consulta3 = mysqli_query($conexion,$sql3);
+                if($amateur!=''){
+                    $sql3 = "INSERT INTO bonos_horas (id_modelo,concepto,monto,fecha_desde,fecha_hasta,responsable,fecha_inicio) VALUES ($id_modelo,'Amateur','$amateur','$fecha_desde','$fecha_hasta','$responsable','$fecha_inicio')";
+                    $consulta3 = mysqli_query($conexion,$sql3);
+                }else{
+                    $sql3 = "INSERT INTO bonos_horas (id_modelo,concepto,monto,fecha_desde,fecha_hasta,responsable,fecha_inicio) VALUES ($id_modelo,'Horas',75000,'$fecha_desde','$fecha_hasta','$responsable','$fecha_inicio')";
+                    $consulta3 = mysqli_query($conexion,$sql3);
+                }
             }
 
+            if($restaurante!=''){
+                $sql4 = "DELETE FROM descuento WHERE id_modelo = $id_modelo and fecha_desde BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."' and fecha_hasta BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."'";
+                $consulta4 = mysqli_query($conexion,$sql4);
+                $sql5 = "INSERT INTO descuento (id_modelo,concepto,valor,fecha_desde,fecha_hasta,responsable,fecha_inicio) VALUES ($id_modelo,'Restaurante','$restaurante','$fecha_desde','$fecha_hasta','$responsable','$fecha_inicio')";
+                $consulta5 = mysqli_query($conexion,$sql5);
+            }
+
+            /*
             if($bono_streamate!=''){
                 $sql4 = "DELETE FROM bonos_streamate WHERE id_modelo = $id_modelo and fecha_desde BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."' and fecha_hasta BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."'";
                 $consulta4 = mysqli_query($conexion,$sql4);
@@ -109,6 +125,7 @@ for($i=2;$i<=$limite;$i++){
                 $sql13 = "INSERT INTO coopserpak (id_modelo,concepto,monto,fecha_desde,fecha_hasta,responsable,fecha_inicio) VALUES ($id_modelo,'Coopserpak','$coopserpak','$fecha_desde','$fecha_hasta','$responsable','$fecha_inicio')";
                 $consulta13 = mysqli_query($conexion,$sql13);
             }
+            */
 
             if($multas!=''){
                 $sql14 = "DELETE FROM multas WHERE id_modelo = $id_modelo and fecha_desde BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."' and fecha_hasta BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."'";
@@ -131,12 +148,14 @@ for($i=2;$i<=$limite;$i++){
                 $consulta19 = mysqli_query($conexion,$sql19);
             }
 
+            /*
             if($belleza!=''){
                 $sql20 = "DELETE FROM belleza WHERE id_modelo = $id_modelo and fecha_desde BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."' and fecha_hasta BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."'";
                 $consulta20 = mysqli_query($conexion,$sql20);
                 $sql21 = "INSERT INTO belleza (id_modelo,concepto,monto,fecha_desde,fecha_hasta,responsable,fecha_inicio) VALUES ($id_modelo,'Belleza','$belleza','$fecha_desde','$fecha_hasta','$responsable','$fecha_inicio')";
                 $consulta21 = mysqli_query($conexion,$sql21);
             }
+            */
 
             if($sancionpagina!=''){
                 $sql22 = "DELETE FROM sancionpagina WHERE id_modelo = $id_modelo and fecha_desde BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."' and fecha_hasta BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."'";

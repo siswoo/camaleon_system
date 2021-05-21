@@ -455,8 +455,12 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 					$total_devengado_bonos_horas = 0;
 					if($turno!='Satelite'){
 						while($row8 = mysqli_fetch_array($consulta8)) {
-							$bonos_horas_valor = $row8['monto'];
 							$bonos_horas_concepto = $row8['concepto'];
+							if($bonos_horas_concepto=='Amateur'){
+								$bonos_horas_valor = $row8['monto']*$trm;
+							}else{
+								$bonos_horas_valor = $row8['monto'];
+							}
 							$total_devengado_bonos_horas = $total_devengado_bonos_horas+$bonos_horas_valor;
 							$pdf->Ln(5);
 							$pdf->Cell(65,5,utf8_decode(strtoupper($bonos_horas_concepto)),0,0,'');
@@ -848,8 +852,12 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 					$total_devengado_bonos_horas = 0;
 					if($turno!='Satelite'){
 						while($row8 = mysqli_fetch_array($consulta8)) {
-							$bonos_horas_valor = $row8['monto'];
 							$bonos_horas_concepto = $row8['concepto'];
+							if($bonos_horas_concepto=='Amateur'){
+								$bonos_horas_valor = $row8['monto']*$trm;
+							}else{
+								$bonos_horas_valor = $row8['monto'];
+							}
 							$total_devengado_bonos_horas = $total_devengado_bonos_horas+$bonos_horas_valor;
 							$pdf->Ln(5);
 							$pdf->Cell(65,5,utf8_decode(strtoupper($bonos_horas_concepto)),0,0,'');
