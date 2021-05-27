@@ -292,7 +292,7 @@ while($row2 = mysqli_fetch_array($consulta2)) {
 
 	$total_deducido = 0;
 
-	$sql4 = "SELECT * FROM descuento WHERE id_modelo = ".$id_modelo;
+	$sql4 = "SELECT * FROM descuento WHERE id_modelo = ".$id_modelo." and fecha_desde BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."' and fecha_hasta BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."'";
 	$consulta4 = mysqli_query($conexion,$sql4);
 	while($row4 = mysqli_fetch_array($consulta4)) {
 		$descuento_valor = $row4['valor'];
@@ -306,7 +306,7 @@ while($row2 = mysqli_fetch_array($consulta2)) {
 		$pdf->Cell(30,5,"$".number_format($descuento_valor,2,',','.'),0,1,'C');
 	}
 
-	$sql5 = "SELECT * FROM tienda WHERE id_modelo = ".$id_modelo;
+	$sql5 = "SELECT * FROM tienda WHERE id_modelo = ".$id_modelo." and fecha_desde BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."' and fecha_hasta BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."'";
 	$consulta5 = mysqli_query($conexion,$sql5);
 	while($row5 = mysqli_fetch_array($consulta5)) {
 		$tienda_valor = $row5['valor'];
@@ -353,16 +353,22 @@ while($row2 = mysqli_fetch_array($consulta2)) {
 		$sql8 = "SELECT * FROM bonos_horas WHERE id_modelo = ".$id_modelo." and fecha_desde BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."' and fecha_hasta BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."'";
 		$consulta8 = mysqli_query($conexion,$sql8);
 		$total_devengado_bonos_horas = 0;
-		while($row8 = mysqli_fetch_array($consulta8)) {
-			$bonos_horas_valor = $row8['monto'];
-			$bonos_horas_concepto = $row8['concepto'];
-			$total_devengado_bonos_horas = $total_devengado_bonos_horas+$bonos_horas_valor;
-			$pdf->Ln(5);
-			$pdf->Cell(65,5,utf8_decode(strtoupper($bonos_horas_concepto)),0,0,'');
-			$pdf->Cell(30,5,utf8_decode("0"),0,0,'C');
-			$pdf->Cell(30,5,utf8_decode("0"),0,0,'C');
-			$pdf->Cell(30,5,"$".number_format($bonos_horas_valor,2,',','.'),0,0,'C');
-			$pdf->Cell(30,5,utf8_decode('0'),0,1,'C');
+		if($turno!='Satelite'){
+			while($row8 = mysqli_fetch_array($consulta8)) {
+				$bonos_horas_concepto = $row8['concepto'];
+				if($bonos_horas_concepto=='Amateur'){
+					$bonos_horas_valor = $row8['monto']*$trm;
+				}else{
+					$bonos_horas_valor = $row8['monto'];
+				}
+				$total_devengado_bonos_horas = $total_devengado_bonos_horas+$bonos_horas_valor;
+				$pdf->Ln(5);
+				$pdf->Cell(65,5,utf8_decode(strtoupper($bonos_horas_concepto)),0,0,'');
+				$pdf->Cell(30,5,utf8_decode("0"),0,0,'C');
+				$pdf->Cell(30,5,utf8_decode("0"),0,0,'C');
+				$pdf->Cell(30,5,"$".number_format($bonos_horas_valor,2,',','.'),0,0,'C');
+				$pdf->Cell(30,5,utf8_decode('0'),0,1,'C');
+			}
 		}
 
 		$sql9 = "SELECT * FROM bonos_streamate WHERE id_modelo = ".$id_modelo." and fecha_desde BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."' and fecha_hasta BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."'";

@@ -95,35 +95,33 @@ for($i=1;$i<=$limite;$i++){
             $cantidad_tokens = strlen($tokens);
             if($cantidad_tokens>=6){
                 $tokens = str_replace(".", "", $tokens);    
-            }else{
-                //$tokens = str_replace(",", "", $tokens);
             }
             
             $fecha_inicio = $fecha_inicio;
             $limpiar = 0;
 
-            /*
-            if($nickname=='3Mature_Jess'){
-                echo $tokens;
-                exit;
-            }
-            */
-
             $detectar1 = substr($nickname,0,1);
+
             if($detectar1=='1' or $detectar1=='2' or $detectar1=='3' or $detectar1=='4' or $detectar1=='5' or $detectar1=='6' or $detectar1=='7' or $detectar1=='8' or $detectar1=='9' or $detectar1=='0'){
                 $limpiar = 1;
                 $detectar2 = substr($nickname,1,1);
                 if($detectar2=='1' or $detectar2=='2' or $detectar2=='3' or $detectar2=='4' or $detectar2=='5' or $detectar2=='6' or $detectar2=='7' or $detectar2=='8' or $detectar2=='9' or $detectar2=='0'){
                     $limpiar = 2;
                 }
+
                 $detectar3 = substr($nickname,2,1);
                 if($detectar3=='1' or $detectar3=='2' or $detectar3=='3' or $detectar3=='4' or $detectar3=='5' or $detectar3=='6' or $detectar3=='7' or $detectar3=='8' or $detectar3=='9' or $detectar3=='0'){
                     $limpiar = 3;
                 }
+
             }
 
-            if($limpiar>=1){
-                $nickname = substr($nickname,$limpiar);
+            if($nickname!='6869bulma'){
+                if($limpiar>=1){
+                    $nickname = substr($nickname,$limpiar);
+                }
+            }else{
+                $nickname = '69bulma';
             }
             
             $sql2 = "INSERT INTO stripchat (nickname, tokens, fecha, responsable, fecha_inicio) VALUES ('$nickname','$tokens','$fecha_stripchat','$responsable','$fecha_inicio')";

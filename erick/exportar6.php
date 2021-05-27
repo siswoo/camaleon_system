@@ -119,7 +119,11 @@ while($row1 = mysqli_fetch_array($consulta)) {
 		$sql_separacion1 = "SELECT * FROM bonos_horas WHERE id_modelo = ".$id_modelo." and fecha_desde BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."' and fecha_hasta BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."'";
 		$consultas_separacion1 = mysqli_query($conexion,$sql_separacion1);
 		while($row_separacion1 = mysqli_fetch_array($consultas_separacion1)) {
-			$monto_separacion2 = $monto_separacion2+$row_separacion1["monto"];
+			if($row_separacion1["concepto"]=='Amateur'){
+				$monto_separacion2 = $monto_separacion2+($row_separacion1["monto"]*$trm);
+			}else{
+				$monto_separacion2 = $monto_separacion2+$row_separacion1["monto"];
+			}
 		}
 
 		$sql_separacion1 = "SELECT * FROM bonos_streamate WHERE id_modelo = ".$id_modelo." and fecha_desde BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."' and fecha_hasta BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."'";
