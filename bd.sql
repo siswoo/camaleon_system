@@ -143,7 +143,9 @@ INSERT INTO usuarios (nombre,apellido,documento_tipo,documento_numero,correo,usu
 ('pasantemanrique','pasantemanrique','Cedula de Ciudadania','77777777777','pasantemanrique@gmail.com','pasantemanrique','a5604eb6a51af9e9719bb9fda7bf0686','777777777777','',4,9,'2021-03-30'),
 
 ('Valentina','Linares','Cedula de Ciudadania','1026594002','givalimu0321@gmail.com','valentina0321','cd2acea595e93463bc8ea3b6d1583fc9','3222791497','',8,6,'2021-03-31'),
-('Lizeth','Reyes','Cedula de Ciudadania','1073699719','santiagoreyes1201@gmail.com','reyes19','30d708ec57e485cd54a78968d278959f','3123109781','',15,6,'2021-04-01');
+('Lizeth','Reyes','Cedula de Ciudadania','1073699719','santiagoreyes1201@gmail.com','reyes19','30d708ec57e485cd54a78968d278959f','3123109781','',15,6,'2021-04-01'),
+
+('Buffet','Buffet','Cedula de Ciudadania','999999999999','Buffet@gmail.com','Buffet','999999999999999999999','999999999999999','',1,1,'2021-06-01');
 ALTER TABLE usuarios CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 DROP TABLE IF EXISTS modelos;
@@ -1361,4 +1363,18 @@ CREATE TABLE trm1 (
 	fecha_inicio date NOT NULL,
 	PRIMARY KEY (id)
 );ALTER TABLE trm1 CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+DROP TABLE IF EXISTS n_descuentos;
+CREATE TABLE n_descuentos (
+	id INT AUTO_INCREMENT,
+	id_nomina INT NOT NULL,
+	concepto VARCHAR(250) NOT NULL,
+	valor INT NOT NULL,
+	fecha_asignada date NOT NULL,
+	descuento VARCHAR(250) NOT NULL,
+	responsable INT NOT NULL,
+	fecha_inicio date NOT NULL,
+	PRIMARY KEY (id)
+);ALTER TABLE n_descuentos CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
 
