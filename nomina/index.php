@@ -498,6 +498,19 @@
 							    	?>
 							    </select>
 						    </div>
+						    <div class="col-12 form-group form-check" style="font-size: 20px; font-weight: bold;">APARTADO DE EMERGENCIA</div>
+						    <div class="col-12 form-group form-check">
+							    <label for="edit_emergencia_nombre">Emergencia Nombre</label>
+							    <input type="text" id="edit_emergencia_nombre" name="edit_emergencia_nombre" value="" class="form-control" readonly>
+						    </div>
+						    <div class="col-6 form-group form-check">
+							    <label for="edit_emergencia_telefono">Emergencia Teléfono</label>
+							    <input type="text" id="edit_emergencia_telefono" name="edit_emergencia_telefono" value="" class="form-control" readonly>
+						    </div>
+						    <div class="col-6 form-group form-check">
+							    <label for="edit_emergencia_parentesco">Emergencia Parentesco</label>
+							    <input type="text" id="edit_emergencia_parentesco" name="edit_emergencia_parentesco" value="" class="form-control" readonly>
+						    </div>
 					    </div>
 					</div>
 					<div class="modal-footer">
@@ -839,6 +852,10 @@
 				}else{
 					$("#edit_contrato").val(respuesta["contrato"]);
 				}
+
+				$("#edit_emergencia_nombre").val(respuesta["emergencia_nombre"]);
+				$("#edit_emergencia_telefono").val(respuesta["emergencia_telefono"]);
+				$("#edit_emergencia_parentesco").val(respuesta["emergencia_parentesco"]);
 			},
 
 			error: function(respuesta) {

@@ -28,6 +28,13 @@
 			<a href="reporte1.php">
 				<button type="button" class="btn btn-primary" id="button1" name="button1">Personas Inactivas</button>
 			</a>
+			<a href="reporte2.php">
+				<button type="button" class="btn btn-primary ml-3" id="button1" name="button1">Exportable del 01-15 Mayo</button>
+			</a>
+
+			<a href="reporte3.php">
+				<button type="button" class="btn btn-primary ml-3" id="button1" name="button1">Exportable del 16-31 Mayo</button>
+			</a>
 		</div>
 	</div>
 </div>

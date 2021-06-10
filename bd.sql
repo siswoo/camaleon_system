@@ -146,6 +146,7 @@ INSERT INTO usuarios (nombre,apellido,documento_tipo,documento_numero,correo,usu
 ('Lizeth','Reyes','Cedula de Ciudadania','1073699719','santiagoreyes1201@gmail.com','reyes19','30d708ec57e485cd54a78968d278959f','3123109781','',15,6,'2021-04-01'),
 
 ('Buffet','Buffet','Cedula de Ciudadania','999999999999','Buffet@gmail.com','Buffet','999999999999999999999','999999999999999','',1,1,'2021-06-01');
+('Spa','Spa','Cedula de Ciudadania','999999999999','Spa@gmail.com','Spa','cc91e646ffef196e61f25dce2ada9ae5','999999999999999','',1,1,'2021-06-01');
 ALTER TABLE usuarios CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 DROP TABLE IF EXISTS modelos;
@@ -369,6 +370,8 @@ CREATE TABLE modelos_cuentas (
 	clave VARCHAR(250) NOT NULL,
 	correo VARCHAR(250) NOT NULL,
 	link VARCHAR(250) NOT NULL,
+	nickname_xlove VARCHAR(250) NOT NULL,
+	edit_usuario_bonga VARCHAR(250) NOT NULL,
 	estatus VARCHAR(250) NOT NULL,
 	fecha_inicio date NOT NULL,
 	PRIMARY KEY (id)

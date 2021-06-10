@@ -914,6 +914,10 @@
 					    		<label>Nickname Xlove</label>
 					    		<input type="text" name="nickname_xlove" id="nickname_xlove" class="form-control">
 					    	</div>
+					    	<div class="col-12 mt-2">
+					    		<label>Usuario de Login Bonga</label>
+					    		<input type="text" name="usuario_bonga" id="usuario_bonga" class="form-control">
+					    	</div>
 					    </div>
 					</div>
 					<div class="modal-footer">
@@ -1415,6 +1419,8 @@
     	
     	if(pagina_id==11){
     		var nickname_xlove = $('#edit_cuenta_nickname_xlove_'+modelo_cuenta_id).val();
+    	}else if(pagina_id==4){
+    		var usuario_bonga = $('#edit_usuario_bonga_'+modelo_cuenta_id).val();
     	}else{
     		var nickname_xlove = "";
     	}
@@ -1430,6 +1436,7 @@
            		"cuenta_correo": cuenta_correo,
            		"cuenta_link": cuenta_link,
            		"nickname_xlove": nickname_xlove,
+           		"usuario_bonga": usuario_bonga,
            	},
 
             beforeSend: function (){},
@@ -1477,15 +1484,6 @@
 						text: 'Intentar con otro nombre de usuario',
 						showConfirmButton: true,
 					});
-					/*
-					Swal.fire({
-						position: 'center',
-						icon: 'error',
-						title: 'Cuenta ya existentes! ',
-						text: respuesta['duplicados_documentos'][1]+' -> '+respuesta['duplicados_nombres'][1],
-						showConfirmButton: true,
-					});
-					*/
 					return false;
 				}
 
@@ -1497,31 +1495,11 @@
 						text: 'Agregado correctamente',
 						showConfirmButton: true,
 					});
-					/*
-					Swal.fire({
-						position: 'center',
-						icon: 'error',
-						title: 'Cuenta ya existente!',
-						text: 'Solo se permite una misma cuenta para esta pagina',
-						showConfirmButton: true,
-					});
-					*/
 					$("#Modal_cuentas2").modal('hide');
 					$('#Modal_cuentas2').removeClass('modal-open');
 					$('.modal-backdrop').remove();
 					return false;
 				}
-				/*
-				Swal.fire({
-					position: 'center',
-					icon: 'success',
-					title: 'Se ha registrado la cuenta!',
-					showConfirmButton: true,
-				});
-				$("#Modal_cuentas2").modal('hide');
-				$('#Modal_cuentas2').removeClass('modal-open');
-				$('.modal-backdrop').remove();
-				*/
 			},
 
 			error: function(respuesta) {

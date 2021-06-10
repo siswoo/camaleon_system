@@ -1395,6 +1395,7 @@
 						$id_modelos_cuentas_link = $row5['link'];
 						$id_modelos_cuentas_estatus = $row5['estatus'];
 						$id_modelos_cuentas_fecha_inicio = $row5['fecha_inicio'];
+						$modelos_usuario_bonga = $row5['usuario_bonga'];
 
 						$sql6 = "SELECT * FROM paginas WHERE id = ".$id_modelos_cuentas_id_paginas;
 						$consulta6 = mysqli_query($conexion,$sql6);

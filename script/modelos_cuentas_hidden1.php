@@ -12,14 +12,24 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 	$id_modelos_cuentas_correo = $row1['correo'];
 	$id_modelos_cuentas_link = $row1['link'];
 	$id_modelos_cuentas_estatus = $row1['estatus'];
+	$modelos_usuario_bonga = $row1['usuario_bonga'];
 	$id_modelos_cuentas_fecha_inicio = $row1['fecha_inicio'];
 
 	if($id_modelos_cuentas_estatus=='Aprobada'){
-		$html.='
-			<p><hr style="background-color: white;"></p>
-			<p>Usuario: '.$id_modelos_cuentas_usuario.'</p>
-			<p>Clave: '.$id_modelos_cuentas_clave.'</p>
-		';
+		
+		if($modelos_usuario_bonga!=''){
+			$html.='
+				<p><hr style="background-color: white;"></p>
+				<p>Usuario: '.$modelos_usuario_bonga.'</p>
+				<p>Clave: '.$id_modelos_cuentas_clave.'</p>
+			';
+		}else{
+			$html.='
+				<p><hr style="background-color: white;"></p>
+				<p>Usuario: '.$id_modelos_cuentas_usuario.'</p>
+				<p>Clave: '.$id_modelos_cuentas_clave.'</p>
+			';
+		}
 		if($id_modelos_cuentas_correo!=''){
 			$html.='
 				<p>Correo: '.$id_modelos_cuentas_correo.'</p>

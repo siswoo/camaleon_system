@@ -23,14 +23,6 @@ while($row_verificacion = mysqli_fetch_array($verificacion_rol)) {
 ?>
 
 <?php
-/************EXCLUSION DE PERSONAS**************/
-if($_SESSION['id']==3 or $_SESSION['id']==649){
-	//exit;
-}
-/***********************************************/
-?>
-
-<?php
 if($ubicacion == 'welcome'){ ?>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: black !important;">
 <?php }else{ ?>
@@ -68,20 +60,6 @@ if($ubicacion == 'welcome'){ ?>
 	      		</li>
 			<?php } ?>
 			
-			<!--
-			<?php
-			if($verificacion_roles_view==1){ ?>
-		      	<li class="nav-item" id="li-roles">
-		        	<a class="nav-link navbar-active-a" href="../roles/index.php" id="a-roles">Roles</a>
-		      	</li>
-	      	<?php } ?>
-	      	-->
-	      	
-	      	<!--
-	      	<li class="nav-item" id="li-seguridad">
-	        	<a class="nav-link navbar-active-a" href="../seguridad/index.php" id="a-seguridad">Seguridad</a>
-	      	</li>
-			-->
 	      	<?php
 			if(($verificacion_pasante_view==1 or $_SESSION['rol']==14 or $_SESSION['rol']==15)){ ?>
 		      	<li class="nav-item" id="li-pasante">
@@ -95,17 +73,6 @@ if($ubicacion == 'welcome'){ ?>
 		        	<a class="nav-link navbar-active-a botones_navbar1" href="../usuarios/index.php" id="a-usuario">Usuarios</a>
 		      	</li>
 	      	<?php } ?>
-
-	      	<?php
-	      	/*
-			if($verificacion_reporteModelos_view==1){ ?>
-	      	<li class="nav-item" id="li-Rinicio">
-	        	<a class="nav-link navbar-active-a" href="../reportes/reporte_inicio.php" id="a-Rinicio">R Inicio</a>
-	      	</li>
-	      	<?php } 
-			*/
-	      	?>
-
 	      	
 	      	<?php
 			if($_SESSION['rol']==7 or $_SESSION['id']==3 or $_SESSION['id']==1){ ?>
@@ -114,34 +81,6 @@ if($ubicacion == 'welcome'){ ?>
 	      	</li>
 	      	<?php } ?>
 	      	
-
-	      	<?php
-	      	/*
-			if($verificacion_sedes_view==1){ ?>
-	      	<li class="nav-item" id="li-sedes">
-	        	<a class="nav-link navbar-active-a" href="../sedes/index.php" id="a-sedes">Sedes</a>
-	      	</li>
-	      	<?php } 
-	      	*/
-	      	?>
-
-	      	<?php
-	      	/*
-			if($verificacion_paginas_view==1){ ?>
-	      	<li class="nav-item" id="li-paginas">
-	        	<a class="nav-link navbar-active-a" href="../paginas/index.php" id="a-paginas">Paginas</a>
-	      	</li>
-	      	<?php } 
-			*/
-	      	?>
-	      	<!--
-	      	<?php
-			if($_SESSION['rol']==1 or $_SESSION['rol']==7){ ?>
-	      	<li class="nav-item" id="li-reportes">
-	        	<a class="nav-link navbar-active-a" href="../reportes/index.php" id="a-reportes">Reportes</a>
-	      	</li>
-	      	<?php } ?>
-	      	-->
 
 	      	<?php
 	      	// 1722 == valentina  |  1056 == juliana  |  
@@ -155,6 +94,20 @@ if($ubicacion == 'welcome'){ ?>
 			if($_SESSION['rol']==1 or $_SESSION['rol']==13){ ?>
 	      	<li class="nav-item" id="li-erick">
 	        	<a class="nav-link navbar-active-a botones_navbar1" href="../erick/index.php" id="a-erick">Erick</a>
+	      	</li>
+	      	<?php } ?>
+
+	      	<?php
+			if($_SESSION['rol']==1 or $_SESSION['rol']==14){ ?>
+	      	<li class="nav-item" id="li-buffet">
+	        	<a class="nav-link navbar-active-a botones_navbar1" href="../buffet/index.php" id="a-buffet">Buffet</a>
+	      	</li>
+	      	<?php } ?>
+
+	      	<?php
+			if($_SESSION['rol']==1 or $_SESSION['rol']==14){ ?>
+	      	<li class="nav-item" id="li-spa">
+	        	<a class="nav-link navbar-active-a botones_navbar1" href="../spa/index.php" id="a-spa">Spa</a>
 	      	</li>
 	      	<?php } ?>
 

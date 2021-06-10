@@ -74,6 +74,10 @@ if($condicion=='consultar1'){
 		$fecha_expedicion = $row1['fecha_expedicion'];
 		$funcion = $row1['funcion'];
 		$contrato = $row1['contrato'];
+
+		$emergencia_nombre = $row1['emergencia_nombre'];
+		$emergencia_telefono = $row1['emergencia_telefono'];
+		$emergencia_parentesco = $row1['emergencia_parentesco'];
 	}
 
 	$datos = [
@@ -98,6 +102,9 @@ if($condicion=='consultar1'){
 		"fecha_expedicion" => $fecha_expedicion,
 		"funcion" => $funcion,
 		"contrato" => $contrato,
+		"emergencia_nombre" => $emergencia_nombre,
+		"emergencia_telefono" => $emergencia_telefono,
+		"emergencia_parentesco" => $emergencia_parentesco,
 	];
 
 	echo json_encode($datos);

@@ -59,6 +59,8 @@ $(document).ready(function(){
         $('#a-reportes').attr('href','reportes/index.php');
         $('#a-pagos').attr('href','pagos/index.php');
         $('#a-erick').attr('href','erick/index.php');
+        $('#a-buffet').attr('href','buffet/index.php');
+        $('#a-spa').attr('href','spa/index.php');
         $('#a-community').attr('href','community/index.php');
         $('#a-consultas').attr('href','consultas/index.php');
         $('#a-pqr').attr('href','pqr/index.php');

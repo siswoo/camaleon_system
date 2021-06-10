@@ -13,3 +13,5 @@ if (!mysqli_set_charset($conexion, "utf8")) {
 } else {
     //printf("Conjunto de caracteres actual: %s\n", mysqli_character_set_name($conexion));
 }
+
+date_default_timezone_set("America/Bogota");
