@@ -145,8 +145,14 @@ INSERT INTO usuarios (nombre,apellido,documento_tipo,documento_numero,correo,usu
 ('Valentina','Linares','Cedula de Ciudadania','1026594002','givalimu0321@gmail.com','valentina0321','cd2acea595e93463bc8ea3b6d1583fc9','3222791497','',8,6,'2021-03-31'),
 ('Lizeth','Reyes','Cedula de Ciudadania','1073699719','santiagoreyes1201@gmail.com','reyes19','30d708ec57e485cd54a78968d278959f','3123109781','',15,6,'2021-04-01'),
 
-('Buffet','Buffet','Cedula de Ciudadania','999999999999','Buffet@gmail.com','Buffet','999999999999999999999','999999999999999','',1,1,'2021-06-01');
-('Spa','Spa','Cedula de Ciudadania','999999999999','Spa@gmail.com','Spa','cc91e646ffef196e61f25dce2ada9ae5','999999999999999','',1,1,'2021-06-01');
+('Buffet','Buffet','Cedula de Ciudadania','999999999999','Buffet@gmail.com','Buffet','999999999999999999999','999999999999999','',1,1,'2021-06-01'),
+('Spa','Spa','Cedula de Ciudadania','999999999999','Spa@gmail.com','Spa','cc91e646ffef196e61f25dce2ada9ae5','999999999999999','',1,1,'2021-06-01'),
+
+('Miguel','Molina','Cedula de Ciudadania','1032441680','migueldanza91@outlook.com','migueladmoccidente1','38bf6d2d4596f6e1e885d34c3e7e9649','3104782087','',15,3,'2021-06-17'),
+
+
+('Karen Saray','Giraldo Medina','Cedula de Ciudadania','1010073466','k23giraldo@gmail.com','karensgm1','c6ce9b2c6904aa4b0071569f112fb1d9','3104782087','',8,6,'2021-06-22');
+
 ALTER TABLE usuarios CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 DROP TABLE IF EXISTS modelos;
@@ -930,6 +936,7 @@ CREATE TABLE monitores (
 	tipo_documento VARCHAR(250) NOT NULL,
 	numero_documento VARCHAR(250) NOT NULL,
 	telefono VARCHAR(250) NOT NULL,
+	estatus INT NOT NULL,
 	fecha_inicio DATE NOT NULL,
    	PRIMARY KEY (id)
 ); ALTER TABLE monitores CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;

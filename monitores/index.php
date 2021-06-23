@@ -142,7 +142,7 @@
 							    <select id="edit_monitor" name="edit_monitor" class="form-control" required>
 							    	<option value="">Seleccione</option>
 							    	<?php
-							    	$sql1 = "SELECT * FROM monitores";
+							    	$sql1 = "SELECT * FROM monitores WHERE estatus = 1";
 							    	$consulta1 = mysqli_query($conexion,$sql1);
 							    	while($row1 = mysqli_fetch_array($consulta1)) { ?>
 							    		<option style="text-transform: capitalize;" value="<?php echo $row1['id']; ?>"><?php echo $row1['nombre']." ".$row1['apellido']; ?></option>
@@ -258,7 +258,7 @@
 							    <select id="monitor_registro" name="monitor_registro" class="form-control" required>
 							    	<option value="">Seleccione</option>
 							    	<?php
-							    	$sql1 = "SELECT * FROM monitores";
+							    	$sql1 = "SELECT * FROM monitores WHERE estatus = 1";
 							    	$consulta1 = mysqli_query($conexion,$sql1);
 							    	while($row1 = mysqli_fetch_array($consulta1)) { ?>
 							    		<option style="text-transform: capitalize;" value="<?php echo $row1['id']; ?>"><?php echo $row1['nombre']." ".$row1['apellido']; ?></option>
@@ -333,7 +333,7 @@
 							<select id="monitor1" name="monitor1" class="form-control" required>
 								<option value="">Seleccione</option>
 							    <?php
-							    $sql1 = "SELECT * FROM monitores";
+							    $sql1 = "SELECT * FROM monitores WHERE estatus = 1";
 							    $consulta1 = mysqli_query($conexion,$sql1);
 							    while($row1 = mysqli_fetch_array($consulta1)) { ?>
 							    	<option style="text-transform: capitalize;" value="<?php echo $row1['id']; ?>"><?php echo $row1['nombre']." ".$row1['apellido']; ?></option>
