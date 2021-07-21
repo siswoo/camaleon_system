@@ -139,6 +139,7 @@
 			                <th class="text-center">Modelo</th>
 			                <th class="text-center">Tipo Documento</th>
 			                <th class="text-center">Numero Documento</th>
+			                <th class="text-center">Total</th>
 			                <th class="text-center">Fecha Asignada</th>
 			            </tr>
 			        </thead>
@@ -155,6 +156,7 @@
 			        			$descuento_id = $row2['id'];
 			        			$id_modelo = $row2['id_modelo'];
 			        			$fecha_inicio = $row2['fecha_inicio'];
+			        			$valor = $row2['valor'];
 
 			        			$sql3 = "SELECT * FROM modelos WHERE id = ".$id_modelo;
 				        		$consulta3 = mysqli_query($conexion,$sql3);
@@ -170,6 +172,7 @@
 			        					<td class="text-center" id="modelo_nombre_'.$descuento_id.'">'.$modelo_nombre.'</td>
 			        					<td class="text-center" id="documento_tipo_'.$descuento_id.'">'.$documento_tipo.'</td>
 			        					<td class="text-center" id="documento_numero_'.$descuento_id.'">'.$documento_numero.'</td>
+			        					<td class="text-center" id="valor_'.$descuento_id.'">'.$valor.'</td>
 			        					<td class="text-center" id="fecha_inicio_'.$descuento_id.'">'.$fecha_inicio.'</td>
 			        				</tr>
 			        			';
@@ -237,7 +240,7 @@
         	},
 
         	"paging": true,
-        	"order": [[ 4, "desc" ]],
+        	"order": [[ 5, "desc" ]],
 
     	} );
 

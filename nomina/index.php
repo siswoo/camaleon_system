@@ -1076,6 +1076,8 @@
 			$('#correo').val("callcenter@camaleonmg.com");
 		}else if(value==38){
 			$('#correo').val("adminspa@camaleonmg.com");
+		}else if(value==39){
+			$('#correo').val("auditorpagos@camaleonmg.com");
 		}
 	}
 
@@ -1156,6 +1158,8 @@
 			$('#edit_correo').val("callcenter@camaleonmg.com");
 		}else if(value==38){
 			$('#edit_correo').val("adminspa@camaleonmg.com");
+		}else if(value==39){
+			$('#edit_correo').val("auditorpagos@camaleonmg.com");
 		}
 	}
 

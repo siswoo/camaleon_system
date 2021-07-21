@@ -187,10 +187,10 @@
 			<select name="desprendible_select2" id="desprendible_select2" class="form-control" required>
 				<option value="">Seleccione</option>
 				<?php
-				$sql1 = "SELECT * FROM presabana_inactivos WHERE inicio >= '2021-01-01' GROUP BY inicio ORDER BY inicio";
+				$sql1 = "SELECT * FROM presabana WHERE inicio >= '2021-01-01' GROUP BY inicio ORDER BY inicio";
 				$consulta1 = mysqli_query($conexion,$sql1);
 				while($row1 = mysqli_fetch_array($consulta1)) { ?>
-					<option value="<?php echo $row1['inicio']; ?>">Desde <?php echo $row1['inicio']; ?> Hasta <?php echo $row1['fin']; ?></option>
+					<option value="<?php echo $row1['inicio']." --- ".$row1['fin']; ?>">Desde <?php echo $row1['inicio']; ?> Hasta <?php echo $row1['fin']; ?></option>
 				<?php } ?>
 			</select>
 		</div>

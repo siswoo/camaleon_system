@@ -3,13 +3,17 @@ session_start();
 include('conexion.php');
 require('../resources/fpdf/fpdf.php');
 
-$inicio = $_POST['desprendible_select2'];
+$variable = explode(" --- ",$_POST['desprendible_select2']);
+$inicio = $variable[0];
+$fin = $variable[1];
 
-$sql7 = "SELECT * FROM presabana_inactivos WHERE inicio = '".$inicio."'";
+/*
+$sql7 = "SELECT * FROM presabana_inactivos WHERE inicio BETWEEN '".$inicio."' AND '".$fin."' and fin BETWEEN '".$inicio."' AND '".$fin."' and total_dolares >= 1 LIMIT 1";
 $consulta7 = mysqli_query($conexion,$sql7);
 while($row7 = mysqli_fetch_array($consulta7)) {
 	$fin = $row7['fin'];
 }
+*/
 
 class PDF extends FPDF{}
 
