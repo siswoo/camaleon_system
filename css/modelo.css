@@ -1,66 +1,66 @@
-body{
-	font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
-}
-
-.seccion1{
-	margin-top: 2rem;
-	/*background-color: black;
-	height: 1000px;*/
-}
-
-.titulo1{
-	font-weight: bold;
-	font-size: 21px;
-}
-
-.olvido1{
-	margin-top: 0.5rem;
-}
-
-.olvido1 a{
-	font-weight: bold;
-	font-size: 14px;
-	color: red;
-	cursor: pointer;
-	text-decoration: none;
-}
-
-label{
-	font-weight: bold;
-}
-
-.navbar-active{
-	border-bottom: 2px solid green;
-}
-
-.navbar-active-a{
-	font-weight: bold;
-	font-size: 16px;
-	color: #131313d4 !important;
-}
-
-.nav-item{
-	margin-right: 10px;
-}
-
-
-@media (min-height: 10px) and (max-height: 400px) {
-
-}
-
-.container_consulta1{
-	width: 99%;
-	margin-right: auto;
-	margin-left: auto;
-	padding-left: 2rem;
-	padding-right: 2rem;
-}
-
-td.highlight {
-    background-color: whitesmoke !important;
-}
-
-.botones_navbar1{
-	color: white !important;
-	text-transform: uppercase;
+body{
+	font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+}
+
+.seccion1{
+	margin-top: 2rem;
+	/*background-color: black;
+	height: 1000px;*/
+}
+
+.titulo1{
+	font-weight: bold;
+	font-size: 21px;
+}
+
+.olvido1{
+	margin-top: 0.5rem;
+}
+
+.olvido1 a{
+	font-weight: bold;
+	font-size: 14px;
+	color: red;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+label{
+	font-weight: bold;
+}
+
+.navbar-active{
+	border-bottom: 2px solid green;
+}
+
+.navbar-active-a{
+	font-weight: bold;
+	font-size: 16px;
+	color: #131313d4 !important;
+}
+
+.nav-item{
+	margin-right: 10px;
+}
+
+
+@media (min-height: 10px) and (max-height: 400px) {
+
+}
+
+.container_consulta1{
+	width: 99%;
+	margin-right: auto;
+	margin-left: auto;
+	padding-left: 2rem;
+	padding-right: 2rem;
+}
+
+td.highlight {
+    background-color: whitesmoke !important;
+}
+
+.botones_navbar1{
+	color: white !important;
+	text-transform: uppercase;
 }

@@ -23,89 +23,92 @@ while($row5 = mysqli_fetch_array($consulta5)) {
 }
 
 if($_SESSION["rol"]!=1){
-	$sql1 = "SELECT * FROM modelos WHERE sede = ".$_SESSION['sede'];
+	$sql1 = "SELECT * FROM presabana WHERE sede = ".$_SESSION['sede']." and inicio BETWEEN '".$inicio."' AND '".$fin."' and fin BETWEEN '".$inicio."' AND '".$fin."' and total_dolares >=1";
 }else{
-	$sql1 = "SELECT * FROM modelos";
+	$sql1 = "SELECT * FROM presabana WHERE inicio BETWEEN '".$inicio."' AND '".$fin."' and fin BETWEEN '".$inicio."' AND '".$fin."' and total_dolares >=1";
 }
 
 $consulta1 = mysqli_query($conexion,$sql1);
 while($row1 = mysqli_fetch_array($consulta1)) {
-	$id_modelo = $row1['id'];
-	$modelo_nombre = $row1['nombre1']." ".$row1['nombre2']." ".$row1['apellido1']." ".$row1['apellido2'];
-	$modelo_tipo_documento = $row1['documento_tipo'];
-	$modelo_cedula = $row1['documento_numero'];
-	$turno = $row1['turno'];
 
-	$sql2 = "SELECT * FROM presabana WHERE id_modelo = ".$id_modelo." and inicio BETWEEN '".$inicio."' AND '".$fin."' and fin BETWEEN '".$inicio."' AND '".$fin."' and total_dolares >=1";
-		$consulta2 = mysqli_query($conexion,$sql2);
-		while($row2 = mysqli_fetch_array($consulta2)) {
-			$fecha_desde = $row2['inicio'];
-			$fecha_hasta = $row2['fin'];
+	$id_modelo = $row1['id_modelo'];
 
-			$chaturbate = $row2['chaturbate'];
-			$imlive = $row2['imlive'];
-			$xlove = $row2['xlove'];
-			$stripchat = $row2['stripchat'];
-			$streamate = $row2['streamate'];
-			$myfreecams = $row2['myfreecams'];
-			$livejasmin = $row2['livejasmin'];
-			$bonga = $row2['bonga'];
-			$cam4 = $row2['cam4'];
-			$camsoda = $row2['camsoda'];
-			$flirt4free = $row2['flirt4free'];
+	$fecha_desde = $row1['inicio'];
+	$fecha_hasta = $row1['fin'];
 
-			$meta_porcentajes = $row2['meta_porcentajes'];
-			$deducidos = 0;
-			$pv = $row2['pv'];
-			$rf = $row2['rf'];
-			$trm = $row2['trm'];
+	$chaturbate = $row1['chaturbate'];
+	$imlive = $row1['imlive'];
+	$xlove = $row1['xlove'];
+	$stripchat = $row1['stripchat'];
+	$streamate = $row1['streamate'];
+	$myfreecams = $row1['myfreecams'];
+	$livejasmin = $row1['livejasmin'];
+	$bonga = $row1['bonga'];
+	$cam4 = $row1['cam4'];
+	$camsoda = $row1['camsoda'];
+	$flirt4free = $row1['flirt4free'];
 
-			$total_pesos_chaturbate = $chaturbate*0.05;
-			$total_pesos_chaturbate = $total_pesos_chaturbate*$trm;
+	$meta_porcentajes = $row1['meta_porcentajes'];
+	$deducidos = 0;
+	$pv = $row1['pv'];
+	$rf = $row1['rf'];
+	$trm = $row1['trm'];
 
-			$total_pesos_imlive 	= $imlive*0.05;
-			$total_pesos_imlive 	= $total_pesos_imlive*$trm;
+	$total_pesos_chaturbate = $chaturbate*0.05;
+	$total_pesos_chaturbate = $total_pesos_chaturbate*$trm;
 
-			$total_pesos_xlove 		= $xlove*0.05;
-			$total_pesos_xlove 		= $total_pesos_xlove*$trm;
+	$total_pesos_imlive 	= $imlive*0.05;
+	$total_pesos_imlive 	= $total_pesos_imlive*$trm;
 
-			$total_pesos_stripchat 	= $stripchat*0.05;
-			$total_pesos_stripchat 	= $total_pesos_stripchat*$trm;
+	$total_pesos_xlove 		= $xlove*0.05;
+	$total_pesos_xlove 		= $total_pesos_xlove*$trm;
 
-			$total_pesos_streamate 	= $streamate*0.05;
-			$total_pesos_streamate 	= $total_pesos_streamate*$trm;
+	$total_pesos_stripchat 	= $stripchat*0.05;
+	$total_pesos_stripchat 	= $total_pesos_stripchat*$trm;
 
-			$total_pesos_myfreecams = $myfreecams*0.05;
-			$total_pesos_myfreecams = $total_pesos_myfreecams*$trm;
+	$total_pesos_streamate 	= $streamate*0.05;
+	$total_pesos_streamate 	= $total_pesos_streamate*$trm;
 
-			$total_pesos_livejasmin = $livejasmin*0.05;
-			$total_pesos_livejasmin = $total_pesos_livejasmin*$trm;
+	$total_pesos_myfreecams = $myfreecams*0.05;
+	$total_pesos_myfreecams = $total_pesos_myfreecams*$trm;
 
-			$total_pesos_bonga 		= $bonga*0.05;
-			$total_pesos_bonga 		= $total_pesos_bonga*$trm;
+	$total_pesos_livejasmin = $livejasmin*0.05;
+	$total_pesos_livejasmin = $total_pesos_livejasmin*$trm;
 
-			$total_pesos_cam4 		= $cam4*0.05;
-			$total_pesos_cam4 		= $total_pesos_cam4*$trm;
+	$total_pesos_bonga 		= $bonga*0.05;
+	$total_pesos_bonga 		= $total_pesos_bonga*$trm;
 
-			$total_pesos_camsoda 	= $camsoda*0.05;
-			$total_pesos_camsoda 	= $total_pesos_camsoda*$trm;
+	$total_pesos_cam4 		= $cam4*0.05;
+	$total_pesos_cam4 		= $total_pesos_cam4*$trm;
 
-			$total_pesos_flirt4free = $flirt4free*0.05;
-			$total_pesos_flirt4free = $total_pesos_flirt4free*$trm;
+	$total_pesos_camsoda 	= $camsoda*0.05;
+	$total_pesos_camsoda 	= $total_pesos_camsoda*$trm;
 
-			$total_final1 = $total_pesos_chaturbate+$total_pesos_imlive+$total_pesos_xlove+$total_pesos_stripchat+$total_pesos_streamate+$total_pesos_myfreecams+$total_pesos_livejasmin+$total_pesos_bonga+$total_pesos_cam4+$total_pesos_camsoda+$total_pesos_flirt4free;
+	$total_pesos_flirt4free = $flirt4free*0.05;
+	$total_pesos_flirt4free = $total_pesos_flirt4free*$trm;
 
-			$total_devengado_chaturbate 	= $chaturbate*$pv;
-			$total_devengado_imlive 		= $imlive*$pv;
-			$total_devengado_xlove 			= $xlove*$pv;
-			$total_devengado_stripchat 		= $stripchat*$pv;
-			$total_devengado_streamate 		= $streamate*$pv;
-			$total_devengado_myfreecams 	= $myfreecams*$pv;
-			$total_devengado_livejasmin 	= $livejasmin*$pv;
-			$total_devengado_bonga 			= $bonga*$pv;
-			$total_devengado_cam4 			= $cam4*$pv;
-			$total_devengado_camsoda 		= $camsoda*$pv;
-			$total_devengado_flirt4free 	= $flirt4free*$pv;
+	$total_final1 = $total_pesos_chaturbate+$total_pesos_imlive+$total_pesos_xlove+$total_pesos_stripchat+$total_pesos_streamate+$total_pesos_myfreecams+$total_pesos_livejasmin+$total_pesos_bonga+$total_pesos_cam4+$total_pesos_camsoda+$total_pesos_flirt4free;
+
+	$total_devengado_chaturbate 	= $chaturbate*$pv;
+	$total_devengado_imlive 		= $imlive*$pv;
+	$total_devengado_xlove 			= $xlove*$pv;
+	$total_devengado_stripchat 		= $stripchat*$pv;
+	$total_devengado_streamate 		= $streamate*$pv;
+	$total_devengado_myfreecams 	= $myfreecams*$pv;
+	$total_devengado_livejasmin 	= $livejasmin*$pv;
+	$total_devengado_bonga 			= $bonga*$pv;
+	$total_devengado_cam4 			= $cam4*$pv;
+	$total_devengado_camsoda 		= $camsoda*$pv;
+	$total_devengado_flirt4free 	= $flirt4free*$pv;
+
+	$sql2 = "SELECT * FROM modelos WHERE id = ".$id_modelo;
+	$consulta2 = mysqli_query($conexion,$sql2);
+	while($row2 = mysqli_fetch_array($consulta2)) {
+		$modelo_nombre = $row2['nombre1']." ".$row2['nombre2']." ".$row2['apellido1']." ".$row2['apellido2'];
+		$modelo_tipo_documento = $row2['documento_tipo'];
+		$modelo_cedula = $row2['documento_numero'];
+		$turno = $row2['turno'];
+	}
 
 			/**************************************************************/
 			/******************SEPARACION DE NEGATIVOS*********************/
@@ -193,7 +196,7 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 			/**************************************************************/
 			/**************************************************************/
 			/**************************************************************/
-			if($total_pesos_separacion <= $row2['total_pesos']){
+			if($total_pesos_separacion <= $row1['total_pesos']){
 
 				$pdf->AddPage();
 				$pdf->Image('../img/logo_bernal-01.png',10,15,45,25);
@@ -605,7 +608,6 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 			}
 
 		}
-	}
 
 
 $pdf->Output();

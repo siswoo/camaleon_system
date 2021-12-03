@@ -1,8 +1,8 @@
-<?php
-session_start();
-if($_SESSION["id"]==''){
-	echo "OFF";
-}else{
-	echo 'On';
-}
+<?php
+session_start();
+if($_SESSION["id"]==''){
+	echo "OFF";
+}else{
+	echo 'On';
+}
 ?>

@@ -1,0 +1,1 @@
+[17-Nov-2021 14:00:43 America/Bogota] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, null given in /home/camaleon/public_html/modelo/index.php on line 215

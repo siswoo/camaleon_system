@@ -106,6 +106,11 @@
 				    	<button type="button" class="btn btn-info ml-3">Reporte de Todas las Cuentas</button>
 					</a>
 				</div>
+				<div class="col-12 text-center mt-3">
+		    		<a href="../mant1.php" target="_blank" style="text-decoration: none;">
+				    	<button type="button" class="btn btn-info ml-3">Migración de Modelos</button>
+					</a>
+				</div>
 		    	<div class="col-12 mt-3 text-center">
 		    		<hr style="background-color: black; height: 2px;">
 		    	</div>
@@ -174,44 +179,23 @@
 		    	<?php
 		    		$sql_presabana1 = "SELECT * FROM presabana GROUP BY inicio";
 		    		$consulta_presabana1 = mysqli_query($conexion,$sql_presabana1);
-		    		echo '
-		    			<div class="container">
-		    				<form action="ver_presabanas3.php" target="_blank">
-		    					<div class="row">
-					    			<div class="form-group col-4 mt-3">
-										<span style="font-weight:bold; font-size: 18px;">Fecha del desprendible</span>
-										<select name="" class="form-control">
-											<option value="">Seleccione</option>
-		    		';
 					while($row1 = mysqli_fetch_array($consulta_presabana1)) {
 						echo '
-											<option value="'.$row1["id"].'">'.$row1["inicio"].' al '.$row1["fin"].'</option>
-						';
-					}
-
-					echo '
-										</select>
-									</div>
-
-					';
-
-					while($row1 = mysqli_fetch_array($consulta_presabana1)) {
-						echo '
-									<div class="form-group col-4 mt-3">
-										<span style="font-weight:bold; font-size: 18px;">Condición</span>
-										<select name="" class="form-control">
-											<option value="">Seleccione</option>
-										</select>
-									</div>
-						</div>
-						';
-					}
-		    	?>
-		    	</div>
-		   	</div>
-
-		   	<?php exit; ?>
-		   	<select name="condicion" id="condicion" class="form-control" required>
+						<div class="form-group col-4 mt-3">
+							<!--
+							<p style="font-size: 16px;">'.$row1["inicio"].' al '.$row1["fin"].'</p>
+						    <a href="ver_presabanas1.php?inicio='.$row1["inicio"].'&fin='.$row1["fin"].'" class="mr-2" style="text-decoration:none;" target="_blank">
+								<button class="btn btn-info">Positivos</button>
+							</a>
+							<a href="ver_presabanas2.php?inicio='.$row1["inicio"].'&fin='.$row1["fin"].'" class="mr-2" style="text-decoration:none;" target="_blank">
+								<button class="btn btn-info">Negativos</button>
+							</a>
+							-->
+							<form action="ver_presabanas3.php" target="_blank">
+								<p style="font-size: 16px;">'.$row1["inicio"].' al '.$row1["fin"].'</p>
+								<input type="hidden" value="'.$row1["inicio"].'" name="inicio">
+								<input type="hidden" value="'.$row1["fin"].'" name="fin">
+								<select name="condicion" id="condicion" class="form-control" required>
 									<option value="">Seleccione</option>
 									<option value="Positivos">Positivos</option>
 									<option value="Negativos">Negativos</option>
@@ -223,6 +207,23 @@
 									<option value="3">Occidente I</option>
 									<option value="4">VIP Suba</option>
 								</select>
+								<button type="submit" class="btn btn-info mt-1">Inspeccionar</button>
+							</form>
+						</div>
+						';
+
+						/*
+						echo '
+						<a href="ver_presabanas1.php?inicio='.$row1["inicio"].'&fin='.$row1["fin"].'" class="mr-2" style="text-decoration:none;">
+							<button class="btn btn-info">Ver Presabanas ('.$row1["inicio"].' | '.$row1["fin"].')</button>
+						</a>
+						';
+						*/
+					}
+		    	?>
+		    	</div>
+		   	</div>
+
 
 		   	<div class="col-12 mt-3 text-center">
 	    		<hr style="background-color: black; height: 2px;">

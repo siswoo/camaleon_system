@@ -1,0 +1,8 @@
+[22-Nov-2021 18:17:07 America/Bogota] PHP Warning:  include(../script/conexion3.php): failed to open stream: No such file or directory in /home/camaleon/public_html/spa/index.php on line 105
+[22-Nov-2021 18:17:07 America/Bogota] PHP Warning:  include(): Failed opening '../script/conexion3.php' for inclusion (include_path='.:/opt/cpanel/ea-php73/root/usr/share/pear') in /home/camaleon/public_html/spa/index.php on line 105
+[22-Nov-2021 18:17:07 America/Bogota] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, null given in /home/camaleon/public_html/spa/index.php on line 107
+[22-Nov-2021 18:17:07 America/Bogota] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, null given in /home/camaleon/public_html/spa/index.php on line 108
+[22-Nov-2021 18:17:15 America/Bogota] PHP Warning:  include(../script/conexion3.php): failed to open stream: No such file or directory in /home/camaleon/public_html/spa/index.php on line 105
+[22-Nov-2021 18:17:15 America/Bogota] PHP Warning:  include(): Failed opening '../script/conexion3.php' for inclusion (include_path='.:/opt/cpanel/ea-php73/root/usr/share/pear') in /home/camaleon/public_html/spa/index.php on line 105
+[22-Nov-2021 18:17:15 America/Bogota] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, null given in /home/camaleon/public_html/spa/index.php on line 107
+[22-Nov-2021 18:17:15 America/Bogota] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, null given in /home/camaleon/public_html/spa/index.php on line 108
