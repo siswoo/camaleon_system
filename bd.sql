@@ -1387,4 +1387,14 @@ CREATE TABLE n_descuentos (
 	PRIMARY KEY (id)
 );ALTER TABLE n_descuentos CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
-
+DROP TABLE IF EXISTS bancolombia1;
+CREATE TABLE bancolombia1 (
+	id INT AUTO_INCREMENT,
+	referencia VARCHAR(250) NOT NULL,
+	concepto VARCHAR(250) NOT NULL,
+	valor FLOAT(11,2) NOT NULL,
+	soporte INT DEFAULT 0,
+	responsable INT NOT NULL,
+	fecha_creacion date NOT NULL,
+	PRIMARY KEY (id)
+);ALTER TABLE bancolombia1 CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
