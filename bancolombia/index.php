@@ -498,125 +498,64 @@
 	}
 
 	$("#form_modal_subir2").on("submit", function(e){
-
 		e.preventDefault();
-
         var fd = new FormData();
-
         var files = $('#documento2')[0].files[0];
-
         var id = $('#subir2_id').val();
-
         fd.append('file',files);
-
         fd.append('id',id);
-
         fd.append('condicion',"subir2");
 
-
-
         $.ajax({
-
-            url: '../script/crud_facturas.php',
-
+            url: '../script/crud_bancolombia1.php',
             type: 'POST',
-
             data: fd,
-
             contentType: false,
-
             processData: false,
-
             dataType: "JSON",
 
-
-
             beforeSend: function (){
-
             	$('#submit_guardar1').attr('disabled','true');
-
             },
-
-
 
             success: function(response){
-
             	$('#submit_guardar1').removeAttr('disabled');
-
-            	
-
             	if(response["estatus"]=='error'){
-
             		Swal.fire({
-
 		 				title: 'Formato Invalido',
-
 			 			text: "Debe ser un archivo de PDF Valido",
-
 			 			icon: 'error',
-
 			 			position: 'center',
-
 			 			showConfirmButton: false,
-
 			 			timer: 3000
-
 					});
-
             		return false;
-
             	}
 
-
-
             	Swal.fire({
-
 	 				title: 'Documento Subido',
-
 	 				text: "Redirigiendo...!",
-
 	 				icon: 'success',
-
 	 				position: 'center',
-
 	 				showConfirmButton: true,
-
 	 				confirmButtonColor: '#3085d6',
-
 	 				confirmButtonText: 'No esperar!',
-
 	 				timer: 3000
-
 				}).then((result) => {
-
 	 				if (result.value) {
-
 	   					window.location.href = "index.php";
-
 	 				}
-
 				})
-
 				setTimeout(function() {
-
 			    	window.location.href = "index.php";
-
 				},3500);
-
             },
 
-
-
             error: function (response){
-
             	console.log(response["responseText"]);
-
             	$('#submit_guardar1').removeAttr('disabled');
-
             }
-
         });
-
 	});
 
 	function eliminar1(id){
