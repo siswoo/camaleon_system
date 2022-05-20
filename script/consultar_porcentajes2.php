@@ -23,9 +23,9 @@ while($row5 = mysqli_fetch_array($consulta5)) {
 }
 
 if($_SESSION["rol"]!=1){
-	$sql1 = "SELECT * FROM presabana WHERE sede = ".$_SESSION['sede']." and inicio BETWEEN '".$inicio."' AND '".$fin."' and fin BETWEEN '".$inicio."' AND '".$fin."' and total_dolares >=1";
+	$sql1 = "SELECT * FROM presabana WHERE sede = ".$_SESSION['sede']." and inicio BETWEEN '".$inicio."' AND '".$fin."' and fin BETWEEN '".$inicio."' AND '".$fin."' and total_pesos >=1";
 }else{
-	$sql1 = "SELECT * FROM presabana WHERE inicio BETWEEN '".$inicio."' AND '".$fin."' and fin BETWEEN '".$inicio."' AND '".$fin."' and total_dolares >=1";
+	$sql1 = "SELECT * FROM presabana WHERE inicio BETWEEN '".$inicio."' AND '".$fin."' and fin BETWEEN '".$inicio."' AND '".$fin."' and total_pesos >=1";
 }
 
 $consulta1 = mysqli_query($conexion,$sql1);
@@ -47,6 +47,9 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 	$cam4 = $row1['cam4'];
 	$camsoda = $row1['camsoda'];
 	$flirt4free = $row1['flirt4free'];
+
+	$amateur = $row1['amateur'];
+	$streamray = $row1['streamray'];
 
 	$meta_porcentajes = $row1['meta_porcentajes'];
 	$deducidos = 0;
@@ -87,7 +90,13 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 	$total_pesos_flirt4free = $flirt4free*0.05;
 	$total_pesos_flirt4free = $total_pesos_flirt4free*$trm;
 
-	$total_final1 = $total_pesos_chaturbate+$total_pesos_imlive+$total_pesos_xlove+$total_pesos_stripchat+$total_pesos_streamate+$total_pesos_myfreecams+$total_pesos_livejasmin+$total_pesos_bonga+$total_pesos_cam4+$total_pesos_camsoda+$total_pesos_flirt4free;
+	$total_pesos_amateur = $amateur*0.05;
+	$total_pesos_amateur = $total_pesos_amateur*$trm;
+
+	$total_pesos_streamray = $streamray*0.05;
+	$total_pesos_streamray = $total_pesos_streamray*$trm;
+
+	$total_final1 = $total_pesos_chaturbate+$total_pesos_imlive+$total_pesos_xlove+$total_pesos_stripchat+$total_pesos_streamate+$total_pesos_myfreecams+$total_pesos_livejasmin+$total_pesos_bonga+$total_pesos_cam4+$total_pesos_camsoda+$total_pesos_flirt4free+$total_pesos_amateur+$total_pesos_streamray;
 
 	$total_devengado_chaturbate 	= $chaturbate*$pv;
 	$total_devengado_imlive 		= $imlive*$pv;
@@ -100,6 +109,9 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 	$total_devengado_cam4 			= $cam4*$pv;
 	$total_devengado_camsoda 		= $camsoda*$pv;
 	$total_devengado_flirt4free 	= $flirt4free*$pv;
+
+	$total_devengado_amateur 		= $amateur*$pv;
+	$total_devengado_streamray 		= $streamray*$pv;
 
 	$sql2 = "SELECT * FROM modelos WHERE id = ".$id_modelo;
 	$consulta2 = mysqli_query($conexion,$sql2);
@@ -340,7 +352,25 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 					$pdf->Cell(30,5,utf8_decode('0'),0,1,'C');
 				}
 
-				$total_tokens = $chaturbate+$imlive+$xlove+$stripchat+$streamate+$myfreecams+$livejasmin+$bonga+$cam4+$camsoda+$flirt4free;
+				if($amateur>=1){
+					$pdf->Ln(5);
+					$pdf->Cell(65,5,utf8_decode('amateur '.$meta_porcentajes."%"),0,0,'');
+					$pdf->Cell(30,5,utf8_decode($amateur),0,0,'C');
+					$pdf->Cell(30,5,utf8_decode($pv),0,0,'C');
+					$pdf->Cell(30,5,"$".number_format($total_devengado_amateur,2,',','.'),0,0,'C');
+					$pdf->Cell(30,5,utf8_decode('0'),0,1,'C');
+				}
+
+				if($streamray>=1){
+					$pdf->Ln(5);
+					$pdf->Cell(65,5,utf8_decode('Streamray '.$meta_porcentajes."%"),0,0,'');
+					$pdf->Cell(30,5,utf8_decode($streamray),0,0,'C');
+					$pdf->Cell(30,5,utf8_decode($pv),0,0,'C');
+					$pdf->Cell(30,5,"$".number_format($total_devengado_streamray,2,',','.'),0,0,'C');
+					$pdf->Cell(30,5,utf8_decode('0'),0,1,'C');
+				}
+
+				$total_tokens = $chaturbate+$imlive+$xlove+$stripchat+$streamate+$myfreecams+$livejasmin+$bonga+$cam4+$camsoda+$flirt4free+$amateur+$streamray;
 
 				$bono1 = 0;
 				$pase_bono1 = 0;
@@ -456,7 +486,7 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 				if($turno!='Satelite'){
 					while($row8 = mysqli_fetch_array($consulta8)) {
 						$bonos_horas_concepto = $row8['concepto'];
-						if($bonos_horas_concepto=='Amateur'){
+						if($bonos_horas_concepto=='Amateur' or $bonos_horas_concepto=='Streamray'){
 							$bonos_horas_valor = $row8['monto']*$trm;
 						}else{
 							$bonos_horas_valor = $row8['monto'];
@@ -591,7 +621,7 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 
 				$total_devengado_bonos_streamate = $total_devengado_bonos_streamate*$trm;
 
-				$total_final2 = $total_devengado_chaturbate+$total_devengado_imlive+$total_devengado_xlove+$total_devengado_stripchat+$total_devengado_streamate+$total_devengado_myfreecams+$total_devengado_livejasmin+$total_devengado_bonga+$total_devengado_cam4+$total_devengado_camsoda+$total_devengado_flirt4free+$total_devengado_bonos_horas+$total_devengado_bonos_streamate+$bono1;
+				$total_final2 = $total_devengado_chaturbate+$total_devengado_imlive+$total_devengado_xlove+$total_devengado_stripchat+$total_devengado_streamate+$total_devengado_myfreecams+$total_devengado_livejasmin+$total_devengado_bonga+$total_devengado_cam4+$total_devengado_camsoda+$total_devengado_flirt4free+$total_devengado_amateur+$total_devengado_streamray+$total_devengado_bonos_horas+$total_devengado_bonos_streamate+$bono1;
 
 				$pdf->Ln(15);
 				$pdf->SetFont('Arial','B',10);

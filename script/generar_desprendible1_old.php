@@ -50,26 +50,22 @@ $sheet->setCellValue('N1', 'Bonga');
 $sheet->setCellValue('O1', 'Cam4');
 $sheet->setCellValue('P1', 'Camsoda');
 $sheet->setCellValue('Q1', 'Flirt4free');
-
-$sheet->setCellValue('R1', 'Amateur');
-$sheet->setCellValue('S1', 'Streamray');
-
-$sheet->setCellValue('T1', 'Total Tokens');
-$sheet->setCellValue('U1', 'SubT Dolares');
-$sheet->setCellValue('V1', 'RF');
-$sheet->setCellValue('W1', 'Meta Porcentaje');
-$sheet->setCellValue('X1', 'Total en Pesos');
-$sheet->setCellValue('Y1', 'Total Dolares');
-$sheet->setCellValue('Z1', 'TRM');
-$sheet->setCellValue('AA1', 'PV');
-$sheet->setCellValue('AB1', 'Descuento');
-$sheet->setCellValue('AC1', 'Tienda');
-$sheet->setCellValue('AD1', 'Avances');
-$sheet->setCellValue('AE1', 'Multas');
-$sheet->setCellValue('AF1', 'Bonos de Horas');
-$sheet->setCellValue('AG1', 'Bonos Streamate');
-$sheet->setCellValue('AH1', 'Sexshop');
-$sheet->setCellValue('AI1', 'Sancion Pagina');
+$sheet->setCellValue('R1', 'Total Tokens');
+$sheet->setCellValue('S1', 'SubT Dolares');
+$sheet->setCellValue('T1', 'RF');
+$sheet->setCellValue('U1', 'Meta Porcentaje');
+$sheet->setCellValue('V1', 'Total en Pesos');
+$sheet->setCellValue('W1', 'Total Dolares');
+$sheet->setCellValue('X1', 'TRM');
+$sheet->setCellValue('Y1', 'PV');
+$sheet->setCellValue('Z1', 'Descuento');
+$sheet->setCellValue('AA1', 'Tienda');
+$sheet->setCellValue('AB1', 'Avances');
+$sheet->setCellValue('AC1', 'Multas');
+$sheet->setCellValue('AD1', 'Bonos de Horas');
+$sheet->setCellValue('AE1', 'Bonos Streamate');
+$sheet->setCellValue('AF1', 'Sexshop');
+$sheet->setCellValue('AG1', 'Sancion Pagina');
 $fila = 2;
 
 $sql5 = "DELETE FROM presabana WHERE inicio BETWEEN '".$desprendible_fecha_desde."' AND '".$desprendible_fecha_hasta."' and fin BETWEEN '".$desprendible_fecha_desde."' AND '".$desprendible_fecha_hasta."'";
@@ -103,9 +99,6 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 	$contador_tokens_imlive1 = 0;
 	$contador_tokens_xlove1 = 0;
 
-	$contador_tokens_amateur = 0;
-	$contador_tokens_streamray = 0;
-
 	$contador_dolares_chaturbate1 = 0;
 	$contador_dolares_myfreecams1 = 0;
 	$contador_dolares_camsoda1 = 0;
@@ -117,9 +110,6 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 	$contador_dolares_livejasmin1 = 0;
 	$contador_dolares_imlive1 = 0;
 	$contador_dolares_xlove1 = 0;
-
-	$contador_dolares_amateur = 0;
-	$contador_dolares_streamray = 0;
 
 	if($contador2>=1){
 		while($row2 = mysqli_fetch_array($consulta2)) {
@@ -226,24 +216,6 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 					$contador_dolares_xlove1 = $contador_dolares_xlove1 + $row3['dolares'];
 				}
 			}
-
-			if($row2['id_paginas']==12){
-				$sql_paginas1 = "SELECT * FROM amateur WHERE id_modelo = '".$modelo_id."' and fecha_desde BETWEEN '".$desprendible_fecha_desde."' AND '".$desprendible_fecha_hasta."' and  fecha_hasta BETWEEN '".$desprendible_fecha_desde."' AND '".$desprendible_fecha_hasta."'";
-				$consulta_paginas1 = mysqli_query($conexion,$sql_paginas1);
-				while($row3 = mysqli_fetch_array($consulta_paginas1)) {
-					$contador_tokens_amateur = $contador_tokens_amateur + $row3['tokens'];
-					$contador_dolares_amateur = $contador_dolares_amateur + $row3['dolares'];
-				}
-			}
-
-			if($row2['id_paginas']==13){
-				$sql_paginas1 = "SELECT * FROM streamray WHERE id_modelo = '".$modelo_id."' and fecha_desde BETWEEN '".$desprendible_fecha_desde."' AND '".$desprendible_fecha_hasta."' and  fecha_hasta BETWEEN '".$desprendible_fecha_desde."' AND '".$desprendible_fecha_hasta."'";
-				$consulta_paginas1 = mysqli_query($conexion,$sql_paginas1);
-				while($row3 = mysqli_fetch_array($consulta_paginas1)) {
-					$contador_tokens_streamray = $contador_tokens_streamray + $row3['tokens'];
-					$contador_dolares_streamray = $contador_dolares_streamray + $row3['dolares'];
-				}
-			}
 		}
 
 		if($modelo_sede==""){
@@ -256,7 +228,7 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 			}
 		}
 
-		$total_tokens = $contador_tokens_chaturbate1+$contador_tokens_myfreecams1+$contador_tokens_camsoda1+$contador_tokens_bonga1+$contador_tokens_stripchat1+$contador_tokens_cam41+$contador_tokens_streamate1+$contador_tokens_flirt4free1+$contador_tokens_livejasmin1+$contador_tokens_imlive1+$contador_tokens_xlove1+$contador_tokens_amateur+$contador_tokens_streamray;
+		$total_tokens = $contador_tokens_chaturbate1+$contador_tokens_myfreecams1+$contador_tokens_camsoda1+$contador_tokens_bonga1+$contador_tokens_stripchat1+$contador_tokens_cam41+$contador_tokens_streamate1+$contador_tokens_flirt4free1+$contador_tokens_livejasmin1+$contador_tokens_imlive1+$contador_tokens_xlove1;
 
 		if($total_tokens>=1){
 			$sheet->setCellValue('A'.$fila, $nombre_sede);
@@ -277,13 +249,9 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 			$sheet->setCellValue('O'.$fila, $contador_tokens_cam41);
 			$sheet->setCellValue('P'.$fila, $contador_tokens_camsoda1);
 			$sheet->setCellValue('Q'.$fila, $contador_tokens_flirt4free1);
-
-			$sheet->setCellValue('R'.$fila, $contador_tokens_amateur);
-			$sheet->setCellValue('S'.$fila, $contador_tokens_streamray);
-
-			$sheet->setCellValue('T'.$fila, $total_tokens);
+			$sheet->setCellValue('R'.$fila, $total_tokens);
 			$subt_total_dolares = $total_tokens*0.05;
-			$sheet->setCellValue('U'.$fila, $subt_total_dolares);
+			$sheet->setCellValue('S'.$fila, $subt_total_dolares);
 
 			if($total_tokens==0){
 				$meta1 = '0%';
@@ -323,7 +291,7 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 				$meta3 = 0.8;
 			}
 
-			$sheet->setCellValue('W'.$fila, $meta_porcentaje);
+			$sheet->setCellValue('U'.$fila, $meta_porcentaje);
 			$total_dolares = $subt_total_dolares*$meta3;
 			$bono1 = 0;
 
@@ -345,8 +313,8 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 			
 			$total_dolares = $total_dolares;
 			$total_pesos = ($total_dolares*$desprendible_trm)+$bono1;
-			$sheet->setCellValue('Y'.$fila, $total_dolares);
-			$sheet->setCellValue('Z'.$fila, $desprendible_trm);
+			$sheet->setCellValue('W'.$fila, $total_dolares);
+			$sheet->setCellValue('X'.$fila, $desprendible_trm);
 
 			/**************FORMULA DE PV*******************/
 			/*** TOTAL TOKENS / (TDOLARES-RF*PORC. META)***/
@@ -444,11 +412,11 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 				$as = 0;
 			}
 
-			$sheet->setCellValue('AB'.$fila, $contador_descuento);
-			$sheet->setCellValue('AC'.$fila, $contador_tienda);
-			$sheet->setCellValue('AD'.$fila, $contador_avances);
-			$sheet->setCellValue('AE'.$fila, $contador_multas);
-			$sheet->setCellValue('AF'.$fila, $contador_bonos_horas);
+			$sheet->setCellValue('Z'.$fila, $contador_descuento);
+			$sheet->setCellValue('AA'.$fila, $contador_tienda);
+			$sheet->setCellValue('AB'.$fila, $contador_avances);
+			$sheet->setCellValue('AC'.$fila, $contador_multas);
+			$sheet->setCellValue('AD'.$fila, $contador_bonos_horas);
 
 			if($contador_bonos_streamate>=1){
 				$contador_bonos_streamate = $contador_bonos_streamate*$desprendible_trm;
@@ -458,8 +426,8 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 				$contador_bonos_streamate = 0;
 				}
 
-			$sheet->setCellValue('AG'.$fila, $contador_bonos_streamate);
-			$sheet->setCellValue('AH'.$fila, $contador_sexshop);
+			$sheet->setCellValue('AE'.$fila, $contador_bonos_streamate);
+			$sheet->setCellValue('AF'.$fila, $contador_sexshop);
 
 			if($contador_sancionpagina>=1){
 				$contador_sancionpagina = $contador_sancionpagina*$desprendible_trm;
@@ -469,7 +437,7 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 				$contador_sancionpagina = 0;
 			}
 
-			$sheet->setCellValue('AI'.$fila, $contador_sancionpagina);
+			$sheet->setCellValue('AG'.$fila, $contador_sancionpagina);
 			$descuentos_totales = $contador_descuento+$contador_tienda+$contador_avances+$contador_multas+$contador_sexshop+$contador_sancionpagina;
 
 			if($fvp1==0){
@@ -480,27 +448,21 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 				$retencion_fuente = (($total_pesos)/$meta3)*0.03;
 			}
 
-			$sheet->setCellValue('V'.$fila, $retencion_fuente);
-			$sheet->setCellValue('AA'.$fila, $fpv2);
-
+			$sheet->setCellValue('T'.$fila, $retencion_fuente);
+			$sheet->setCellValue('Y'.$fila, $fpv2);
 
 			$bonos_totales = $contador_bonos_horas+$contador_bonos_streamate;
 			$total_pesos_final1 = $total_pesos-$descuentos_totales+$bonos_totales;
 			$retencion_fuente_pesos = $retencion_fuente*$desprendible_trm;
 			$total_pesos_final1 = $total_pesos_final1-$retencion_fuente_pesos;
-			$sheet->setCellValue('X'.$fila, $total_pesos_final1);
+			$sheet->setCellValue('V'.$fila, $total_pesos_final1);
 			$fila = $fila+1;
 
-
 			if($estatus=='Inactiva'){
-
-				$sql6 = "DELETE FROM presabana_inactivos WHERE id_modelo = $modelo_id and inicio BETWEEN '$desprendible_fecha_desde' AND '$desprendible_fecha_hasta' and fin BETWEEN '$desprendible_fecha_desde' AND '$desprendible_fecha_hasta'";
-				$proceso6 = mysqli_query($conexion,$sql6);
-
 				$sql4 = "INSERT INTO presabana_inactivos (id_modelo,sede,inicio,fin,chaturbate,imlive,xlove,stripchat,streamate,myfreecams,livejasmin,bonga,cam4,camsoda,flirt4free,total_tokens,subtotal_dolares,rf,meta_porcentajes,total_pesos,total_dolares,trm,pv,responsable,estatus,fecha_inicio) VALUES ('$modelo_id','$modelo_sede','$desprendible_fecha_desde','$desprendible_fecha_hasta','$contador_tokens_chaturbate1','$contador_tokens_imlive1','$contador_tokens_xlove1','$contador_tokens_stripchat1','$contador_tokens_streamate1','$contador_tokens_myfreecams1','$contador_tokens_livejasmin1','$contador_tokens_bonga1','$contador_tokens_cam41','$contador_tokens_camsoda1','$contador_tokens_flirt4free1','$total_tokens','$subt_total_dolares','$retencion_fuente','$meta_porcentaje','$total_pesos','$total_dolares','$desprendible_trm','$fpv2','$responsable','Pendiente','$fecha_inicio')";
 				$consulta4 = mysqli_query($conexion,$sql4);
 			}else{
-				$sql5 = "INSERT INTO presabana (id_modelo,sede,inicio,fin,chaturbate,imlive,xlove,stripchat,streamate,myfreecams,livejasmin,bonga,cam4,camsoda,flirt4free,amateur,streamray,total_tokens,subtotal_dolares,rf,meta_porcentajes,total_pesos,total_dolares,trm,pv,responsable,estatus,fecha_inicio) VALUES ('$modelo_id','$modelo_sede','$desprendible_fecha_desde','$desprendible_fecha_hasta','$contador_tokens_chaturbate1','$contador_tokens_imlive1','$contador_tokens_xlove1','$contador_tokens_stripchat1','$contador_tokens_streamate1','$contador_tokens_myfreecams1','$contador_tokens_livejasmin1','$contador_tokens_bonga1','$contador_tokens_cam41','$contador_tokens_camsoda1','$contador_tokens_flirt4free1','$contador_tokens_amateur','$contador_tokens_streamray','$total_tokens','$subt_total_dolares','$retencion_fuente','$meta_porcentaje','$total_pesos','$total_dolares','$desprendible_trm','$fpv2','$responsable','Pendiente','$fecha_inicio')";
+				$sql5 = "INSERT INTO presabana (id_modelo,sede,inicio,fin,chaturbate,imlive,xlove,stripchat,streamate,myfreecams,livejasmin,bonga,cam4,camsoda,flirt4free,total_tokens,subtotal_dolares,rf,meta_porcentajes,total_pesos,total_dolares,trm,pv,responsable,estatus,fecha_inicio) VALUES ('$modelo_id','$modelo_sede','$desprendible_fecha_desde','$desprendible_fecha_hasta','$contador_tokens_chaturbate1','$contador_tokens_imlive1','$contador_tokens_xlove1','$contador_tokens_stripchat1','$contador_tokens_streamate1','$contador_tokens_myfreecams1','$contador_tokens_livejasmin1','$contador_tokens_bonga1','$contador_tokens_cam41','$contador_tokens_camsoda1','$contador_tokens_flirt4free1','$total_tokens','$subt_total_dolares','$retencion_fuente','$meta_porcentaje','$total_pesos','$total_dolares','$desprendible_trm','$fpv2','$responsable','Pendiente','$fecha_inicio')";
 				$consulta5 = mysqli_query($conexion,$sql5);
 			}
 		}
@@ -512,6 +474,5 @@ $fecha_inicio1 = date('Y-m-d');
 $writer = new Xlsx($spreadsheet);
 $writer->save('../resources/documentos/presabanas/presabana '.$fecha_inicio1.'.xlsx');
 header("Location: ../resources/documentos/presabanas/presabana ".$fecha_inicio1.".xlsx");
-
 
 ?>

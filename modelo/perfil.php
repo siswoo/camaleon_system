@@ -3052,6 +3052,7 @@
 			},
 
 			success: function(respuesta) {
+				console.log(respuesta);
 				$('#div_hidden1').html(respuesta['html']);
 				$('#div_hidden1').show('medium');
 			},

@@ -64,6 +64,7 @@ INSERT INTO roles (id,nombre,jefe) VALUES (14,'Jefe',1);
 INSERT INTO roles (id,nombre,administracion) VALUES (15,'Administración Sede',1);
 INSERT INTO roles (id,nombre,nomina) VALUES (16,'Gestion Nomina',1);
 INSERT INTO roles (id,nombre,callcenter) VALUES (17,'Call Center',1);
+INSERT INTO roles (id,nombre,callcenter) VALUES (18,'Sexshop',1);
 ALTER TABLE roles CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 DROP TABLE IF EXISTS sedes;
@@ -82,13 +83,15 @@ CREATE TABLE sedes (
 INSERT INTO sedes (nombre,direccion,ciudad,descripcion,responsable,cedula,rut) VALUES 
 ('VIP Occidente','Direccion','Bogotá D.C','BERNAL GROUP  SAS','Andres Fernando Bernal Correa', '80.774.671', '901.257.204-8'),
 ('Norte','Direccion','Bogotá D.C','BERNAL GROUP  SAS','Andres Fernando Bernal Correa', '80.774.671', '901.257.204-8'),
-('Occidente I','Direccion','Bogotá D.C','BERNAL GROUP  SAS','Andres Fernando Bernal Correa', '80.774.671', '901.257.204-8'),
+('Tunal','Direccion','Bogotá D.C','BERNAL GROUP  SAS','Andres Fernando Bernal Correa', '80.774.671', '901.257.204-8'),
 ('VIP Suba','Direccion','Bogotá D.C','BERNAL GROUP  SAS','Andres Fernando Bernal Correa', '80.774.671', '901.257.204-8'),
 ('Medellin','Direccion','Medellin','BERNAL GROUP  SAS','Andres Fernando Bernal Correa', '80.774.671', '901.257.204-8'),
 ('Soacha','Direccion','Bogotá D.C','BERNAL GROUP  SAS','Andres Fernando Bernal Correa', '80.774.671', '901.257.204-8'),
 ('Belen','Carrera 81 #30A 67','Medellin','BERNAL GROUP  SAS','Andres Fernando Bernal Correa', '80.774.671', '901322261-6'),
 ('Sur Americana','Calle 48 #66 70','Medellin','BERNAL GROUP  SAS','Andres Fernando Bernal Correa', '80.774.671', '901322261-6'),
-('Manrique','Carrera 36 #70 41','Medellin','BERNAL GROUP  SAS','Andres Fernando Bernal Correa', '80.774.671', '901322261-6');
+('Manrique','Carrera 36 #70 41','Medellin','BERNAL GROUP  SAS','Andres Fernando Bernal Correa', '80.774.671', '901322261-6'),
+('Bucaramanga','direccion','Bucaramanga','BERNAL GROUP  SAS','Andres Fernando Bernal Correa', '80.774.671', '901322261-6'),
+('Cali','direccion','Cali','BERNAL GROUP  SAS','Andres Fernando Bernal Correa', '80.774.671', '901322261-6');
 
 
 DROP TABLE IF EXISTS usuarios;
@@ -365,7 +368,9 @@ INSERT INTO paginas (nombre,tasa,url,moneda) VALUES
 ('Flirt4free', 0.02, 'https://www.flirt4free.com/','Dolar'),
 ('Livejasmin', 1, 'https://www.livejasmin.com/','Dolar'),
 ('Imlive', 1, 'https://imlive.com/','Dolar'),
-('Xlovecam', 1.18, 'https://www.xlovecam.com/','Dolar');
+('Xlovecam', 1.18, 'https://www.xlovecam.com/','Dolar'),
+('Amateur', 1.18, 'https://es.amateur.tv/','Dolar'),
+('Streamray', 1.18, 'https://streamray.com/','Dolar');
 
 DROP TABLE IF EXISTS modelos_cuentas;
 CREATE TABLE modelos_cuentas (
@@ -1061,7 +1066,7 @@ CREATE TABLE t_sedes (
 
 INSERT INTO t_sedes (nombre,responsable,fecha_inicio) VALUES 
 ('Vip Occidente',1,'2021-03-02'),
-('Occidente I',1,'2021-03-02'),
+('Tunal',1,'2021-03-02'),
 ('Norte',1,'2021-03-02'),
 ('Vip Suba',1,'2021-03-02');
 
@@ -1398,3 +1403,99 @@ CREATE TABLE bancolombia1 (
 	fecha_creacion date NOT NULL,
 	PRIMARY KEY (id)
 );ALTER TABLE bancolombia1 CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+
+DROP TABLE IF EXISTS temporal_nomina_pagos;
+CREATE TABLE temporal_nomina_pagos (
+	id INT AUTO_INCREMENT,
+	id_nomina INT NOT NULL,
+	concepto VARCHAR(250) NOT NULL,
+	texto VARCHAR(250) NOT NULL,
+	valor INT NOT NULL,
+	fecha DATE NOT NULL,
+	responsable INT NOT NULL,
+	fecha_inicio DATE NOT NULL,
+	PRIMARY KEY (id)
+);ALTER TABLE temporal_nomina_pagos CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+DROP TABLE IF EXISTS nomina_pagos;
+CREATE TABLE nomina_pagos (
+	id INT AUTO_INCREMENT,
+	id_nomina INT NOT NULL,
+	sede INT NOT NULL,
+	cargo INT NOT NULL,
+	sueldo INT NOT NULL,
+	laborados INT NOT NULL,
+	nolaborados INT NOT NULL,
+	subtotal INT NOT NULL,
+	doblaturno INT NOT NULL,
+	prestamos INT NOT NULL,
+	bono INT NOT NULL,
+	devolucion_ss INT NOT NULL,
+	ajustenomina INT NOT NULL,
+	otrosconceptos INT NOT NULL,
+	totaldevengado INT NOT NULL,
+	descuentos INT NOT NULL,
+	totaldeducciones INT NOT NULL,
+	totalpagar INT NOT NULL,
+	fecha_desde DATE NOT NULL,
+	fecha_hasta DATE NOT NULL,
+	responsable INT NOT NULL,
+	fecha_inicio DATE NOT NULL,
+	PRIMARY KEY (id)
+);ALTER TABLE nomina_pagos CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+DROP TABLE IF EXISTS nomina_pagos_presabana;
+CREATE TABLE nomina_pagos_presabana (
+	id INT AUTO_INCREMENT,
+	id_nomina INT NOT NULL,
+	sede INT NOT NULL,
+	cargo VARCHAR(250) NOT NULL,
+	sueldo INT NOT NULL,
+	laborados INT NOT NULL,
+	nolaborados INT NOT NULL,
+	subtotal INT NOT NULL,
+	doblaturno INT NOT NULL,
+	prestamos INT NOT NULL,
+	bono INT NOT NULL,
+	devolucion_ss INT NOT NULL,
+	ajustenomina INT NOT NULL,
+	otrosconceptos INT NOT NULL,
+	totaldevengado INT NOT NULL,
+	descuentos INT NOT NULL,
+	totaldeducciones INT NOT NULL,
+	totalpagar INT NOT NULL,
+	fecha_desde DATE NOT NULL,
+	fecha_hasta DATE NOT NULL,
+	responsable INT NOT NULL,
+	fecha_inicio DATE NOT NULL,
+	PRIMARY KEY (id)
+);ALTER TABLE nomina_pagos_presabana CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+DROP TABLE IF EXISTS amateur;
+CREATE TABLE amateur (
+	id INT AUTO_INCREMENT,
+	id_modelo INT NOT NULL,
+	id_cuenta_modelo VARCHAR(250) NOT NULL,
+	tokens INT NOT NULL,
+	dolares FLOAT(11,2) NOT NULL,
+	fecha_desde DATE NOT NULL,
+	fecha_hasta DATE NOT NULL,
+	responsable INT NOT NULL,
+	fecha_inicio DATE NOT NULL,
+   	PRIMARY KEY (id)
+); ALTER TABLE amateur CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+DROP TABLE IF EXISTS streamray;
+CREATE TABLE streamray (
+	id INT AUTO_INCREMENT,
+	id_modelo INT NOT NULL,
+	id_cuenta_modelo VARCHAR(250) NOT NULL,
+	tokens INT NOT NULL,
+	dolares FLOAT(11,2) NOT NULL,
+	fecha_desde DATE NOT NULL,
+	fecha_hasta DATE NOT NULL,
+	responsable INT NOT NULL,
+	fecha_inicio DATE NOT NULL,
+   	PRIMARY KEY (id)
+); ALTER TABLE streamray CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;

@@ -1,7 +1,0 @@
-[26-Oct-2021 12:01:39 America/Bogota] PHP Warning:  mysqli_connect(): (HY000/1045): Access denied for user 'root'@'localhost' (using password: NO) in /home/camaleon/public_html/script/conexion2.php on line 14
-[26-Oct-2021 12:01:53 America/Bogota] PHP Warning:  mysqli_connect(): (HY000/1045): Access denied for user 'root'@'localhost' (using password: NO) in /home/camaleon/public_html/script/conexion2.php on line 14
-[06-Nov-2021 20:50:47 America/Bogota] PHP Warning:  mysqli_connect(): (HY000/1045): Access denied for user 'root'@'localhost' (using password: NO) in /home/camaleon/public_html/script/conexion2.php on line 14
-[12-Nov-2021 11:06:39 America/Bogota] PHP Warning:  include(../script/conexion2.php): failed to open stream: No such file or directory in /home/camaleon/public_html/buffet/index.php on line 106
-[12-Nov-2021 11:06:39 America/Bogota] PHP Warning:  include(): Failed opening '../script/conexion2.php' for inclusion (include_path='.:/opt/cpanel/ea-php73/root/usr/share/pear') in /home/camaleon/public_html/buffet/index.php on line 106
-[12-Nov-2021 11:06:39 America/Bogota] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, null given in /home/camaleon/public_html/buffet/index.php on line 108
-[12-Nov-2021 11:06:39 America/Bogota] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, null given in /home/camaleon/public_html/buffet/index.php on line 109

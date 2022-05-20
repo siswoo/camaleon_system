@@ -165,7 +165,7 @@
 			</div>
 		</div>
 
-	<?php }else if($_SESSION['rol']==15 or $_SESSION['rol']==8){ ?>
+	<?php }else if($_SESSION['rol']==15 or $_SESSION['rol']==8 or $_SESSION['id']==5698){ ?>
 
 		<div class="row">
 			<div class="col-12 text-center mt-3">
@@ -220,6 +220,10 @@
 			    <button type="button" class="btn btn-info ml-3" value="No" id="Camsoda" onclick="mostrarSeccion2(this.id,value);">Camsoda</button>
 
 			    <button type="button" class="btn btn-info ml-3" value="No" id="Flirt4free" onclick="mostrarSeccion2(this.id,value);">Flirt4free</button>
+
+			    <button type="button" class="btn btn-info ml-3" value="No" id="Amateur" onclick="mostrarSeccion2(this.id,value);">Amateur</button>
+
+			    <button type="button" class="btn btn-info ml-3" value="No" id="Streamray" onclick="mostrarSeccion2(this.id,value);">Streamray</button>
 
 		    </div>
 
@@ -1104,7 +1108,140 @@
 
 	</div>
 
+	
+<!--------------------------NUEVOS------------------------------------->
 
+	<div class="seccion1" id="div_Amateur" style="display: none; border: 3px solid black; border-radius: 1rem; padding: 5px 5px 5px 5px;">
+		<div class="row">
+				<div class="form-group col-12">
+				    <p class="text-center" style="font-weight: bold; font-size: 20px;">Reporte de Amateur</p>
+				</div>
+				<div class="form-group col-3">
+					<label>Recorte N°</label>
+					<select class="form-control" name="recorte_Amateur" id="recorte_Amateur" required>
+						<option value="">Seleccione</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+					</select>
+				</div>
+				<div class="form-group col-3">
+					<label>Mes</label>
+					<select class="form-control" name="mes_Amateur" id="mes_Amateur" required>
+						<option value="">Seleccione</option>
+						<option value="01">Enero</option>
+						<option value="02">Febrero</option>
+						<option value="03">Marzo</option>
+						<option value="04">Abril</option>
+						<option value="05">Mayo</option>
+						<option value="06">Junio</option>
+						<option value="07">Julio</option>
+						<option value="08">Agosto</option>
+						<option value="09">Septiembre</option>
+						<option value="10">Octubre</option>
+						<option value="11">Noviembre</option>
+						<option value="12">Diciembre</option>
+					</select>
+				</div>
+				<div class="form-group col-3">
+					<label>Año</label>
+					<select class="form-control" name="year_Amateur" id="year_Amateur" required>
+						<option value="2022">2022</option>
+						<option value="2023">2023</option>
+						<option value="2024">2024</option>
+						<option value="2025">2025</option>
+					</select>
+				</div>
+				<div class="form-group col-3">
+				    <button type="submit" id="submit_Amateur" class="btn btn-primary" style="margin-top: 31px;" onclick="consultarAmateur();">Consultar Modelos</button>
+				</div>
+			</div>
+
+			<div id="div_Amateur2">
+				<form id="formulario_Amateur" method="POST" action="#">
+					<div id="resultado1_Amateur" class="form-group col-12 text-center">
+						<table border="1" class="table">
+							<thead>
+								<tr>
+									<th>Modelo</th>
+									<th>Usuario</th>
+									<th>Contraseña</th>
+									<th>Dolares</th>
+									<th>Opciones</th>
+								</tr>
+							</thead>
+							<tbody id="tbody_Amateur">
+							</tbody>
+						</table>
+					</div>
+				</form>
+			</div>
+	</div>
+
+	<div class="seccion1" id="div_Streamray" style="display: none; border: 3px solid black; border-radius: 1rem; padding: 5px 5px 5px 5px;">
+		<div class="row">
+				<div class="form-group col-12">
+				    <p class="text-center" style="font-weight: bold; font-size: 20px;">Reporte de Streamray</p>
+				</div>
+				<div class="form-group col-3">
+					<label>Recorte N°</label>
+					<select class="form-control" name="recorte_Streamray" id="recorte_Streamray" required>
+						<option value="">Seleccione</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+					</select>
+				</div>
+				<div class="form-group col-3">
+					<label>Mes</label>
+					<select class="form-control" name="mes_Streamray" id="mes_Streamray" required>
+						<option value="">Seleccione</option>
+						<option value="01">Enero</option>
+						<option value="02">Febrero</option>
+						<option value="03">Marzo</option>
+						<option value="04">Abril</option>
+						<option value="05">Mayo</option>
+						<option value="06">Junio</option>
+						<option value="07">Julio</option>
+						<option value="08">Agosto</option>
+						<option value="09">Septiembre</option>
+						<option value="10">Octubre</option>
+						<option value="11">Noviembre</option>
+						<option value="12">Diciembre</option>
+					</select>
+				</div>
+				<div class="form-group col-3">
+					<label>Año</label>
+					<select class="form-control" name="year_Streamray" id="year_Streamray" required>
+						<option value="2022">2022</option>
+						<option value="2023">2023</option>
+						<option value="2024">2024</option>
+						<option value="2025">2025</option>
+					</select>
+				</div>
+				<div class="form-group col-3">
+				    <button type="submit" id="submit_Streamray" class="btn btn-primary" style="margin-top: 31px;" onclick="consultarStreamray();">Consultar Modelos</button>
+				</div>
+			</div>
+
+			<div id="div_Streamray2">
+				<form id="formulario_Streamray" method="POST" action="#">
+					<div id="resultado1_Streamray" class="form-group col-12 text-center">
+						<table border="1" class="table">
+							<thead>
+								<tr>
+									<th>Modelo</th>
+									<th>Usuario</th>
+									<th>Contraseña</th>
+									<th>Dolares</th>
+									<th>Opciones</th>
+								</tr>
+							</thead>
+							<tbody id="tbody_Streamray">
+							</tbody>
+						</table>
+					</div>
+				</form>
+			</div>
+	</div>
 
 <!--****************************GRAFICOS****************************-->
 
@@ -2482,133 +2619,68 @@
 
 
 	function mostrarSeccion2(button,value){
-
-		//console.log(button);
-
 		if(value=='Si'){
-
 			$('#div_'+button).hide('slow');
-
 			$('#'+button).val('No');
-
 			$('#'+button).removeClass('active');
-
 			$('#'+button).removeClass('font-weight-bold');
-
 		}else{
-
 			$('#div_'+button).show('slow');
-
 			$('#'+button).val('Si');
-
 			$('#'+button).addClass('active');
-
 			$('#'+button).addClass('font-weight-bold');
-
 		}
-
 	}
 
-
-
 	$("#formulario_Imlive").on("submit", function(e){
-
 		e.preventDefault();
-
         var fd = new FormData();
-
         var files = $('#archivo_Imlive')[0].files[0];
-
         fd.append('file',files);
-
         fd.append('fecha_desde_Imlive',$('#fecha_desde_Imlive').val());
-
         fd.append('fecha_hasta_Imlive',$('#fecha_hasta_Imlive').val());
-
-
-
+        
         $.ajax({
-
             url: '../script/subir_imlive.php',
-
             type: 'POST',
-
             data: fd,
-
             contentType: false,
-
             processData: false,
 
-
-
             beforeSend: function (){
-
             	$('#submit_Imlive').attr('disabled','true');
-
             },
-
-
 
             success: function(response){
-
             	console.log(response);
-
             	$('#submit_Imlive').removeAttr('disabled');
-
             	if(response=='error'){
-
             		Swal.fire({
-
 		 				title: 'Formato Invalido',
-
 			 			text: "Formato Validos -> xls xml xlam xlsx",
-
 			 			icon: 'error',
-
 			 			position: 'center',
-
 			 			showConfirmButton: false,
-
 			 			timer: 3000
-
 					});
-
             		return false;
-
             	}else{
-
             		Swal.fire({
-
 		 				title: 'Guardado exitosamente!',
-
 		 				text: "Limpiando Cache...",
-
 		 				icon: 'success',
-
 		 				position: 'center',
-
 		 				showConfirmButton: true,
-
 		 				timer: 2000
-
 					});
-
 	            	setTimeout(function() {
-
 				      	//window.location.href = "index.php";
-
 				    },2000);
-
             	}
-
             },
 
-
-
             error: function(response){
-
             	console.log(response['responseText']);
-
             }
 
         });
@@ -4172,8 +4244,88 @@
 
     }
 
+    function consultarAmateur(){
+    	var recorte_Amateur = $('#recorte_Amateur').val();
+    	var mes_Amateur = $('#mes_Amateur').val();
+    	var year_Amateur = $('#year_Amateur').val();
 
+    	if(recorte_Amateur=='' || mes_Amateur=='' || year_Amateur==''){
+    		Swal.fire({
+		 		title: 'Desplegables sin Señalar',
+			 	text: "No olvide señalar un valor en cada campo por favor",
+			 	icon: 'error',
+			 	position: 'center',
+			 	showConfirmButton: false,
+			 	timer: 5000
+			});
+    		return false;
+    	}
 
+    	$.ajax({
+            url: '../script/consultar_Amateur1.php',
+            type: 'POST',
+            data: {
+				"recorte": recorte_Amateur,
+				"mes": mes_Amateur,
+				"year": year_Amateur,
+			},
+
+            beforeSend: function (){
+            	$('#submit_Amateur').attr('disabled','true');
+            },
+
+            success: function(response){
+            	//console.log(response);
+            	$('#submit_Amateur').removeAttr('disabled');
+            	$('#tbody_Amateur').html(response);
+            },
+
+            error: function(response){
+            	console.log(response['responseText']);
+            }
+        });
+    }
+
+    function consultarStreamray(){
+    	var recorte_Streamray = $('#recorte_Streamray').val();
+    	var mes_Streamray = $('#mes_Streamray').val();
+    	var year_Streamray = $('#year_Streamray').val();
+
+    	if(recorte_Streamray=='' || mes_Streamray=='' || year_Streamray==''){
+    		Swal.fire({
+		 		title: 'Desplegables sin Señalar',
+			 	text: "No olvide señalar un valor en cada campo por favor",
+			 	icon: 'error',
+			 	position: 'center',
+			 	showConfirmButton: false,
+			 	timer: 5000
+			});
+    		return false;
+    	}
+
+    	$.ajax({
+            url: '../script/consultar_Streamray1.php',
+            type: 'POST',
+            data: {
+				"recorte": recorte_Streamray,
+				"mes": mes_Streamray,
+				"year": year_Streamray,
+			},
+
+            beforeSend: function (){
+            	$('#submit_Streamray').attr('disabled','true');
+            },
+
+            success: function(response){
+            	$('#submit_Streamray').removeAttr('disabled');
+            	$('#tbody_Streamray').html(response);
+            },
+
+            error: function(response){
+            	console.log(response['responseText']);
+            }
+        });
+    }
 
 
     function guardarToken_flirt4free(id){
@@ -5607,6 +5759,92 @@
 			}
 		});
 	}
+
+
+
+	function guardarToken_amateur(id){
+    	var dolares = $('#dolares_amateur_'+id).val();
+    	var fecha_desde = $('#fecha_desde_amateur').val();
+    	var fecha_hasta = $('#fecha_hasta_amateur').val();
+
+    	if(dolares<=5 && dolares>=1){
+    		Swal.fire({
+				title: 'Error',
+				text: "No menos de 200 Tokens!",
+				icon: 'error',
+				position: 'center',
+				showConfirmButton: false,
+				timer: 2000
+			});
+			return false;
+    	}
+
+    	$.ajax({
+            url: '../script/guardar_tokens_amateur.php',
+            type: 'POST',
+            data: {
+				"id": id,
+				"dolares": dolares,
+				"fecha_desde": fecha_desde,
+				"fecha_hasta": fecha_hasta,
+			},
+
+            beforeSend: function (){},
+
+            success: function(response){
+            	console.log(response);
+            	Swal.fire({
+			 		title: 'Guardado',
+				 	text: "Borrando Cache",
+				 	icon: 'success',
+				 	position: 'center',
+				 	showConfirmButton: false,
+				 	timer: 2000
+				});
+            },
+
+            error: function(response){
+            	console.log(response['responseText']);
+            }
+        });
+    }
+
+    function guardarToken_streamray(id){
+    	var dolares = $('#dolares_streamray_'+id).val();
+    	var fecha_desde = $('#fecha_desde_streamray').val();
+    	var fecha_hasta = $('#fecha_hasta_streamray').val();
+
+    	$.ajax({
+            url: '../script/guardar_tokens_streamray.php',
+            type: 'POST',
+            data: {
+				"id": id,
+				"dolares": dolares,
+				"fecha_desde": fecha_desde,
+				"fecha_hasta": fecha_hasta,
+			},
+
+            beforeSend: function (){},
+
+            success: function(response){
+            	console.log(response);
+            	Swal.fire({
+			 		title: 'Guardado',
+				 	text: "Borrando Cache",
+				 	icon: 'success',
+				 	position: 'center',
+				 	showConfirmButton: false,
+				 	timer: 2000
+				});
+            },
+
+            error: function(response){
+            	console.log(response['responseText']);
+            }
+        });
+    }
+
+
 
 </script>
 

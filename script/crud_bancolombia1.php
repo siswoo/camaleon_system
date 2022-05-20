@@ -63,7 +63,7 @@ if($condicion=='subir2'){
     	mkdir('../resources/documentos/bancolombia1/'.$id, 0777);
 	}
 
-	if($extension!='pdf'){
+	if($extension!='pdf' and $extension!='PDF'){
 	    $datos = [
 			"estatus" => "error",
 		];

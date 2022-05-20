@@ -1,4 +1,0 @@
-[03-Nov-2021 12:14:55 America/Bogota] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, bool given in /home/camaleon/public_html/nomina/perfil.php on line 323
-[03-Nov-2021 12:14:55 America/Bogota] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, bool given in /home/camaleon/public_html/nomina/perfil.php on line 375
-[03-Nov-2021 12:14:55 America/Bogota] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, bool given in /home/camaleon/public_html/nomina/perfil.php on line 715
-[23-Nov-2021 10:35:41 America/Bogota] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, bool given in /home/camaleon/public_html/nomina/pagos.php on line 127

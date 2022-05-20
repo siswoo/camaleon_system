@@ -1,5 +1,5 @@
 <?php
-$servidor = "localhost";
+$servidor = "158.106.131.123";
 $usuario = "camaleon_juanmaldonado";
 $contrasena = "juanmaldonado123";
 $basededatos = "camaleon_sistema1";
