@@ -1,6 +1,13 @@
 <?php
 session_start();
 include('conexion.php');
+require '../resources/Spreadsheet/autoload.php';
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\RichText\RichText;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Color;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 $condicion = $_POST['condicion'];
 $fecha_inicio = date('Y-m-d');
 $responsable = $_SESSION['id'];
@@ -352,7 +359,7 @@ if($condicion=='auto_guardado1'){
 	$sql1 = "DELETE FROM temporal_nomina_pagos WHERE id_nomina = ".$id_nomina." and concepto = '".$concepto."'";
 	$proceso1 = mysqli_query($conexion,$sql1);
 
-	$sql2 = "INSERT INTO temporal_nomina_pagos (id_nomina,concepto,texto,valor,responsable,fecha_inicio) VALUES ($id_nomina,'$concepto','$texto',$valor,$responsable,'$fecha_inicio')";
+	$sql2 = "INSERT INTO temporal_nomina_pagos (id_nomina,concepto,texto,valor,fecha,responsable,fecha_inicio) VALUES ($id_nomina,'$concepto','$texto',$valor,'$fecha_inicio',$responsable,'$fecha_inicio')";
 	$proceso2 = mysqli_query($conexion,$sql2);
 
 	$datos = [
@@ -545,7 +552,7 @@ if($condicion=='dobleturnos2'){
 		$valor = 50000;
 	}
 
-	for($i=1;$i<=$multiplicador;$i++){ 
+	for($i=1;$i<=$multiplicador;$i++){
 		$sql2="INSERT INTO temporal_nomina_pagos (id_nomina,concepto,valor,texto,fecha,responsable,fecha_inicio) VALUES ($nomina_id,'$concepto',$valor,'$texto','$fecha',$responsable,'$fecha_inicio')";
 		$proceso2=mysqli_query($conexion,$sql2);
 	}
@@ -777,20 +784,277 @@ if($condicion=='guardar1'){
 
 			$totalpagar = $totaldevengado-$totaldeducciones;
 
-			$sql6 = "INSERT INTO nomina_pagos_presabana (id_nomina,sede,cargo,sueldo,laborados,nolaborados,subtotal,doblaturno,prestamos,bono,devolucion_ss,ajustenomina,otrosconceptos,totaldevengado,descuentos,totaldeducciones,totalpagar,fecha_desde,fecha_hasta,responsable,fecha_inicio) VALUES ($nomina_id,$sede_id,'$cargo_nombre',$salario,$laborados_texto,$nolaborados_con,$sub_total,$dobleturnos_con,$prestamos_valor,$bono_valor,$devolucion_valor,$ajustenomina_valor,$otrosconceptos_valor,$totaldevengado,$descuentos_con,$totaldeducciones,$totalpagar,'$desde','$hasta',$responsable,'$fecha_inicio')";
+			$sql6 = "DELETE FROM nomina_pagos_presabana WHERE id_nomina = ".$nomina_id." and fecha_desde BETWEEN '$desde' AND '$hasta' and fecha_hasta BETWEEN '$desde' AND '$hasta'";
 			$proceso6 = mysqli_query($conexion,$sql6);
 
-			$sql7 = "DELETE FROM temporal_nomina_pagos WHERE id_nomina = ".$nomina_id;
-			//$sql7 = "UPDATE temporal_nomina_pagos SET estatus = 3 WHERE id_nomina = ".$nomina_id;
+			$sql7 = "INSERT INTO nomina_pagos_presabana (id_nomina,sede,cargo,sueldo,laborados,nolaborados,subtotal,doblaturno,prestamos,bono,devolucion_ss,ajustenomina,otrosconceptos,totaldevengado,descuentos,totaldeducciones,totalpagar,fecha_desde,fecha_hasta,responsable,fecha_inicio) VALUES ($nomina_id,$sede_id,'$cargo_nombre',$salario,$laborados_texto,$nolaborados_con,$sub_total,$dobleturnos_con,$prestamos_valor,$bono_valor,$devolucion_valor,$ajustenomina_valor,$otrosconceptos_valor,$totaldevengado,$descuentos_con,$totaldeducciones,$totalpagar,'$desde','$hasta',$responsable,'$fecha_inicio')";
 			$proceso7 = mysqli_query($conexion,$sql7);
 		}
 	}
 
 	$datos = [
 		"estatus"	=> "ok",
-		"sql4"	=> $sql4,
-		"sql6"	=> $sql6,
-		"sql7"	=> $sql7,
+	];
+	echo json_encode($datos);
+}
+
+if($condicion=='importar1'){
+	$fecha_desde = $_POST["fecha_desde"];
+	$fecha_hasta = $_POST["fecha_hasta"];
+	$archivo_nombre = $_FILES['file']['name'];
+	$archivo_temporal = $_FILES['file']['tmp_name'];
+
+	$extension = explode(".", $archivo_nombre);
+	$extension = strtolower($extension[1]);
+
+	if($extension!='xls' and $extension!='xml' and $extension!='xlam' and $extension!='xlsx'){
+	    $datos = [
+			"estatus" => 'error',
+			"msg" => "Formato de archivo incorrecto!",
+		];
+		echo json_encode($datos);
+		exit;
+	}
+
+	$spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($archivo_temporal);
+	$worksheet = $spreadsheet->getActiveSheet();
+
+	$limite = 1000;
+
+	$sql1 = "DELETE FROM nomina_pagos_presabana WHERE fecha_desde BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."' and fecha_hasta BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."'";
+	$proceso1 = mysqli_query($conexion,$sql1);
+	$sql6 = "DELETE FROM temporal_nomina_pagos WHERE fecha BETWEEN '".$fecha_desde."' AND '".$fecha_hasta."'";
+	$proceso6 = mysqli_query($conexion,$sql6);
+
+	for($i=3;$i<=$limite;$i++){
+		$documento_numero = $worksheet->getCell('C'.$i);
+		//$worksheet->getCell('Z'.$i)->getCalculatedValue()."<br>";
+	    	if($documento_numero!=''){
+		        $sql2 = "SELECT * FROM nomina WHERE estatus = 'Aceptado' and documento_numero = '$documento_numero'";
+				$proceso2 = mysqli_query($conexion,$sql2);
+				$contador2 = mysqli_num_rows($proceso2);
+				if($contador2>=1){
+					while($row2=mysqli_fetch_array($proceso2)){
+						$nomina_id = $row2["id"];
+						$nomina_sede = $row2["sede"];
+						$nomina_cargo = $row2["cargo"];
+						$nomina_salario = $row2["salario"];
+						$diario = $nomina_salario/30;
+						$doble = $diario*2;
+						$total_devengado = 0;
+						$total_deducciones = 0;
+						$descuentos_contador = 0;
+					}
+
+					$diaslaborados = $worksheet->getCell('I'.$i)->getValue();
+					$diaslaborados_valor = $diaslaborados*$diario;
+					$diasnolaborados = $worksheet->getCell('L'.$i)->getValue();
+					if($diasnolaborados==""){
+						$diasnolaborados = 0;
+						$diasnolaborados_valor = 0;
+					}else{
+						$diasnolaborados_valor = $diasnolaborados*$diario;	
+					}
+					$subtotal = $diaslaborados_valor-$diasnolaborados_valor;
+					$total_devengado = $subtotal;
+
+					$doblaturnos_totales = 0;
+
+					$doblaturno = $worksheet->getCell('O'.$i)->getValue();
+					if($doblaturno!=''){
+						for($j=1;$j<=$doblaturno;$j++){
+							$sql3 = "INSERT INTO temporal_nomina_pagos (id_nomina,concepto,texto,valor,fecha,responsable,fecha_inicio) VALUES ($nomina_id,'dobleturnos','Normal',$diario,'$fecha_desde',$responsable,'$fecha_inicio')";
+							$proceso3 = mysqli_query($conexion,$sql3);
+							$total_devengado = $total_devengado+$diario;
+							$doblaturnos_totales = $doblaturnos_totales+1;
+						}
+					}
+
+					$domingos = $worksheet->getCell('R'.$i)->getValue();
+					if($domingos!=''){
+						for($k=1;$k<=$domingos;$k++){
+							$sql3 = "INSERT INTO temporal_nomina_pagos (id_nomina,concepto,texto,valor,fecha,responsable,fecha_inicio) VALUES ($nomina_id,'dobleturnos','Domingo',50000,'$fecha_desde',$responsable,'$fecha_inicio')";
+							$proceso3 = mysqli_query($conexion,$sql3);
+							$total_devengado = $total_devengado+50000;
+							$doblaturnos_totales = $doblaturnos_totales+1;
+						}
+					}
+
+					$prestamos = $worksheet->getCell('T'.$i)->getCalculatedValue();
+					if($prestamos!=''){
+						$sql3 = "INSERT INTO temporal_nomina_pagos (id_nomina,concepto,texto,valor,fecha,responsable,fecha_inicio) VALUES ($nomina_id,'prestamos','0',$prestamos,'$fecha_desde',$responsable,'$fecha_inicio')";
+						$proceso3 = mysqli_query($conexion,$sql3);
+						$total_devengado = $total_devengado+$prestamos;
+					}
+
+					$bono = $worksheet->getCell('U'.$i)->getCalculatedValue();
+					if($bono!=''){
+						$sql3 = "INSERT INTO temporal_nomina_pagos (id_nomina,concepto,texto,valor,fecha,responsable,fecha_inicio) VALUES ($nomina_id,'bono','0',$bono,'$fecha_desde',$responsable,'$fecha_inicio')";
+						$proceso3 = mysqli_query($conexion,$sql3);
+						$total_devengado = $total_devengado+$bono;
+					}
+
+					$devolucion = $worksheet->getCell('V'.$i)->getCalculatedValue();
+					if($devolucion!=''){
+						$sql3 = "INSERT INTO temporal_nomina_pagos (id_nomina,concepto,texto,valor,fecha,responsable,fecha_inicio) VALUES ($nomina_id,'devolucion','0',$devolucion,'$fecha_desde',$responsable,'$fecha_inicio')";
+						$proceso3 = mysqli_query($conexion,$sql3);
+						$total_devengado = $total_devengado+$devolucion;
+					}
+
+					$ajustenomina = $worksheet->getCell('W'.$i)->getCalculatedValue();
+					if($ajustenomina!=''){
+						$sql3 = "INSERT INTO temporal_nomina_pagos (id_nomina,concepto,texto,valor,fecha,responsable,fecha_inicio) VALUES ($nomina_id,'ajustenomina','0',$ajustenomina,'$fecha_desde',$responsable,'$fecha_inicio')";
+						$proceso3 = mysqli_query($conexion,$sql3);
+						$total_devengado = $total_devengado+$ajustenomina;
+					}
+
+					$otrosconceptos = $worksheet->getCell('X'.$i)->getCalculatedValue();
+					if($otrosconceptos!=''){
+						$sql3 = "INSERT INTO temporal_nomina_pagos (id_nomina,concepto,texto,valor,fecha,responsable,fecha_inicio) VALUES ($nomina_id,'otrosconceptos','0',$otrosconceptos,'$fecha_desde',$responsable,'$fecha_inicio')";
+						$proceso3 = mysqli_query($conexion,$sql3);
+						$total_devengado = $total_devengado+$otrosconceptos;
+					}
+
+					$prestamos2 = $worksheet->getCell('Z'.$i)->getCalculatedValue();
+					if($prestamos2!=''){
+						$sql3 = "INSERT INTO temporal_nomina_pagos (id_nomina,concepto,texto,valor,fecha,responsable,fecha_inicio) VALUES ($nomina_id,'descuentos','Prestamos',$prestamos2,'$fecha_desde',$responsable,'$fecha_inicio')";
+						$proceso3 = mysqli_query($conexion,$sql3);
+						$total_deducciones = $total_deducciones+$prestamos2;
+						$descuentos_contador = $descuentos_contador+1;
+					}
+
+					$avances = $worksheet->getCell('AA'.$i)->getCalculatedValue();
+					if($avances!=''){
+						$sql3 = "INSERT INTO temporal_nomina_pagos (id_nomina,concepto,texto,valor,fecha,responsable,fecha_inicio) VALUES ($nomina_id,'descuentos','Avances',$avances,'$fecha_desde',$responsable,'$fecha_inicio')";
+						$proceso3 = mysqli_query($conexion,$sql3);
+						$total_deducciones = $total_deducciones+$avances;
+						$descuentos_contador = $descuentos_contador+1;
+					}
+
+					$arriendo = $worksheet->getCell('AB'.$i)->getCalculatedValue();
+					if($arriendo!=''){
+						$sql3 = "INSERT INTO temporal_nomina_pagos (id_nomina,concepto,texto,valor,fecha,responsable,fecha_inicio) VALUES ($nomina_id,'descuentos','Arriendo',$arriendo,'$fecha_desde',$responsable,'$fecha_inicio')";
+						$proceso3 = mysqli_query($conexion,$sql3);
+						$total_deducciones = $total_deducciones+$arriendo;
+						$descuentos_contador = $descuentos_contador+1;
+					}
+
+					$seguridadsocial = $worksheet->getCell('AC'.$i)->getCalculatedValue();
+					if($seguridadsocial!=''){
+						$sql3 = "INSERT INTO temporal_nomina_pagos (id_nomina,concepto,texto,valor,fecha,responsable,fecha_inicio) VALUES ($nomina_id,'descuentos','Seguridad Social',$seguridadsocial,'$fecha_desde',$responsable,'$fecha_inicio')";
+						$proceso3 = mysqli_query($conexion,$sql3);
+						$total_deducciones = $total_deducciones+$seguridadsocial;
+						$descuentos_contador = $descuentos_contador+1;
+					}
+
+					$sexshop = $worksheet->getCell('AD'.$i)->getCalculatedValue();
+					if($sexshop!=''){
+						$sql3 = "INSERT INTO temporal_nomina_pagos (id_nomina,concepto,texto,valor,fecha,responsable,fecha_inicio) VALUES ($nomina_id,'descuentos','Sexshop',$sexshop,'$fecha_desde',$responsable,'$fecha_inicio')";
+						$proceso3 = mysqli_query($conexion,$sql3);
+						$total_deducciones = $total_deducciones+$sexshop;
+						$descuentos_contador = $descuentos_contador+1;
+					}
+
+					$restaurante = $worksheet->getCell('AE'.$i)->getCalculatedValue();
+					if($restaurante!=''){
+						$sql3 = "INSERT INTO temporal_nomina_pagos (id_nomina,concepto,texto,valor,fecha,responsable,fecha_inicio) VALUES ($nomina_id,'descuentos','Restaurante',$restaurante,'$fecha_desde',$responsable,'$fecha_inicio')";
+						$proceso3 = mysqli_query($conexion,$sql3);
+						$total_deducciones = $total_deducciones+$restaurante;
+						$descuentos_contador = $descuentos_contador+1;
+					}
+
+					$spa = $worksheet->getCell('AF'.$i)->getCalculatedValue();
+					if($spa!=''){
+						$sql3 = "INSERT INTO temporal_nomina_pagos (id_nomina,concepto,texto,valor,fecha,responsable,fecha_inicio) VALUES ($nomina_id,'descuentos','Spa',$spa,'$fecha_desde',$responsable,'$fecha_inicio')";
+						$proceso3 = mysqli_query($conexion,$sql3);
+						$total_deducciones = $total_deducciones+$spa;
+						$descuentos_contador = $descuentos_contador+1;
+					}
+
+					$tecnologia = $worksheet->getCell('AG'.$i)->getCalculatedValue();
+					if($tecnologia!=''){
+						$sql3 = "INSERT INTO temporal_nomina_pagos (id_nomina,concepto,texto,valor,fecha,responsable,fecha_inicio) VALUES ($nomina_id,'descuentos','tecnologia',$tecnologia,'$fecha_desde',$responsable,'$fecha_inicio')";
+						$proceso3 = mysqli_query($conexion,$sql3);
+						$total_deducciones = $total_deducciones+$tecnologia;
+						$descuentos_contador = $descuentos_contador+1;
+					}
+
+					$otros = $worksheet->getCell('AH'.$i)->getCalculatedValue();
+					if($otros!=''){
+						$sql3 = "INSERT INTO temporal_nomina_pagos (id_nomina,concepto,texto,valor,fecha,responsable,fecha_inicio) VALUES ($nomina_id,'descuentos','Otros',$otros,'$fecha_desde',$responsable,'$fecha_inicio')";
+						$proceso3 = mysqli_query($conexion,$sql3);
+						$total_deducciones = $total_deducciones+$otros;
+						$descuentos_contador = $descuentos_contador+1;
+					}
+
+					$total_pagar = $total_devengado-$total_deducciones;
+
+					if($doblaturno==''){
+						$doblaturno = 0;
+					}
+					if($domingos==''){
+						$domingos = 0;
+					}
+					if($prestamos==''){
+						$prestamos = 0;
+					}
+					if($bono==''){
+						$bono = 0;
+					}
+					if($devolucion==''){
+						$devolucion = 0;
+					}
+					if($ajustenomina==''){
+						$ajustenomina = 0;
+					}
+					if($otrosconceptos==''){
+						$otrosconceptos = 0;
+					}
+					if($prestamos2==''){
+						$prestamos2 = 0;
+					}
+					if($avances==''){
+						$avances = 0;
+					}
+					if($arriendo==''){
+						$arriendo = 0;
+					}
+					if($seguridadsocial==''){
+						$seguridadsocial = 0;
+					}
+					if($sexshop==''){
+						$sexshop = 0;
+					}
+					if($restaurante==''){
+						$restaurante = 0;
+					}
+					if($spa==''){
+						$spa = 0;
+					}
+					if($otros==''){
+						$otros = 0;
+					}
+
+					$sql4 = "SELECT * FROM cargos WHERE id = ".$nomina_cargo;
+					$proceso4 = mysqli_query($conexion,$sql4);
+					$contador4 = mysqli_num_rows($proceso4);
+					if($contador4>=1){
+						while($row4=mysqli_fetch_array($proceso4)){
+							$cargo_nombre = $row4["nombre"];
+						}
+					}else{
+						$cargo_nombre = "Desconocido";
+					}
+
+					$sql5 = "INSERT INTO nomina_pagos_presabana (id_nomina,sede,cargo,sueldo,laborados,nolaborados,subtotal,doblaturno,prestamos,bono,devolucion_ss,ajustenomina,otrosconceptos,totaldevengado,descuentos,totaldeducciones,totalpagar,fecha_desde,fecha_hasta,responsable,fecha_inicio) VALUES ($nomina_id,$nomina_sede,'$cargo_nombre',$nomina_salario,$diaslaborados,$diasnolaborados,$subtotal,$doblaturnos_totales,$prestamos,$bono,$devolucion,$ajustenomina,$otros,$total_devengado,$descuentos_contador,$total_deducciones,$total_pagar,'$fecha_desde','$fecha_hasta',$responsable,'$fecha_inicio')";
+					$proceso5 = mysqli_query($conexion,$sql5);
+				}
+			}
+	}
+
+	$datos = [
+		"estatus"	=> "ok",
+		"msg"	=> "Se ha guardado exitosamente!",
 	];
 	echo json_encode($datos);
 }

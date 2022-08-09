@@ -17,7 +17,7 @@ while($row1 = mysqli_fetch_array($consulta1)) {
 	$usuario_documento = $row1['documento_numero'];
 }
 
-if($_SESSION["rol"]!=1){
+if($_SESSION["rol"]!=1 and $_SESSION["rol"]!=21){
 	$sql2 = "SELECT * FROM presabana_inactivos WHERE sede = ".$_SESSION['sede']." and inicio BETWEEN '".$inicio."' AND '".$fin."' and fin BETWEEN '".$inicio."' AND '".$fin."' and total_pesos >=1";
 }else{
 	$sql2 = "SELECT * FROM presabana_inactivos WHERE inicio BETWEEN '".$inicio."' AND '".$fin."' and fin BETWEEN '".$inicio."' AND '".$fin."' and total_pesos >=1";
@@ -197,7 +197,6 @@ while($row2 = mysqli_fetch_array($consulta2)) {
 	$monto_separacion = $monto_separacion+$rf;
 	$total_pesos_separacion = $monto_separacion-$monto_separacion2;
 
-	if($total_pesos_separacion <= $row2['total_pesos']){
 		$pdf->AddPage();
 		$pdf->Image('../img/logo_bernal-01.png',10,15,45,25);
 		$pdf->Ln(10);
@@ -594,7 +593,6 @@ while($row2 = mysqli_fetch_array($consulta2)) {
 			$total_final3 = $total_final2-$total_deducido;
 			$pdf->Cell(55,5,"$".number_format($total_final3,2,',','.'),0,0,'R');
 		}
-	}
 
 $pdf->Output();
 

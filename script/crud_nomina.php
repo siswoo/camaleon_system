@@ -12,6 +12,7 @@ if($condicion=='guardar1'){
 	$apellido 			= $_POST['apellido'];
 	$genero 			= $_POST['genero'];
 	$correo 			= $_POST['correo'];
+	$correo_personal 	= $_POST['correo_personal'];
 	$direccion 			= $_POST['direccion'];
 	$salario 			= $_POST['salario'];
 	$turno 				= $_POST['turno'];
@@ -34,7 +35,7 @@ if($condicion=='guardar1'){
 		];
 		echo json_encode($datos);
 	}else{
-		$sql1 = "INSERT INTO nomina (nombre,apellido,documento_tipo,documento_numero,genero,correo,direccion,salario,telefono,estatus,fecha_inicio,turno,sede,cargo,fecha_nacimiento,fecha_ingreso,clave,fecha_expedicion,funcion,contrato) VALUES ('$nombre','$apellido','$tipo_documento','$numero_documento','$genero','$correo','$direccion','$salario','$telefono','Aceptado','$fecha_inicio','$turno','$sedes','$cargo','$fecha_nacimiento','$fecha_ingreso','$clave','$fecha_expedicion','$funcion','$contrato')";
+		$sql1 = "INSERT INTO nomina (nombre,apellido,documento_tipo,documento_numero,genero,correo,correo_personal,direccion,salario,telefono,estatus,fecha_inicio,turno,sede,cargo,fecha_nacimiento,fecha_ingreso,clave,fecha_expedicion,funcion,contrato) VALUES ('$nombre','$apellido','$tipo_documento','$numero_documento','$genero','$correo','$correo_personal','$direccion','$salario','$telefono','Aceptado','$fecha_inicio','$turno','$sedes','$cargo','$fecha_nacimiento','$fecha_ingreso','$clave','$fecha_expedicion','$funcion','$contrato')";
 		$consulta1 = mysqli_query($conexion,$sql1);
 		$datos = [
 			"estatus" => 'ok',
@@ -55,6 +56,7 @@ if($condicion=='consultar1'){
 		$apellido = $row1['apellido'];
 		$genero = $row1['genero'];
 		$correo = $row1['correo'];
+		$correo_personal = $row1['correo_personal'];
 		$direccion = $row1['direccion'];
 		$salario = $row1['salario'];
 		$turno = $row1['turno'];
@@ -81,6 +83,7 @@ if($condicion=='consultar1'){
 		"apellido" => $apellido,
 		"genero" => $genero,
 		"correo" => $correo,
+		"correo_personal" => $correo_personal,
 		"direccion" => $direccion,
 		"salario" => $salario,
 		"turno" => $turno,
@@ -109,6 +112,7 @@ if($condicion=='editar1'){
 	$apellido = $_POST['apellido'];
 	$genero = $_POST['genero'];
 	$correo = $_POST['correo'];
+	$correo_personal = $_POST['correo_personal'];
 	$direccion = $_POST['direccion'];
 	$salario = $_POST['salario'];
 	$turno = $_POST['turno'];
@@ -125,7 +129,7 @@ if($condicion=='editar1'){
 	if($estatus=='Aceptado'){
 		$fecha_retiro = '';
 	}
-	$sql1 = "UPDATE nomina SET documento_tipo = '$tipo_documento', documento_numero = '$numero_documento', nombre = '$nombre', apellido = '$apellido', genero = '$genero', correo = '$correo', direccion = '$direccion', salario = '$salario', turno = '$turno', telefono = '$telefono', cargo = '$cargo', sede = '$sedes', estatus = '$estatus', fecha_nacimiento = '$fecha_nacimiento', fecha_ingreso = '$fecha_ingreso', fecha_retiro = '$fecha_retiro', fecha_expedicion = '$fecha_expedicion', funcion = '$funcion', contrato = '$contrato' WHERE id = ".$id;
+	$sql1 = "UPDATE nomina SET documento_tipo = '$tipo_documento', documento_numero = '$numero_documento', nombre = '$nombre', apellido = '$apellido', genero = '$genero', correo = '$correo', correo_personal = '$correo_personal', direccion = '$direccion', salario = '$salario', turno = '$turno', telefono = '$telefono', cargo = '$cargo', sede = '$sedes', estatus = '$estatus', fecha_nacimiento = '$fecha_nacimiento', fecha_ingreso = '$fecha_ingreso', fecha_retiro = '$fecha_retiro', fecha_expedicion = '$fecha_expedicion', funcion = '$funcion', contrato = '$contrato' WHERE id = ".$id;
 	$consulta1 = mysqli_query($conexion,$sql1);
 	$sql2 = "SELECT * FROM sedes WHERE id = ".$sedes;
 	$resultado2 = mysqli_query($conexion,$sql2);
@@ -147,6 +151,7 @@ if($condicion=='editar1'){
 		"apellido" => $apellido,
 		"genero" => $genero,
 		"correo" => $correo,
+		"correo_personal" => $correo_personal,
 		"direccion" => $direccion,
 		"salario" => $salario,
 		"turno" => $turno,

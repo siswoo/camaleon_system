@@ -189,13 +189,6 @@
 	<?php include('nabvar_modelo.php'); ?>
 
 	<div class="container">
-		<!--
-		<div class="row">
-			<div class="col-1"><a href="../script/cerrar_sesion.php"><button class="btn btn-info mt-2">Salir</button></a></div>
-			<h1 class="col-10 text-center mt-2">Completar todos los datos</h1>
-			<div class="col-1"></div>
-		</div>
-		-->
 
 		<h1 class="col-12 text-center mt-2" style="text-transform: capitalize;">Progreso Camaleón Models <span id="progreso_html1"></span></h1>
 
@@ -732,6 +725,7 @@
 		$html_foto_cedula_parte_frontal_cara='';
 		$html_foto_cedula_parte_respaldo='';
 		$html_antecedentes_penales='';
+		$html_examenes_ocupacionales='';
 
 		if($contador3>=1){
 			while($row3 = mysqli_fetch_array($consulta3)) {
@@ -743,43 +737,6 @@
 					$nombre_documento = $row4['nombre'];
 
 					switch ($nombre_documento) {
-						/*
-						case 'Documento de Identidad':
-							$html_documento_identidad = '
-								<form id="form_documento_identidad" enctype="multipart/form-data" method="POST">
-									<div class="row">
-										<div class="col-6 form-group form-check text-center">
-											<label for="turno">Documento de Identidad (Subida Actualmente)</label>
-											';
-
-											if($file_tipo=='pdf'){
-												$html_documento_identidad.= '
-													<p>	<embed src="../resources/documentos/modelos/archivos/'.$id.'/documento_identidad.pdf#toolbar=0" type="application/pdf" width="100%" height="300px" /></p>
-												';
-											}else{
-												$html_documento_identidad.= '
-													<p>
-														<a href="../resources/documentos/modelos/archivos/'.$id.'/documento_identidad.jpg" data-lightbox="Documentos1" data-title="Documento de Identidad">
-															<img src="../resources/documentos/modelos/archivos/'.$id.'/documento_identidad.jpg" style="width:250px;border-radius:5px;">
-														</a>
-													</p>
-												';
-											}
-
-										$html_documento_identidad.= '
-										</div>
-										<div class="col-6 form-group form-check" style="margin-top:2rem;">
-											<button type="submit" class="btn btn-success" id="submit_documento_identidad" style="height: 35px; margin-top: 6px; margin-bottom: 11px;margin-right: 20px;">Subir</button>
-											<label for="turno">Documento de Identidad</label>
-											<input type="file" style="height:43px;" class="form-control" name="documento_identidad" id="documento_identidad" required>
-										</div>
-									</div>
-								</form>
-								<hr style="background-color: white;">
-							';
-						break;
-						*/
-
 						case 'Pasaporte':
 							$html_pasaporte = '
 								<form id="form_pasaporte" enctype="multipart/form-data" method="POST">
@@ -964,112 +921,6 @@
 								<hr style="background-color: white;">
 							';
 						break;
-						/*
-						case 'Foto Cédula con Cara':
-							$html_foto_cedula_con_cara = '
-								<form id="form_foto_cedula_con_cara" enctype="multipart/form-data" method="POST">
-									<div class="row">
-										<div class="col-6 form-group form-check text-center">
-											<label for="turno">Foto Cédula con Cara (Subida Actualmente)</label>
-											';
-
-											if($file_tipo=='pdf'){
-												$html_foto_cedula_con_cara.= '
-													<p><embed src="../resources/documentos/modelos/archivos/'.$id.'/foto_cedula_con_cara.pdf#toolbar=0" type="application/pdf" width="100%" height="300px" /></p>
-												';
-											}else{
-												$html_foto_cedula_con_cara.= '
-													<p>
-														<a href="../resources/documentos/modelos/archivos/'.$id.'/foto_cedula_con_cara.jpg" data-lightbox="Documentos1" data-title="Foto Cédula con Cara">
-															<img src="../resources/documentos/modelos/archivos/'.$id.'/foto_cedula_con_cara.jpg" style="width:250px;border-radius:5px;">
-														</a>
-													</p>
-												';
-											}
-
-										$html_foto_cedula_con_cara.= '
-										</div>
-										<div class="col-6 form-group form-check" style="margin-top:2rem;">
-											<button type="submit" class="btn btn-success" id="submit_foto_cedula_con_cara" style="height: 35px; margin-top: 6px; margin-bottom: 11px;margin-right: 20px;">Subir</button>
-											<label for="turno">Foto Cédula con Cara</label>
-											<input type="file" style="height:43px;" class="form-control" name="foto_cedula_con_cara" id="foto_cedula_con_cara" required>
-										</div>
-									</div>
-								</form>
-								<hr style="background-color: white;">
-							';
-						break;
-
-						case 'Foto Cédula Parte Frontal Cara':
-							$html_foto_cedula_parte_frontal_cara = '
-								<form id="form_foto_cedula_parte_frontal_cara" enctype="multipart/form-data" method="POST">
-									<div class="row">
-										<div class="col-6 form-group form-check text-center">
-											<label for="turno">Foto Cédula Parte Frontal Cara (Subida Actualmente)</label>
-											';
-
-											if($file_tipo=='pdf'){
-												$html_foto_cedula_parte_frontal_cara.= '
-													<p><embed src="../resources/documentos/modelos/archivos/'.$id.'/foto_cedula_parte_frontal_cara.pdf#toolbar=0" type="application/pdf" width="100%" height="300px" /></p>
-												';
-											}else{
-												$html_foto_cedula_parte_frontal_cara.= '
-													<p>
-														<a href="../resources/documentos/modelos/archivos/'.$id.'/foto_cedula_parte_frontal_cara.jpg" data-lightbox="Documentos1" data-title="Foto Cédula Parte Frontal Cara">
-															<img src="../resources/documentos/modelos/archivos/'.$id.'/foto_cedula_parte_frontal_cara.jpg" style="width:250px;border-radius:5px;">
-														</a>
-													</p>
-												';
-											}
-
-										$html_foto_cedula_parte_frontal_cara.= '
-										</div>
-										<div class="col-6 form-group form-check" style="margin-top:2rem;">
-											<button type="submit" class="btn btn-success" id="submit_foto_cedula_parte_frontal_cara" style="height: 35px; margin-top: 6px; margin-bottom: 11px;margin-right: 20px;">Subir</button>
-											<label for="turno">Foto Cédula Parte Frontal Cara</label>
-											<input type="file" style="height:43px;" class="form-control" name="foto_cedula_parte_frontal_cara" id="foto_cedula_parte_frontal_cara" required>
-										</div>
-									</div>
-								</form>
-								<hr style="background-color: white;">
-							';
-						break;
-
-						case 'Foto Cédula Parte Respaldo':
-							$html_foto_cedula_parte_respaldo = '
-								<form id="form_foto_cedula_parte_respaldo" enctype="multipart/form-data" method="POST">
-									<div class="row">
-										<div class="col-6 form-group form-check text-center">
-											<label for="turno">Foto Cédula Parte Respaldo (Subida Actualmente)</label>
-											';
-
-											if($file_tipo=='pdf'){
-												$html_foto_cedula_parte_respaldo.= '
-													<p><embed src="../resources/documentos/modelos/archivos/'.$id.'/foto_cedula_parte_respaldo.pdf#toolbar=0" type="application/pdf" width="100%" height="300px" /></p>
-												';
-											}else{
-												$html_foto_cedula_parte_respaldo.= '
-													<p>
-														<a href="../resources/documentos/modelos/archivos/'.$id.'/foto_cedula_parte_respaldo.jpg" data-lightbox="Documentos1" data-title="Foto Cédula Parte Respaldo">
-															<img src="../resources/documentos/modelos/archivos/'.$id.'/foto_cedula_parte_respaldo.jpg" style="width:250px;border-radius:5px;">
-														</a>
-													</p>
-												';
-											}
-
-										$html_foto_cedula_parte_respaldo.= '
-										</div>
-										<div class="col-6 form-group form-check" style="margin-top:2rem;">
-											<button type="submit" class="btn btn-success" id="submit_foto_cedula_parte_respaldo" style="height: 35px; margin-top: 6px; margin-bottom: 11px;margin-right: 20px;">Subir</button>
-											<label for="turno">Foto Cédula Parte Respaldo</label>
-											<input type="file" style="height:43px;" class="form-control" name="foto_cedula_parte_respaldo" id="foto_cedula_parte_respaldo" required>
-										</div>
-									</div>
-								</form>
-								<hr style="background-color: white;">
-							';
-						break;
-						*/
 						case 'Antecedentes Penales':
 							$html_antecedentes_penales = '
 								<form id="form_antecedentes_penales" enctype="multipart/form-data" method="POST">
@@ -1106,6 +957,19 @@
 								<hr style="background-color: white;">
 							';
 						break;
+						case 'Examenes ocupacionales':
+							$html_examenes_ocupacionales = '
+								<form id="form_antecedentes_penales" enctype="multipart/form-data" method="POST">
+									<div class="row">
+										<div class="col-12 form-group form-check text-center">
+											<label for="turno">Examenes ocupacionales (Subida Actualmente)</label>
+											<p><embed src="../resources/documentos/modelos/archivos/'.$id.'/examenes_ocupacionales.pdf#toolbar=0" type="application/pdf" width="100%" height="400px" /></p>
+										</div>
+									</div>
+								</form>
+								<hr style="background-color: white;">
+							';
+						break;
 						
 						default:
 							# code...
@@ -1114,24 +978,7 @@
 				}
 			}
 		}
-		/*
-		if($html_documento_identidad==''){
-			echo '
-			<form id="form_documento_identidad" enctype="multipart/form-data" method="POST">
-				<div class="row mt-3 mb-3">
-					<div class="col-12 form-group form-check">
-						<button type="submit" class="btn btn-success" id="submit_documento_identidad" style="height: 35px; margin-top: 6px; margin-bottom: 11px;margin-right: 20px;">Subir</button>
-						<label for="turno">Documento de Identidad</label>
-						<input type="file" style="height:43px;" class="form-control" name="documento_identidad" id="documento_identidad" required>
-					</div>
-				</div>
-			</form>
-			<hr style="background-color: white;">
-			';
-		}else{
-			echo $html_documento_identidad;
-		}
-		*/
+
 		if($html_pasaporte==''){
 			echo '
 			<form id="form_pasaporte" enctype="multipart/form-data" method="POST">
@@ -1148,6 +995,7 @@
 		}else{
 			echo $html_pasaporte;
 		}
+
 		if($html_rut==''){
 			echo '
 			<form id="form_rut" enctype="multipart/form-data" method="POST">
@@ -1164,6 +1012,7 @@
 		}else{
 			echo $html_rut;
 		}
+
 		if($html_certificacion_bancaria==''){
 			echo '
 			<form id="form_certificacion_bancaria" enctype="multipart/form-data" method="POST">
@@ -1180,6 +1029,7 @@
 		}else{
 			echo $html_certificacion_bancaria;
 		}
+
 		if($html_eps==''){
 			echo '
 			<form id="form_eps" enctype="multipart/form-data" method="POST">
@@ -1196,6 +1046,7 @@
 		}else{
 			echo $html_eps;
 		}
+
 		if($html_antecedentes_disciplinarios==''){
 			echo '
 			<form id="form_antecedentes_disciplinarios" enctype="multipart/form-data" method="POST">
@@ -1212,56 +1063,7 @@
 		}else{
 			echo $html_antecedentes_disciplinarios;
 		}
-		/*
-		if($html_foto_cedula_con_cara==''){
-			echo '
-			<form id="form_foto_cedula_con_cara" enctype="multipart/form-data" method="POST">
-				<div class="row mt-3 mb-3">
-					<div class="col-12 form-group form-check">
-						<button type="submit" class="btn btn-success" id="submit_foto_cedula_con_cara" style="height: 35px; margin-top: 6px; margin-bottom: 11px;margin-right: 20px;">Subir</button>
-						<label for="turno">Foto Cédula con Cara</label>
-						<input type="file" style="height:43px;" class="form-control" name="foto_cedula_con_cara" id="foto_cedula_con_cara" required>
-					</div>
-				</div>
-			</form>
-			<hr style="background-color: white;">
-			';
-		}else{
-			echo $html_foto_cedula_con_cara;
-		}
-		if($html_foto_cedula_parte_frontal_cara==''){
-			echo '
-			<form id="form_foto_cedula_parte_frontal_cara" enctype="multipart/form-data" method="POST">
-				<div class="row mt-3 mb-3">
-					<div class="col-12 form-group form-check">
-						<button type="submit" class="btn btn-success" id="submit_foto_cedula_parte_frontal_cara" style="height: 35px; margin-top: 6px; margin-bottom: 11px;margin-right: 20px;">Subir</button>
-						<label for="turno">Foto Cédula Parte Frontal Cara</label>
-						<input type="file" style="height:43px;" class="form-control" name="foto_cedula_parte_frontal_cara" id="foto_cedula_parte_frontal_cara" required>
-					</div>
-				</div>
-			</form>
-			<hr style="background-color: white;">
-			';
-		}else{
-			echo $html_foto_cedula_parte_frontal_cara;
-		}
-		if($html_foto_cedula_parte_respaldo==''){
-			echo '
-			<form id="form_foto_cedula_parte_respaldo" enctype="multipart/form-data" method="POST">
-				<div class="row mt-3 mb-3">
-					<div class="col-12 form-group form-check">
-						<button type="submit" class="btn btn-success" id="submit_foto_cedula_parte_respaldo" style="height: 35px; margin-top: 6px; margin-bottom: 11px;margin-right: 20px;">Subir</button>
-						<label for="turno">Foto Cédula Parte Respaldo</label>
-						<input type="file" style="height:43px;" class="form-control" name="foto_cedula_parte_respaldo" id="foto_cedula_parte_respaldo" required>
-					</div>
-				</div>
-			</form>
-			<hr style="background-color: white;">
-			';
-		}else{
-			echo $html_foto_cedula_parte_respaldo;
-		}
-		*/
+
 		if($html_antecedentes_penales==''){
 			echo '
 			<form id="form_antecedentes_penales" enctype="multipart/form-data" method="POST">
@@ -1277,14 +1079,24 @@
 		}else{
 			echo $html_antecedentes_penales;
 		}
+
+		if($html_examenes_ocupacionales==''){
+			echo '
+			<form id="form_examenes_ocupacionales" enctype="multipart/form-data" method="POST">
+				<div class="row mt-3 mb-3">
+					<div class="col-12 form-group form-check">
+						<button type="submit" class="btn btn-success" id="submit_examenes_ocupacionales" style="height: 35px; margin-top: 6px; margin-bottom: 11px;margin-right: 20px;">Subir</button>
+						<label for="turno">Examenes ocupacionales</label>
+						<input type="file" style="height:43px;" class="form-control" name="examenes_ocupacionales" id="examenes_ocupacionales" required>
+					</div>
+				</div>
+			</form>
+			';
+		}else{
+			echo $html_examenes_ocupacionales;
+		}
+
 		?>
-		<!--
-		<div class="row">
-			<div class="col-md-12 form-group form-check text-center">
-				<button type="submit" id="submit" class="btn btn-success" style="width: 20%; font-weight: bold;">Actualizar</button>
-			</div>
-		</div>
-		-->
 	</form>
 	</div>
 	<!--***********************************************************-->
@@ -1298,34 +1110,22 @@
 		<input type="hidden" id="asunto" name="asunto" value="contrato">
 		<input type="hidden" id="id" name="id" value="<?php echo $id; ?>">
 		<div class="row">
-			
-			<div class="col-12 form-group form-check text-center mt-3">
-				<input type="button" class="btn btn-info" id="botonContratover1" name="botonContratover1" value="Ver Contrato (Primera Opción)" onclick="vercontrato1();">
-				<input type="hidden" name="hidden_vercontrato1" id="hidden_vercontrato1" value="No">
-			</div>
-
-			<div class="col-12 form-group form-check text-center mt-3">
-				<a href="../script/generador_modelo_contrato1.php#toolbar=0" target="_blank">
-					<button type="button" class="btn btn-info">Ver Contrato (Segunda Opción)</button>
-				</a>
-			</div>
-
-			<div class="col-12 form-group form-check text-center" id="seccion_contrato1" style="display: none;">
-				<label>Contrato Actualizado</label>
-				<embed src="../script/generador_modelo_contrato1.php#toolbar=0" type="application/pdf" width="100%" height="600px" />
-			</div>
-				
 			<div class="col-12 form-group form-check text-center mt-3">
 				<?php
 				$sql2 = "SELECT * FROM modelos_documentos WHERE id_documentos = 1 and id_modelos = ".$id;
 				$consulta2 = mysqli_query($conexion,$sql2);
 				$contador2 = mysqli_num_rows($consulta2);
 				if($contador2==0){ ?>
+				<div class="col-12">
+					<a href="pdf_muestra.php" target="_blank">
+						<button type="button" class="btn btn-primary" id="firma" name="firma">VER MUESTRA CONTRATO DE MANDATO</button>
+					</a>
+				</div>
 				<hr style="background-color: white;">
 				<form id="form_certificacion_bancaria" enctype="multipart/form-data" method="POST">
 					<div class="row mt-3">
 						<div class="col-12 form-group form-check">
-							<p for="turno" style="font-size: 22px; text-transform: capitalize;">No cuenta aún con una firma en el contrato</p>
+							<p for="turno" style="font-size: 22px; text-transform: capitalize;">No cuenta aún con una firma en el contrato de mandato</p>
 							<p>
 								<a href="../script/generador_firmas1.php" target="_blank">
 									<button type="button" class="btn btn-danger">Generar Firma Digital</button>
@@ -1333,42 +1133,35 @@
 							</p>
 							<hr style="background-color: white;">
 							<button type="submit" class="btn btn-success" id="submit_firma_digital" style="height: 35px; margin-top: 6px; margin-bottom: 11px;margin-right: 20px;">Subir</button>
-							<label for="turno">Firma Contrato de Prestación</label>
+							<label for="turno">Firma Contrato de Mandato</label>
 							<input type="file" style="height:43px;" class="form-control" name="firma_digital" id="firma_digital" required>
 						</div>
 					</div>
 				</form>
 				<hr style="background-color: white;">
 				<?php
-				/*
-					echo '<span style="font-weight:bold; font-size:20px;">Debe firmar el contrato y esperar a su validación para poder Iniciar</span>';
-					echo '<hr style="background-color: white;">';
-					echo '<p><a href="../script/generador_firmas1.php" target="_blank" style="text-decoration:none; font-size:18px; color:white;">- Clic Para Crear Firma Digital -</a></p>';
-					echo '<p style="font-size:18px; color:white;">Subir Firma Digital ---- ';
-					echo '<input type="file"> </p>';
-					echo '<hr style="background-color: white;">';
-					echo '<input type="submit" class="btn btn-success" value="Registrar Firma">';
-				*/
 				}else{
-					while($row2 = mysqli_fetch_array($consulta2)) {
-						$sql_documentos_id = $row2['id'];
-						$sql_documentos_id_documentos = $row2['id_documentos'];
-						$sql_documentos_id_modelos = $row2['id_modelos'];
-						//$sql_documentos_firma = $row2['firma'];
-						$sql_documentos_fecha_inicio = $row2['fecha_inicio'];
-					}
-					echo '<p for="turno" style="font-size: 22px; text-transform: capitalize;">Ya Tiene una Firma Registrada!</p>';
+					echo '
+						<div class="col-12 form-group form-check text-center mt-3">
+							<input type="button" class="btn btn-info" id="botonContratover1" name="botonContratover1" value="Ver Contrato (Primera Opción)" onclick="vercontrato1();">
+							<input type="hidden" name="hidden_vercontrato1" id="hidden_vercontrato1" value="No">
+						</div>
+
+						<div class="col-12 form-group form-check text-center mt-3">
+							<a href="../script/generador_modelo_contrato1.php#toolbar=0" target="_blank">
+								<button type="button" class="btn btn-info">Ver Contrato (Segunda Opción)</button>
+							</a>
+						</div>
+
+						<div class="col-12 form-group form-check text-center" id="seccion_contrato1" style="display: none;">
+							<label>Contrato Actualizado</label>
+							<embed src="../script/generador_modelo_contrato1.php#toolbar=0" type="application/pdf" width="100%" height="600px" />
+						</div>
+					';
 				}
 				?>
 			</div>
 		</div>
-		<!--
-		<div class="row">
-			<div class="col-md-12 form-group form-check text-center">
-				<button type="submit" id="submit" class="btn btn-success" style="width: 20%; font-weight: bold;">Actualizar</button>
-			</div>
-		</div>
-		-->
 	</form>
 	<!--***********************************************************-->
 	<!--***********************************************************-->
@@ -2957,6 +2750,57 @@
             success: function(response){
             	if(response=='error'){
             		$('#submit_antecedentes_penales').attr('disabled','false');
+            		Swal.fire({
+		 				title: 'Formato Invalido',
+			 			text: "Formato Validos -> jpg jpeg png",
+			 			icon: 'error',
+			 			position: 'center',
+			 			showConfirmButton: false,
+			 			timer: 3000
+					});
+            		return false;
+            	}
+            	Swal.fire({
+	 				title: 'Documento Subido',
+	 				text: "Redirigiendo...!",
+	 				icon: 'success',
+	 				position: 'center',
+	 				showConfirmButton: true,
+	 				confirmButtonColor: '#3085d6',
+	 				confirmButtonText: 'No esperar!',
+	 				timer: 3000
+				}).then((result) => {
+	 				if (result.value) {
+	   					window.location.href = "perfil.php";
+	 				}
+				})
+				setTimeout(function() {
+			    	window.location.href = "perfil.php";
+				},3500);
+            },
+        });
+    });
+
+    $("#form_examenes_ocupacionales").on("submit", function(e){
+		e.preventDefault();
+        var fd = new FormData();
+        var files = $('#examenes_ocupacionales')[0].files[0];
+        fd.append('file',files);
+
+        $.ajax({
+            url: '../script/modelo_subir_documento15.php',
+            type: 'POST',
+            data: fd,
+            contentType: false,
+            processData: false,
+
+            beforeSend: function (){
+            	$('#submit_examenes_ocupacionales').attr('disabled','true');
+            },
+
+            success: function(response){
+            	if(response=='error'){
+            		$('#submit_examenes_ocupacionales').attr('disabled','false');
             		Swal.fire({
 		 				title: 'Formato Invalido',
 			 			text: "Formato Validos -> jpg jpeg png",

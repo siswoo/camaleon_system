@@ -64,7 +64,10 @@ INSERT INTO roles (id,nombre,jefe) VALUES (14,'Jefe',1);
 INSERT INTO roles (id,nombre,administracion) VALUES (15,'Administración Sede',1);
 INSERT INTO roles (id,nombre,nomina) VALUES (16,'Gestion Nomina',1);
 INSERT INTO roles (id,nombre,callcenter) VALUES (17,'Call Center',1);
-INSERT INTO roles (id,nombre,callcenter) VALUES (18,'Sexshop',1);
+INSERT INTO roles (id,nombre,callcenter) VALUES (18,'Sexshop',1),
+INSERT INTO roles (id,nombre,callcenter) VALUES (19,'RRHH Contenido',1),
+INSERT INTO roles (id,nombre,callcenter) VALUES (20,'Soporte Contenido',1),
+INSERT INTO roles (id,nombre,callcenter) VALUES (21,'Auditoria',1);
 ALTER TABLE roles CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 DROP TABLE IF EXISTS sedes;
@@ -91,7 +94,8 @@ INSERT INTO sedes (nombre,direccion,ciudad,descripcion,responsable,cedula,rut) V
 ('Sur Americana','Calle 48 #66 70','Medellin','BERNAL GROUP  SAS','Andres Fernando Bernal Correa', '80.774.671', '901322261-6'),
 ('Manrique','Carrera 36 #70 41','Medellin','BERNAL GROUP  SAS','Andres Fernando Bernal Correa', '80.774.671', '901322261-6'),
 ('Bucaramanga','direccion','Bucaramanga','BERNAL GROUP  SAS','Andres Fernando Bernal Correa', '80.774.671', '901322261-6'),
-('Cali','direccion','Cali','BERNAL GROUP  SAS','Andres Fernando Bernal Correa', '80.774.671', '901322261-6');
+('Cali','direccion','Cali','BERNAL GROUP  SAS','Andres Fernando Bernal Correa', '80.774.671', '901322261-6'),
+('Satelite','direccion','Satelite','BERNAL GROUP  SAS','Andres Fernando Bernal Correa', '80.774.671', '901322261-6');
 
 
 DROP TABLE IF EXISTS usuarios;
@@ -186,6 +190,7 @@ CREATE TABLE modelos (
 	banco_numero VARCHAR(250) NOT NULL,
 	banco_banco VARCHAR(250) NOT NULL,
 	BCPP VARCHAR(250) NOT NULL,
+	banco_tipo_documento VARCHAR(250) NOT NULL,
 	
 	altura VARCHAR(250) NOT NULL,
 	peso VARCHAR(250) NOT NULL,
@@ -300,7 +305,8 @@ INSERT INTO documentos (nombre,ruta,fecha_inicio) VALUES
 ('Antecedentes Penales','antecedentes_penales','2020-09-28'),
 ('Extras','extras_','2020-10-02'),
 ('Sensuales','sensuales_','2020-10-06'),
-('Permiso Bancario','acta_cuenta_prestada','2021-04-15');
+('Permiso Bancario','acta_cuenta_prestada','2021-04-15'),
+('Examenes ocupacionales','examenes_ocupacionales','2022-06-06');
 
 
 DROP TABLE IF EXISTS modelos_documentos;
@@ -1112,6 +1118,7 @@ CREATE TABLE nomina (
 	documento_numero VARCHAR(250) NOT NULL,
 	genero VARCHAR(250) NOT NULL,
 	correo VARCHAR(250) NOT NULL,
+	correo_personal VARCHAR(250) NOT NULL,
 	direccion VARCHAR(250) NOT NULL,
 	telefono VARCHAR(250) NOT NULL,
 	estatus VARCHAR(250) DEFAULT 'Activa',
@@ -1499,3 +1506,121 @@ CREATE TABLE streamray (
 	fecha_inicio DATE NOT NULL,
    	PRIMARY KEY (id)
 ); ALTER TABLE streamray CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+DROP TABLE IF EXISTS contenido_presabana;
+CREATE TABLE contenido_presabana (
+	id INT AUTO_INCREMENT,
+	id_modelo INT NOT NULL,
+	mes VARCHAR(250) NOT NULL,
+	anio VARCHAR(250) NOT NULL,
+	subtotal FLOAT(11,2) NOT NULL,
+	rf FLOAT(11,2) NOT NULL,
+	meta_porcentajes VARCHAR(250) NOT NULL,
+	total FLOAT(11,2) NOT NULL,
+	trm FLOAT(11,2) NOT NULL,
+	responsable INT NOT NULL,
+	fecha_inicio DATE NOT NULL,
+   	PRIMARY KEY (id)
+); ALTER TABLE contenido_presabana CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+DROP TABLE IF EXISTS contenido_paginas;
+CREATE TABLE contenido_paginas (
+	id INT AUTO_INCREMENT,
+	nombre VARCHAR(250) NOT NULL,
+	responsable INT NOT NULL,
+	fecha_inicio DATE NOT NULL,
+   	PRIMARY KEY (id)
+); ALTER TABLE contenido_paginas CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+INSERT INTO contenido_paginas (nombre,responsable,fecha_inicio) VALUES 
+('Pornhub',1,'2022-05-23'),
+('Onlyfans',1,'2022-05-23'),
+('Manyvids',1,'2022-05-23');
+
+DROP TABLE IF EXISTS contenido_valores_extras;
+CREATE TABLE contenido_valores_extras (
+	id INT AUTO_INCREMENT,
+	id_modelos INT NOT NULL,
+	id_paginas INT NOT NULL,
+	condicion VARCHAR(250) NOT NULL,
+	valor FLOAT(11,2) NOT NULL,
+	mes VARCHAR(250) NOT NULL,
+	anio VARCHAR(250) NOT NULL,
+	responsable INT NOT NULL,
+	fecha_inicio DATE NOT NULL,
+   	PRIMARY KEY (id)
+); ALTER TABLE contenido_valores_extras CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+DROP TABLE IF EXISTS contenido_modelos;
+CREATE TABLE contenido_modelos (
+	id INT AUTO_INCREMENT,
+	nombre1 VARCHAR(250) NOT NULL,
+	nombre2 VARCHAR(250) NOT NULL,
+	apellido1 VARCHAR(250) NOT NULL,
+	apellido2 VARCHAR(250) NOT NULL,
+	documento_tipo VARCHAR(250) NOT NULL,
+	documento_numero VARCHAR(250) NOT NULL,
+	genero VARCHAR(250) NOT NULL,
+	correo VARCHAR(250) NOT NULL,
+	direccion VARCHAR(250) NOT NULL,
+	usuario VARCHAR(250) NOT NULL,
+	clave VARCHAR(250) NOT NULL,
+	telefono1 VARCHAR(250) NOT NULL,
+	telefono2 VARCHAR(250) NOT NULL,
+	telegram VARCHAR(250) NOT NULL,
+
+	banco_cedula VARCHAR(250) NOT NULL,
+	banco_nombre VARCHAR(250) NOT NULL,
+	banco_tipo VARCHAR(250) NOT NULL,
+	banco_numero VARCHAR(250) NOT NULL,
+	banco_banco VARCHAR(250) NOT NULL,
+	BCPP VARCHAR(250) NOT NULL,
+	banco_tipo_documento VARCHAR(250) NOT NULL,
+	
+	altura VARCHAR(250) NOT NULL,
+	peso VARCHAR(250) NOT NULL,
+	pene VARCHAR(250) NOT NULL,
+	sosten VARCHAR(250) NOT NULL,
+	busto VARCHAR(250) NOT NULL,
+	cintura VARCHAR(250) NOT NULL,
+	caderas VARCHAR(250) NOT NULL,
+	tipo_cuerpo VARCHAR(250) NOT NULL,
+	vello VARCHAR(250) NOT NULL,
+	cabello VARCHAR(250) NOT NULL,
+	ojos VARCHAR(250) NOT NULL,
+	tattoo VARCHAR(250) NOT NULL,
+	piercing VARCHAR(250) NOT NULL,
+
+	estatus VARCHAR(250) DEFAULT 'Activa',
+	responsable INT NOT NULL,
+	fecha_inicio DATE NOT NULL,
+   	PRIMARY KEY (id)
+); ALTER TABLE contenido_modelos CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+INSERT INTO contenido_modelos (nombre1,nombre2,apellido1,apellido2,documento_tipo,documento_numero,genero,correo,direccion,usuario,clave,telefono1,estatus,responsable,fecha_inicio) VALUES 
+('Juan','Jose','Maldonado','la Cruz','Cedula de Extranjeria','23627750','Hombre','juanmaldonado.co2@gmail.com','','JDolarJ','71b3b26aaa319e0cdf6fdb8429c112b0','3016984868',1,1,'2022-06-05');
+
+DROP TABLE IF EXISTS contenido_documentos;
+CREATE TABLE contenido_documentos (
+	id INT AUTO_INCREMENT,
+	id_documentos INT NOT NULL,
+	id_modelos INT NOT NULL,
+	imagen VARCHAR(250) NOT NULL,
+	fecha_inicio date NOT NULL,
+	PRIMARY KEY (id)
+); ALTER TABLE contenido_documentos CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+
+DROP TABLE IF EXISTS contenido_cuentas;
+CREATE TABLE contenido_cuentas (
+	id INT AUTO_INCREMENT,
+	id_modelos INT NOT NULL,
+	id_paginas INT NOT NULL,
+	usuario VARCHAR(250) NOT NULL,
+	clave VARCHAR(250) NOT NULL,
+	estatus VARCHAR(250) NOT NULL,
+	responsable INT NOT NULL,
+	fecha_modificacion date NOT NULL,
+	fecha_inicio date NOT NULL,
+	PRIMARY KEY (id)
+); ALTER TABLE contenido_cuentas CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;

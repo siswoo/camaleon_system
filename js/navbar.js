@@ -21,6 +21,7 @@ $(document).ready(function(){
         $('#navbar-home').attr('href','welcome.php');
         $('#a-modelo').attr('href','modelo/index.php');
         $('#a-modelo2').attr('href','modelo/index2.php');
+        $('#a-modelo3').attr('href','modelo/index3.php');
         $('#a-roles').attr('href','roles/index.php');
         $('#a-seguridad').attr('href','seguridad/index.php');
         $('#a-pasante').attr('href','pasante/index.php');
@@ -44,6 +45,8 @@ $(document).ready(function(){
         $('#a-residuos').attr('href','residuos/index.php');
         $('#a-bancolombia').attr('href','bancolombia/index.php');
         $('#a-sexshop').attr('href','sexshop/index.php');
+        $('#a-ccontenido').attr('href','ccontenido/index.php');
+        $('#a-contenido').attr('href','contenido/index.php');
         $('#navbar-cerrarSesion').attr('href','script/cerrar_sesion.php');
     }else{
         $('#li-'+hidden_ubicacion).addClass('navbar-active');

@@ -56,7 +56,6 @@
 </style>
 	<?php
 	include('../script/conexion.php');
-	$usuario = $_SESSION["usuario"];
 	$id_nomina_hidden = $_SESSION["id"];
 	echo '
 		<input type="hidden" name="id_nomina_hidden" id="id_nomina_hidden" value="'.$id_nomina_hidden.'">
@@ -79,6 +78,7 @@
 			$nombre=$row['nombre'];
 			$apellido=$row['apellido'];
 			$correo=$row['correo'];
+			$correo_personal=$row['correo_personal'];
 			$direccion=$row['direccion'];
 			$telefono=$row['telefono'];
 			$fecha_inicio=$row['fecha_inicio'];
@@ -175,6 +175,10 @@
 				<input type="email" name="correo" id="correo" class="form-control" value="<?php echo $correo; ?>" disabled>
 			</div>
 			<div class="col-6 form-group form-check">
+				<label for="correo_personal">Correo Personal</label>
+				<input type="email" name="correo_personal" id="correo_personal" class="form-control" value="<?php echo $correo_personal; ?>" disabled>
+			</div>
+			<div class="col-6 form-group form-check">
 				<label for="telefono">Teléfono</label>
 				<input type="text" name="telefono" id="telefono" class="form-control" value="<?php echo $telefono; ?>" disabled>
 			</div>
@@ -190,7 +194,7 @@
 				<label for="fecha_ingreso">Fecha de Ingreso</label>
 				<input type="text" name="fecha_ingreso" id="fecha_ingreso" class="form-control" value="<?php echo $fecha_ingreso; ?>" disabled>
 			</div>
-			<div class="col-6 form-group form-check">
+			<div class="col-12 form-group form-check">
 				<label for="direccion">Dirección</label>
 				<input type="text" name="direccion" id="direccion" class="form-control" value="<?php echo $direccion; ?>" disabled>
 			</div>
@@ -360,6 +364,7 @@
 		$html_identificacion='';
 		$html_rut='';
 		$html_certificacion_bancaria='';
+		$html_examenes_ocupacionales='';
 		if($contador3>=1){
 			while($row3 = mysqli_fetch_array($consulta3)) {
 				$id_documento = $row3['id_documento'];
@@ -451,6 +456,17 @@
 									<div class="col-12 form-group form-check text-center">
 										<label for="turno">Certificación Bancaria (Subida Actualmente)</label>
 										<p><embed src="../resources/documentos/nominas/archivos/'.$id.'/certificacion_bancaria.pdf#toolbar=0" type="application/pdf" width="100%" height="400px" /></p>
+									</div>
+								</div>
+								<hr style="background-color: white;">
+							';
+						break;
+						case 'Examenes ocupacionales':
+							$html_certificacion_bancaria = '
+								<div class="row">
+									<div class="col-12 form-group form-check text-center">
+										<label for="turno">Examenes ocupacionales (Subida Actualmente)</label>
+										<p><embed src="../resources/documentos/nominas/archivos/'.$id.'/examenes_ocupacionales.pdf#toolbar=0" type="application/pdf" width="100%" height="400px" /></p>
 									</div>
 								</div>
 								<hr style="background-color: white;">
@@ -588,6 +604,21 @@
 		}else{
 			echo $html_certificacion_bancaria;
 		}
+		if($html_examenes_ocupacionales==''){
+			echo '
+			<form id="form_examenes_ocupacionales" enctype="multipart/form-data" method="POST">
+				<div class="row mt-3 mb-3">
+					<div class="col-12 form-group form-check">
+						<button type="submit" class="btn btn-success" id="submit_examenes_ocupacionales" style="height: 35px; margin-top: 6px; margin-bottom: 11px;margin-right: 20px;">Subir</button>
+						<label for="turno">Examenes ocupacionales</label>
+						<input type="file" style="height:43px;" class="form-control" name="examenes_ocupacionales" id="examenes_ocupacionales" required>
+					</div>
+				</div>
+			</form>
+			';
+		}else{
+			echo $html_certificacion_bancaria;
+		}
 		?>
 	</form>
 	</div>
@@ -640,7 +671,7 @@
 								</p>
 								<hr style="background-color: white;">
 								<button type="submit" class="btn btn-success" id="submit_firma_digital" style="height: 35px; margin-top: 6px; margin-bottom: 11px;margin-right: 20px;">Subir</button>
-								<label for="turno">Firma Contrato de Prestación</label>
+								<label for="turno">Firma Contrato de Mandato</label>
 								<input type="file" style="height:43px;" class="form-control" name="firma_digital" id="firma_digital" required>
 							</div>
 						</div>
@@ -757,7 +788,7 @@
 
 	<!--**********************DESPRENDIBLES*********************-->
 	<!--***********************************************************-->
-	<form class="d-none" action="pdf1.php" method="POST" id="formulario11" target="_blank">
+	<form class="d-none" action="pdf1.php" method="GET" id="formulario11" target="_blank">
 		<div class="row">
 			<div class="col-12 text-center" style="font-size: 20px; font-weight: bold;">Listado de Desprendibles</div>
 			<div class="col-12 text-center form-group form-check">Pagos Accesibles
@@ -1936,6 +1967,63 @@
             success: function(response){
             	console.log(response);
             	$('#submit_certificacion_bancaria').removeAttr('disabled');
+            	if(response['estatus']=='error'){
+            		Swal.fire({
+		 				title: 'Formato Invalido',
+			 			text: "Formato Validos -> pdf",
+			 			icon: 'error',
+			 			position: 'center',
+			 			showConfirmButton: false,
+			 			timer: 3000
+					});
+            		return false;
+            	}
+            	Swal.fire({
+	 				title: 'Documento Subido',
+	 				text: "Redirigiendo...!",
+	 				icon: 'success',
+	 				position: 'center',
+	 				showConfirmButton: true,
+	 				confirmButtonColor: '#3085d6',
+	 				confirmButtonText: 'No esperar!',
+	 				timer: 3000
+				}).then((result) => {
+	 				if (result.value) {
+	   					window.location.href = "perfil.php";
+	 				}
+				})
+				setTimeout(function() {
+			    	window.location.href = "perfil.php";
+				},3500);
+            },
+            error: function(response){
+            	console.log(response['responseText']);
+            	$('#submit_identificacion').removeAttr('disabled');
+            }
+        });
+    });
+    $("#form_examenes_ocupacionales").on("submit", function(e){
+		e.preventDefault();
+        var fd = new FormData();
+        var files = $('#examenes_ocupacionales')[0].files[0];
+        fd.append('file',files);
+        fd.append('condicion',"subir_archivo1");
+        fd.append('condicion2',"Examenes ocupacionales");
+        fd.append('condicion3',"examenes_ocupacionales");
+        fd.append('id',$('#id').val());
+        $.ajax({
+            url: '../script/crud_nomina.php',
+            type: 'POST',
+            data: fd,
+            dataType: "JSON",
+            contentType: false,
+            processData: false,
+            beforeSend: function (){
+            	$('#submit_examenes_ocupacionales').attr('disabled','true');
+            },
+            success: function(response){
+            	console.log(response);
+            	$('#submit_examenes_ocupacionales').removeAttr('disabled');
             	if(response['estatus']=='error'){
             		Swal.fire({
 		 				title: 'Formato Invalido',

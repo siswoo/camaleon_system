@@ -131,6 +131,48 @@
 		</div>
 	</div>
 
+	<div class="seccion3" id="seccion3" style="margin-top: 3rem;">
+		<div class="row ml-3 mr-3" style="margin-top: 4rem;">
+			<div class="col-12 text-center" style="font-weight: bold; font-size: 30px; text-transform: uppercase;">Listado de Descuentos</div>
+			<input type="hidden" name="datatables2" id="datatables2" data-pagina="1" data-consultasporpagina="10" data-filtrado="" data-sede="">
+			<div class="col-3 form-group form-check">
+				<label for="consultasporpagina2" style="color:black; font-weight: bold;">Resultados por página</label>
+				<select class="form-control" id="consultasporpagina2" name="consultasporpagina2">
+					<option value="10">10</option>
+					<option value="20">20</option>
+					<option value="30">30</option>
+					<option value="40">40</option>
+					<option value="50">50</option>
+					<option value="100">100</option>
+				</select>
+			</div>
+			<div class="col-4 form-group form-check">
+				<label for="buscarfiltro2" style="color:black; font-weight: bold;">Buscar</label>
+				<input type="text" class="form-control" id="buscarfiltro2" name="buscarfiltro2">
+			</div>
+			<div class="col-3 form-group form-check">
+				<label for="consultaporsede2" style="color:black; font-weight: bold;">Sede</label>
+				<select class="form-control" id="consultaporsede2" name="consultaporsede2">
+					<option value="">Todas</option>
+					<?php
+					$sql2 = "SELECT * FROM sedes";
+					$proceso2 = mysqli_query($conexion,$sql2);
+					while($row2=mysqli_fetch_array($proceso2)){
+						$sedes_id = $row2["id"];
+						$sedes_nombre = $row2["nombre"];
+						echo '<option value="'.$sedes_id.'">'.$sedes_nombre.'</option>';
+					}
+					?>
+				</select>
+			</div>
+			<div class="col-2">
+				<br>
+				<button type="button" class="btn btn-info mt-2" onclick="filtrar2();">Filtrar</button>
+			</div>
+			<div class="col-12" style="background-color: white; border-radius: 1rem; padding: 20px 1px 1px 1px;" id="resultado_table2"></div>
+		</div>
+	</div>
+
 </body>
 </html>
 
@@ -150,6 +192,7 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		filtrar1();
+		filtrar2();
 	});
 
 	function filtrar1(){
@@ -250,5 +293,44 @@
 			}
 		});
 	}
+
+	function filtrar2(){
+        var input_consultasporpagina = $('#consultasporpagina2').val();
+        var input_buscarfiltro = $('#buscarfiltro2').val();
+        var input_consultaporsede = $('#consultaporsede2').val();
+        
+        $('#datatables2').attr({'data-consultasporpagina':input_consultasporpagina})
+        $('#datatables2').attr({'data-filtrado':input_buscarfiltro})
+        $('#datatables2').attr({'data-sede':input_consultaporsede})
+
+        var pagina = $('#datatables2').attr('data-pagina');
+        var consultasporpagina = $('#datatables2').attr('data-consultasporpagina');
+        var sede = $('#datatables2').attr('data-sede');
+        var filtrado = $('#datatables2').attr('data-filtrado');
+
+        $.ajax({
+            type: 'POST',
+            url: '../script/crud_sexshop.php',
+            dataType: "JSON",
+            data: {
+                "pagina": pagina,
+                "consultasporpagina": consultasporpagina,
+                "sede": sede,
+                "filtrado": filtrado,
+                "condicion": "table2",
+            },
+
+            success: function(respuesta) {
+                //console.log(respuesta);
+                if(respuesta["estatus"]=="ok"){
+                    $('#resultado_table2').html(respuesta["html"]);
+                }
+            },
+
+            error: function(respuesta) {
+                console.log(respuesta['responseText']);
+            }
+        });
+    }
 
 </script>

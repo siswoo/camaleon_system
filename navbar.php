@@ -53,6 +53,13 @@ if($ubicacion == 'welcome'){ ?>
 	        		<a class="nav-link navbar-active-a botones_navbar1" href="../modelo/index2.php" id="a-modelo2">Modelos</a>
 	      		</li>
 			<?php } ?>
+
+			<?php
+			if($_SESSION['rol']==1 or $_SESSION['rol']==21){ ?>
+				<li class="nav-item" id="li-modelo">
+	        		<a class="nav-link navbar-active-a botones_navbar1" href="../modelo/index3.php" id="a-modelo3">Modelos Auditoria</a>
+	      		</li>
+			<?php } ?>
 			
 	      	<?php
 			if(($verificacion_pasante_view==1 or $_SESSION['rol']==14 or $_SESSION['rol']==15)){ ?>
@@ -81,10 +88,16 @@ if($ubicacion == 'welcome'){ ?>
 	        	<a class="nav-link navbar-active-a botones_navbar1" href="../sexshop/index.php" id="a-sexshop">Sexshop</a>
 	      	</li>
 	      	<?php } ?>
-	      	
+
 	      	<?php
-	      	// 1722 == valentina  |  1056 == juliana  |  
-			if($_SESSION['rol']==1 or $_SESSION['rol']==13 or $_SESSION['rol']==14 or $_SESSION['rol']==15 or $_SESSION['id']==1722 or $_SESSION['id']==1056 or $_SESSION['id']==1505 or $_SESSION['id']==5698){ ?>
+			if($_SESSION['rol']==1 or $_SESSION['rol']==19){ ?>
+	      	<li class="nav-item" id="li-contenido">
+	        	<a class="nav-link navbar-active-a botones_navbar1" href="../contenido/index.php" id="a-contenido">Contenido</a>
+	      	</li>
+	      	<?php } ?>
+	      	
+	      	<?php 
+			if($_SESSION['rol']==1 or $_SESSION['rol']==13 or $_SESSION['rol']==14 or $_SESSION['rol']==15 or $_SESSION['rol']==21 or $_SESSION['id']==1722 or $_SESSION['id']==1056 or $_SESSION['id']==1505 or $_SESSION['id']==5698){ ?>
 	      	<li class="nav-item" id="li-pagos">
 	        	<a class="nav-link navbar-active-a botones_navbar1" href="../pagos/index.php" id="a-pagos">Pagos</a>
 	      	</li>
@@ -96,6 +109,14 @@ if($ubicacion == 'welcome'){ ?>
 	        	<a class="nav-link navbar-active-a botones_navbar1" href="../erick/index.php" id="a-erick">Erick</a>
 	      	</li>
 	      	<?php } ?>
+
+	      	<?php
+			if($_SESSION['rol']==1 or $_SESSION['rol']==20){ ?>
+	      	<li class="nav-item" id="li-ccontenido">
+	        	<a class="nav-link navbar-active-a botones_navbar1" href="../ccontenido/index.php" id="a-ccontenido">C.Contenido</a>
+	      	</li>
+	      	<?php } ?>
+
 	      	<?php
 			if($_SESSION['rol']==1 or $_SESSION['rol']==13){ ?>
 	      	<li class="nav-item" id="li-bancolombia">
@@ -115,7 +136,7 @@ if($ubicacion == 'welcome'){ ?>
 	      	</li>
 	      	<?php } ?>
 	      	<?php
-			if($_SESSION['rol']==1 or $_SESSION["usuario"]=="camila123"){ ?>
+			if($_SESSION['rol']==1 or $_SESSION["id"]==2243 or $_SESSION['rol']==21){ ?>
 	      	<li class="nav-item" id="li-facturas">
 	        	<a class="nav-link navbar-active-a botones_navbar1" href="../facturas/index.php" id="a-facturas">Facturas</a>
 	        </li>
@@ -136,7 +157,7 @@ if($ubicacion == 'welcome'){ ?>
 	      	</li>
 	      	<?php } ?>
 	      	<?php
-			if($_SESSION['rol']==1 or $_SESSION['rol']==8 or $_SESSION['rol']==15){ ?>
+			if($_SESSION['rol']==1 or $_SESSION['rol']==8 or $_SESSION['rol']==15 or $_SESSION['rol']==21){ ?>
 	      	<li class="nav-item" id="li-consultas">
 	        	<a class="nav-link navbar-active-a botones_navbar1" href="../consultas/index.php" id="a-consultas">Consultas</a>
 	      	</li>
@@ -173,7 +194,7 @@ if($ubicacion == 'welcome'){ ?>
 	      	</li>
 	      	<?php } ?>
 	      	<?php
-			if(($_SESSION['rol']==1) or $_SESSION["usuario"]=="angie123"){ ?>
+			if(($_SESSION['rol']==1) or $_SESSION["id"]==1389){ ?>
 	      	<li class="nav-item" id="li-cargos">
 	        	<a class="nav-link navbar-active-a botones_navbar1" href="../cargos/index.php" id="a-cargos">Cargos</a>
 	      	</li>

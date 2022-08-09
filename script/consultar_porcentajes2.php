@@ -22,7 +22,7 @@ while($row5 = mysqli_fetch_array($consulta5)) {
 	$usuario_documento = $row5['documento_numero'];
 }
 
-if($_SESSION["rol"]!=1){
+if($_SESSION["rol"]!=1 and $_SESSION["rol"]!=21){
 	$sql1 = "SELECT * FROM presabana WHERE sede = ".$_SESSION['sede']." and inicio BETWEEN '".$inicio."' AND '".$fin."' and fin BETWEEN '".$inicio."' AND '".$fin."' and total_pesos >=1";
 }else{
 	$sql1 = "SELECT * FROM presabana WHERE inicio BETWEEN '".$inicio."' AND '".$fin."' and fin BETWEEN '".$inicio."' AND '".$fin."' and total_pesos >=1";

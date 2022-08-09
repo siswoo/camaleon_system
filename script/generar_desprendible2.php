@@ -449,7 +449,8 @@ while($row2 = mysqli_fetch_array($consulta2)) {
 	while($row13 = mysqli_fetch_array($consulta13)) {
 
 		$deducido_sexshop_valor = $row13['monto'];
-		$deducido_sexshop_concepto = $row13['concepto'];
+		//$deducido_sexshop_concepto = $row13['concepto'];
+		$deducido_sexshop_concepto = "SX";
 		$total_deducido = $total_deducido+$deducido_sexshop_valor;
 		$pdf->Ln(5);
 		$pdf->Cell(65,5,utf8_decode(strtoupper($deducido_sexshop_concepto)),0,0,'');

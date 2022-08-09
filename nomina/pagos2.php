@@ -79,15 +79,15 @@
         	<div class="col-12 mb-3 text-center text-uppercase font-weight-bold h5">Nuevo</div>
         	<div class="col-4 text-center form-group form-check">
         		<label style="color:black; font-weight: bold;">Nombre</label>
-	            <input type="text" id="nuevo_nombre" name="nuevo_nombre" class="form-control" autocomplete="off" required>
+	            <input type="text" id="nuevo_nombre" name="nuevo_nombre" class="form-control" autocomplete="off">
         	</div>
         	<div class="col-4 text-center form-group form-check">
         		<label style="color:black; font-weight: bold;">Desde</label>
-	            <input type="date" id="nuevo_desde" name="nuevo_desde" class="form-control" autocomplete="off" required>
+	            <input type="date" id="nuevo_desde" name="nuevo_desde" class="form-control" autocomplete="off">
         	</div>
         	<div class="col-4 text-center form-group form-check">
         		<label style="color:black; font-weight: bold;">Hasta</label>
-	            <input type="date" id="nuevo_hasta" name="nuevo_hasta" class="form-control" autocomplete="off" required>
+	            <input type="date" id="nuevo_hasta" name="nuevo_hasta" class="form-control" autocomplete="off">
         	</div>
         	<div class="col-12 text-center form-group form-check">
         		<button type="button" class="btn btn-success" id="nuevo_guardar" onclick="guardar1();">Guardar</button>
@@ -113,8 +113,8 @@
         	</div>
         	<div class="col-12 text-center form-group form-check">
         		<button type="button" class="btn btn-info" id="nuevo_guardar" onclick="restaurar1();">Restaurar</button>
-        	</div>
         </div>
+        	</div>
     </div>
 </body>
 </html>
