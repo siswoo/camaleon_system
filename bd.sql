@@ -64,10 +64,13 @@ INSERT INTO roles (id,nombre,jefe) VALUES (14,'Jefe',1);
 INSERT INTO roles (id,nombre,administracion) VALUES (15,'Administración Sede',1);
 INSERT INTO roles (id,nombre,nomina) VALUES (16,'Gestion Nomina',1);
 INSERT INTO roles (id,nombre,callcenter) VALUES (17,'Call Center',1);
-INSERT INTO roles (id,nombre,callcenter) VALUES (18,'Sexshop',1),
-INSERT INTO roles (id,nombre,callcenter) VALUES (19,'RRHH Contenido',1),
-INSERT INTO roles (id,nombre,callcenter) VALUES (20,'Soporte Contenido',1),
+INSERT INTO roles (id,nombre,callcenter) VALUES (18,'Sexshop',1);
+INSERT INTO roles (id,nombre,callcenter) VALUES (19,'RRHH Contenido',1);
+INSERT INTO roles (id,nombre,callcenter) VALUES (20,'Soporte Contenido',1);
 INSERT INTO roles (id,nombre,callcenter) VALUES (21,'Auditoria',1);
+INSERT INTO roles (id,nombre) VALUES (22,'Satelite');
+INSERT INTO roles (id,nombre) VALUES (23,'Auxiliar Contable');
+INSERT INTO roles (id,nombre) VALUES (24,'Soluciones');
 ALTER TABLE roles CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 DROP TABLE IF EXISTS sedes;

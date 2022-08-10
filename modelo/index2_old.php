@@ -61,60 +61,130 @@
 	include('../script/navbar_verificacion.php');
 	include('../navbar.php');
 ?>
+	<form id="formulario1" method="POST">
+		<input type="hidden" id="modelo_view" value="<?php echo $modelo_view; ?>">
+		<input type="hidden" id="modelo_edit" value="<?php echo $modelo_edit; ?>">
+		<input type="hidden" id="modelo_delete" value="<?php echo $modelo_delete; ?>">
+	</form>
+	<div class="seccion1">
+	    <div class="row">
+		    <div class="container_consulta1">
+		    	<table id="example" class="table row-border hover table-bordered" style="font-size: 12px;">
+			        <thead>
+			            <tr>
+			            	<th class="text-center">ID</th>
+			                <th class="text-center">Nombre</th>
+			                <th class="text-center">Apellido</th>
+			                <th class="text-center">Tipo Doc</th>
+			                <th class="text-center">Número Doc</th>
+			                <th class="text-center">NickName</th>
+			                <th class="text-center">Turno</th>
+			                <th class="text-center">Sede</th>
+			                <th class="text-center">Fecha Inicio</th>
+			                <th class="text-center">Opciones</th>
+			                <th class="text-center">Documentos</th>
+			                <th class="text-center">Cuentas</th>
+			            </tr>
+			        </thead>
+			        <tbody id="resultados">
+			        	<?php
+				        	$sql3 = "SELECT * FROM usuarios WHERE id = ".$_SESSION['id'];
+				        	$resultado3 = mysqli_query($conexion,$sql3);
+							while($row3 = mysqli_fetch_array($resultado3)) {
+								$usuario_documento = $row3['documento_numero'];
+								
+								if($usuario_documento=='1023886014'){
+									$consulta2 = "SELECT * FROM modelos WHERE (sede = 1 or sede = 3) and documento_numero != 1044429860 order by id DESC";
+								}else if($usuario_documento=='24616438'){
+									$consulta2 = "SELECT * FROM modelos WHERE (sede = 2 or sede = 4) and documento_numero != 1044429860 order by id DESC";
+								}else if($usuario_documento=='1233894445'){
+									$consulta2 = "SELECT * FROM modelos WHERE (sede = 1 or sede = 3) and documento_numero != 1044429860 order by id DESC";
+								}else if($usuario_documento=='114261706' or $usuario_documento=='1023025355'){
+									$consulta2 = "SELECT * FROM modelos WHERE (sede = 2) and documento_numero != 1044429860 order by id DESC";
+								}else if($usuario_documento=='1014231159'){
+									$consulta2 = "SELECT * FROM modelos WHERE (sede = 2 or sede = 4) and documento_numero != 1044429860 order by id DESC";
+								}else if($usuario_documento=='1093789350'){
+									$consulta2 = "SELECT * FROM modelos WHERE (sede = 3) and documento_numero != 1044429860 order by id DESC";
+								}else if($_SESSION['rol']==9){
+									$consulta2 = "SELECT * FROM modelos WHERE documento_numero != 1044429860 order by id DESC";
+								}else{
+									$separar_modelos1 = ' and (sede = '.$_SESSION["sede"].')';
+									$consulta2 = "SELECT * FROM modelos WHERE documento_numero != 1044429860"." ".$separar_modelos1." order by id DESC";
+								}
+				        	}
+				        	
+							$resultado2 = mysqli_query( $conexion, $consulta2 );
+							while($row2 = mysqli_fetch_array($resultado2)) {
+								$modelo_id 					= $row2['id'];
+								$modelo_nombre1 			= $row2['nombre1'];
+								$modelo_nombre2 			= $row2['nombre2'];
+								$modelo_apellido1 			= $row2['apellido1'];
+								$modelo_apellido2 			= $row2['apellido2'];
+								$modelo_documento_tipo 		= $row2['documento_tipo'];
+								$modelo_documento_numero 	= $row2['documento_numero'];
+								$modelo_correo 				= $row2['correo'];
+								$modelo_usuario 			= $row2['usuario'];
+								$modelo_telefono1 			= $row2['telefono1'];
+								$modelo_telefono2 			= $row2['telefono2'];
+								$modelo_turno 				= $row2['turno'];
+								$modelo_estatus 			= $row2['estatus'];
+								$modelo_sede 				= $row2['sede'];
+								$modelo_nickname 			= $row2['sugerenciaNickname'];
+								$modelo_fecha_inicio 		= $row2['fecha_inicio'];
+								$sql_modelos_cuentas = "SELECT * FROM modelos_cuentas WHERE id_modelos = ".$modelo_id;
+								$resultado9 = mysqli_query($conexion,$sql_modelos_cuentas);
+								$contador3 = mysqli_num_rows($resultado9);
+								echo '
+									<tr>
+										<td class="text-center">'.$modelo_id.'</td>
+						                <td nowrap>'.$modelo_nombre1.' '.$modelo_nombre2.'</td>
+						                <td nowrap>'.$modelo_apellido1.' '.$modelo_apellido2.'</td>
+						                <td class="text-center">'.$modelo_documento_tipo.'</td>
+						                <td class="text-center">'.$modelo_documento_numero.'</td>
+						                <td class="text-center">'.$modelo_nickname.'</td>
+						                <td class="text-center">'.$modelo_turno.'</td>
+						            ';
+						            	if($modelo_sede==''){
+						            		echo '<td class="text-center">Desconocido</td>';
+						            	}else{
+							            	$sql_rol2 = "SELECT * FROM sedes WHERE id = ".$modelo_sede." LIMIT 1";
+											$resultado_rol2 = mysqli_query($conexion, $sql_rol2);
+											$fila1 = mysqli_num_rows($resultado_rol2);
+											while($row4 = mysqli_fetch_array($resultado_rol2)) {
+												$rol_id2 = $row4['id'];
+												$rol_nombre2 = $row4['nombre'];
+												echo '<td class="text-center">'.$rol_nombre2.'</td>';
+											}
+										}
+										
+										if($_SESSION['rol']==1 or $_SESSION['rol']==2){
+											echo '<td class="text-center">'.$modelo_telefono1.'</td>';
+										}
 
+									echo '
+						                <td class="text-center">'.$modelo_fecha_inicio.'</td>
+						                <td class="text-center">
+						                	<i class="fas fa-edit" style="color:#0095ff; cursor:pointer;" title="" value="'.$modelo_id.'" data-toggle="modal" data-target="#exampleModal_soporte1" onclick="modal_edit2('.$modelo_id.');"></i>
+						                </td>
+							        	<td class="text-center">
+							        		<i class="fas fa-folder-open" style="cursor:pointer; font-size:20px;" title="" value="'.$modelo_id.'" data-toggle="modal" data-target="#Modal_documentos1" onclick="documentos1('.$modelo_id.');"></i>
+							        		<i class="fas fa-camera-retro" style="cursor:pointer; font-size:20px;" title="" value="'.$modelo_id.'" data-toggle="modal" data-target="#Modal_fotos1" onclick="fotos1('.$modelo_id.');"></i>
+							        		<i class="fas fa-images ml-3" style="cursor:pointer; font-size:20px;" title="" value="'.$modelo_id.'" data-toggle="modal" data-target="#Modal_fotos2" onclick="fotos2('.$modelo_id.');"></i>
+							        	</td>
+						        		<td class="text-center">
+						        			<i class="fas fa-user-shield" style="cursor:pointer; font-size:20px;" data-toggle="modal" data-target="#Modal_cuentas1" onclick="cuentas('.$modelo_id.');"></i>
+						        			<strong>('.$contador3.')</strong>
+						        			<i class="fas fa-user-plus ml-3" style="cursor:pointer; font-size:20px;" data-toggle="modal" data-target="#Modal_cuentas2" onclick="cuentas2('.$modelo_id.');"></i>
+						        		</td>
+						        	';
+							}
+						?>
+			        </tbody>
+			    </table>
 
-	<?php $ubicacion_url = $_SERVER["PHP_SELF"]; ?>
-
-	<div class="row ml-3 mr-3" style="margin-top: 4rem;">
-		<input type="hidden" name="datatables" id="datatables" data-pagina="1" data-consultasporpagina="10" data-filtrado="" data-sede="">
-		<div class="col-3 form-group form-check">
-			<label for="consultasporpagina" style="color:black; font-weight: bold;">Resultados por página</label>
-			<select class="form-control" id="consultasporpagina" name="consultasporpagina">
-				<option value="10">10</option>
-				<option value="20">20</option>
-				<option value="30">30</option>
-				<option value="40">40</option>
-				<option value="50">50</option>
-				<option value="100">100</option>
-			</select>
+		    </div>
 		</div>
-		<div class="col-4 form-group form-check">
-			<label for="buscarfiltro" style="color:black; font-weight: bold;">Busqueda</label>
-			<input type="text" class="form-control" id="buscarfiltro" autocomplete="off" name="buscarfiltro">
-		</div>
-		<div class="col-3 form-group form-check">
-			<label for="consultaporsede" style="color:black; font-weight: bold;">Estatus</label>
-			<select class="form-control" id="consultaporsede" name="consultaporsede">
-				<option value="">Todos</option>
-				<option value="Activa">Activa</option>
-				<option value="Inactiva">Inactiva</option>
-			</select>
-		</div>
-		<div class="col-2">
-			<br>
-			<button type="button" class="btn btn-info mt-2" onclick="filtrar1();">Filter</button>
-		</div>
-		
-		<div class="col-12" style="background-color: white; border-radius: 1rem; padding: 20px 1px 1px 1px;" id="resultado_table1"></div>
 	</div>
-
-	<!-- Modal Nuevo -->
-	<div class="modal fade" id="modal_extras1" tabindex="-1" role="dialog" aria-labelledby="modal_extras1" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">EXTRAS</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<div class="row" id="modal_extras1_respuesta"></div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!------------------>
 
 <!-- Modal Editar Registro 2 -->
 	<div class="modal fade" id="exampleModal_soporte1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -776,6 +846,8 @@
 	</div>
 <!-- FIN Responsables 1 -->
 
+</body>
+</html>
 
 <script src="../js/jquery-3.5.1.min.js"></script>
 <script type="text/javascript" src="../js/popper.js"></script>
@@ -788,64 +860,156 @@
 <?php include('../footer.php'); ?>
 
 <script type="text/javascript">
-    $(document).ready(function() {
-        filtrar1();
-    } );
+	$(document).ready(function() {
+    	var table = $('#example').DataTable( {
+        	//"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+        	"lengthMenu": [[10, 25, 50, 100], [10, 25, 50, 100]],
 
-    function filtrar1(){
-        var input_consultasporpagina = $('#consultasporpagina').val();
-        var input_buscarfiltro = $('#buscarfiltro').val();
-        var input_consultaporsede = $('#consultaporsede').val();
-        
-        $('#datatables').attr({'data-consultasporpagina':input_consultasporpagina})
-        $('#datatables').attr({'data-filtrado':input_buscarfiltro})
-        $('#datatables').attr({'data-sede':input_consultaporsede})
+        	"language": {
+	            "lengthMenu": "Mostrar _MENU_ Registros por página",
+	            "zeroRecords": "No se ha encontrado resultados",
+	            "info": "Ubicado en la página <strong>_PAGE_</strong> de <strong>_PAGES_</strong>",
+	            "infoEmpty": "Sin registros actualmente",
+	            "infoFiltered": "(Filtrado de <strong>_MAX_</strong> total registros)",
+	            "paginate": {
+			        "first":      "Primero",
+			        "last":       "Última",
+			        "next":       "Siguiente",
+			        "previous":   "Anterior"
+			    },
+			    "search": "Buscar",
+        	},
 
-        var pagina = $('#datatables').attr('data-pagina');
-        var consultasporpagina = $('#datatables').attr('data-consultasporpagina');
-        var sede = $('#datatables').attr('data-sede');
-        var filtrado = $('#datatables').attr('data-filtrado');
-        var ubicacion_url = '<?php echo $ubicacion_url; ?>';
+        	"paging": true,
+        	"order": [[ 9, "desc" ]],
 
-        $.ajax({
-            type: 'POST',
-            url: '../script/crud_modelos.php',
-            dataType: "JSON",
-            data: {
-                "pagina": pagina,
-                "consultasporpagina": consultasporpagina,
-                "sede": sede,
-                "filtrado": filtrado,
-                "link1": ubicacion_url,
-                "condicion": "table2",
-            },
+    	} );
 
-            success: function(respuesta) {
-                //console.log(respuesta);
-                if(respuesta["estatus"]=="ok"){
-                    $('#resultado_table1').html(respuesta["html"]);
-                }else{
-                	Swal.fire({
-                        title: 'Error',
-                        text: respuesta["estatus"]=="error",
-                        icon: 'error',
-                        showConfirmButton: true,
-                    })
-                }
-            },
 
-            error: function(respuesta) {
-                console.log(respuesta['responseText']);
-            }
-        });
-    }
+    	/***************POPOVERS*******************/
+		$(function () {
+			$('[data-toggle="popover"]').popover()
+		})
 
-    function paginacion1(value){
-        $('#datatables').attr({'data-pagina':value})
-        filtrar1();
-    }
+		// popovers initialization - on hover
+		$('[data-toggle="popover-hover"]').popover({
+		  html: true,
+		  trigger: 'hover',
+		  placement: 'bottom',
+		  /*content: function () { return '<img src="' + $(this).data('img') + '" />'; }*/
+		});
 
-    	/*************LLENAR FORM EDIT*******************/
+		// popovers initialization - on click
+		$('[data-toggle="popover-click"]').popover({
+		  html: true,
+		  trigger: 'click',
+		  placement: 'bottom',
+		  content: function () { return '<img src="' + $(this).data('img') + '" />'; }
+		});
+    	/******************************************/
+
+    	$('#select_equipo').change(function (){
+			var div = $('#select_equipo');
+			var variable = $('#select_equipo').val();
+			if(variable != '' && variable != 'Individual'){
+				//$('#divEquipos').removeClass('d-none');
+				$('#divEquipos').show();
+				$.ajax({
+					type: 'POST',
+					url: '../script/equipos_select1.php',
+					data: {
+						"equipo": variable
+					},
+					/*dataType: "JSON",*/
+					success: function(respuesta) {
+						//console.log(respuesta);
+						$('#select_enlazar').html(respuesta);
+
+					},
+
+					error: function(respuesta) {
+						console.log('Error...'+respuesta);
+					}
+				});
+			}else{
+				$('#divEquipos').hide();
+			}
+		});
+
+	} );
+
+    function filtros(variable,sede){
+	    $.ajax({
+			type: 'POST',
+			url: '../script/modelo_filtros_sedes.php',
+			data: {
+				"variable": variable,
+				"sede": sede,
+			},
+
+			success: function(respuesta) {
+				$('#example').DataTable().destroy();
+				$('#resultados').html(respuesta);
+				var table = $('#example').DataTable( {
+		        	"lengthMenu": [[10, 25, 50, 100], [10, 25, 50, 100]],
+
+		        	"language": {
+			            "lengthMenu": "Mostrar _MENU_ Registros por página",
+			            "zeroRecords": "No se ha encontrado resultados",
+			            "info": "Ubicado en la página <strong>_PAGE_</strong> de <strong>_PAGES_</strong>",
+			            "infoEmpty": "Sin registros actualmente",
+			            "infoFiltered": "(Filtrado de <strong>_MAX_</strong> total registros)",
+			            "paginate": {
+					        "first":      "Primero",
+					        "last":       "Última",
+					        "next":       "Siguiente",
+					        "previous":   "Anterior"
+					    },
+					    "search": "Buscar",
+		        	},
+
+		        	"paging": true
+
+	    		} );
+	    		/***************POPOVERS*******************/
+				$(function () {
+					$('[data-toggle="popover"]').popover()
+				})
+
+				// popovers initialization - on hover
+				$('[data-toggle="popover-hover"]').popover({
+				  html: true,
+				  trigger: 'hover',
+				  placement: 'bottom',
+				  /*content: function () { return '<img src="' + $(this).data('img') + '" />'; }*/
+				});
+
+				// popovers initialization - on click
+				$('[data-toggle="popover-click"]').popover({
+				  html: true,
+				  trigger: 'click',
+				  placement: 'bottom',
+				  content: function () { return '<img src="' + $(this).data('img') + '" />'; }
+				});
+		    	/******************************************/
+			},
+
+			error: function(respuesta) {
+				console.log('Error...'+respuesta);
+			}
+		});
+	};
+
+	$('#myModal').on('shown.bs.modal', function () {
+	  	$('#myInput').trigger('focus')
+	});
+
+	$("#form_modal_register").on("submit", function(e){
+		e.preventDefault();
+		console.log('guardando...');
+	});
+
+	/*************LLENAR FORM EDIT*******************/
 
 	function modal_edit (variable) {
 		$.ajax({

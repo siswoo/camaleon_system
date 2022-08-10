@@ -1,0 +1,4 @@
+[10-Aug-2022 16:52:42 America/Bogota] PHP Fatal error:  Uncaught Error: Call to undefined function mysql_insert_id() in /home/camaleon/public_html/script/crud_pasantes.php:384
+Stack trace:
+#0 {main}
+  thrown in /home/camaleon/public_html/script/crud_pasantes.php on line 384

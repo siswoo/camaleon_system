@@ -51,12 +51,12 @@ if($ubicacion == 'welcome'){ ?>
 			<?php
 			if($_SESSION['rol']==1 or $_SESSION['rol']==22){ ?>
 				<li class="nav-item" id="li-satelite">
-	        		<a class="nav-link navbar-active-a botones_navbar1" href="../satelite/index.php" id="a-satelite2">Satelites</a>
+	        		<a class="nav-link navbar-active-a botones_navbar1" href="../satelite/index.php" id="a-satelite">Satelites</a>
 	      		</li>
 			<?php } ?>
 
 			<?php
-			if($_SESSION['rol']==8 or $_SESSION['rol']==15){ ?>
+			if($_SESSION['rol']==8 or $_SESSION['rol']==15 or $_SESSION['rol']==23){ ?>
 				<li class="nav-item" id="li-modelo">
 	        		<a class="nav-link navbar-active-a botones_navbar1" href="../modelo/index2.php" id="a-modelo2">Modelos</a>
 	      		</li>
@@ -70,7 +70,7 @@ if($ubicacion == 'welcome'){ ?>
 			<?php } ?>
 			
 	      	<?php
-			if(($verificacion_pasante_view==1 or $_SESSION['rol']==14 or $_SESSION['rol']==15)){ ?>
+			if(($verificacion_pasante_view==1 or $_SESSION['rol']==8 or $_SESSION['rol']==14 or $_SESSION['rol']==15 or $_SESSION['rol']==23)){ ?>
 		      	<li class="nav-item" id="li-pasante">
 		        	<a class="nav-link navbar-active-a botones_navbar1" href="../pasante/index.php" id="a-pasante">Pasantes</a>
 		      	</li>
@@ -105,7 +105,7 @@ if($ubicacion == 'welcome'){ ?>
 	      	<?php } ?>
 	      	
 	      	<?php 
-			if($_SESSION['rol']==1 or $_SESSION['rol']==13 or $_SESSION['rol']==14 or $_SESSION['rol']==15 or $_SESSION['rol']==21 or $_SESSION['id']==1722 or $_SESSION['id']==1056 or $_SESSION['id']==1505 or $_SESSION['id']==5698){ ?>
+			if($_SESSION['rol']==1 or $_SESSION['rol']==13 or $_SESSION['rol']==14 or $_SESSION['rol']==15 or $_SESSION['rol']==21 or $_SESSION['id']==1722 or $_SESSION['id']==1056 or $_SESSION['id']==1505 or $_SESSION['id']==5698 or $_SESSION['rol']==23){ ?>
 	      	<li class="nav-item" id="li-pagos">
 	        	<a class="nav-link navbar-active-a botones_navbar1" href="../pagos/index.php" id="a-pagos">Pagos</a>
 	      	</li>

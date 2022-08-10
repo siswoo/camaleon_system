@@ -402,4 +402,237 @@ if($condicion=='table1'){
 	echo json_encode($datos);
 }
 
+if($condicion=='table2'){
+	$pagina = $_POST["pagina"];
+	$consultasporpagina = $_POST["consultasporpagina"];
+	$filtrado = $_POST["filtrado"];
+	$sede = $_POST["sede"];
+
+	if($pagina==0 or $pagina==''){
+		$pagina = 1;
+	}
+
+	if($consultasporpagina==0 or $consultasporpagina==''){
+		$consultasporpagina = 10;
+	}
+
+	if($filtrado!=''){
+		$filtrado = ' and (model.nombre1 LIKE "%'.$filtrado.'%" or model.nombre2 LIKE "%'.$filtrado.'%" or model.apellido1 LIKE "%'.$filtrado.'%" or model.apellido2 LIKE "%'.$filtrado.'%" or model.documento_numero LIKE "%'.$filtrado.'%")';
+	}
+
+	if($sede!=''){
+		$sede = ' and model.estatus = "'.$sede.'"';
+	}
+
+	$limit = $consultasporpagina;
+	$offset = ($pagina - 1) * $consultasporpagina;
+
+	$sql3 = "SELECT * FROM usuarios WHERE id = ".$responsable;
+	$proceso3 = mysqli_query($conexion,$sql3);
+	while($row3 = mysqli_fetch_array($proceso3)) {
+		$rol = $row3["rol"];
+	}
+
+	if($rol!=1 and $rol!=8 and $rol!=15 and $rol!=23){
+		$datos = [
+			"estatus"	=> "error",
+			"msg"	=> "No tienes Rol Permitido!".$rol,
+		];
+		echo json_encode($datos);
+	}
+
+	$sql1 = "SELECT model.id as model_id, model.nombre1 as model_nombre1, model.nombre2 as model_nombre2, model.apellido1 as model_apellido1, model.apellido2 as model_apellido2, model.documento_tipo as model_documento_tipo, model.documento_numero as model_documento_numero, model.sede as model_sede, model.fecha_inicio as model_fecha_inicio, model.estatus as model_estatus, sed.id as sed_id, sed.nombre as sed_nombre FROM modelos model 
+		INNER JOIN sedes sed 
+		ON model.sede = sed.id 
+		WHERE model.sede = ".$_SESSION['sede']." 
+		".$filtrado." 
+		".$sede." 
+	";
+
+	$sql2 = "SELECT model.id as model_id, model.nombre1 as model_nombre1, model.nombre2 as model_nombre2, model.apellido1 as model_apellido1, model.apellido2 as model_apellido2, model.documento_tipo as model_documento_tipo, model.documento_numero as model_documento_numero, model.sede as model_sede, model.fecha_inicio as model_fecha_inicio, model.estatus as model_estatus, sed.id as sed_id, sed.nombre as sed_nombre FROM modelos model 
+		INNER JOIN sedes sed 
+		ON model.sede = sed.id 
+		WHERE model.sede = ".$_SESSION['sede']." 
+		".$filtrado." 
+		".$sede." 
+		ORDER BY model.id DESC LIMIT ".$limit." OFFSET ".$offset."
+	";
+	
+	$proceso1 = mysqli_query($conexion,$sql1);
+	$proceso2 = mysqli_query($conexion,$sql2);
+	$conteo1 = mysqli_num_rows($proceso1);
+	$paginas = ceil($conteo1 / $consultasporpagina);
+
+	$html = '';
+
+	$html .= '
+		<div class="col-12">
+	        <table class="table table-bordered">
+	            <thead>
+	            <tr>
+	                <th class="text-center">Nombre</th>
+					<th class="text-center">Tipo Doc</th>
+					<th class="text-center">Número Doc</th>
+					<th class="text-center">Sede</th>
+					<th class="text-center">Fecha Inicio</th>
+					<th class="text-center">Opciones</th>
+					<th class="text-center">Documentos</th>
+					<th class="text-center">Cuentas</th>
+	            </tr>
+	            </thead>
+	            <tbody>
+	';
+	if($conteo1>=1){
+		while($row2 = mysqli_fetch_array($proceso2)) {
+			$modelo_id = $row2["model_id"];
+			$nombre = $row2["model_nombre1"]." ".$row2["model_nombre2"]." ".$row2["model_apellido1"]." ".$row2["model_apellido2"];
+
+			$html .= '
+		                <tr id="tr_'.$modelo_id.'">
+		                    <td style="text-align:center;">'.$nombre.'</td>
+		                    <td style="text-align:center;">'.$row2["model_documento_tipo"].'</td>
+		                    <td style="text-align:center;">'.$row2["model_documento_numero"].'</td>
+		                    <td style="text-align:center;">'.$row2["sed_nombre"].'</td>
+		                    <td style="text-align:center;">'.$row2["model_fecha_inicio"].'</td>
+		                    <td class="text-center">
+						        <i class="fas fa-edit" style="color:#0095ff; cursor:pointer;" title="" value="'.$modelo_id.'" data-toggle="modal" data-target="#exampleModal_soporte1" onclick="modal_edit2('.$modelo_id.');"></i>
+						    </td>
+							<td class="text-center">
+								<i class="fas fa-folder-open" style="cursor:pointer; font-size:20px;" title="" value="'.$modelo_id.'" data-toggle="modal" data-target="#Modal_documentos1" onclick="documentos1('.$modelo_id.');"></i>
+								<i class="fas fa-camera-retro" style="cursor:pointer; font-size:20px;" title="" value="'.$modelo_id.'" data-toggle="modal" data-target="#Modal_fotos1" onclick="fotos1('.$modelo_id.');"></i>
+								<i class="fas fa-images ml-3" style="cursor:pointer; font-size:20px;" title="" value="'.$modelo_id.'" data-toggle="modal" data-target="#Modal_fotos2" onclick="fotos2('.$modelo_id.');"></i>
+							</td>
+							<td class="text-center">
+								<i class="fas fa-user-shield" style="cursor:pointer; font-size:20px;" data-toggle="modal" data-target="#Modal_cuentas1" onclick="cuentas('.$modelo_id.');"></i>
+								<i class="fas fa-user-plus ml-3" style="cursor:pointer; font-size:20px;" data-toggle="modal" data-target="#Modal_cuentas2" onclick="cuentas2('.$modelo_id.');"></i>
+							</td>
+		                </tr>
+			';
+		}
+	}else{
+		$html .= '<tr><td colspan="10" class="text-center" style="font-weight:bold;font-size:20px;">Sin Resultados</td></tr>';
+	}
+
+	$html .= '
+	            </tbody>
+	        </table>
+	        <nav>
+	            <div class="row">
+	                <div class="col-xs-12 col-sm-4 text-center">
+	                    <p>Mostrando '.$consultasporpagina.' de '.$conteo1.' Datos disponibles</p>
+	                </div>
+	                <div class="col-xs-12 col-sm-4 text-center">
+	                    <p>Página '.$pagina.' de '.$paginas.' </p>
+	                </div> 
+	                <div class="col-xs-12 col-sm-4">
+			            <nav aria-label="Page navigation" style="float:right; padding-right:2rem;">
+							<ul class="pagination">
+	';
+	
+	if ($pagina > 1) {
+		$html .= '
+								<li class="page-item">
+									<a class="page-link" onclick="paginacion1('.($pagina-1).');" href="#">
+										<span aria-hidden="true">Anterior</span>
+									</a>
+								</li>
+		';
+	}
+
+	$diferenciapagina = 3;
+	
+	/*********MENOS********/
+	if($pagina==2){
+		$html .= '
+		                		<li class="page-item">
+			                        <a class="page-link" onclick="paginacion1('.($pagina-1).');" href="#">
+			                            '.($pagina-1).'
+			                        </a>
+			                    </li>
+		';
+	}else if($pagina==3){
+		$html .= '
+			                    <li class="page-item">
+			                        <a class="page-link" onclick="paginacion1('.($pagina-2).');" href="#"">
+			                            '.($pagina-2).'
+			                        </a>
+			                    </li>
+			                    <li class="page-item">
+			                        <a class="page-link" onclick="paginacion1('.($pagina-1).');" href="#"">
+			                            '.($pagina-1).'
+			                        </a>
+			                    </li>
+	';
+	}else if($pagina>=4){
+		$html .= '
+		                		<li class="page-item">
+			                        <a class="page-link" onclick="paginacion1('.($pagina-3).');" href="#"">
+			                            '.($pagina-3).'
+			                        </a>
+			                    </li>
+			                    <li class="page-item">
+			                        <a class="page-link" onclick="paginacion1('.($pagina-2).');" href="#"">
+			                            '.($pagina-2).'
+			                        </a>
+			                    </li>
+			                    <li class="page-item">
+			                        <a class="page-link" onclick="paginacion1('.($pagina-1).');" href="#"">
+			                            '.($pagina-1).'
+			                        </a>
+			                    </li>
+		';
+	} 
+
+	/*********MAS********/
+	$opcionmas = $pagina+3;
+	if($paginas==0){
+		$opcionmas = $paginas;
+	}else if($paginas>=1 and $paginas<=4){
+		$opcionmas = $paginas;
+	}
+	
+	for ($x=$pagina;$x<=$opcionmas;$x++) {
+		$html .= '
+			                    <li class="page-item 
+		';
+
+		if ($x == $pagina){ 
+			$html .= '"active"';
+		}
+
+		$html .= '">';
+
+		$html .= '
+			                        <a class="page-link" onclick="paginacion1('.($x).');" href="#"">'.$x.'</a>
+			                    </li>
+		';
+	}
+
+	if ($pagina < $paginas) {
+		$html .= '
+			                    <li class="page-item">
+			                        <a class="page-link" onclick="paginacion1('.($pagina+1).');" href="#"">
+			                            <span aria-hidden="true">Siguiente</span>
+			                        </a>
+			                    </li>
+		';
+	}
+
+	$html .= '
+
+						</ul>
+					</nav>
+				</div>
+	        </nav>
+	    </div>
+	';
+
+	$datos = [
+		"estatus"	=> "ok",
+		"html"	=> $html,
+		"sql2"	=> $sql2,
+	];
+	echo json_encode($datos);
+}
+
 ?>
