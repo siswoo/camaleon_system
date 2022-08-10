@@ -47,6 +47,7 @@ $(document).ready(function(){
         $('#a-sexshop').attr('href','sexshop/index.php');
         $('#a-ccontenido').attr('href','ccontenido/index.php');
         $('#a-contenido').attr('href','contenido/index.php');
+        $('#a-satelite').attr('href','satelite/index.php');
         $('#navbar-cerrarSesion').attr('href','script/cerrar_sesion.php');
     }else{
         $('#li-'+hidden_ubicacion).addClass('navbar-active');

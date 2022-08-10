@@ -47,6 +47,14 @@ if($ubicacion == 'welcome'){ ?>
 	        		<a class="nav-link navbar-active-a botones_navbar1" href="../modelo/index.php" id="a-modelo">Modelos</a>
 	      		</li>
 			<?php } ?>
+
+			<?php
+			if($_SESSION['rol']==1 or $_SESSION['rol']==22){ ?>
+				<li class="nav-item" id="li-satelite">
+	        		<a class="nav-link navbar-active-a botones_navbar1" href="../satelite/index.php" id="a-satelite2">Satelites</a>
+	      		</li>
+			<?php } ?>
+
 			<?php
 			if($_SESSION['rol']==8 or $_SESSION['rol']==15){ ?>
 				<li class="nav-item" id="li-modelo">
