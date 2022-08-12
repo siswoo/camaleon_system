@@ -413,7 +413,7 @@ if($condicion=='new1'){
 	$usuario = $nombre1.rand(999,9999);
 	$clave = md5($documento_numero);
 
-	$sql1 = "SELECT * FROM usuarios WHERE rol = 5 and (documento_numero = '$documento_numero' or $correo = '$correo')";
+	$sql1 = "SELECT * FROM usuarios WHERE rol = 5 and (documento_numero = '$documento_numero' or correo = '$correo')";
 	$proceso1 = mysqli_query($conexion,$sql1);
 	$contador1 = mysqli_num_rows($proceso1);
 	if($contador1>=1){
@@ -425,7 +425,7 @@ if($condicion=='new1'){
 		exit;
 	}
 
-	$sql2 = "SELECT * FROM modelos WHERE documento_numero = '$documento_numero' or $correo = '$correo'";
+	$sql2 = "SELECT * FROM modelos WHERE documento_numero = '$documento_numero' or correo = '$correo'";
 	$proceso2 = mysqli_query($conexion,$sql2);
 	$contador2 = mysqli_num_rows($proceso2);
 	if($contador2>=1){
@@ -469,7 +469,7 @@ if($condicion=='edit1'){
 	$usuario = $nombre1.rand(999,9999);
 	$clave = md5($documento_numero);
 
-	$sql1 = "SELECT * FROM usuarios WHERE rol = 5 and id_modelo != $id and (documento_numero = '$documento_numero' or $correo = '$correo')";
+	$sql1 = "SELECT * FROM usuarios WHERE rol = 5 and id_modelo != $id and (documento_numero = '$documento_numero' or correo = '$correo')";
 	$proceso1 = mysqli_query($conexion,$sql1);
 	$contador1 = mysqli_num_rows($proceso1);
 	if($contador1>=1){
@@ -481,7 +481,7 @@ if($condicion=='edit1'){
 		exit;
 	}
 
-	$sql2 = "SELECT * FROM modelos WHERE id != $id and (documento_numero = '$documento_numero' or $correo = '$correo')";
+	$sql2 = "SELECT * FROM modelos WHERE id != $id and (documento_numero = '$documento_numero' or correo = '$correo')";
 	$proceso2 = mysqli_query($conexion,$sql2);
 	$contador2 = mysqli_num_rows($proceso2);
 	if($contador2>=1){

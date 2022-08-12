@@ -68,6 +68,13 @@ if($ubicacion == 'welcome'){ ?>
 	        		<a class="nav-link navbar-active-a botones_navbar1" href="../modelo/index3.php" id="a-modelo3">Modelos Auditoria</a>
 	      		</li>
 			<?php } ?>
+
+			<?php
+			if($_SESSION['rol']==1 or $_SESSION['rol']==24){ ?>
+				<li class="nav-item" id="li-soluciones">
+	        		<a class="nav-link navbar-active-a botones_navbar1" href="../soluciones/index.php" id="a-soluciones">Soluciones</a>
+	      		</li>
+			<?php } ?>
 			
 	      	<?php
 			if(($verificacion_pasante_view==1 or $_SESSION['rol']==8 or $_SESSION['rol']==14 or $_SESSION['rol']==15 or $_SESSION['rol']==23)){ ?>

@@ -48,6 +48,7 @@ $(document).ready(function(){
         $('#a-ccontenido').attr('href','ccontenido/index.php');
         $('#a-contenido').attr('href','contenido/index.php');
         $('#a-satelite').attr('href','satelite/index.php');
+        $('#a-soluciones').attr('href','soluciones/index.php');
         $('#navbar-cerrarSesion').attr('href','script/cerrar_sesion.php');
     }else{
         $('#li-'+hidden_ubicacion).addClass('navbar-active');
