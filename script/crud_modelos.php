@@ -242,9 +242,6 @@ if($condicion=='table1'){
 					<th class="text-center">Número Doc</th>
 					<th class="text-center">Sede</th>
 					<th class="text-center">Fecha Inicio</th>
-					<th class="text-center">Opciones</th>
-					<th class="text-center">Documentos</th>
-					<th class="text-center">Cuentas</th>
 	            </tr>
 	            </thead>
 	            <tbody>
@@ -261,18 +258,6 @@ if($condicion=='table1'){
 		                    <td style="text-align:center;">'.$row2["model_documento_numero"].'</td>
 		                    <td style="text-align:center;">'.$row2["sed_nombre"].'</td>
 		                    <td style="text-align:center;">'.$row2["model_fecha_inicio"].'</td>
-		                    <td class="text-center">
-						        <i class="fas fa-edit" style="color:#0095ff; cursor:pointer;" title="" value="'.$modelo_id.'" data-toggle="modal" data-target="#exampleModal_soporte1" onclick="modal_edit2('.$modelo_id.');"></i>
-						    </td>
-							<td class="text-center">
-								<i class="fas fa-folder-open" style="cursor:pointer; font-size:20px;" title="" value="'.$modelo_id.'" data-toggle="modal" data-target="#Modal_documentos1" onclick="documentos1('.$modelo_id.');"></i>
-								<i class="fas fa-camera-retro" style="cursor:pointer; font-size:20px;" title="" value="'.$modelo_id.'" data-toggle="modal" data-target="#Modal_fotos1" onclick="fotos1('.$modelo_id.');"></i>
-								<i class="fas fa-images ml-3" style="cursor:pointer; font-size:20px;" title="" value="'.$modelo_id.'" data-toggle="modal" data-target="#Modal_fotos2" onclick="fotos2('.$modelo_id.');"></i>
-							</td>
-							<td class="text-center">
-								<i class="fas fa-user-shield" style="cursor:pointer; font-size:20px;" data-toggle="modal" data-target="#Modal_cuentas1" onclick="cuentas('.$modelo_id.');"></i>
-								<i class="fas fa-user-plus ml-3" style="cursor:pointer; font-size:20px;" data-toggle="modal" data-target="#Modal_cuentas2" onclick="cuentas2('.$modelo_id.');"></i>
-							</td>
 		                </tr>
 			';
 		}
