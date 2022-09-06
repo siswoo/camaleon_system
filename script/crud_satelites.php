@@ -437,7 +437,7 @@ if($condicion=='new1'){
 		exit;
 	}
 
-	$sql3 = "INSERT INTO modelos (nombre1,nombre2,apellido1,apellido2,documento_tipo,documento_numero,genero,telefono1,correo,direccion,barrio,fecha_inicio,sede,estatus,turno) VALUES ('$nombre1','$nombre2','$apellido1','$apellido2','$documento_tipo','$documento_numero','$genero','$telefono1','$correo','$direccion','$barrio','$fecha_inicio',1,'Activa','Satelite')";
+	$sql3 = "INSERT INTO modelos (nombre1,nombre2,apellido1,apellido2,documento_tipo,documento_numero,genero,telefono1,correo,direccion,barrio,fecha_inicio,sede,usuario,estatus,turno) VALUES ('$nombre1','$nombre2','$apellido1','$apellido2','$documento_tipo','$documento_numero','$genero','$telefono1','$correo','$direccion','$barrio','$fecha_inicio','$usuario',1,'Activa','Satelite')";
 	$proceso3 = mysqli_query($conexion,$sql3);
 
 	$id_modelo = mysqli_insert_id($conexion);

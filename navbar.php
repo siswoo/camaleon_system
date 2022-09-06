@@ -172,7 +172,7 @@ if($ubicacion == 'welcome'){ ?>
 	      	</li>
 	      	<?php } ?>
 	      	<?php
-			if($_SESSION['rol']==1 or $_SESSION['rol']==8 or $_SESSION['rol']==15 or $_SESSION['rol']==21){ ?>
+			if($_SESSION['rol']==1 or $_SESSION['rol']==8 or $_SESSION['rol']==15 or $_SESSION['rol']==21 or $_SESSION['rol']==23){ ?>
 	      	<li class="nav-item" id="li-consultas">
 	        	<a class="nav-link navbar-active-a botones_navbar1" href="../consultas/index.php" id="a-consultas">Consultas</a>
 	      	</li>
@@ -191,7 +191,7 @@ if($ubicacion == 'welcome'){ ?>
 	      	</li>
 	      	<?php } ?>
 	      	<?php
-			if($_SESSION['rol']==1 or $_SESSION['rol']==13 or $_SESSION['rol']==8 or $_SESSION['rol']==2 or $_SESSION['rol']==15){ ?>
+			if($_SESSION['rol']==1 or $_SESSION['rol']==13){ ?>
 	      	<li class="nav-item" id="li-pqr">
 	        	<a class="nav-link navbar-active-a botones_navbar1" href="../pqr/index.php" id="a-pqr">PQR</a>
 	      	</li>

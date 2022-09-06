@@ -84,7 +84,7 @@
 				<button type="button" class="btn btn-info" value="No" id="totales" onclick="mostrarSeccion2(this.id,value);">Totales</button>
 			</div>
 		</div>
-	<?php }else if($_SESSION['rol']==15 or $_SESSION['rol']==8 or $_SESSION['rol']==21 or $_SESSION['id']==5698){ ?>
+	<?php }else if($_SESSION['rol']==15 or $_SESSION['rol']==8 or $_SESSION['rol']==21 or $_SESSION['id']==5698 or $_SESSION['rol']==23){ ?>
 		<div class="row">
 			<div class="col-12 text-center mt-3">
 				<button type="button" class="btn btn-info" value="No" id="extras" onclick="mostrarSeccionExtras1(this.id,value);">Extras</button>
