@@ -1084,6 +1084,8 @@
 			$('#correo').val("edi.fotos@camaleonmg.com");
 		}else if(value==41){
 			$('#correo').val("liderrhh@camaleonmg.com");
+		}else if(value==42){
+			$('#correo').val("sst@camaleonmg.com");
 		}
 	}
 
@@ -1170,6 +1172,8 @@
 			$('#edit_correo').val("edi.fotos@camaleonmg.com");
 		}else if(value==41){
 			$('#edit_correo').val("liderrhh@camaleonmg.com");
+		}else if(value==42){
+			$('#edit_correo').val("sst@camaleonmg.com");
 		}
 	}
 
